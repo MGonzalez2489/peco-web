@@ -1,7 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SignInDto } from '@core/models/dtos';
-import { AuthService } from '@core/services';
+import { Store } from '@ngrx/store';
+import { SigninAction } from '@store/actions/auth.action';
+import { AppState } from '@store/states';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,7 +12,7 @@ import { AuthService } from '@core/services';
   styleUrl: './sign-in.component.scss',
 })
 export class SignInComponent {
-  private authService = inject(AuthService);
+  store$ = inject(Store<AppState>);
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
@@ -19,11 +21,8 @@ export class SignInComponent {
   submit(): void {
     if (this.form.invalid) return;
 
-    this.authService.signIn(this.form.value as SignInDto).subscribe({
-      next: (response) => {
-        console.log('response', response);
-      },
-      error: (err) => console.log('error', err),
-    });
+    this.store$.dispatch(
+      SigninAction({ params: this.form.value as SignInDto }),
+    );
   }
 }

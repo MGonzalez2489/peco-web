@@ -1,16 +1,8 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  standalone: true,
+  template: '<router-outlet></router-outlet>',
+  standalone: false,
 })
-export class AppComponent {
-  constructor() {
-    console.log('appComponent');
-  }
-}
+export class AppComponent {}
