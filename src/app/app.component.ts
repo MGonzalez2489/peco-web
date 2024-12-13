@@ -1,23 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AuthService } from './_core/services';
-import { CoreModule } from './_core/core.module';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [CoreModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   standalone: true,
 })
 export class AppComponent {
-  title = 'peco-web';
-  constructor(private authService: AuthService) {}
-
-  signIn() {
-    this.authService
-      .signIn({ email: 'test@test.com', password: '1234' })
-      .subscribe((data) => {
-        console.log('data', data);
-      });
+  constructor() {
+    console.log('appComponent');
   }
 }
