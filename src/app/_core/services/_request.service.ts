@@ -11,7 +11,6 @@ export class RequestService {
   constructor(private httpClient: HttpClient) {}
 
   private getUrl(url: string): string {
-    console.log(environment);
     return environment.baseUrl + url;
   }
 

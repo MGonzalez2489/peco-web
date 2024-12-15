@@ -26,22 +26,17 @@ export const SigninFailedAction = createAction(
   props<{ payload: any }>(),
 );
 
-// export type AuthActionsGroup =
-//   | typeof SigninAction
-//   | typeof SigninSuccessAction
-//   | typeof SigninFailedAction;
+//Register;
+export const RegisterAction = createAction(
+  AUTH_ACTIONS.REGISTER,
+  props<{ params: SignInDto }>(),
+);
 
-//Register
-// export const LoginAction = createAction(
-//   AUTH_ACTIONS.LOGIN,
-//   props<{ params: ILogin }>(),
-// );
-//
-// export const LoginSuccessAction = createAction(
-//   AUTH_ACTIONS.LOGIN_SUCCESS,
-//   props<{ token: string }>(),
-// );
-// export const LoginFailedAction = createAction(
-//   AUTH_ACTIONS.LOGIN_FAIL,
-//   props<{ payload: any }>(),
-// );
+export const RegisterSuccessAction = createAction(
+  AUTH_ACTIONS.REGISTER_SUCCESS,
+  props<{ token: TokenDto }>(),
+);
+export const RegisterFailedAction = createAction(
+  AUTH_ACTIONS.REGISTER_FAIL,
+  props<{ payload: any }>(),
+);

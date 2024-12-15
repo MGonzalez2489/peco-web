@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from './_request.service';
-import { SignInDto } from '@core/models/dtos';
+import { SignInDto, TokenDto } from '@core/models/dtos';
 
 @Injectable({
   providedIn: 'root',
@@ -10,12 +10,12 @@ export class AuthService {
 
   //TODO: Define input model
   register(data: SignInDto) {
-    return this.reqService.post('auth/register', data);
+    return this.reqService.post<TokenDto>('auth/register', data);
   }
   secure(data: SignInDto) {
-    return this.reqService.post('auth/secure', data);
+    return this.reqService.post<TokenDto>('auth/secure', data);
   }
   signIn(data: SignInDto) {
-    return this.reqService.post('auth/signIn', data);
+    return this.reqService.post<TokenDto>('auth/signIn', data);
   }
 }

@@ -1,7 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { BaseComponent } from '@core/bases';
 import { SignInDto } from '@core/models/dtos';
-import { AuthService } from '@core/services';
+import { Actions, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import {
+  RegisterAction,
+  RegisterSuccessAction,
+} from '@store/actions/auth.action';
+import { AppState } from '@store/states';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -9,8 +17,10 @@ import { AuthService } from '@core/services';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
-  private authService = inject(AuthService);
+export class RegisterComponent extends BaseComponent {
+  private store$ = inject(Store<AppState>);
+  actions$ = inject(Actions);
+
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
@@ -24,11 +34,13 @@ export class RegisterComponent {
       email: this.form.value.email!,
       password: this.form.value.password!,
     };
-    this.authService.register(data).subscribe({
-      next: (response) => {
-        console.log('response', response);
-      },
-      error: (err) => console.log('error', err),
-    });
+
+    this.store$.dispatch(RegisterAction({ params: data }));
+
+    this.actions$
+      .pipe(ofType(RegisterSuccessAction), takeUntil(this.unsubscribe$))
+      .subscribe((data) => {
+        console.log('data', data);
+      });
   }
 }
