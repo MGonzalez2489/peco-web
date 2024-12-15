@@ -34,7 +34,6 @@ export class SignInComponent extends BaseComponent {
     this.actions$
       .pipe(ofType(SigninSuccessAction), takeUntil(this.unsubscribe$))
       .subscribe((data) => {
-        console.log('sign in ', data);
         this.router.navigate(['/home']);
       });
   }

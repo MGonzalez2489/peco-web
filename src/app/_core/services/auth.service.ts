@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { RequestService } from './_request.service';
 import { SignInDto, TokenDto } from '@core/models/dtos';
 
@@ -6,9 +6,8 @@ import { SignInDto, TokenDto } from '@core/models/dtos';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private reqService: RequestService) {}
+  private reqService = inject(RequestService);
 
-  //TODO: Define input model
   register(data: SignInDto) {
     return this.reqService.post<TokenDto>('auth/register', data);
   }

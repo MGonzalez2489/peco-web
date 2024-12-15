@@ -3,7 +3,7 @@ import { createAction, props } from '@ngrx/store';
 
 enum AUTH_ACTIONS {
   SIGNIN = '[AUTH] Signin',
-  SIGNIN_SUCCESS = '[AUTH] Signin SUCCESS',
+  SIGNIN_SUCCESS = '[AUTH] Signin Success',
   SIGNIN_FAIL = '[AUTH] Signin Fail',
 
   REGISTER = '[AUTH] Register',

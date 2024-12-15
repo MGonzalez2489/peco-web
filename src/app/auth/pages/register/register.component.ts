@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BaseComponent } from '@core/bases';
 import { SignInDto } from '@core/models/dtos';
 import { Actions, ofType } from '@ngrx/effects';
@@ -19,8 +20,8 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class RegisterComponent extends BaseComponent {
   private store$ = inject(Store<AppState>);
-  actions$ = inject(Actions);
-
+  private actions$ = inject(Actions);
+  private router = inject(Router);
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
@@ -40,7 +41,7 @@ export class RegisterComponent extends BaseComponent {
     this.actions$
       .pipe(ofType(RegisterSuccessAction), takeUntil(this.unsubscribe$))
       .subscribe((data) => {
-        console.log('data', data);
+        this.router.navigate(['/home']);
       });
   }
 }
