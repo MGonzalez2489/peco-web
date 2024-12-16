@@ -27,6 +27,10 @@ export class AddAccountComponent extends BaseComponent {
     initialBalance: new FormControl(0, [Validators.required]),
   });
 
+  cancel(): void {
+    this.router.navigate(['/home']);
+  }
+
   submit(): void {
     if (this.form.invalid) return;
 
@@ -37,7 +41,7 @@ export class AddAccountComponent extends BaseComponent {
     this.actions$
       .pipe(ofType(CreateAccounSuccesstAction), takeUntil(this.unsubscribe$))
       .subscribe((data) => {
-        this.router.navigate(['/home']);
+        this.cancel();
       });
   }
 }
