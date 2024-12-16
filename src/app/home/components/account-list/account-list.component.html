@@ -10,15 +10,8 @@
       </mat-card-actions>
     </mat-card>
   }
-  <mat-card
-    appearance="outlined"
-    class="acc-card-action"
-    (click)="addAccount()"
-  >
-    <mat-card-actions
-      class="d-flex justify-content-center align-items-center h-100"
-    >
-      <button mat-button>+</button>
-    </mat-card-actions>
-  </mat-card>
+
+  <div class="d-flex justify-content-center align-items-center">
+    <button mat-button (click)="addAccount()">+</button>
+  </div>
 </div>

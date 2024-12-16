@@ -11,16 +11,22 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideRouter } from '@angular/router';
 import { AppStoreModule } from '@store/store.module';
 import { JwtInterceptor } from '@core/interceptors';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, AppStoreModule],
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([JwtInterceptor])),
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        appearance: 'outline',
+      },
+    },
   ],
 
   bootstrap: [AppComponent],

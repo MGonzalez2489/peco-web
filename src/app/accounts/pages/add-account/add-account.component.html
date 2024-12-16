@@ -1,0 +1,21 @@
+<div class="vh-100 d-flex justify-content-center align-items-center">
+  <div class="d-flex flex-column">
+    <form [formGroup]="form" (submit)="submit()">
+      <mat-form-field>
+        <input matInput type="text" formControlName="name" placeholder="Name" />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          formControlName="initialBalance"
+          placeholder="Balance"
+        />
+      </mat-form-field>
+      <div class="d-flex justify-content-end">
+        <button mat-button>Cancelar</button>
+        <button class="w-25 ms-3" mat-flat-button type="submit">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -11,6 +11,7 @@ const initialState: AccountState = {
 const _accountReducer = createRehydrateReducer(
   FEATURE_NAME.ACCOUNT,
   initialState,
+  //GET ALL
   on(AccountActionsGroup.GetAllAccountsAction, (state) => {
     return state;
   }),
@@ -18,6 +19,19 @@ const _accountReducer = createRehydrateReducer(
     return {
       ...state,
       accounts,
+    };
+  }),
+  on(AccountActionsGroup.GetAllAccountsFailAction, (state, { payload }) => {
+    return state;
+  }),
+  //CREATE
+  on(AccountActionsGroup.CreateAccountAction, (state) => {
+    return state;
+  }),
+  on(AccountActionsGroup.CreateAccounSuccesstAction, (state, { account }) => {
+    return {
+      ...state,
+      accounts: [account, ...state.accounts],
     };
   }),
   on(AccountActionsGroup.GetAllAccountsFailAction, (state, { payload }) => {
