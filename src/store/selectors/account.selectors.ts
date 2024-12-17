@@ -7,3 +7,8 @@ export const selectAccounts = createSelector(
   accountState,
   (state: AccountState) => state.accounts,
 );
+
+export const selectAccountById = (accountId: string) =>
+  createSelector(accountState, (state: AccountState) =>
+    state.accounts.find((f) => f.publicId == accountId),
+  );

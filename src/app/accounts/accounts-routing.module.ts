@@ -9,7 +9,7 @@ const routes: Routes = [
     component: AddAccountComponent,
   },
   {
-    path: 'view-account',
+    path: ':accountId',
     component: ViewAccountComponent,
   },
 ];
