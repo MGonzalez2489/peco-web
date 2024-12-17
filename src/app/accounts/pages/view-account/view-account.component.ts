@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { Account, Entry } from '@core/models/api';
-import { PaginationMetaModel, ResultListModel } from '@core/models/responses';
+import { TableDto } from '@core/models/dtos';
+import { PaginationMetaModel } from '@core/models/responses';
 import { EntryService } from '@core/services';
 import { Store } from '@ngrx/store';
 import { selectAccountById } from '@store/selectors/account.selectors';
@@ -20,34 +20,37 @@ export class ViewAccountComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private store$ = inject(Store<AppState>);
   private entryService = inject(EntryService);
-  //table
-  // entries: Entry[] = [];
-  entries: ResultListModel<Entry>;
-  displayedColumns: string[] = ['description', 'created', 'type', 'amount'];
-
+  private accountId: string;
+  table: TableDto<Entry> = {
+    columns: [
+      { def: 'description', header: 'Descripcion' },
+      { def: 'createdAt', header: 'Creado', pipeFormat: `date:medium` },
+      { def: 'type', header: 'Tipo' },
+      { def: 'amount', header: 'Monto', pipeFormat: 'currency' },
+    ],
+    dataSource: [],
+  };
   //
   account$: Observable<Account | undefined> = new Observable<
     Account | undefined
   >();
 
   ngOnInit(): void {
-    const accountId = this.route.snapshot.params['accountId'];
-    this.account$ = this.store$.select(selectAccountById(accountId));
-    this.getEntriesByAccount(accountId);
+    this.accountId = this.route.snapshot.params['accountId'];
+    this.account$ = this.store$.select(selectAccountById(this.accountId));
+    this.getEntriesByAccount();
   }
 
-  getEntriesByAccount(accountId: string, pageOptions?: PaginationMetaModel) {
+  getEntriesByAccount() {
     this.entryService
-      .getEntriesByAccountId(accountId, pageOptions)
+      .getEntriesByAccountId(this.accountId, this.table.meta)
       .subscribe((data) => {
-        this.entries = data;
-        console.log('entries', this.entries);
+        this.table.dataSource = data.data;
+        this.table.meta = data.meta;
       });
   }
-  handlePageEvent(e: PageEvent, accountId: string) {
-    console.log('e', e);
-    this.entries.meta.take = e.pageSize;
-    this.entries.meta.page = e.pageIndex;
-    this.getEntriesByAccount(accountId, this.entries.meta);
+  search(event: PaginationMetaModel) {
+    this.table.meta = event;
+    this.getEntriesByAccount();
   }
 }

@@ -11,8 +11,10 @@ import { MatButtonModule } from '@angular/material/button';
 
 const matControls: any = [MatCardModule, MatButtonModule];
 
+const shared: any = [];
+
 @NgModule({
   declarations: [HomeComponent, AccountListComponent],
-  imports: [CommonModule, HomeRoutingModule, matControls],
+  imports: [CommonModule, HomeRoutingModule, matControls, ...shared],
 })
 export class HomeModule {}

@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { TableComponent } from 'app/_shared/components/table/table.component';
 
 const matControls = [
   MatFormFieldModule,
@@ -21,6 +22,8 @@ const matControls = [
   MatPaginatorModule,
 ];
 
+const shared = [TableComponent];
+
 @NgModule({
   declarations: [AddAccountComponent, ViewAccountComponent],
   imports: [
@@ -28,6 +31,7 @@ const matControls = [
     AccountsRoutingModule,
     matControls,
     ReactiveFormsModule,
+    ...shared,
   ],
 })
 export class AccountsModule {}
