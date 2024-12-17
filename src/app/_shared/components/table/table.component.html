@@ -1,10 +1,17 @@
 <div>
   <!-- Table -->
-  <table mat-table [dataSource]="source.dataSource" class="mat-elevation-z8">
+  <table
+    mat-table
+    [dataSource]="source.dataSource"
+    class="mat-elevation-z8"
+    matSort
+    (matSortChange)="sortData($event)"
+    matSortActive="createdAt"
+  >
     <!-- Columns -->
     @for (column of source.columns; track column.def) {
       <ng-container [matColumnDef]="column.def">
-        <th mat-header-cell *matHeaderCellDef>
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>
           {{ column.header | titlecase }}
         </th>
         <td mat-cell *matCellDef="let element">

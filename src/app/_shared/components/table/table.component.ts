@@ -7,8 +7,14 @@ import { Entry } from '@core/models/api';
 import { TableDto } from '@core/models/dtos';
 import { PaginationMetaModel } from '@core/models/responses';
 import { DynamicPype } from './Dynamic.pipe';
+import { MatSortModule, Sort } from '@angular/material/sort';
 
-const matControls = [MatButtonModule, MatTableModule, MatPaginatorModule];
+const matControls = [
+  MatButtonModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
+];
 
 @Component({
   selector: 'app-table',
@@ -27,9 +33,6 @@ export class TableComponent implements OnInit {
 
   columnsDef: string[] = [];
 
-  constructor() {
-    console.log('this entry', this.source);
-  }
   ngOnInit(): void {
     if (this.source) {
       this.columnsDef = this.source.columns.map((f) => f.def);
@@ -39,6 +42,11 @@ export class TableComponent implements OnInit {
   handlePageEvent(e: PageEvent) {
     this.source.meta!.take = e.pageSize;
     this.source.meta!.page = e.pageIndex;
+    this.changeMeta.emit(this.source.meta!);
+  }
+  sortData(e: Sort) {
+    this.source.meta!.order = e.direction.toUpperCase();
+    this.source.meta!.orderBy = e.active;
     this.changeMeta.emit(this.source.meta!);
   }
 }

@@ -11,11 +11,6 @@ export class EntryService {
   constructor() {}
 
   getEntriesByAccountId(accountId: string, pageOptions?: PaginationMetaModel) {
-    const params = {
-      page: pageOptions ? pageOptions.page + 1 : 1,
-      take: pageOptions ? pageOptions.take : 10,
-      //order
-    };
-    return this.reqService.getList<Entry>(`entries/${accountId}`, params);
+    return this.reqService.getList<Entry>(`entries/${accountId}`, pageOptions);
   }
 }

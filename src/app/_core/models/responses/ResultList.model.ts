@@ -9,4 +9,23 @@ export interface PaginationMetaModel {
   pageCount: number;
   hasPreviousPage: boolean;
   hasNextPage: boolean;
+  //order
+  order?: string;
+  orderBy?: string;
+}
+
+export class PagMetaReqModel {
+  page: number = 1;
+  take: number = 10;
+  order?: string;
+  orderBy?: string;
+
+  constructor(pagMeta?: PaginationMetaModel) {
+    if (pagMeta) {
+      this.page = pagMeta.page + 1;
+      this.take = pagMeta.take;
+    }
+    this.order = pagMeta?.order || 'ASC';
+    this.orderBy = pagMeta?.orderBy || '';
+  }
 }

@@ -1,7 +1,12 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { ResultModel, ResultListModel } from './../models/responses/';
+import {
+  ResultModel,
+  ResultListModel,
+  PaginationMetaModel,
+  PagMetaReqModel,
+} from './../models/responses/';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -33,10 +38,16 @@ export class RequestService {
       .pipe(map((res) => res));
   }
 
-  public getList<T>(url: string, params?: any): Observable<ResultListModel<T>> {
+  public getList<T>(
+    url: string,
+    pagination?: PaginationMetaModel,
+    params?: any,
+  ): Observable<ResultListModel<T>> {
+    const pagParams = new PagMetaReqModel(pagination);
+    const reqParams = this.objectToQueryParameter({ ...pagParams, ...params });
     return this.httpClient
       .get<ResultListModel<T>>(this.getUrl(url), {
-        params: this.objectToQueryParameter(params),
+        params: reqParams,
       })
       .pipe(map((res) => res));
   }
