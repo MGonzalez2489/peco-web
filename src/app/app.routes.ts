@@ -16,6 +16,11 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./accounts/accounts.module').then((m) => m.AccountsModule),
   },
+  {
+    path: ':accountId/entries',
+    loadChildren: () =>
+      import('./entries/entries.module').then((m) => m.EntriesModule),
+  },
 ];
 
 @NgModule({

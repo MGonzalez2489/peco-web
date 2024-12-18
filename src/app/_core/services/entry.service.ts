@@ -13,4 +13,10 @@ export class EntryService {
   getEntriesByAccountId(accountId: string, pageOptions?: PaginationMetaModel) {
     return this.reqService.getList<Entry>(`entries/${accountId}`, pageOptions);
   }
+
+  create(accountId: string, newEntry: Entry) {
+    let url = `entries/${accountId}/${newEntry.type}`;
+    delete newEntry.type;
+    return this.reqService.post<Entry>(url, newEntry);
+  }
 }

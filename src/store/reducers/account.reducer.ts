@@ -24,6 +24,23 @@ const _accountReducer = createRehydrateReducer(
   on(AccountActionsGroup.GetAllAccountsFailAction, (state, { payload }) => {
     return state;
   }),
+  //GET BY ID
+
+  on(AccountActionsGroup.GetAccountByIdAction, (state) => {
+    return state;
+  }),
+  on(AccountActionsGroup.GetAccountByIdSuccessAction, (state, { account }) => {
+    const accs = state.accounts.filter((f) => f.publicId !== account.publicId);
+    accs.push(account);
+
+    return {
+      ...state,
+      accounts: accs,
+    };
+  }),
+  on(AccountActionsGroup.GetAllAccountsFailAction, (state, { payload }) => {
+    return state;
+  }),
   //CREATE
   on(AccountActionsGroup.CreateAccountAction, (state) => {
     return state;

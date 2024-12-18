@@ -29,12 +29,18 @@ export class ViewAccountComponent implements OnInit {
       { def: 'amount', header: 'Monto', pipeFormat: 'currency' },
     ],
     dataSource: [],
+    meta: {
+      page: 0,
+      take: 10,
+      itemCount: 0,
+      pageCount: 0,
+      hasPreviousPage: false,
+      hasNextPage: false,
+      order: 'DESC',
+    },
   };
   //
-  account$: Observable<Account | undefined> = new Observable<
-    Account | undefined
-  >();
-
+  account$: Observable<Account | undefined>;
   ngOnInit(): void {
     this.accountId = this.route.snapshot.params['accountId'];
     this.account$ = this.store$.select(selectAccountById(this.accountId));

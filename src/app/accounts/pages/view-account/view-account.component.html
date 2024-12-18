@@ -6,7 +6,12 @@
         <p>Balance: {{ account.balance | currency }}</p>
       </mat-card-content>
     </mat-card>
-
+    <a
+      mat-flat-button
+      href="#"
+      [routerLink]="['/' + account.publicId + '/entries/add']"
+      >Add Entry</a
+    >
     <app-table [source]="table" (changeMeta)="search($event)"></app-table>
   }
 </div>

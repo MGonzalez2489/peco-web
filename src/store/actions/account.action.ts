@@ -7,11 +7,15 @@ enum ACCOUNT_ACTIONS {
   GET_SUCCESS = '[ACCOUNT] Get All Accounts Success',
   GET_FAIL = '[ACCOUNT] Get All Accounts Fail',
 
+  GET_BY_ID = '[ACCOUNT] Get Account By Id',
+  GET_BY_ID_SUCCESS = '[ACCOUNT] Get Account By Id Success',
+  GET_BY_ID_FAIL = '[ACCOUNT] Get Account By Id Fail',
+
   CREATE = '[Account] Create Account',
   CREATE_SUCCESS = '[Account] Create Account Success',
   CREATE_FAIL = '[Account] Create Account Fail',
 }
-//Get
+//Get All
 export const GetAllAccountsAction = createAction(ACCOUNT_ACTIONS.GET);
 export const GetAllAccountsSuccessAction = createAction(
   ACCOUNT_ACTIONS.GET_SUCCESS,
@@ -21,6 +25,20 @@ export const GetAllAccountsFailAction = createAction(
   ACCOUNT_ACTIONS.GET_FAIL,
   props<{ payload: any }>(),
 );
+//Get by id
+export const GetAccountByIdAction = createAction(
+  ACCOUNT_ACTIONS.GET_BY_ID,
+  props<{ accountId: string }>(),
+);
+export const GetAccountByIdSuccessAction = createAction(
+  ACCOUNT_ACTIONS.GET_BY_ID_SUCCESS,
+  props<{ account: Account }>(),
+);
+export const GetAccountByIdFailAction = createAction(
+  ACCOUNT_ACTIONS.GET_BY_ID_FAIL,
+  props<{ payload: any }>(),
+);
+
 //create
 export const CreateAccountAction = createAction(
   ACCOUNT_ACTIONS.CREATE,

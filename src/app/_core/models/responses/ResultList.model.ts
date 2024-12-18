@@ -26,6 +26,6 @@ export class PagMetaReqModel {
       this.take = pagMeta.take;
     }
     this.order = pagMeta?.order || 'ASC';
-    this.orderBy = pagMeta?.orderBy || '';
+    this.orderBy = pagMeta?.orderBy || 'createdAt';
   }
 }

@@ -1,0 +1,39 @@
+<div class="vh-100 d-flex justify-content-center align-items-center">
+  <div class="d-flex flex-column">
+    <form [formGroup]="form" (submit)="submit()">
+      <mat-form-field>
+        <mat-label>Cantidad</mat-label>
+        <input
+          matInput
+          type="number"
+          formControlName="amount"
+          placeholder="Cantidad"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Descripcion</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="description"
+          placeholder="Description"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Tipo</mat-label>
+        <select matNativeControl required formControlName="type">
+          <option value="income">Ingreso</option>
+          <option value="outcome">Gasto</option>
+        </select>
+      </mat-form-field>
+      <div class="d-flex justify-content-end mt-5">
+        <button (click)="cancel()" type="button" class="me-3" mat-button>
+          Cancelar
+        </button>
+
+        <button mat-flat-button type="submit">Guardar</button>
+      </div>
+      <pre>{{ form.value | json }}</pre>
+    </form>
+  </div>
+</div>

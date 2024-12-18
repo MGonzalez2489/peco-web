@@ -7,6 +7,9 @@ import {
   CreateAccounSuccesstAction,
   CreateAccountAction,
   CreateAccountFailAction,
+  GetAccountByIdAction,
+  GetAccountByIdFailAction,
+  GetAccountByIdSuccessAction,
   GetAllAccountsAction,
   GetAllAccountsFailAction,
   GetAllAccountsSuccessAction,
@@ -45,6 +48,23 @@ export class AccountEffects {
           }),
           catchError((err) => {
             return of(CreateAccountFailAction({ payload: err }));
+          }),
+        );
+      }),
+    ),
+  );
+
+  //GET BY ID
+  getAccountById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GetAccountByIdAction),
+      mergeMap((data) => {
+        return this.accountService.getById(data.accountId).pipe(
+          map((response: ResultModel<Account>) => {
+            return GetAccountByIdSuccessAction({ account: response.data });
+          }),
+          catchError((err) => {
+            return of(GetAccountByIdFailAction({ payload: err }));
           }),
         );
       }),
