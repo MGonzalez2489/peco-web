@@ -1,5 +1,21 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-    <span>Custom Toolbar</span>
-  </mat-toolbar-row>
-</mat-toolbar>
+@if (token$ | async; as token) {
+  <mat-toolbar class="d-flex justify-content-between">
+    <div>
+      <button
+        mat-icon-button
+        class="example-icon"
+        aria-label="Example icon-button with menu icon"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>My App</span>
+    </div>
+    <div>
+      <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item disabled>Item 1</button>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
+}

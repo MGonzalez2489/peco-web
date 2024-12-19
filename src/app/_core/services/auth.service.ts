@@ -8,7 +8,7 @@ import { SignInDto, TokenDto } from '@core/models/dtos';
 export class AuthService {
   private reqService = inject(RequestService);
 
-  isAuthenticated = signal(false);
+  isAuthenticated = signal(true);
 
   register(data: SignInDto) {
     return this.reqService.post<TokenDto>('auth/register', data);

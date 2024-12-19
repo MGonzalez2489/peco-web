@@ -6,6 +6,7 @@ import { AuthService } from '@core/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   LogoutActions,
+  LogoutSuccessActions,
   RegisterAction,
   RegisterFailedAction,
   RegisterSuccessAction,
@@ -45,6 +46,8 @@ export class AuthEffects {
       mergeMap((data: { params: SignInDto }) => {
         return this.authService.register(data.params).pipe(
           map((response: ResultModel<TokenDto>) => {
+            this.authService.isAuthenticated.set(true);
+
             return RegisterSuccessAction({ token: response.data });
           }),
           catchError((err) => {
@@ -59,8 +62,12 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(LogoutActions),
       tap(() => {
-        localStorage.clear();
+        this.authService.isAuthenticated.set(false);
         this.router.navigate(['/auth']);
+        localStorage.clear();
+      }),
+      map(() => {
+        return LogoutSuccessActions();
       }),
     ),
   );

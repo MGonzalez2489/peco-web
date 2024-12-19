@@ -5,11 +5,13 @@ import { environment } from '@envs/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AppReducers } from './reducers';
+import { AppReducers, metaReducers } from './reducers';
 import { AppEffects } from './effects';
 
+//meta
+
 let imports: any = [
-  StoreModule.forRoot(AppReducers),
+  StoreModule.forRoot(AppReducers, { metaReducers }),
   EffectsModule.forRoot(AppEffects),
 ];
 let providers: any[] = [];
