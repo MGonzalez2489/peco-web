@@ -9,6 +9,8 @@ enum AUTH_ACTIONS {
   REGISTER = '[AUTH] Register',
   REGISTER_SUCCESS = '[AUTH] Register Success',
   REGISTER_FAIL = '[AUTH] Register Fail',
+
+  LOGOUT = '[AUTH] Logout',
 }
 
 //Signin
@@ -40,3 +42,6 @@ export const RegisterFailedAction = createAction(
   AUTH_ACTIONS.REGISTER_FAIL,
   props<{ payload: any }>(),
 );
+
+//Logout
+export const LogoutActions = createAction(AUTH_ACTIONS.LOGOUT);

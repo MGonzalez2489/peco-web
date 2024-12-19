@@ -42,6 +42,9 @@ const _authReducer = createRehydrateReducer(
   on(AuthActionsGroup.RegisterFailedAction, (state, { payload }) => {
     return state;
   }),
+  on(AuthActionsGroup.LogoutActions, (state) => {
+    return state;
+  }),
 );
 
 export function AuthReducer(state: any, action: any) {

@@ -1,9 +1,11 @@
 import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { SignInDto, TokenDto } from '@core/models/dtos';
 import { ResultModel } from '@core/models/responses';
 import { AuthService } from '@core/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
+  LogoutActions,
   RegisterAction,
   RegisterFailedAction,
   RegisterSuccessAction,
@@ -11,12 +13,13 @@ import {
   SigninFailedAction,
   SigninSuccessAction,
 } from '@store/actions/auth.action';
-import { mergeMap, map, catchError, of } from 'rxjs';
+import { mergeMap, map, catchError, of, tap } from 'rxjs';
 
 @Injectable()
 export class AuthEffects {
   private actions$ = inject(Actions);
   private authService = inject(AuthService);
+  private router = inject(Router);
   constructor() {}
   //signin
   signIn$ = createEffect(() =>
@@ -25,6 +28,7 @@ export class AuthEffects {
       mergeMap((data: { params: SignInDto }) => {
         return this.authService.signIn(data.params).pipe(
           map((response: ResultModel<TokenDto>) => {
+            this.authService.isAuthenticated.set(true);
             return SigninSuccessAction({ token: response.data });
           }),
           catchError((err) => {
@@ -47,6 +51,16 @@ export class AuthEffects {
             return of(RegisterFailedAction({ payload: err }));
           }),
         );
+      }),
+    ),
+  );
+
+  logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(LogoutActions),
+      tap(() => {
+        localStorage.clear();
+        this.router.navigate(['/auth']);
       }),
     ),
   );

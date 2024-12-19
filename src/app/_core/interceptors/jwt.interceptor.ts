@@ -1,9 +1,10 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { LogoutActions } from '@store/actions/auth.action';
 import { selectToken } from '@store/selectors';
 import { AppState } from '@store/states';
-import { mergeMap, take } from 'rxjs';
+import { catchError, mergeMap, take, throwError } from 'rxjs';
 
 export const JwtInterceptor: HttpInterceptorFn = (req, next) => {
   const store$ = inject(Store<AppState>);
@@ -16,7 +17,14 @@ export const JwtInterceptor: HttpInterceptorFn = (req, next) => {
           headers: req.headers.append('Authorization', `Bearer ${token}`),
         });
       }
-      return next(req);
+      return next(req).pipe(
+        catchError((err) => {
+          if ([401, 403].includes(err.status)) {
+            store$.dispatch(LogoutActions());
+          }
+          return throwError(() => err);
+        }),
+      );
     }),
   );
 };
