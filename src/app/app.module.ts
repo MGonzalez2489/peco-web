@@ -8,13 +8,23 @@ import { provideRouter } from '@angular/router';
 import { AppStoreModule } from '@store/store.module';
 import { JwtInterceptor } from '@core/interceptors';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { NavbarComponent } from './_shared/components';
+import { NavbarComponent, SidenavComponent } from './_shared/components';
 
-const shared: any = [NavbarComponent];
+import { MatSidenavModule } from '@angular/material/sidenav';
+
+const shared: any = [NavbarComponent, SidenavComponent];
+
+const material: any[] = [MatSidenavModule];
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, AppStoreModule, ...shared],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    AppStoreModule,
+    ...shared,
+    ...material,
+  ],
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),

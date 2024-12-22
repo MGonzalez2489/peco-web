@@ -8,6 +8,8 @@ import { AppState } from '@store/states';
 import { selectToken } from '@store/selectors';
 import { CommonModule } from '@angular/common';
 import { LogoutActions } from '@store/actions/auth.action';
+import { UiService } from '@core/services';
+import { Title } from '@angular/platform-browser';
 
 const material: any = [
   MatToolbarModule,
@@ -25,8 +27,14 @@ const material: any = [
 export class NavbarComponent {
   store$ = inject(Store<AppState>);
   token$ = this.store$.select(selectToken);
+  uiService = inject(UiService);
 
+  title = inject(Title);
   logout(): void {
     this.store$.dispatch(LogoutActions());
+  }
+
+  openSideNav() {
+    this.uiService.isSideBarOpened.set(!this.uiService.isSideBarOpened());
   }
 }

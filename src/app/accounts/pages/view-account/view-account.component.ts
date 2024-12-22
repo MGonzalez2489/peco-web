@@ -36,7 +36,6 @@ export class ViewAccountComponent implements OnInit {
       pageCount: 0,
       hasPreviousPage: false,
       hasNextPage: false,
-      order: 'DESC',
     },
   };
   //

@@ -11,7 +11,10 @@ export const AppReducers: ActionReducerMap<AppState> = {
 //meta
 function clearState(reducer: ActionReducer<any>): ActionReducer<any> {
   return function (state: any, action: any) {
-    if (action.type === '[AUTH] Logout Success') {
+    if (
+      action.type === '[AUTH] Logout' ||
+      action.type === '[AUTH] Logout Success'
+    ) {
       state = undefined;
     }
     return reducer(state, action);

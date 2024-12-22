@@ -1,0 +1,15 @@
+<mat-nav-list class="sidenav" role="navigation">
+  @for (link of links; track link) {
+    <a mat-list-item routerLinkActive="active" [routerLink]="link.route">
+      {{ link.title }}
+    </a>
+    <!-- <a -->
+    <!--   mat-list-item -->
+    <!--   [activated]="link.isActive" -->
+    <!--   [routerLink]="[link.route]" -->
+    <!--   routerLinkActive="active" -->
+    <!-- > -->
+    <!--   {{ link.title }} -->
+    <!-- </a> -->
+  }
+</mat-nav-list>
