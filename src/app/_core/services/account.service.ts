@@ -11,6 +11,7 @@ import {
 import { Store } from '@ngrx/store';
 import { selectAccountById } from '@store/selectors/account.selectors';
 import { map, Observable, take } from 'rxjs';
+import { PaginationMetaModel } from '@core/models/responses';
 
 @Injectable({
   providedIn: 'root',
@@ -37,8 +38,8 @@ export class AccountService implements Resolve<Account | undefined> {
     );
   }
 
-  getAll() {
-    return this.reqService.getList<Account>('accounts');
+  getAll(pageOptions?: PaginationMetaModel) {
+    return this.reqService.getList<Account>('accounts', pageOptions);
   }
   create(dto: AccountDto) {
     return this.reqService.post<Account>('accounts', dto);

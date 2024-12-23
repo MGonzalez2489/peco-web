@@ -24,7 +24,7 @@ export class RequestService {
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
         const element = obj[key];
-        params = params.set(key, element);
+        if (element !== undefined) params = params.set(key, element);
       }
     }
     return params;

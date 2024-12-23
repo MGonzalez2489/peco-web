@@ -1,4 +1,4 @@
-import { AppState, AuthState } from '@store/states';
+import { AuthState } from '@store/states';
 import { createRehydrateReducer } from './_rehydrateReducer';
 import { FEATURE_NAME } from '@store/constants';
 import { on } from '@ngrx/store';
@@ -41,6 +41,10 @@ const _authReducer = createRehydrateReducer(
   }),
   on(AuthActionsGroup.RegisterFailedAction, (state, { payload }) => {
     return state;
+  }),
+
+  on(AuthActionsGroup.LogoutSuccessActions, (state) => {
+    return {} as AuthState;
   }),
 );
 

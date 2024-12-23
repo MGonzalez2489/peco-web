@@ -15,18 +15,23 @@
           {{ column.header | titlecase }}
         </th>
         <td mat-cell *matCellDef="let element">
-          @if (!column.pipeFormat) {
-            <span> {{ element[column.def] }} </span>
-          }
-          @if (column.pipeFormat) {
-            <span>
-              {{ element[column.def] | dynamicPipe: column.pipeFormat }}
-            </span>
+          @switch (column.type) {
+            @case ("boolean") {
+              <mat-checkbox
+                [checked]="element[column.def]"
+                disabledInteractive="true"
+              >
+              </mat-checkbox>
+            }
+            @default {
+              <span>
+                {{ element[column.def] | dynamicPipe: column.pipeFormat }}
+              </span>
+            }
           }
         </td>
       </ng-container>
     }
-
     <tr mat-header-row *matHeaderRowDef="columnsDef"></tr>
     <tr mat-row *matRowDef="let row; columns: columnsDef"></tr>
   </table>
@@ -34,12 +39,12 @@
     #paginator
     class="demo-paginator"
     (page)="handlePageEvent($event)"
-    [length]="source.meta?.itemCount"
-    [pageSize]="source.meta?.take"
+    [length]="source.meta.itemCount"
+    [pageSize]="source.meta.take"
     [showFirstLastButtons]="true"
     [pageSizeOptions]="[5, 10, 25]"
     [hidePageSize]="false"
-    [pageIndex]="source.meta?.page"
+    [pageIndex]="source.meta.page"
     aria-label="Select page"
   >
   </mat-paginator>

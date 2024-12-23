@@ -3,30 +3,41 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
-import { Entry } from '@core/models/api';
 import { TableDto } from '@core/models/dtos';
 import { PaginationMetaModel } from '@core/models/responses';
 import { DynamicPype } from './Dynamic.pipe';
 import { MatSortModule, Sort } from '@angular/material/sort';
+
+import {
+  MAT_CHECKBOX_DEFAULT_OPTIONS,
+  MatCheckboxDefaultOptions,
+  MatCheckboxModule,
+} from '@angular/material/checkbox';
 
 const matControls = [
   MatButtonModule,
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
+  MatCheckboxModule,
 ];
 
 @Component({
   selector: 'app-table',
   imports: [CommonModule, DynamicPype, ...matControls],
   standalone: true,
-  providers: [DynamicPype],
+  providers: [
+    {
+      provide: MAT_CHECKBOX_DEFAULT_OPTIONS,
+      useValue: { clickAction: 'noop' } as MatCheckboxDefaultOptions,
+    },
+  ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
-export class TableComponent implements OnInit {
+export class TableComponent<T> implements OnInit {
   @Input()
-  source: TableDto<Entry>;
+  source: TableDto<T>;
 
   @Output()
   changeMeta: EventEmitter<PaginationMetaModel> = new EventEmitter();

@@ -27,8 +27,10 @@ export class DynamicPype implements PipeTransform {
     currency: new CurrencyPipe(this.locale),
   };
 
-  transform(value: any, pipeName: string, ...args: any[]) {
+  transform(value: any, pipeName?: string, ...args: any[]) {
     if (!value) return value;
+
+    if (!pipeName) return value;
 
     if (pipeName.includes(':')) {
       const name = pipeName.split(':')[0];
