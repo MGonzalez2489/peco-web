@@ -18,7 +18,10 @@ let providers: any[] = [];
 let declarations: any[] = [];
 
 if (!environment.production) {
-  imports = [...imports, StoreDevtoolsModule.instrument({ maxAge: 500 })];
+  imports = [
+    ...imports,
+    StoreDevtoolsModule.instrument({ maxAge: 500, trace: true }),
+  ];
 }
 
 @NgModule({

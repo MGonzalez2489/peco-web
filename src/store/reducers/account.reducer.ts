@@ -1,12 +1,10 @@
-import { AccountState } from '@store/states';
 import { createRehydrateReducer } from './_rehydrateReducer';
 import { FEATURE_NAME } from '@store/constants';
 import * as AccountActionsGroup from './../actions/account.action';
 import { on } from '@ngrx/store';
+import { Account } from '@core/models/api';
 
-const initialState: AccountState = {
-  accounts: [],
-};
+const initialState: Account[] = [];
 
 const _accountReducer = createRehydrateReducer(
   FEATURE_NAME.ACCOUNT,
@@ -16,10 +14,7 @@ const _accountReducer = createRehydrateReducer(
     return state;
   }),
   on(AccountActionsGroup.GetAllAccountsSuccessAction, (state, { accounts }) => {
-    return {
-      ...state,
-      accounts,
-    };
+    return accounts;
   }),
   on(AccountActionsGroup.GetAllAccountsFailAction, (state, { payload }) => {
     return state;
@@ -30,13 +25,10 @@ const _accountReducer = createRehydrateReducer(
     return state;
   }),
   on(AccountActionsGroup.GetAccountByIdSuccessAction, (state, { account }) => {
-    const accs = state.accounts.filter((f) => f.publicId !== account.publicId);
+    const accs = state.filter((f) => f.publicId !== account.publicId);
     accs.push(account);
 
-    return {
-      ...state,
-      accounts: accs,
-    };
+    return accs;
   }),
   on(AccountActionsGroup.GetAllAccountsFailAction, (state, { payload }) => {
     return state;
@@ -46,10 +38,8 @@ const _accountReducer = createRehydrateReducer(
     return state;
   }),
   on(AccountActionsGroup.CreateAccounSuccesstAction, (state, { account }) => {
-    return {
-      ...state,
-      accounts: [account, ...state.accounts],
-    };
+    const newState = [account, ...state];
+    return newState;
   }),
   on(AccountActionsGroup.GetAllAccountsFailAction, (state, { payload }) => {
     return state;

@@ -4,6 +4,9 @@ import { Account } from '@core/models/api';
 import { TableDto } from '@core/models/dtos';
 import { PaginationMetaModel } from '@core/models/responses';
 import { AccountService } from '@core/services';
+import { Store } from '@ngrx/store';
+import { selectAccounts } from '@store/selectors/account.selectors';
+import { AppState } from '@store/states';
 import { takeUntil } from 'rxjs';
 
 @Component({
@@ -14,11 +17,19 @@ import { takeUntil } from 'rxjs';
 })
 export class ListAccountsComponent extends BaseComponent implements OnInit {
   accountService = inject(AccountService);
+  store$ = inject(Store<AppState>);
   table = new TableDto<Account>();
 
   ngOnInit(): void {
     this.createSearchTable();
-    this.search(this.table.meta);
+    //modify the search to be triggered only by filter
+    // this.search(this.table.meta);
+    this.store$
+      .select(selectAccounts)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((data) => {
+        this.table.dataSource = data;
+      });
   }
 
   createSearchTable() {

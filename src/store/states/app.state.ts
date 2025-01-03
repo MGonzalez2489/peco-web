@@ -1,9 +1,7 @@
 import { AuthState } from './auth.state';
-import { AccountState } from './account.state';
-import { CatalogsState } from './catalogs.state';
+import { UserState } from './user.state';
 
-export interface AppState {
+export type AppState = {
   auth: AuthState;
-  account: AccountState;
-  catalogs: CatalogsState;
-}
+  user: UserState;
+};

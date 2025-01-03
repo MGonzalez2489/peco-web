@@ -1,14 +1,15 @@
+import { Account } from '@core/models/api';
 import { createSelector } from '@ngrx/store';
-import { AccountState, AppState } from '@store/states';
+import { AppState, UserState } from '@store/states';
 
-const accountState = (state: AppState) => state.account;
+const userState = (state: AppState) => state.user;
 
 export const selectAccounts = createSelector(
-  accountState,
-  (state: AccountState) => state.accounts,
+  userState,
+  (state: UserState) => state.accounts,
 );
 
 export const selectAccountById = (accountId: string) =>
-  createSelector(accountState, (state: AccountState) =>
-    state.accounts.find((f) => f.publicId == accountId),
+  createSelector(userState, (state: UserState) =>
+    state.accounts.find((f: Account) => f.publicId == accountId),
   );
