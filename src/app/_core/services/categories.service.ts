@@ -10,7 +10,7 @@ export class CategoriesService {
   private reqService = inject(RequestService);
   constructor() {}
 
-  getAll(pageOptions: PaginationMetaModel) {
-    return this.reqService.getList<Category>('/categories', pageOptions);
+  getAll(pageOptions?: PaginationMetaModel) {
+    return this.reqService.getList<Category>('categories', pageOptions);
   }
 }

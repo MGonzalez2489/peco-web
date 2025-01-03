@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { GetAllAccountsAction } from '@store/actions/account.action';
@@ -12,11 +12,11 @@ import { AppState } from '@store/states';
   templateUrl: './account-list.component.html',
   styleUrl: './account-list.component.scss',
 })
-export class AccountListComponent {
+export class AccountListComponent implements OnInit {
   private store$ = inject(Store<AppState>);
   private router = inject(Router);
   accounts$ = this.store$.select(selectAccounts);
-  constructor() {
+  ngOnInit(): void {
     this.store$.dispatch(GetAllAccountsAction());
   }
   addAccount(): void {
