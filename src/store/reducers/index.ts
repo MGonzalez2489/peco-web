@@ -2,10 +2,12 @@ import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { AuthReducer } from './auth.reducer';
 import { AppState } from '@store/states';
 import { AccountReducer } from './account.reducer';
+import { CatalogsReducer } from './catalogs.reducer';
 
 export const AppReducers: ActionReducerMap<AppState> = {
   auth: AuthReducer,
   account: AccountReducer,
+  catalogs: CatalogsReducer,
 };
 
 //meta
