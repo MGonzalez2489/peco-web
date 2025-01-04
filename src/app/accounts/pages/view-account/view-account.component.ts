@@ -22,7 +22,7 @@ export class ViewAccountComponent extends BaseComponent implements OnInit {
   private store$ = inject(Store<AppState>);
   private entryService = inject(EntryService);
   private accountId: string;
-  table = new TableDto<Entry>();
+  table = new TableDto<Entry>({ showViewButton: true });
   //
   account$: Observable<Account | undefined>;
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class ViewAccountComponent extends BaseComponent implements OnInit {
     this.account$ = this.store$.select(selectAccountById(this.accountId));
     this.getEntriesByAccount();
   }
-  createTable() {
+  createTable(): void {
     this.table.columns = [
       { def: 'description', header: 'Descripcion' },
       { def: 'createdAt', header: 'Creado', pipeFormat: `date:medium` },
@@ -40,7 +40,7 @@ export class ViewAccountComponent extends BaseComponent implements OnInit {
     ];
   }
 
-  getEntriesByAccount() {
+  getEntriesByAccount(): void {
     this.entryService
       .getEntriesByAccountId(this.accountId, this.table.meta)
       .pipe(takeUntil(this.unsubscribe$))
@@ -49,7 +49,7 @@ export class ViewAccountComponent extends BaseComponent implements OnInit {
         this.table.meta = data.meta;
       });
   }
-  search(event: PaginationMetaModel) {
+  search(event: PaginationMetaModel): void {
     this.table.meta = event;
     this.getEntriesByAccount();
   }

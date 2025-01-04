@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
-import { TableDto } from '@core/models/dtos';
+import { TableColumnDto, TableDto } from '@core/models/dtos';
 import { PaginationMetaModel } from '@core/models/responses';
 import { DynamicPype } from './Dynamic.pipe';
 import { MatSortModule, Sort } from '@angular/material/sort';
@@ -42,9 +42,13 @@ export class TableComponent<T> implements OnInit {
   @Output()
   changeMeta: EventEmitter<PaginationMetaModel> = new EventEmitter();
 
+  @Output()
+  view: EventEmitter<T> = new EventEmitter();
+
   columnsDef: string[] = [];
 
   ngOnInit(): void {
+    this.readTableOptions();
     if (this.source) {
       this.columnsDef = this.source.columns.map((f) => f.def);
     }
@@ -59,5 +63,22 @@ export class TableComponent<T> implements OnInit {
     this.source.meta!.order = e.direction.toUpperCase();
     this.source.meta!.orderBy = e.active;
     this.changeMeta.emit(this.source.meta!);
+  }
+  viewRow(row: T) {
+    this.view.emit(row);
+  }
+
+  private readTableOptions(): void {
+    if (this.source.options.showViewButton) {
+      this.source.columns.push(this.addViewColumnOption());
+    }
+  }
+
+  private addViewColumnOption(): TableColumnDto {
+    const newColumn: TableColumnDto = {
+      def: '_view',
+      header: '',
+    };
+    return newColumn;
   }
 }

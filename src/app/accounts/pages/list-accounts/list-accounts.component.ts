@@ -1,4 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BaseComponent } from '@core/bases';
 import { Account } from '@core/models/api';
 import { TableDto } from '@core/models/dtos';
@@ -18,7 +19,8 @@ import { takeUntil } from 'rxjs';
 export class ListAccountsComponent extends BaseComponent implements OnInit {
   accountService = inject(AccountService);
   store$ = inject(Store<AppState>);
-  table = new TableDto<Account>();
+  router = inject(Router);
+  table = new TableDto<Account>({ showViewButton: true });
 
   ngOnInit(): void {
     this.createSearchTable();
@@ -39,7 +41,9 @@ export class ListAccountsComponent extends BaseComponent implements OnInit {
       { def: 'balance', header: 'Balance', pipeFormat: 'currency' },
     ];
   }
-
+  view(acc: Account): void {
+    this.router.navigate(['/accounts/', acc.publicId]);
+  }
   search(event?: PaginationMetaModel) {
     if (event) this.table.meta = event;
     this.accountService

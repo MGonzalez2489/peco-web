@@ -1,6 +1,6 @@
 @if (token$ | async; as token) {
-  <mat-toolbar class="d-flex justify-content-between">
-    <div>
+  <mat-toolbar class="d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
       <button
         mat-icon-button
         class="example-icon"
@@ -11,7 +11,7 @@
       </button>
       <span>{{ uiService.currentPage() }}</span>
     </div>
-    <div>
+    <div class="d-flex align-items-center">
       <button mat-button [matMenuTriggerFor]="menu">Menu</button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item disabled>Item 1</button>

@@ -1,10 +1,16 @@
 <div class="container">
-  <div class="d-flex justify-content-ends align-items-center">
-    <mat-form-field class="mat-form" appearance="outline">
+  <div class="d-flex justify-content-end align-items-center">
+    <mat-form-field>
       <mat-label>Search by name</mat-label>
       <input [(ngModel)]="table.meta.hint" matInput placeholder="Placeholder" />
     </mat-form-field>
-    <button mat-flat-button (click)="search(table.meta)">Buscar</button>
+    <button mat-flat-button class="mb-3" (click)="search(table.meta)">
+      Buscar
+    </button>
   </div>
-  <app-table [source]="table" (changeMeta)="search($event)"></app-table>
+  <app-table
+    [source]="table"
+    (view)="view($event)"
+    (changeMeta)="search($event)"
+  ></app-table>
 </div>

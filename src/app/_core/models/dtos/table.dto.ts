@@ -4,9 +4,10 @@ export class TableDto<T> {
   columns: TableColumnDto[] = [];
   dataSource: T[] = [];
   meta: PaginationMetaModel;
-
-  constructor() {
+  options: TableOptions;
+  constructor(options?: TableOptions) {
     this.meta = new PaginationMetaModel();
+    this.options = options ? options : new TableOptions();
   }
 
   loadResponse(response: ResultListModel<T>): void {
@@ -20,10 +21,13 @@ export class TableDto<T> {
     this.meta.hasNextPage = response.meta.hasNextPage;
   }
 }
-
+export class TableOptions {
+  showViewButton: boolean = false;
+}
 export class TableColumnDto {
   def: string;
   header: string;
   pipeFormat?: string;
   type?: 'text' | 'boolean' = 'text';
+  route?: string;
 }

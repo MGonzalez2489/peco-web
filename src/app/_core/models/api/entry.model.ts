@@ -5,4 +5,6 @@ export interface Entry extends BaseModel {
   description: string;
 
   type?: string;
+
+  categoryId: string;
 }

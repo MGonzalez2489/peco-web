@@ -3,9 +3,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '@core/bases';
 import { Account, Entry } from '@core/models/api';
+import { EntryDto } from '@core/models/dtos';
 import { EntryService } from '@core/services';
 import { Store } from '@ngrx/store';
 import { GetAccountByIdAction } from '@store/actions/account.action';
+import { selectCategories } from '@store/selectors';
 import { AppState } from '@store/states';
 import { takeUntil } from 'rxjs';
 
@@ -22,10 +24,14 @@ export class AddEntryComponent extends BaseComponent implements OnInit {
   private router = inject(Router);
   private store$ = inject(Store<AppState>);
 
+  categories$ = this.store$.select(selectCategories);
+
+  selectedType: string;
+
   form = new FormGroup({
     amount: new FormControl(0, [Validators.required]),
     description: new FormControl('', [Validators.required]),
-    type: new FormControl('income', [Validators.required]),
+    categoryId: new FormControl('-1', [Validators.required]),
   });
 
   account: Account;
@@ -41,7 +47,7 @@ export class AddEntryComponent extends BaseComponent implements OnInit {
     if (this.form.invalid) return;
 
     this.entryService
-      .create(this.account.publicId, this.form.value as Entry)
+      .create(this.account.publicId, this.form.value as EntryDto, 'income')
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
         if (data.data) {

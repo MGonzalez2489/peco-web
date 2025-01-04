@@ -11,25 +11,37 @@
     <!-- Columns -->
     @for (column of source.columns; track column.def) {
       <ng-container [matColumnDef]="column.def">
-        <th mat-header-cell mat-sort-header *matHeaderCellDef>
-          {{ column.header | titlecase }}
-        </th>
-        <td mat-cell *matCellDef="let element">
-          @switch (column.type) {
-            @case ("boolean") {
-              <mat-checkbox
-                [checked]="element[column.def]"
-                disabledInteractive="true"
-              >
-              </mat-checkbox>
+        @if (column.def === "_view") {
+          <!-- View Cell -->
+          <th mat-header-cell *matHeaderCellDef>
+            {{ column.header | titlecase }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <button (click)="viewRow(element)" mat-button>view</button>
+          </td>
+        } @else {
+          <!-- Data Cell -->
+          <th mat-header-cell mat-sort-header *matHeaderCellDef>
+            {{ column.header | titlecase }}
+          </th>
+
+          <td mat-cell *matCellDef="let element">
+            @switch (column.type) {
+              @case ("boolean") {
+                <mat-checkbox
+                  [checked]="element[column.def]"
+                  disabledInteractive="true"
+                >
+                </mat-checkbox>
+              }
+              @default {
+                <span>
+                  {{ element[column.def] | dynamicPipe: column.pipeFormat }}
+                </span>
+              }
             }
-            @default {
-              <span>
-                {{ element[column.def] | dynamicPipe: column.pipeFormat }}
-              </span>
-            }
-          }
-        </td>
+          </td>
+        }
       </ng-container>
     }
     <tr mat-header-row *matHeaderRowDef="columnsDef"></tr>
