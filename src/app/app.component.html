@@ -1,14 +1,16 @@
-@if (token$ | async; as token) {
-  <mat-sidenav-container class="vh-100">
-    <mat-sidenav #sidenav mode="side" [(opened)]="uiService.isSideBarOpened">
-      <app-sidenav></app-sidenav>
-    </mat-sidenav>
+<div class="">
+  @if (token$ | async; as token) {
+    <mat-sidenav-container>
+      <mat-sidenav #sidenav mode="side" [(opened)]="uiService.isSideBarOpened">
+        <app-sidenav></app-sidenav>
+      </mat-sidenav>
 
-    <mat-sidenav-content>
-      <app-navbar></app-navbar>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-} @else {
-  <router-outlet></router-outlet>
-}
+      <mat-sidenav-content>
+        <app-navbar></app-navbar>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  } @else {
+    <router-outlet></router-outlet>
+  }
+</div>

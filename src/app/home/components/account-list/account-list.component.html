@@ -1,27 +1,23 @@
-<div>
-  <div class="d-flex flex-column">
-    <div>
-      <p>Aqui va la lista de cuentas</p>
-      <div class="d-flex gap-3 flex-wrap">
-        @for (acc of accounts$ | async; track acc.publicId) {
-          <mat-card appearance="outlined" class="acc-card">
-            <mat-card-header>
-              <mat-card-title> {{ acc.name | titlecase }}</mat-card-title>
-              <mat-card-subtitle>{{
-                acc.balance | currency
-              }}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-actions>
-              <a href="#" [routerLink]="['/accounts/', acc.publicId]" mat-button
-                >View</a
-              >
-            </mat-card-actions>
-          </mat-card>
-        }
+<div class="d-flex flex-column">
+  <div>
+    <p>Aqui va la lista de cuentas</p>
+    <div class="d-flex gap-3 flex-wrap">
+      @for (acc of accounts$ | async; track acc.publicId) {
+        <mat-card appearance="outlined" class="acc-card">
+          <mat-card-header>
+            <mat-card-title> {{ acc.name | titlecase }}</mat-card-title>
+            <mat-card-subtitle>{{ acc.balance | currency }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-actions>
+            <a href="#" [routerLink]="['/accounts/', acc.publicId]" mat-button
+              >View</a
+            >
+          </mat-card-actions>
+        </mat-card>
+      }
 
-        <div class="d-flex justify-content-center align-items-center">
-          <button mat-button (click)="addAccount()">+</button>
-        </div>
+      <div class="d-flex justify-content-center align-items-center">
+        <button mat-button (click)="addAccount()">+</button>
       </div>
     </div>
   </div>
