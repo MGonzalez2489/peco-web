@@ -4,11 +4,13 @@ import { CatalogsService } from '@core/services/catalogs.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import {
+  LogoutAction,
   RegisterSuccessAction,
   SigninSuccessAction,
 } from '@store/actions/auth.action';
 
 import {
+  ClearStateAction,
   GetEntryTypeAction,
   GetEntryTypeFailAction,
   GetEntryTypeSuccessAction,
@@ -48,5 +50,17 @@ export class CatalogsEffects {
         );
       }),
     ),
+  );
+
+  //not dispatchables
+  clearState$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(LogoutAction),
+        map(() => {
+          this.store$.dispatch(ClearStateAction());
+        }),
+      ),
+    { dispatch: false },
   );
 }

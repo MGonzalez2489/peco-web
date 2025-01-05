@@ -43,8 +43,10 @@ const _authReducer = createRehydrateReducer(
     return state;
   }),
 
-  on(AuthActionsGroup.LogoutSuccessActions, (state) => {
-    return {} as AuthState;
+  on(AuthActionsGroup.LogoutAction, () => {
+    return {
+      token: null,
+    };
   }),
 );
 

@@ -14,6 +14,8 @@ enum ACCOUNT_ACTIONS {
   CREATE = '[Account] Create Account',
   CREATE_SUCCESS = '[Account] Create Account Success',
   CREATE_FAIL = '[Account] Create Account Fail',
+
+  CLEAR_STATE = '[Account] Clear State',
 }
 //Get All
 export const GetAllAccountsAction = createAction(ACCOUNT_ACTIONS.GET);
@@ -52,3 +54,5 @@ export const CreateAccountFailAction = createAction(
   ACCOUNT_ACTIONS.CREATE_FAIL,
   props<{ payload: any }>(),
 );
+
+export const ClearStateAction = createAction(ACCOUNT_ACTIONS.CLEAR_STATE);

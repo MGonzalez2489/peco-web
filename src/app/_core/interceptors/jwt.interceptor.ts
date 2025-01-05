@@ -1,7 +1,7 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LogoutActions } from '@store/actions/auth.action';
+import { LogoutAction } from '@store/actions/auth.action';
 import { selectToken } from '@store/selectors';
 import { AppState } from '@store/states';
 import { catchError, mergeMap, take, throwError } from 'rxjs';
@@ -21,7 +21,7 @@ export const JwtInterceptor: HttpInterceptorFn = (req, next) => {
         catchError((err) => {
           if ([401, 403].includes(err.status)) {
             alert('expired session');
-            store$.dispatch(LogoutActions());
+            store$.dispatch(LogoutAction());
           }
           return throwError(() => err);
         }),

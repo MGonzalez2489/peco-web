@@ -5,6 +5,8 @@ enum CATALOGS_ACTIONS {
   GET_ENTRY_TYPES = '[Catalogs] Get Entry Types',
   GET_ENTRY_TYPES_SUCCESS = '[Catalogs] Get Entry Types Success',
   GET_ENTRY_TYPES_FAIL = '[Catalogs] Get Entry Types Fail',
+
+  CLEAR_STATE = '[Catalogs] Clear State',
 }
 
 //Entry Types
@@ -21,3 +23,5 @@ export const GetEntryTypeFailAction = createAction(
   CATALOGS_ACTIONS.GET_ENTRY_TYPES_FAIL,
   props<{ payload: any }>(),
 );
+
+export const ClearStateAction = createAction(CATALOGS_ACTIONS.CLEAR_STATE);

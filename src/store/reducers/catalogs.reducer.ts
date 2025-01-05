@@ -22,6 +22,12 @@ const _catalogsReducer = createRehydrateReducer(
       };
     },
   ),
+
+  on(CatalogsActionsGroup.ClearStateAction, () => {
+    return {
+      entryTypes: [],
+    };
+  }),
 );
 
 export function CatalogsReducer(state: any, action: any) {

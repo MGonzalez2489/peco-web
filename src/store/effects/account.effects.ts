@@ -3,7 +3,9 @@ import { Account } from '@core/models/api';
 import { ResultListModel, ResultModel } from '@core/models/responses';
 import { AccountService } from '@core/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import {
+  ClearStateAction,
   CreateAccounSuccesstAction,
   CreateAccountAction,
   CreateAccountFailAction,
@@ -14,12 +16,15 @@ import {
   GetAllAccountsFailAction,
   GetAllAccountsSuccessAction,
 } from '@store/actions/account.action';
+import { LogoutAction } from '@store/actions/auth.action';
 import { mergeMap, map, catchError, of } from 'rxjs';
+import { AppState } from '@store/states';
 
 @Injectable()
 export class AccountEffects {
   private actions$ = inject(Actions);
   private accountService = inject(AccountService);
+  private store$ = inject(Store<AppState>);
 
   //GET ALL
   getAll$ = createEffect(() =>
@@ -69,5 +74,17 @@ export class AccountEffects {
         );
       }),
     ),
+  );
+
+  //not dispatchables
+  clearState$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(LogoutAction),
+        map(() => {
+          this.store$.dispatch(ClearStateAction());
+        }),
+      ),
+    { dispatch: false },
   );
 }

@@ -5,8 +5,7 @@ import { ResultModel } from '@core/models/responses';
 import { AuthService } from '@core/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
-  LogoutActions,
-  LogoutSuccessActions,
+  LogoutAction,
   RegisterAction,
   RegisterFailedAction,
   RegisterSuccessAction,
@@ -14,7 +13,7 @@ import {
   SigninFailedAction,
   SigninSuccessAction,
 } from '@store/actions/auth.action';
-import { mergeMap, map, catchError, of, tap } from 'rxjs';
+import { mergeMap, map, catchError, of } from 'rxjs';
 
 @Injectable()
 export class AuthEffects {
@@ -29,7 +28,6 @@ export class AuthEffects {
       mergeMap((data: { params: SignInDto }) => {
         return this.authService.signIn(data.params).pipe(
           map((response: ResultModel<TokenDto>) => {
-            this.authService.isAuthenticated.set(true);
             return SigninSuccessAction({ token: response.data });
           }),
           catchError((err) => {
@@ -46,8 +44,6 @@ export class AuthEffects {
       mergeMap((data: { params: SignInDto }) => {
         return this.authService.register(data.params).pipe(
           map((response: ResultModel<TokenDto>) => {
-            this.authService.isAuthenticated.set(true);
-
             return RegisterSuccessAction({ token: response.data });
           }),
           catchError((err) => {
@@ -58,17 +54,16 @@ export class AuthEffects {
     ),
   );
 
-  logout$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(LogoutActions),
-      tap(() => {
-        this.authService.isAuthenticated.set(false);
-        this.router.navigate(['/auth']);
-        localStorage.clear();
-      }),
-      map(() => {
-        return LogoutSuccessActions();
-      }),
-    ),
+  //not dispatchables
+  clearState$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(LogoutAction),
+        map(() => {
+          localStorage.clear();
+          this.router.navigate(['/auth']);
+        }),
+      ),
+    { dispatch: false },
   );
 }

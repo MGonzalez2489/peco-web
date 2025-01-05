@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@store/states';
 import { selectToken } from '@store/selectors';
 import { CommonModule } from '@angular/common';
-import { LogoutActions } from '@store/actions/auth.action';
+import { LogoutAction } from '@store/actions/auth.action';
 import { UiService } from '@core/services';
 import { Title } from '@angular/platform-browser';
 
@@ -31,7 +31,7 @@ export class NavbarComponent {
 
   title = inject(Title);
   logout(): void {
-    this.store$.dispatch(LogoutActions());
+    this.store$.dispatch(LogoutAction());
   }
 
   openSideNav() {

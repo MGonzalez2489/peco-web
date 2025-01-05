@@ -3,9 +3,11 @@ import { PaginationMetaModel } from '@core/models/responses';
 import { createAction, props } from '@ngrx/store';
 
 enum CATEGORY_ACTIONS {
-  GET_CATEGORIES = '[CATALOGS] Get All Categories',
-  GET_CATEGORIES_SUCCESS = '[CATALOGS] Get All Categories Success',
-  GET_CATEGORIES_FAIL = '[CATALOGS] Get All Categories Fail',
+  GET_CATEGORIES = '[CATEGORY] Get All Categories',
+  GET_CATEGORIES_SUCCESS = '[CATEGORY] Get All Categories Success',
+  GET_CATEGORIES_FAIL = '[CATEGORY] Get All Categories Fail',
+
+  CLEAR_STATE = '[CATEGORY] Clear State',
 }
 
 export const GetAllCategoriesAction = createAction(
@@ -20,3 +22,4 @@ export const GetAllCategoriesFailAction = createAction(
   CATEGORY_ACTIONS.GET_CATEGORIES_FAIL,
   props<{ payload: any }>(),
 );
+export const ClearStateAction = createAction(CATEGORY_ACTIONS.CLEAR_STATE);

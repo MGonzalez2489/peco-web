@@ -11,7 +11,6 @@ enum AUTH_ACTIONS {
   REGISTER_FAIL = '[AUTH] Register Fail',
 
   LOGOUT = '[AUTH] Logout',
-  LOGOUT_SUCCESS = '[AUTH] Logout Success',
 }
 
 //Signin
@@ -45,5 +44,4 @@ export const RegisterFailedAction = createAction(
 );
 
 //Logout
-export const LogoutActions = createAction(AUTH_ACTIONS.LOGOUT);
-export const LogoutSuccessActions = createAction(AUTH_ACTIONS.LOGOUT_SUCCESS);
+export const LogoutAction = createAction(AUTH_ACTIONS.LOGOUT);

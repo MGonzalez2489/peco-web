@@ -16,6 +16,7 @@ export class UserEffects {
   private actions$ = inject(Actions);
   private store$ = inject(Store<AppState>);
 
+  //get user info
   getUserInfo$ = createEffect(
     () =>
       this.actions$.pipe(

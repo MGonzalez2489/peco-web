@@ -16,6 +16,9 @@ const _catalogsReducer = createRehydrateReducer(
       return categories;
     },
   ),
+  on(CategoryActionsGroup.ClearStateAction, () => {
+    return [];
+  }),
 );
 
 export function CategoriesReducer(state: any, action: any) {

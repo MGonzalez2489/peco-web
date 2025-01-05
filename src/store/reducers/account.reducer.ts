@@ -44,6 +44,9 @@ const _accountReducer = createRehydrateReducer(
   on(AccountActionsGroup.GetAllAccountsFailAction, (state, { payload }) => {
     return state;
   }),
+  on(AccountActionsGroup.ClearStateAction, () => {
+    return [];
+  }),
 );
 
 export function AccountReducer(state: any, action: any) {
