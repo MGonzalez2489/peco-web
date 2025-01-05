@@ -24,6 +24,7 @@ export class ListAccountsComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.createSearchTable();
+    //TODO:
     //modify the search to be triggered only by filter
     // this.search(this.table.meta);
     this.store$

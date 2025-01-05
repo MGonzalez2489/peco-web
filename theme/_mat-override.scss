@@ -1,3 +1,12 @@
 @use "@angular/material" as mat;
 
 @include mat.form-field-density(-4);
+
+:root {
+  @include mat.toolbar-overrides(
+    (
+      container-background-color: #005cbb,
+      container-text-color: white,
+    )
+  );
+}
