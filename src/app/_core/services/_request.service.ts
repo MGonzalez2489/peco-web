@@ -38,7 +38,11 @@ export class RequestService {
       .pipe(map((res) => res));
   }
 
-  public getList<T>(
+  public getList<T>(url: string) {
+    return this.httpClient.get<T[]>(this.getUrl(url)).pipe(map((res) => res));
+  }
+
+  public getPaginatedList<T>(
     url: string,
     pagination?: PaginationMetaModel,
     params?: any,

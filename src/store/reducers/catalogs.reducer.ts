@@ -6,7 +6,7 @@ import { on } from '@ngrx/store';
 import * as CatalogsActionsGroup from './../actions/catalogs.actions';
 
 const initialState: CatalogsState = {
-  categories: [],
+  entryTypes: [],
 };
 
 const _catalogsReducer = createRehydrateReducer(
@@ -14,11 +14,11 @@ const _catalogsReducer = createRehydrateReducer(
   initialState,
 
   on(
-    CatalogsActionsGroup.GetCategoriesSuccessAction,
-    (state, { categories }) => {
+    CatalogsActionsGroup.GetEntryTypeSuccessAction,
+    (state, { entryTypes }) => {
       return {
         ...state,
-        categories,
+        entryTypes,
       };
     },
   ),

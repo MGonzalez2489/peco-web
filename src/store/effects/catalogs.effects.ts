@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { Category } from '@core/models/api';
-import { ResultListModel } from '@core/models/responses';
-import { CategoriesService } from '@core/services';
+import { CatEntryType } from '@core/models/api/catalogs';
+import { CatalogsService } from '@core/services/catalogs.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import {
@@ -9,23 +8,45 @@ import {
   SigninSuccessAction,
 } from '@store/actions/auth.action';
 
+import {
+  GetEntryTypeAction,
+  GetEntryTypeFailAction,
+  GetEntryTypeSuccessAction,
+} from '@store/actions/catalogs.actions';
 import { AppState } from '@store/states';
+
 import { catchError, map, mergeMap, of } from 'rxjs';
 
 @Injectable()
 export class CatalogsEffects {
   private actions$ = inject(Actions);
-  private categoriesService = inject(CategoriesService);
-  private store$ = inject(Store<AppState>);
+  private catalogsService = inject(CatalogsService);
 
-  // fillCatalogs$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(SigninSuccessAction, RegisterSuccessAction),
-  //       map(() => {
-  //         this.store$.dispatch(GetCategoriesAction({}));
-  //       }),
-  //     ),
-  //   { dispatch: false },
-  // );
+  private store$ = inject(Store<AppState>);
+  getCatalogsInfo$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(SigninSuccessAction, RegisterSuccessAction),
+        map(() => {
+          this.store$.dispatch(GetEntryTypeAction());
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  getEntryTypes$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GetEntryTypeAction),
+      mergeMap(() => {
+        return this.catalogsService.getEntryTipes().pipe(
+          map((response: CatEntryType[]) => {
+            return GetEntryTypeSuccessAction({ entryTypes: response });
+          }),
+          catchError((err) => {
+            return of(GetEntryTypeFailAction({ payload: err }));
+          }),
+        );
+      }),
+    ),
+  );
 }

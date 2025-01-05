@@ -3,13 +3,14 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '@core/bases';
 import { Account, Entry } from '@core/models/api';
+import { CatEntryType } from '@core/models/api/catalogs';
 import { EntryDto } from '@core/models/dtos';
 import { EntryService } from '@core/services';
 import { Store } from '@ngrx/store';
 import { GetAccountByIdAction } from '@store/actions/account.action';
-import { selectCategories } from '@store/selectors';
+import { selectCategories, selectEntryTypes } from '@store/selectors';
 import { AppState } from '@store/states';
-import { takeUntil } from 'rxjs';
+import { Observable, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-add-entry',
@@ -25,8 +26,9 @@ export class AddEntryComponent extends BaseComponent implements OnInit {
   private store$ = inject(Store<AppState>);
 
   categories$ = this.store$.select(selectCategories);
+  entryTypes: CatEntryType[] = [];
 
-  selectedType: string;
+  selectedType: CatEntryType;
 
   form = new FormGroup({
     amount: new FormControl(0, [Validators.required]),
@@ -41,13 +43,25 @@ export class AddEntryComponent extends BaseComponent implements OnInit {
       .subscribe((data) => {
         this.account = data['account'];
       });
+
+    this.store$
+      .select(selectEntryTypes)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((data) => {
+        this.entryTypes = data;
+        this.selectedType = this.entryTypes[0];
+      });
   }
 
   submit() {
     if (this.form.invalid) return;
 
     this.entryService
-      .create(this.account.publicId, this.form.value as EntryDto, 'income')
+      .create(
+        this.account.publicId,
+        this.form.value as EntryDto,
+        this.selectedType,
+      )
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
         if (data.data) {

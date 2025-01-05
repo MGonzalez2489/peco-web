@@ -34,8 +34,9 @@ export class ViewAccountComponent extends BaseComponent implements OnInit {
   createTable(): void {
     this.table.columns = [
       { def: 'description', header: 'Descripcion' },
-      { def: 'createdAt', header: 'Creado', pipeFormat: `date:medium` },
+      { def: 'category', header: 'Categoria' },
       { def: 'type', header: 'Tipo' },
+      { def: 'createdAt', header: 'Creado', pipeFormat: `date:medium` },
       { def: 'amount', header: 'Monto', pipeFormat: 'currency' },
     ];
   }

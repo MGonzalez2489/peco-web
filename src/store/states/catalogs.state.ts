@@ -1,3 +1,5 @@
-import { Category } from '@core/models/api';
+import { CatEntryType } from '@core/models/api/catalogs';
 
-export type CategoryState = Category[];
+export type CatalogsState = {
+  entryTypes: CatEntryType[];
+};

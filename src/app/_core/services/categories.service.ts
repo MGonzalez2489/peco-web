@@ -11,6 +11,9 @@ export class CategoriesService {
   constructor() {}
 
   getAll(pageOptions?: PaginationMetaModel) {
-    return this.reqService.getList<Category>('categories', pageOptions);
+    return this.reqService.getPaginatedList<Category>(
+      'categories',
+      pageOptions,
+    );
   }
 }

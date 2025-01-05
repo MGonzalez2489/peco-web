@@ -4,7 +4,7 @@ export interface Entry extends BaseModel {
   amount: number;
   description: string;
 
-  type?: string;
+  type: string;
 
-  categoryId: string;
+  category: string;
 }

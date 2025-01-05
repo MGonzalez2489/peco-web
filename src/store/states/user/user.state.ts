@@ -1,5 +1,5 @@
 import { AccountState } from './account.state';
-import { CategoryState } from './catalogs.state';
+import { CategoryState } from './category.state';
 
 export type UserState = {
   accounts: AccountState;

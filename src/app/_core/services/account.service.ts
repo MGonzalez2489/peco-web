@@ -39,7 +39,7 @@ export class AccountService implements Resolve<Account | undefined> {
   }
 
   getAll(pageOptions?: PaginationMetaModel) {
-    return this.reqService.getList<Account>('accounts', pageOptions);
+    return this.reqService.getPaginatedList<Account>('accounts', pageOptions);
   }
   create(dto: AccountDto) {
     return this.reqService.post<Account>('accounts', dto);

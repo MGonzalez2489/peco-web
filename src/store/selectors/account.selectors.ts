@@ -1,6 +1,7 @@
 import { Account } from '@core/models/api';
 import { createSelector } from '@ngrx/store';
-import { AppState, UserState } from '@store/states';
+import { AppState } from '@store/states';
+import { UserState } from '@store/states/user';
 
 const userState = (state: AppState) => state.user;
 
