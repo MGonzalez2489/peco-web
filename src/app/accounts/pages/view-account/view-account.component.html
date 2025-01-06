@@ -6,12 +6,44 @@
         <p>Balance: {{ account.balance | currency }}</p>
       </mat-card-content>
     </mat-card>
-    <a
-      mat-flat-button
-      href="#"
-      [routerLink]="['/' + account.publicId + '/entries/add']"
-      >Add Entry</a
-    >
-    <app-table [source]="table" (changeMeta)="search($event)"></app-table>
+
+    <section class="d-flex justify-content-between"></section>
+    <mat-card>
+      <mat-card-header>
+        <div
+          class="d-flex justify-content-between align-items-center w-100 mb-3"
+        >
+          <div class="d-flex gap-2">
+            <mat-form-field>
+              <mat-label>Buscar por descripcion</mat-label>
+              <input
+                [(ngModel)]="table.meta.hint"
+                matInput
+                placeholder="Buscar por descripcion"
+              />
+            </mat-form-field>
+            <button mat-button class="mb-3" (click)="search(table.meta)">
+              Buscar
+            </button>
+          </div>
+          <a
+            mat-flat-button
+            href="#"
+            [routerLink]="['/' + account.publicId + '/entries/add']"
+            >Add Entry</a
+          >
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <app-table [source]="table" (changeMeta)="search($event)"></app-table>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- <mat-card> -->
+    <!--   <mat-card-header>Entries</mat-card-header> -->
+    <!--   <mat-card-content> -->
+    <!--     <app-table [source]="table" (changeMeta)="search($event)"></app-table> -->
+    <!--   </mat-card-content> -->
+    <!-- </mat-card> -->
   }
 </div>

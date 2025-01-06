@@ -31,9 +31,9 @@ export class AddEntryComponent extends BaseComponent implements OnInit {
   selectedType: CatEntryType;
 
   form = new FormGroup({
-    amount: new FormControl(0, [Validators.required]),
+    amount: new FormControl(0, [Validators.required, Validators.min(1)]),
     description: new FormControl('', [Validators.required]),
-    categoryId: new FormControl('-1', [Validators.required]),
+    categoryId: new FormControl('', [Validators.required]),
   });
 
   account: Account;

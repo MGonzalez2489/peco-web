@@ -16,8 +16,11 @@
           matInput
           type="number"
           formControlName="amount"
-          placeholder="Cantidad"
+          placeholder="0"
+          tabindex="1"
+          autofocus
         />
+        <span matTextPrefix>$&nbsp;</span>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Descripcion</mat-label>

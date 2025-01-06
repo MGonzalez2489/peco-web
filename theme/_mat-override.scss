@@ -2,6 +2,7 @@
 @use "./_colors" as peco-theme;
 //funciona
 @include mat.form-field-density(-4);
+
 @include mat.sidenav-overrides(
   (
     // container-background-color: #fff,
@@ -24,7 +25,11 @@
   )
 );
 
-//experimental
+@include mat.card-overrides(
+  (
+    outlined-container-color: #fff,
+  )
+); //experimental
 // html {
 //   @include mat.theme(
 //     (

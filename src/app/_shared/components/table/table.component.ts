@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import {
+  MatPaginatorIntl,
+  MatPaginatorModule,
+  PageEvent,
+} from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { TableColumnDto, TableDto } from '@core/models/dtos';
 import { PaginationMetaModel } from '@core/models/responses';
@@ -13,6 +17,7 @@ import {
   MatCheckboxDefaultOptions,
   MatCheckboxModule,
 } from '@angular/material/checkbox';
+import { PecoPaginatorIntl } from './paginatorIntl';
 
 const matControls = [
   MatButtonModule,
@@ -30,6 +35,10 @@ const matControls = [
     {
       provide: MAT_CHECKBOX_DEFAULT_OPTIONS,
       useValue: { clickAction: 'noop' } as MatCheckboxDefaultOptions,
+    },
+    {
+      provide: MatPaginatorIntl,
+      useClass: PecoPaginatorIntl,
     },
   ],
   templateUrl: './table.component.html',
@@ -52,6 +61,7 @@ export class TableComponent<T> implements OnInit {
     if (this.source) {
       this.columnsDef = this.source.columns.map((f) => f.def);
     }
+    //
   }
 
   handlePageEvent(e: PageEvent) {

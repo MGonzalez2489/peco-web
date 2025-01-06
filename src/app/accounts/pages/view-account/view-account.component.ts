@@ -46,8 +46,7 @@ export class ViewAccountComponent extends BaseComponent implements OnInit {
       .getEntriesByAccountId(this.accountId, this.table.meta)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
-        this.table.dataSource = data.data;
-        this.table.meta = data.meta;
+        this.table.loadResponse(data);
       });
   }
   search(event: PaginationMetaModel): void {
