@@ -1,12 +1,25 @@
 <div class="page">
-  <div class="d-flex justify-content-end align-items-center">
-    <mat-form-field>
-      <mat-label>Search by name</mat-label>
-      <input [(ngModel)]="table.meta.hint" matInput placeholder="Placeholder" />
-    </mat-form-field>
-    <button mat-flat-button class="mb-3" (click)="search(table.meta)">
-      Buscar
-    </button>
+  <div class="d-flex justify-content-between">
+    <div class="d-flex gap-3">
+      <mat-form-field>
+        <mat-label>Search by name</mat-label>
+        <input
+          [(ngModel)]="table.meta.hint"
+          matInput
+          placeholder="Placeholder"
+        />
+      </mat-form-field>
+      <button mat-button class="mb-2" (click)="search(table.meta)">
+        Buscar
+      </button>
+    </div>
+    <a
+      class="mb-3"
+      mat-flat-button
+      href="#"
+      [routerLink]="['/accounts/add-account']"
+      >Add Account</a
+    >
   </div>
   <app-table
     [source]="table"

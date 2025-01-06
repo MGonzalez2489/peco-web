@@ -22,7 +22,7 @@ export class ViewAccountComponent extends BaseComponent implements OnInit {
   private store$ = inject(Store<AppState>);
   private entryService = inject(EntryService);
   private accountId: string;
-  table = new TableDto<Entry>({ showViewButton: true });
+  table = new TableDto<Entry>({ showViewButton: false });
   //
   account$: Observable<Account | undefined>;
   ngOnInit(): void {

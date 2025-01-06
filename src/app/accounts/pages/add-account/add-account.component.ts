@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -22,13 +23,14 @@ export class AddAccountComponent extends BaseComponent {
   store$ = inject(Store<AppState>);
   actions$ = inject(Actions);
   router = inject(Router);
+  location = inject(Location);
   form = new FormGroup({
     name: new FormControl('', [Validators.required]),
     initialBalance: new FormControl(0, [Validators.required]),
   });
 
   cancel(): void {
-    this.router.navigate(['/home']);
+    this.location.back();
   }
 
   submit(): void {
