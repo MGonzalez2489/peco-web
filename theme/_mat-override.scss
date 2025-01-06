@@ -1,12 +1,52 @@
 @use "@angular/material" as mat;
-
+@use "./_colors" as peco-theme;
+//funciona
 @include mat.form-field-density(-4);
+@include mat.sidenav-overrides(
+  (
+    // container-background-color: #fff,
+    container-background-color: var(--mat-sys-primary-container),
+    container-shape: 0px,
+    content-background-color: #fff,
+    content-text-color: var(--mat-sys-primary),
+    container-text-color: var(--mat-sys-primary)
+  )
+);
+@include mat.table-overrides(
+  (
+    background-color: #fff,
+  )
+);
 
-:root {
-  @include mat.toolbar-overrides(
-    (
-      container-background-color: #005cbb,
-      container-text-color: white,
-    )
-  );
-}
+@include mat.paginator-overrides(
+  (
+    container-background-color: #fff,
+  )
+);
+
+//experimental
+// html {
+//   @include mat.theme(
+//     (
+//       color: (
+//         primary: peco-theme.$primary-palette,
+//         tertiary: peco-theme.$tertiary-palette,
+//       ),
+//       typography: Roboto,
+//     )
+//   );
+// }
+
+// :root{
+//   @include mat.all-component-themes($theme);
+// }
+
+//
+// :root {
+//   @include mat.toolbar-overrides(
+//     (
+//       container-background-color: #005cbb,
+//       container-text-color: white,
+//     )
+//   );
+// }

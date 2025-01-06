@@ -1,6 +1,6 @@
-<div class="">
+<div class="vh-100">
   @if (token$ | async; as token) {
-    <mat-sidenav-container>
+    <mat-sidenav-container class="h-100">
       <mat-sidenav #sidenav mode="side" [(opened)]="uiService.isSideBarOpened">
         <app-sidenav></app-sidenav>
       </mat-sidenav>
@@ -14,3 +14,6 @@
     <router-outlet></router-outlet>
   }
 </div>
+
+<!-- <app-nav-material></app-nav-material> -->
+<!-- <app-dashboard-material></app-dashboard-material> -->

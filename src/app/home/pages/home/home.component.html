@@ -1,9 +1,23 @@
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h1>Home</h1>
-    </div>
-  </div>
+<div class="page">
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile colspan="2" style="background-color: lightblue">
+      <app-account-list></app-account-list>
+    </mat-grid-tile>
+    <mat-grid-tile style="background-color: lightcyan">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title> Titulo 1</mat-card-title>
+        </mat-card-header>
+        <mat-card-content> Content </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile style="background-color: lightsteelblue">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title> Titulo 2</mat-card-title>
+        </mat-card-header>
+        <mat-card-content> Content </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>
-
-<!-- <app-account-list></app-account-list> -->

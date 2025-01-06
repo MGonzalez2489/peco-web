@@ -3,13 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './pages/home/home.component';
+import { AccountListComponent } from './components/account-list/account-list.component';
 
 //mat
 import { MatCardModule } from '@angular/material/card';
-import { AccountListComponent } from './components/account-list/account-list.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
 
-const matControls: any = [MatCardModule, MatButtonModule];
+const matControls: any = [
+  MatCardModule,
+  MatButtonModule,
+  MatGridListModule,
+  MatCardModule,
+];
 
 const shared: any = [];
 

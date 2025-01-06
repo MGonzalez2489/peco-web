@@ -1,1 +1,13 @@
+.peco-navbar {
+  background-color: var(--mat-sys-primary-container);
+  color: var(--mat-sys-primary);
 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .mat-icon,
+  .mdc-button {
+    color: var(--mat-sys-primary);
+  }
+}
