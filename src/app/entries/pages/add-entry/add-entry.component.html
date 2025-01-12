@@ -31,25 +31,11 @@
           placeholder="Description"
         />
       </mat-form-field>
-      <mat-form-field>
-        <mat-label>Categoria</mat-label>
-        <mat-select formControlName="categoryId">
-          <mat-option [value]="-1">-- Selecciona una Categoria --</mat-option>
-          @for (cat of categories$ | async; track cat.publicId) {
-            @if (cat.subCategories && cat.subCategories.length > 0) {
-              <mat-optgroup [label]="cat.name">
-                @for (subCat of cat.subCategories; track subCat.publicId) {
-                  <mat-option [value]="subCat.publicId">{{
-                    subCat.name
-                  }}</mat-option>
-                }
-              </mat-optgroup>
-            } @else {
-              <mat-option [value]="cat.publicId">{{ cat.name }} </mat-option>
-            }
-          }
-        </mat-select>
-      </mat-form-field>
+      <app-category-select
+        formControlName="category"
+        [isRequired]="true"
+      ></app-category-select>
+
       <div class="d-flex justify-content-end mt-5">
         <button (click)="cancel()" type="button" class="me-3" mat-button>
           Cancelar

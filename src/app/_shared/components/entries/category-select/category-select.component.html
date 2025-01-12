@@ -1,0 +1,27 @@
+<div>
+  <mat-form-field>
+    <mat-label>Categoria</mat-label>
+    <mat-select
+      [formControl]="selectedCategory"
+      (selectionChange)="select($event)"
+      (openedChange)="markAsTouched()"
+    >
+      <mat-option [value]="'-1'">-- Selecciona una Categoria --</mat-option>
+      @for (cat of categories$ | async; track cat.publicId) {
+        @if (cat.subCategories && cat.subCategories.length > 0) {
+          <mat-optgroup [label]="cat.name">
+            @for (subCat of cat.subCategories; track subCat.publicId) {
+              <mat-option [value]="subCat">{{ subCat.name }}</mat-option>
+            }
+          </mat-optgroup>
+        } @else {
+          <mat-option [value]="cat">{{ cat.name }} </mat-option>
+        }
+      }
+    </mat-select>
+
+    @if (selectedCategory.invalid) {
+      <mat-error>{{ errorMessage() }}</mat-error>
+    }
+  </mat-form-field>
+</div>

@@ -15,8 +15,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { NavMaterialComponent } from './_shared/components/tests/nav-material/nav-material.component';
-import { DashboardMaterialComponent } from './_shared/components/tests/dashboard-material/dashboard-material.component';
 import { MAT_CARD_CONFIG } from '@angular/material/card';
 
 const shared: any = [NavbarComponent, SidenavComponent];
@@ -36,8 +34,6 @@ const material: any[] = [MatSidenavModule];
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    NavMaterialComponent,
-    DashboardMaterialComponent,
   ],
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),

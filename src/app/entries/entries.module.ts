@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { CategorySelectComponent } from 'app/_shared/components/entries/category-select/category-select.component';
 
 const matControls = [
   MatFormFieldModule,
@@ -25,6 +26,7 @@ const matControls = [
     FormsModule,
     ReactiveFormsModule,
     ...matControls,
+    CategorySelectComponent,
   ],
 })
 export class EntriesModule {}

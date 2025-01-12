@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '@core/bases';
-import { Account, Entry } from '@core/models/api';
+import { Account, Category, Entry } from '@core/models/api';
 import { CatEntryType } from '@core/models/api/catalogs';
 import { EntryDto } from '@core/models/dtos';
 import { EntryService } from '@core/services';
@@ -31,9 +31,12 @@ export class AddEntryComponent extends BaseComponent implements OnInit {
   selectedType: CatEntryType;
 
   form = new FormGroup({
-    amount: new FormControl(0, [Validators.required, Validators.min(1)]),
-    description: new FormControl('', [Validators.required]),
-    categoryId: new FormControl('', [Validators.required]),
+    amount: new FormControl<number>(0, [
+      Validators.required,
+      Validators.min(1),
+    ]),
+    description: new FormControl<string>('', [Validators.required]),
+    category: new FormControl<Category | null>(null, [Validators.required]),
   });
 
   account: Account;
@@ -56,12 +59,14 @@ export class AddEntryComponent extends BaseComponent implements OnInit {
   submit() {
     if (this.form.invalid) return;
 
+    const newEntry: EntryDto = {
+      amount: this.form.value.amount!,
+      description: this.form.value.description!,
+      categoryId: this.form.value.category!.publicId,
+    };
+
     this.entryService
-      .create(
-        this.account.publicId,
-        this.form.value as EntryDto,
-        this.selectedType,
-      )
+      .create(this.account.publicId, newEntry, this.selectedType)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
         if (data.data) {
