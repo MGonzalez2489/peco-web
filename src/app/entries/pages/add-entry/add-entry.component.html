@@ -1,15 +1,8 @@
 <div class="page">
-  <div class="d-flex justify-content-center mb-3">
-    <mat-button-toggle-group [(ngModel)]="selectedType" aria-label="Font Style">
-      @for (eType of entryTypes; track eType.publicId) {
-        <mat-button-toggle [value]="eType">{{
-          eType.displayName
-        }}</mat-button-toggle>
-      }
-    </mat-button-toggle-group>
-  </div>
   <div class="d-flex justify-content-center">
     <form [formGroup]="form" (submit)="submit()">
+      <app-entry-type formControlName="entryType"></app-entry-type>
+
       <mat-form-field>
         <mat-label>Cantidad</mat-label>
         <input
@@ -29,19 +22,27 @@
           type="text"
           formControlName="description"
           placeholder="Description"
+          tabindex="2"
         />
       </mat-form-field>
       <app-category-select
         formControlName="category"
         [isRequired]="true"
+        tabindex="3"
       ></app-category-select>
 
       <div class="d-flex justify-content-end mt-5">
-        <button (click)="cancel()" type="button" class="me-3" mat-button>
+        <button
+          (click)="cancel()"
+          type="button"
+          class="me-3"
+          mat-button
+          tabindex="5"
+        >
           Cancelar
         </button>
 
-        <button mat-flat-button type="submit">Guardar</button>
+        <button mat-flat-button type="submit" tabindex="4">Guardar</button>
       </div>
       <pre>{{ form.value | json }}</pre>
     </form>

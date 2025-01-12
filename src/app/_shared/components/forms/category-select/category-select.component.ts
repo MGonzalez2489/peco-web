@@ -1,4 +1,4 @@
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   forwardRef,
@@ -32,7 +32,6 @@ import { AppState } from '@store/states';
   standalone: true,
   imports: [
     AsyncPipe,
-    JsonPipe,
     MatFormFieldModule,
     MatSelectModule,
     ReactiveFormsModule,

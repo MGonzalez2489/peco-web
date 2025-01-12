@@ -21,6 +21,7 @@
     "strictPropertyInitialization": false,
     "paths": {
       "@core/*": ["app/_core/*"],
+      "@shared/*": ["app/_shared/*"],
       "@envs/*": ["environments/*"],
       "@store/*": ["store/*"]
     }
