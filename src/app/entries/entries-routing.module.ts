@@ -8,6 +8,7 @@ const routes: Routes = [
     path: 'add',
     component: AddEntryComponent,
     resolve: { account: AccountService },
+    title: 'Add Entry',
   },
 ];
 

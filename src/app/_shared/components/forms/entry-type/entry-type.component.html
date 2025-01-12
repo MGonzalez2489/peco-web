@@ -6,8 +6,13 @@
   name="entryTypeBtnGp"
 >
   @for (eType of entryTypes; track eType.publicId) {
-    <mat-button-toggle class="w-100" [value]="eType">{{
-      eType.displayName
-    }}</mat-button-toggle>
+    <mat-button-toggle
+      class="w-100"
+      [class.income]="eType.name === 'income'"
+      [class.outcome]="eType.name === 'outcome'"
+      [class.selected]="eType.name === selected.value.name"
+      [value]="eType"
+      >{{ eType.displayName }}</mat-button-toggle
+    >
   }
 </mat-button-toggle-group>

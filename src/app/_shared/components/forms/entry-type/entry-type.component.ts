@@ -1,10 +1,9 @@
-import { JsonPipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
   forwardRef,
   inject,
-  OnInit,
+  Input,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -48,6 +47,9 @@ export class EntryTypeComponent
   private store$ = inject(Store<AppState>);
   entryTypes: CatEntryType[] = [];
 
+  @Input()
+  isFilter: boolean;
+
   selected = new FormControl();
 
   ngAfterViewInit(): void {
@@ -55,7 +57,9 @@ export class EntryTypeComponent
       .select(selectEntryTypes)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
-        this.entryTypes = data;
+        this.entryTypes = this.isFilter
+          ? [this.createAllEntryOptions(), ...data]
+          : data;
         const firstValue = this.entryTypes[0];
         this.selected.setValue(firstValue);
         this.onChange(this.selected.value);
@@ -78,5 +82,13 @@ export class EntryTypeComponent
   }
   selectValue(value: MatButtonToggleChange) {
     this.onChange(value.value);
+  }
+  createAllEntryOptions(): CatEntryType {
+    const newCatEntry: CatEntryType = {
+      name: 'all',
+      displayName: 'Todos',
+      publicId: '-1',
+    };
+    return newCatEntry;
   }
 }

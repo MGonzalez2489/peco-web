@@ -1,0 +1,18 @@
+//TODO: Improve styles
+.income {
+  background-color: lightgreen;
+  color: var(--mat-sys-on-primary);
+}
+.income.selected {
+  background-color: limegreen;
+  color: white;
+}
+
+.outcome {
+  background-color: lightcoral;
+  color: var(--mat-sys-on-primary);
+}
+.outcome.selected {
+  background-color: red;
+  color: white;
+}
