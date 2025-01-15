@@ -22,7 +22,7 @@ import {
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { Category } from '@core/models/api';
+import { EntryCategory } from '@core/models/api';
 import { Store } from '@ngrx/store';
 import { selectCategories } from '@store/selectors';
 import { AppState } from '@store/states';
@@ -57,8 +57,8 @@ export class CategorySelectComponent
 {
   @Input() isRequired: boolean;
   private store$ = inject(Store<AppState>);
-  value: Category;
-  onChange = (value: Category) => {};
+  value: EntryCategory;
+  onChange = (value: EntryCategory) => {};
   onTouched = () => {};
 
   errorMessage = signal('');
@@ -87,7 +87,7 @@ export class CategorySelectComponent
   }
 
   //ControlValueAccessor
-  writeValue(obj: Category): void {
+  writeValue(obj: EntryCategory): void {
     this.value = obj;
   }
   registerOnChange(fn: any): void {

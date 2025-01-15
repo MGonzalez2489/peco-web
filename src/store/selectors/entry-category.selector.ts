@@ -6,5 +6,5 @@ const userState = (state: AppState) => state.user;
 
 export const selectCategories = createSelector(
   userState,
-  (state: UserState) => state.categories,
+  (state: UserState) => state.entry_categories,
 );

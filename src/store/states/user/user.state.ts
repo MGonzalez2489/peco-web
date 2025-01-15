@@ -1,7 +1,7 @@
 import { AccountState } from './account.state';
-import { CategoryState } from './category.state';
+import { EntryCategoryState } from './entry-category.state';
 
 export type UserState = {
   accounts: AccountState;
-  categories: CategoryState;
+  entry_categories: EntryCategoryState;
 };

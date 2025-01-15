@@ -1,7 +1,7 @@
 import { BaseModel } from './_base.model';
 
-export interface Category extends BaseModel {
+export interface EntryCategory extends BaseModel {
   name: string;
   parentId?: number;
-  subCategories: Category[];
+  subCategories: EntryCategory[];
 }

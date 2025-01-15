@@ -1,9 +1,9 @@
 import { combineReducers } from '@ngrx/store';
 import { AccountReducer } from './account.reducer';
-import { CategoriesReducer } from './category.reducer';
 import { UserState } from '@store/states/user/user.state';
+import { EntryCategoryReducer } from './entry-category.reducer';
 
 export const UserReducer = combineReducers<UserState>({
   accounts: AccountReducer,
-  categories: CategoriesReducer,
+  entry_categories: EntryCategoryReducer,
 });

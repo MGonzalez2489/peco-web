@@ -1,4 +1,4 @@
-import { Category } from '@core/models/api';
+import { EntryCategory } from '@core/models/api';
 import { PaginationMetaModel } from '@core/models/responses';
 import { createAction, props } from '@ngrx/store';
 
@@ -16,7 +16,7 @@ export const GetAllCategoriesAction = createAction(
 );
 export const GetAllCategoriesSuccessAction = createAction(
   CATEGORY_ACTIONS.GET_CATEGORIES_SUCCESS,
-  props<{ categories: Category[] }>(),
+  props<{ categories: EntryCategory[] }>(),
 );
 export const GetAllCategoriesFailAction = createAction(
   CATEGORY_ACTIONS.GET_CATEGORIES_FAIL,

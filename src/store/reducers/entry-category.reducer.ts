@@ -1,13 +1,13 @@
 import { on } from '@ngrx/store';
 import { FEATURE_NAME } from '@store/constants';
 import { createRehydrateReducer } from './_rehydrateReducer';
-import * as CategoryActionsGroup from './../actions/categories.actions';
-import { Category } from '@core/models/api';
+import * as CategoryActionsGroup from '../actions/categories.actions';
+import { EntryCategory } from '@core/models/api';
 
-const initialState: Category[] = [];
+const initialState: EntryCategory[] = [];
 
-const _catalogsReducer = createRehydrateReducer(
-  FEATURE_NAME.CATEGORIES,
+const _entryCategories = createRehydrateReducer(
+  FEATURE_NAME.ENTRYCATEGORY,
   initialState,
 
   on(
@@ -21,6 +21,6 @@ const _catalogsReducer = createRehydrateReducer(
   }),
 );
 
-export function CategoriesReducer(state: any, action: any) {
-  return _catalogsReducer(state, action);
+export function EntryCategoryReducer(state: any, action: any) {
+  return _entryCategories(state, action);
 }

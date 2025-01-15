@@ -19,10 +19,10 @@ export const JwtInterceptor: HttpInterceptorFn = (req, next) => {
       }
       return next(req).pipe(
         catchError((err) => {
-          if ([401, 403].includes(err.status)) {
-            alert('expired session');
-            store$.dispatch(LogoutAction());
-          }
+          // if ([401, 403].includes(err.status)) {
+          //   alert('expired session');
+          //   store$.dispatch(LogoutAction());
+          // }
           return throwError(() => err);
         }),
       );

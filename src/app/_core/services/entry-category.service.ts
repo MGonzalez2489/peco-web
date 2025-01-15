@@ -1,17 +1,17 @@
 import { inject, Injectable } from '@angular/core';
 import { RequestService } from './_request.service';
-import { Category } from '@core/models/api';
 import { PaginationMetaModel } from '@core/models/responses';
+import { EntryCategory } from '@core/models/api';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CategoriesService {
+export class EntryCategoryService {
   private reqService = inject(RequestService);
   constructor() {}
 
   getAll(pageOptions?: PaginationMetaModel) {
-    return this.reqService.getPaginatedList<Category>(
+    return this.reqService.getPaginatedList<EntryCategory>(
       'categories',
       pageOptions,
     );

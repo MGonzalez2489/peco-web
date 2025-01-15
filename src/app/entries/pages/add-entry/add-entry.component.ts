@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '@core/bases';
-import { Account, Category } from '@core/models/api';
+import { Account, EntryCategory } from '@core/models/api';
 import { CatEntryType } from '@core/models/api/catalogs';
 import { EntryDto } from '@core/models/dtos';
 import { EntryService } from '@core/services';
@@ -32,7 +32,9 @@ export class AddEntryComponent extends BaseComponent implements OnInit {
       Validators.min(1),
     ]),
     description: new FormControl<string>('', [Validators.required]),
-    category: new FormControl<Category | null>(null, [Validators.required]),
+    category: new FormControl<EntryCategory | null>(null, [
+      Validators.required,
+    ]),
     entryType: new FormControl<CatEntryType | null>(null),
   });
 

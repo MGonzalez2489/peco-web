@@ -2,5 +2,5 @@ export const FEATURE_NAME = {
   AUTH: 'auth',
   ACCOUNT: 'account',
   CATALOGS: 'catalogs',
-  CATEGORIES: 'categories',
+  ENTRYCATEGORY: 'user-categories',
 };

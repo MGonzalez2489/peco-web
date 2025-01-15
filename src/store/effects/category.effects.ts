@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { Category } from '@core/models/api';
+import { EntryCategory } from '@core/models/api';
 import { ResultListModel } from '@core/models/responses';
-import { CategoriesService } from '@core/services';
+import { EntryCategoryService } from '@core/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { LogoutAction } from '@store/actions/auth.action';
@@ -18,7 +18,7 @@ import { catchError, map, mergeMap, of } from 'rxjs';
 @Injectable()
 export class CategoryEffects {
   private actions$ = inject(Actions);
-  private categoriesService = inject(CategoriesService);
+  private categoriesService = inject(EntryCategoryService);
   private store$ = inject(Store<AppState>);
 
   //categories
@@ -27,7 +27,7 @@ export class CategoryEffects {
       ofType(GetAllCategoriesAction),
       mergeMap((data) => {
         return this.categoriesService.getAll(data.pageOptions).pipe(
-          map((response: ResultListModel<Category>) => {
+          map((response: ResultListModel<EntryCategory>) => {
             return GetAllCategoriesSuccessAction({ categories: response.data });
           }),
           catchError((err) => {
