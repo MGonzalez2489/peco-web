@@ -1,4 +1,4 @@
-import { NgModule, provideZoneChangeDetection } from '@angular/core';
+import { NgModule, provideZoneChangeDetection, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { AppRoutingModule, routes } from './app.routes';
@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MAT_CARD_CONFIG } from '@angular/material/card';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 const shared: any = [NavbarComponent, SidenavComponent];
 
@@ -34,6 +35,12 @@ const material: any[] = [MatSidenavModule];
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),

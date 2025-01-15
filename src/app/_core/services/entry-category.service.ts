@@ -12,7 +12,7 @@ export class EntryCategoryService {
 
   getAll(pageOptions?: PaginationMetaModel) {
     return this.reqService.getPaginatedList<EntryCategory>(
-      'categories',
+      'entry-category',
       pageOptions,
     );
   }
