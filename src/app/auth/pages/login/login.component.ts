@@ -1,22 +1,25 @@
 import { Component, inject } from '@angular/core';
-import { AuthService } from '@core/services';
+import { LoginDto } from '@core/models/dtos';
+import { Store } from '@ngrx/store';
+import { AuthActions } from '@store/actions/auth.actions';
+import { AppState } from '@store/reducers';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-login',
   imports: [ButtonModule],
-  providers: [AuthService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  authService = inject(AuthService);
+  store$ = inject(Store<AppState>);
 
   login(): void {
-    this.authService
-      .login({ email: 'test@test.com', password: '123456' })
-      .subscribe((data) => {
-        console.log('response:', data);
-      });
+    const dto: LoginDto = {
+      email: 'test@test.com',
+      password: '123456',
+    };
+
+    this.store$.dispatch(AuthActions.login({ data: dto }));
   }
 }

@@ -1,7 +1,10 @@
-import { inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { RequestService } from './_request.service';
 import { LoginDto, TokenDto } from '@core/models/dtos';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
   request = inject(RequestService);
 

@@ -4,12 +4,13 @@ import { environment } from '@envs/environment';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideEffects } from '@ngrx/effects';
+import { reducers } from './reducers';
+import { AuthEffects } from './effects/auth.effects';
 
-const reducers = [];
-const effects: any[] = [];
+const effects: any[] = [AuthEffects];
 
 export const PecoStoreProvider = [
-  provideStore(),
+  provideStore(reducers),
   provideStoreDevtools({
     maxAge: 500,
     logOnly: !environment.isProduction,
