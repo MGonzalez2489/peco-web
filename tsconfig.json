@@ -22,7 +22,7 @@
       "@core/*": ["app/_core/*"],
       "@shared/*": ["app/_shared/*"],
       "@envs/*": ["environments/*"],
-      "@store/*": ["store/*"]
+      "@store/*": ["app/_store/*"]
     }
   },
   "angularCompilerOptions": {
