@@ -4,10 +4,14 @@ import { Store } from '@ngrx/store';
 import { AuthActions } from '@store/actions/auth.actions';
 import { AppState } from '@store/reducers';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+
+const components = [ButtonModule, CardModule];
 
 @Component({
   selector: 'app-login',
-  imports: [ButtonModule],
+  imports: [...components],
+
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
