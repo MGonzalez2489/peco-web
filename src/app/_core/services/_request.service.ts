@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ResultDto } from '@core/models/dtos';
 import { environment } from '@envs/environment';
 import { map, Observable } from 'rxjs';
 
+@Injectable({ providedIn: 'root' })
 export class RequestService {
   httpClient = inject(HttpClient);
 
