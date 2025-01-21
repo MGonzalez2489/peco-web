@@ -4,18 +4,22 @@ import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Toolbar } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
-import { SplitButton } from 'primeng/splitbutton';
 import { InputTextModule } from 'primeng/inputtext';
-import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';
+import { AvatarModule } from 'primeng/avatar';
+import { BadgeModule } from 'primeng/badge';
 
+import { MenubarModule } from 'primeng/menubar';
+import { MenuModule } from 'primeng/menu';
+
+import { PrimeIcons } from 'primeng/api';
 const components = [
   Toolbar,
   ButtonModule,
-  SplitButton,
   InputTextModule,
-  IconField,
-  InputIcon,
+  MenubarModule,
+  AvatarModule,
+  BadgeModule,
+  MenuModule,
 ];
 
 @Component({
@@ -30,12 +34,19 @@ export class NavbarComponent {
   ngOnInit() {
     this.items = [
       {
-        label: 'Update',
-        icon: 'pi pi-refresh',
+        label: 'Perfil',
+        icon: PrimeIcons.USER,
       },
       {
-        label: 'Delete',
-        icon: 'pi pi-times',
+        label: 'Blocks',
+        icon: PrimeIcons.FILE_CHECK,
+      },
+      {
+        separator: true,
+      },
+      {
+        label: 'Cerrar Sesion',
+        icon: PrimeIcons.SIGN_OUT,
       },
     ];
   }

@@ -1,18 +1,19 @@
 <div class="card">
   <p-toolbar>
     <ng-template #start>
-      <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
-      <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
-      <p-button icon="pi pi-upload" text severity="secondary" />
+      <div class="flex items-center gap-2">
+        <p-button label="App name" text plain />
+      </div>
     </ng-template>
-    <ng-template #center>
-      <p-iconfield iconPosition="left">
-        <p-inputicon styleClass="pi pi-search" />
-        <input type="text" pInputText placeholder="Search" />
-      </p-iconfield>
-    </ng-template>
+
     <ng-template #end>
-      <p-splitbutton label="Save" [model]="items" />
+      <p-menu #menu [model]="items" [popup]="true" />
+      <p-avatar
+        label="P"
+        styleClass="mr-2"
+        (click)="menu.toggle($event)"
+        class="cursor-pointer"
+      />
     </ng-template>
   </p-toolbar>
 </div>
