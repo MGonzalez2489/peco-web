@@ -15,4 +15,8 @@ export const AuthReducer = createReducer(
     ...state,
     token: data.access_token,
   })),
+  on(AuthActions.registerSuccess, (state, { data }) => ({
+    ...state,
+    token: data.access_token,
+  })),
 );

@@ -16,6 +16,11 @@ export const routes: Routes = [
       import('@shared/components/layout/main-page/main-page.component').then(
         (c) => c.MainPageComponent,
       ),
-    loadChildren: () => import('./home/home.routes').then((m) => m.routes),
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./home/home.routes').then((c) => c.routes),
+      },
+    ],
   },
 ];

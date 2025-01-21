@@ -1,0 +1,82 @@
+<form [formGroup]="loginForm" (ngSubmit)="submit()" #formDirective="ngForm">
+  <!-- Email -->
+  <div class="mb-6">
+    <p-floatlabel>
+      <input
+        pInputText
+        formControlName="email"
+        id="email"
+        fluid="true"
+        [ngClass]="{
+          'ng-invalid':
+            loginForm.controls['email'].invalid && formDirective.submitted,
+          'ng-dirty':
+            loginForm.controls['email'].invalid && formDirective.submitted,
+        }"
+      />
+      <label for="email">Email</label>
+    </p-floatlabel>
+    @if (formDirective.submitted && loginForm.controls["email"].invalid) {
+      <p-message severity="error" variant="simple" size="small"
+        >Email requerido</p-message
+      >
+    }
+  </div>
+  <!-- Password -->
+  <div class="my-6">
+    <p-floatlabel>
+      <p-password
+        inputId="password"
+        autocomplete="off"
+        formControlName="password"
+        fluid="true"
+        [class.ng-dirty]="
+          loginForm.controls['password'].invalid && formDirective.submitted
+        "
+      />
+      <label for="password">Contraseña</label>
+    </p-floatlabel>
+
+    @if (formDirective.submitted && loginForm.controls["password"].invalid) {
+      <p-message severity="error" variant="simple" size="small"
+        >Password requerido</p-message
+      >
+    }
+  </div>
+
+  <!-- Rememberme/forgotPassword-->
+  <div class="my-6 flex justify-between items-center">
+    <!-- <div> -->
+    <!--   <p-checkbox formControlName="rememberme" inputId="ny" /> -->
+    <!--   <label for="ny" class="ml-2">Recordarme</label> -->
+    <!-- </div> -->
+    <!---->
+    <!-- <p-button -->
+    <!--   label="Olvide mi contraseña" -->
+    <!--   variant="text" -->
+    <!--   severity="secondary" -->
+    <!--   size="small" -->
+    <!--   [link]="true" -->
+    <!--   [routerLink]="['/registrar']" -->
+    <!-- /> -->
+  </div>
+
+  <!-- Options -->
+  <div class="mb-6 mt-10 flex flex-col items-stretch">
+    <p-button
+      type="submit"
+      size="small"
+      pButton
+      [rounded]="true"
+      label="Entrar"
+    />
+    <div class="w-full flex justify-center mt-5">
+      <p-button
+        label="Crear Cuenta"
+        severity="info"
+        [link]="true"
+        [routerLink]="['/registrar']"
+      />
+    </div>
+  </div>
+</form>

@@ -23,4 +23,17 @@ export class AuthEffects {
       ),
     );
   });
+
+  register$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.register),
+      exhaustMap((action) =>
+        this.authService
+          .register(action.data)
+          .pipe(
+            map((result) => AuthActions.registerSuccess({ data: result.data })),
+          ),
+      ),
+    );
+  });
 }
