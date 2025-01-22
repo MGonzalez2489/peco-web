@@ -1,0 +1,19 @@
+<div class="bg-primary-100 h-full sidenav">
+  <div class="card">
+    <p-toolbar [style]="{ 'border-radius': '0px' }">
+      <ng-template #end>
+        <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
+      </ng-template>
+    </p-toolbar>
+    <p-menu [model]="menuItems">
+      <ng-template #item let-item>
+        <ng-container>
+          <a [routerLink]="item.route" class="p-menu-item-link">
+            <span [class]="item.icon"></span>
+            <span class="ml-2">{{ item.label }}</span>
+          </a>
+        </ng-container>
+      </ng-template>
+    </p-menu>
+  </div>
+</div>
