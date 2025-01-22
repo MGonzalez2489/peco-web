@@ -1,1 +1,30 @@
-<p>create-account works!</p>
+<p-card>
+  <form [formGroup]="form">
+    <!-- name -->
+    <div class="mb-6">
+      <p-floatlabel>
+        <input pInputText formControlName="name" id="name" fluid="true" />
+        <label for="name">Nombre de la cuenta</label>
+      </p-floatlabel>
+    </div>
+    <!-- initial balance -->
+    <div class="mb-6">
+      <p-floatlabel>
+        <p-inputnumber
+          inputId="balance"
+          mode="currency"
+          currency="MXN"
+          fluid="true"
+          formControlName="initialBalance"
+        />
+        <label for="balance">Balance inicial</label>
+      </p-floatlabel>
+    </div>
+    <!-- Options -->
+    <div class="mt-10 flex justify-center gap-x-8">
+      <p-button label="Cancelar" severity="secondary" [text]="true" />
+
+      <p-button type="submit" size="small" pButton label="Guardar" />
+    </div>
+  </form>
+</p-card>
