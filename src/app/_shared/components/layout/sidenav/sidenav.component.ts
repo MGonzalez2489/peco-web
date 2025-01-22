@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { MenuItem } from 'primeng/api';
-import { Toolbar } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
@@ -9,7 +8,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sidenav',
-  imports: [Toolbar, ButtonModule, InputTextModule, MenuModule, RouterLink],
+  imports: [ButtonModule, InputTextModule, MenuModule, RouterLink],
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.scss',
 })

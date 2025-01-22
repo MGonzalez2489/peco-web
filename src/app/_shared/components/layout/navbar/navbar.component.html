@@ -2,7 +2,12 @@
   <p-toolbar>
     <ng-template #start>
       <div class="flex items-center gap-2">
-        <p-button label="App name" text plain />
+        <p-button
+          icon="pi pi-bars"
+          [text]="true"
+          severity="secondary"
+          [disabled]="true"
+        />
       </div>
     </ng-template>
 
