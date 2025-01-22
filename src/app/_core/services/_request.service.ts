@@ -18,6 +18,19 @@ export class RequestService {
       .pipe(map((res) => res));
   }
 
+  public get<T>(url: string, params?: any): Observable<ResultDto<T>> {
+    return this.httpClient
+      .get<ResultDto<T>>(this.getUrl(url), {
+        params: this.objectToQueryParameter(params),
+      })
+      .pipe(map((res) => res));
+  }
+
+  public getList<T>(url: string) {
+    return this.httpClient.get<T[]>(this.getUrl(url)).pipe(map((res) => res));
+  }
+
+  //Private methods
   private getUrl(url: string): string {
     return environment.baseUrl + url;
   }

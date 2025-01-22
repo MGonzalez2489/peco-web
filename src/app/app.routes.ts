@@ -11,15 +11,20 @@ export const routes: Routes = [
     loadChildren: () => import('./auth/auth.routes').then((m) => m.routes),
   },
   {
-    path: 'home',
+    path: '',
     loadComponent: () =>
       import('@shared/components/layout/main-page/main-page.component').then(
         (c) => c.MainPageComponent,
       ),
     children: [
       {
-        path: '',
+        path: 'home',
         loadChildren: () => import('./home/home.routes').then((c) => c.routes),
+      },
+      {
+        path: 'accounts',
+        loadChildren: () =>
+          import('./accounts/accounts.routes').then((c) => c.routes),
       },
     ],
   },

@@ -35,7 +35,6 @@ export class SidenavComponent implements OnInit {
         items: [
           {
             label: 'Inicio',
-            // icon: 'pi pi-palette',
             route: '/home',
           },
           {
@@ -45,6 +44,7 @@ export class SidenavComponent implements OnInit {
           {
             label: 'Registros',
             route: '/entries',
+            disabled: true,
           },
         ],
       },
