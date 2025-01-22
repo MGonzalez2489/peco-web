@@ -36,17 +36,16 @@ export class NavbarComponent {
       {
         label: 'Perfil',
         icon: PrimeIcons.USER,
+        disabled: true,
       },
-      {
-        label: 'Blocks',
-        icon: PrimeIcons.FILE_CHECK,
-      },
+
       {
         separator: true,
       },
       {
         label: 'Cerrar Sesion',
         icon: PrimeIcons.SIGN_OUT,
+        routerLink: '/login',
       },
     ];
   }

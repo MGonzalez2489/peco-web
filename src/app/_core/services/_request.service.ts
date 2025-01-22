@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ResultDto } from '@core/models/dtos';
+import { ResultDto, ResultListDto } from '@core/models/dtos';
 import { environment } from '@envs/environment';
 import { map, Observable } from 'rxjs';
 
@@ -27,7 +27,9 @@ export class RequestService {
   }
 
   public getList<T>(url: string) {
-    return this.httpClient.get<T[]>(this.getUrl(url)).pipe(map((res) => res));
+    return this.httpClient
+      .get<ResultListDto<T>>(this.getUrl(url))
+      .pipe(map((res) => res));
   }
 
   //Private methods
