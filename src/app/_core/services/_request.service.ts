@@ -1,6 +1,11 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ResultDto, ResultListDto } from '@core/models/dtos';
+import {
+  PaginationMetaDto,
+  PagMetaReqDto,
+  ResultDto,
+  ResultListDto,
+} from '@core/models/dtos';
 import { environment } from '@envs/environment';
 import { map, Observable } from 'rxjs';
 
@@ -26,9 +31,21 @@ export class RequestService {
       .pipe(map((res) => res));
   }
 
-  public getList<T>(url: string) {
+  public getList<T>(url: string, pagination?: PaginationMetaDto, params?: any) {
+    let reqParams = {};
+
+    if (pagination) {
+      let paginationModel = new PagMetaReqDto(pagination);
+      reqParams = { ...reqParams, ...paginationModel };
+    }
+    if (params) {
+      reqParams = { ...reqParams, ...params };
+    }
+
+    reqParams = this.objectToQueryParameter(reqParams);
+
     return this.httpClient
-      .get<ResultListDto<T>>(this.getUrl(url))
+      .get<ResultListDto<T>>(this.getUrl(url), { params: reqParams })
       .pipe(map((res) => res));
   }
 

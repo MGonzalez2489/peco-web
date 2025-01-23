@@ -1,18 +1,6 @@
 <p-card header="Cuentas">
   @if (accounts$ | async; as accounts) {
-    <p-table
-      [value]="accounts"
-      stripedRows
-      [paginator]="true"
-      [rows]="10"
-      [rowsPerPageOptions]="[10, 25, 50]"
-      [globalFilterFields]="[
-        'name',
-        'country.name',
-        'representative.name',
-        'status',
-      ]"
-    >
+    <p-table [value]="accounts.data" [paginator]="false">
       <ng-template #caption>
         <div class="flex justify-between">
           <p-iconField iconPosition="left">
@@ -40,7 +28,19 @@
         <tr>
           <td>{{ account.name }}</td>
           <td>{{ account.createdAt | date }}</td>
-          <td>{{ account.balance | currency }}</td>
+          <td>
+            <p-tag
+              [severity]="
+                account.balance > 0
+                  ? 'success'
+                  : account.balance < 0
+                    ? 'danger'
+                    : 'secondary'
+              "
+            >
+              {{ account.balance | currency }}
+            </p-tag>
+          </td>
           <td>
             <p-checkbox
               [(ngModel)]="account.isDefault"
@@ -51,5 +51,12 @@
         </tr>
       </ng-template>
     </p-table>
+    <p-paginator
+      (onPageChange)="onPageChange($event, accounts.meta)"
+      [rows]="accounts.meta.take"
+      [totalRecords]="accounts.meta.itemCount"
+      [rowsPerPageOptions]="[5, 10, 25, { showAll: 'All' }]"
+      [first]="accounts.meta.take * accounts.meta.page"
+    />
   }
 </p-card>

@@ -1,8 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Account } from '@core/models/entities';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/reducers';
-import { selectAccounts } from '@store/selectors';
 import { Observable } from 'rxjs';
 
 import { TableModule } from 'primeng/table';
@@ -16,6 +15,34 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+
+import { TagModule } from 'primeng/tag';
+import { AccountService } from '@core/services';
+import { PaginationMetaDto, ResultListDto } from '@core/models/dtos';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+
+export interface Country {
+  name?: string;
+  code?: string;
+}
+
+export interface Representative {
+  name?: string;
+  image?: string;
+}
+
+export interface Customer {
+  id?: number;
+  name?: string;
+  country?: Country;
+  company?: string;
+  date?: string | Date;
+  status?: string;
+  activity?: number;
+  representative?: Representative;
+  verified?: boolean;
+  balance?: number;
+}
 
 @Component({
   selector: 'app-accounts',
@@ -32,14 +59,29 @@ import { RouterLink } from '@angular/router';
     FormsModule,
     DatePipe,
     RouterLink,
+    TagModule,
+    PaginatorModule,
   ],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss',
 })
-export class AccountsComponent {
+export class AccountsComponent implements OnInit {
   store$ = inject(Store<AppState>);
-  accounts$: Observable<Account[]>;
-  constructor() {
-    this.accounts$ = this.store$.select(selectAccounts);
+  accountService = inject(AccountService);
+  accounts$ = new Observable<ResultListDto<Account>>();
+  constructor() {}
+
+  //aquyi
+  ngOnInit(): void {
+    this.search();
+  }
+  search(pagination?: PaginationMetaDto) {
+    this.accounts$ = this.accountService.getAll(pagination);
+  }
+  onPageChange(event: PaginatorState, pagination: PaginationMetaDto) {
+    pagination.page = event.page! + 1;
+    pagination.take = event.rows!;
+
+    this.search(pagination);
   }
 }
