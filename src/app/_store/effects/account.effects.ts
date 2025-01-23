@@ -8,7 +8,7 @@ import { exhaustMap, map } from 'rxjs';
 export class AccountEffects {
   private actions$ = inject(Actions);
   private accountService = inject(AccountService);
-
+  //Get All
   getAll$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AccountActions.loadAccounts),
@@ -23,4 +23,19 @@ export class AccountEffects {
       ),
     );
   });
+  //CREATE
+  create$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AccountActions.create),
+      exhaustMap((action) =>
+        this.accountService
+          .create(action.data)
+          .pipe(
+            map((result) =>
+              AccountActions.createSuccess({ data: result.data }),
+            ),
+          ),
+      ),
+    ),
+  );
 }

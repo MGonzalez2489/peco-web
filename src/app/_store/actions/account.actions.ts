@@ -7,5 +7,9 @@ export const AccountActions = createActionGroup({
     'Load Accounts': emptyProps(),
     'Load Accounts Success': props<{ data: Account[] }>(),
     'Load Accounts Failure': props<{ payload: any }>(),
+
+    Create: props<{ data: any }>(),
+    'Create Success': props<{ data: Account }>(),
+    'Create Failed': props<{ payload: any }>(),
   },
 });

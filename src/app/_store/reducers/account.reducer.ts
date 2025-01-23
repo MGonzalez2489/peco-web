@@ -18,4 +18,9 @@ export const AccountReducer = createReducer(
     ...state,
     accounts: data,
   })),
+
+  on(AccountActions.createSuccess, (state, { data }) => ({
+    ...state,
+    accounts: [data, ...state.accounts],
+  })),
 );

@@ -15,10 +15,10 @@ export class AccountService {
   getAll() {
     return this.reqService.getList<Account>('accounts');
   }
-  // create(dto: AccountDto) {
-  //   return this.reqService.post<Account>('accounts', dto);
-  // }
-  // getById(accountId: string) {
-  //   return this.reqService.get<Account>('accounts/' + accountId);
-  // }
+  create(dto: Account) {
+    return this.reqService.post<Account>('accounts', dto);
+  }
+  getById(accountId: string) {
+    return this.reqService.get<Account>('accounts/' + accountId);
+  }
 }
