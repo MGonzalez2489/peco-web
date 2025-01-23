@@ -5,5 +5,6 @@ export const routes: Routes = [
     path: '',
     loadComponent: () =>
       import('./pages/home/home.component').then((c) => c.HomeComponent),
+    title: 'Inicio',
   },
 ];
