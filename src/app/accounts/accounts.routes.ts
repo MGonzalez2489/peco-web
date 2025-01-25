@@ -15,4 +15,12 @@ export const routes: Routes = [
       ),
     title: 'Crear Cuenta',
   },
+  {
+    path: ':accountId/edit',
+    loadComponent: () =>
+      import('./pages/edit-account/edit-account.component').then(
+        (c) => c.EditAccountComponent,
+      ),
+    title: 'Editar Cuenta',
+  },
 ];

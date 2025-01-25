@@ -22,6 +22,7 @@
           <th>Creado</th>
           <th>Balance</th>
           <th>Default</th>
+          <th></th>
         </tr>
       </ng-template>
       <ng-template #body let-account>
@@ -46,6 +47,15 @@
               [(ngModel)]="account.isDefault"
               [binary]="true"
               [disabled]="true"
+            />
+          </td>
+          <td>
+            <p-button
+              icon="pi pi-pencil"
+              [rounded]="true"
+              [text]="true"
+              severity="secondary"
+              [routerLink]="[account.publicId, 'edit']"
             />
           </td>
         </tr>
