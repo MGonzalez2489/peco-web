@@ -7,18 +7,20 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Account } from '@core/models/entities';
-import { Actions } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { BaseComponent } from '@shared/components';
+import { AccountActions } from '@store/actions/account.actions';
 import { AppState } from '@store/reducers';
 import { selectAccountById } from '@store/selectors';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
-import { Observable, takeUntil } from 'rxjs';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-edit-account',
@@ -30,6 +32,7 @@ import { Observable, takeUntil } from 'rxjs';
     FloatLabelModule,
     InputTextModule,
     MessageModule,
+    InputNumberModule,
   ],
   templateUrl: './edit-account.component.html',
   styleUrl: './edit-account.component.scss',
@@ -37,30 +40,47 @@ import { Observable, takeUntil } from 'rxjs';
 export class EditAccountComponent extends BaseComponent {
   private activatedRoute = inject(ActivatedRoute);
   private store$ = inject(Store<AppState>);
-  // account$: Observable<Account | undefined>;
 
   actions$ = inject(Actions);
   router = inject(Router);
+  accountId: string;
   form = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    initialBalance: new FormControl({ value: 0, disabled: true }),
+    initialBalance: new FormControl<number>(0),
     isDefault: new FormControl(false),
   });
 
   constructor() {
     super();
-    const accId = this.activatedRoute.snapshot.params['accountId'];
+    this.accountId = this.activatedRoute.snapshot.params['accountId'];
     this.store$
-      .select(selectAccountById(accId))
+      .select(selectAccountById(this.accountId))
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
-        this.form.patchValue({ name: data!.name });
-        this.form.patchValue({ initialBalance: data!.balance });
-        this.form.patchValue({ isDefault: data!.isDefault });
+        this.form.patchValue({
+          name: data!.name,
+          initialBalance: data?.balance,
+          isDefault: data?.isDefault,
+        });
       });
   }
 
-  submit() {}
+  submit() {
+    if (this.form.invalid) return;
+
+    this.store$.dispatch(
+      AccountActions.update({
+        data: this.form.value as Account,
+        accountId: this.accountId,
+      }),
+    );
+
+    this.actions$
+      .pipe(ofType(AccountActions.updateSuccess), takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        this.cancel();
+      });
+  }
   cancel(): void {
     this.router.navigate(['/accounts']);
   }

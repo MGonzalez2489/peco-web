@@ -8,8 +8,12 @@ export const AccountActions = createActionGroup({
     'Load Accounts Success': props<{ data: Account[] }>(),
     'Load Accounts Failure': props<{ payload: any }>(),
 
-    Create: props<{ data: any }>(),
+    Create: props<{ data: Account }>(),
     'Create Success': props<{ data: Account }>(),
     'Create Failed': props<{ payload: any }>(),
+
+    Update: props<{ data: Account; accountId: string }>(),
+    'Update Success': props<{ data: Account }>(),
+    'Update Failed': props<{ payload: any }>(),
   },
 });

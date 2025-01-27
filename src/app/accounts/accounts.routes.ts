@@ -23,4 +23,12 @@ export const routes: Routes = [
       ),
     title: 'Editar Cuenta',
   },
+  {
+    path: ':accountId/delete',
+    loadComponent: () =>
+      import('./pages/delete-account/delete-account.component').then(
+        (c) => c.DeleteAccountComponent,
+      ),
+    title: 'Eliminar Cuenta',
+  },
 ];

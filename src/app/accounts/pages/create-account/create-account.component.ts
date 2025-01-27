@@ -20,6 +20,7 @@ import { takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { CheckboxModule } from 'primeng/checkbox';
 import { MessageModule } from 'primeng/message';
+import { Account } from '@core/models/entities';
 
 @Component({
   selector: 'app-create-account',
@@ -49,7 +50,9 @@ export class CreateAccountComponent extends BaseComponent {
   submit(): void {
     if (this.form.invalid) return;
 
-    this.store$.dispatch(AccountActions.create({ data: this.form.value }));
+    this.store$.dispatch(
+      AccountActions.create({ data: this.form.value as Account }),
+    );
 
     this.actions$
       .pipe(ofType(AccountActions.createSuccess), takeUntil(this.unsubscribe$))

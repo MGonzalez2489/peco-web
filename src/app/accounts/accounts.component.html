@@ -22,7 +22,8 @@
           <th>Creado</th>
           <th>Balance</th>
           <th>Default</th>
-          <th></th>
+          <th style="width: 5%"></th>
+          <th style="width: 5%"></th>
         </tr>
       </ng-template>
       <ng-template #body let-account>
@@ -55,18 +56,31 @@
               [rounded]="true"
               [text]="true"
               severity="secondary"
+              variant="outlined"
               [routerLink]="[account.publicId, 'edit']"
+            />
+          </td>
+          <td>
+            <p-button
+              icon="pi pi-trash"
+              [rounded]="true"
+              [text]="true"
+              variant="outlined"
+              severity="danger"
+              [routerLink]="[account.publicId, 'delete']"
             />
           </td>
         </tr>
       </ng-template>
     </p-table>
-    <p-paginator
-      (onPageChange)="onPageChange($event, accounts.meta)"
-      [rows]="accounts.meta.take"
-      [totalRecords]="accounts.meta.itemCount"
-      [rowsPerPageOptions]="[5, 10, 25, { showAll: 'All' }]"
-      [first]="accounts.meta.take * accounts.meta.page"
-    />
+    @if (accounts.meta.pageCount > 1) {
+      <p-paginator
+        (onPageChange)="onPageChange($event, accounts.meta)"
+        [rows]="accounts.meta.take"
+        [totalRecords]="accounts.meta.itemCount"
+        [rowsPerPageOptions]="[5, 10, 25, { showAll: 'All' }]"
+        [first]="accounts.meta.take * accounts.meta.page"
+      />
+    }
   }
 </p-card>

@@ -1,7 +1,5 @@
 import { inject, Injectable } from '@angular/core';
 import { RequestService } from './_request.service';
-import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
 import { Account } from '@core/models/entities';
 import { PaginationMetaDto } from '@core/models/dtos';
 
@@ -10,8 +8,6 @@ import { PaginationMetaDto } from '@core/models/dtos';
 })
 export class AccountService {
   private reqService = inject(RequestService);
-  private store$ = inject(Store);
-  private route = inject(Router);
 
   getAll(pagination?: PaginationMetaDto) {
     return this.reqService.getList<Account>('accounts', pagination);
@@ -19,6 +15,10 @@ export class AccountService {
   create(dto: Account) {
     return this.reqService.post<Account>('accounts', dto);
   }
+  update(dto: Account, accountId: string) {
+    return this.reqService.put<Account>(`accounts/${accountId}`, dto);
+  }
+
   getById(accountId: string) {
     return this.reqService.get<Account>('accounts/' + accountId);
   }

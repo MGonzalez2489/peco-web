@@ -49,6 +49,24 @@ export class RequestService {
       .pipe(map((res) => res));
   }
 
+  public put<T>(
+    url: string,
+    model: Object,
+    headers?: HttpHeaders,
+  ): Observable<ResultDto<T>> {
+    return this.httpClient
+      .put<ResultDto<T>>(this.getUrl(url), model, { headers })
+      .pipe(map((res) => res));
+  }
+  public delete<T>(
+    url: string,
+    headers?: HttpHeaders,
+  ): Observable<ResultDto<T>> {
+    return this.httpClient
+      .delete<ResultDto<T>>(this.getUrl(url), { headers })
+      .pipe(map((res) => res));
+  }
+
   //Private methods
   private getUrl(url: string): string {
     return environment.baseUrl + url;

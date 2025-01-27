@@ -11,15 +11,16 @@
       <!-- initial balance -->
       <div class="my-6">
         <p-floatlabel>
-          <input
-            pInputText
+          <p-inputnumber
             formControlName="initialBalance"
-            id="balance"
-            fluid="true"
+            inputId="initialBalance"
             mode="currency"
             currency="MXN"
+            locale="es-ES"
+            [fluid]="true"
+            [readonly]="true"
           />
-          <label for="balance">Balance</label>
+          <label for="initialBalance">Balance</label>
         </p-floatlabel>
       </div>
       <!-- Mark Default -->
@@ -31,7 +32,7 @@
         />
         <label for="isDefault" class="ml-2">Default</label>
       </div>
-
+      <!-- Is Default Message -->
       <div class="my-6">
         @if (form.value.isDefault) {
           <p-message icon="pi pi-info-circle" severity="info">
@@ -46,7 +47,6 @@
           </p-message>
         }
       </div>
-
       <!-- Options -->
       <div class="mt-10 flex justify-center gap-x-8">
         <p-button

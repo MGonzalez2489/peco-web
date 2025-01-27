@@ -38,4 +38,20 @@ export class AccountEffects {
       ),
     ),
   );
+
+  //UPDATE
+  update$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AccountActions.update),
+      exhaustMap((action) =>
+        this.accountService
+          .update(action.data, action.accountId)
+          .pipe(
+            map((result) =>
+              AccountActions.updateSuccess({ data: result.data }),
+            ),
+          ),
+      ),
+    ),
+  );
 }
