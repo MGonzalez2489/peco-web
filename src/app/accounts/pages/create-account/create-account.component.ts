@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
 import { CheckboxModule } from 'primeng/checkbox';
 import { MessageModule } from 'primeng/message';
 import { Account } from '@core/models/entities';
+import { AccountCreateDto } from '@core/models/dtos';
 
 @Component({
   selector: 'app-create-account',
@@ -42,16 +43,16 @@ export class CreateAccountComponent extends BaseComponent {
   actions$ = inject(Actions);
   router = inject(Router);
   form = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    initialBalance: new FormControl(null, [Validators.required]),
-    isDefault: new FormControl(false),
+    name: new FormControl<string>('', [Validators.required]),
+    balance: new FormControl<number>(0, [Validators.required]),
+    isDefault: new FormControl<boolean>(false),
   });
 
   submit(): void {
     if (this.form.invalid) return;
 
     this.store$.dispatch(
-      AccountActions.create({ data: this.form.value as Account }),
+      AccountActions.create({ data: this.form.value as AccountCreateDto }),
     );
 
     this.actions$

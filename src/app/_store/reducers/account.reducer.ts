@@ -30,7 +30,11 @@ export const AccountReducer = createReducer(
       }
       return acc;
     });
+    return { ...state, accounts };
+  }),
 
+  on(AccountActions.deleteSuccess, (state, { accountId }) => {
+    const accounts = state.accounts.filter((f) => f.publicId !== accountId);
     return { ...state, accounts };
   }),
 );

@@ -29,7 +29,7 @@
       <p-button
         type="button"
         size="small"
-        (click)="delete()"
+        (click)="delete(account.publicId)"
         [disabled]="account.isDefault"
         severity="danger"
         pButton

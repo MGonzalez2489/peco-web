@@ -54,4 +54,20 @@ export class AccountEffects {
       ),
     ),
   );
+
+  //DELETE
+  delete$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AccountActions.delete),
+      exhaustMap((action) =>
+        this.accountService
+          .delete(action.accountId)
+          .pipe(
+            map((result) =>
+              AccountActions.deleteSuccess({ accountId: action.accountId }),
+            ),
+          ),
+      ),
+    ),
+  );
 }
