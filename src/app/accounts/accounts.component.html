@@ -1,4 +1,4 @@
-<p-card header="Cuentas">
+<p-card>
   @if (accounts$ | async; as accounts) {
     <p-table [value]="accounts.data" [paginator]="false">
       <ng-template #caption>

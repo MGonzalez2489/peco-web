@@ -43,7 +43,6 @@ export class SidenavComponent implements OnInit {
           {
             label: 'Registros',
             route: '/entries',
-            disabled: true,
           },
         ],
       },
