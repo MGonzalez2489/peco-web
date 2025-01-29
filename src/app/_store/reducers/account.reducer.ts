@@ -4,37 +4,31 @@ import { AccountActions } from '@store/actions/account.actions';
 
 export const accountFeatureKey = 'account';
 
-export interface AccountState {
-  accounts: Account[];
-}
+export type AccountState = Account[];
 
-export const initialState: AccountState = {
-  accounts: [],
-};
-
+export const initialState: AccountState = [];
 export const AccountReducer = createReducer(
   initialState,
-  on(AccountActions.loadAccountsSuccess, (state, { data }) => ({
-    ...state,
-    accounts: data,
-  })),
+  on(AccountActions.loadAccountsSuccess, (state, { data }) => {
+    return data;
+  }),
 
-  on(AccountActions.createSuccess, (state, { data }) => ({
-    ...state,
-    accounts: [data, ...state.accounts],
-  })),
+  on(AccountActions.createSuccess, (state, { data }) => {
+    const newState = [data, ...state];
+    return newState;
+  }),
   on(AccountActions.updateSuccess, (state, { data }) => {
-    const accounts = state.accounts.map((acc) => {
+    const accounts = state.map((acc) => {
       if (acc.publicId === data.publicId) {
         return { ...acc, name: data.name, isDefault: data.isDefault };
       }
       return acc;
     });
-    return { ...state, accounts };
+    return accounts;
   }),
 
   on(AccountActions.deleteSuccess, (state, { accountId }) => {
-    const accounts = state.accounts.filter((f) => f.publicId !== accountId);
-    return { ...state, accounts };
+    const accounts = state.filter((f) => f.publicId !== accountId);
+    return accounts;
   }),
 );

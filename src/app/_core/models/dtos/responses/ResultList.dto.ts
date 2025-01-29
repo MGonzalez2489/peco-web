@@ -9,6 +9,7 @@ export class PaginationMetaDto {
   pageCount: number = 0;
   hasPreviousPage: boolean = false;
   hasNextPage: boolean = false;
+
   //order
   order?: string;
   orderBy?: string;
@@ -18,6 +19,8 @@ export class PaginationMetaDto {
 export class PagMetaReqDto {
   page: number = 1;
   take: number = 10;
+  showAll: boolean = false;
+
   order?: string;
   orderBy?: string;
   hint?: string;
@@ -33,7 +36,7 @@ export class PagMetaReqDto {
 
     this.page = this.page == 0 ? 1 : this.page;
 
-    this.order = pagMeta?.order || 'ASC';
-    this.orderBy = pagMeta?.orderBy || 'createdAt';
+    this.order = pagMeta?.order || 'DESC';
+    this.orderBy = pagMeta?.orderBy || 'id';
   }
 }

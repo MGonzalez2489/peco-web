@@ -3,14 +3,14 @@ import { createSelector } from '@ngrx/store';
 import { AppState } from '@store/reducers';
 import { AccountState } from '@store/reducers/account.reducer';
 
-const accountsState = (state: AppState) => state.accounts;
+const accountsState = (state: AppState) => state.user.accounts;
 
 export const selectAccounts = createSelector(
   accountsState,
-  (state: AccountState) => state.accounts,
+  (state: AccountState) => state,
 );
 
 export const selectAccountById = (accountId: string) =>
   createSelector(accountsState, (state: AccountState) =>
-    state.accounts.find((f: Account) => f.publicId == accountId),
+    state.find((f: Account) => f.publicId == accountId),
   );

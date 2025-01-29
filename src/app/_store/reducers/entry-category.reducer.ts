@@ -1,17 +1,17 @@
+import { EntryCategory } from '@core/models/entities';
 import { createReducer, on } from '@ngrx/store';
-import { EntryCategoryActions } from './entry-category.actions';
+import { EntryCategoryActions } from '@store/actions/entry-category.actions';
 
 export const entryCategoryFeatureKey = 'entryCategory';
 
-export interface State {
+export type EntryCategoryState = EntryCategory[];
 
-}
+export const initialState: EntryCategoryState = [];
 
-export const initialState: State = {
-
-};
-
-export const reducer = createReducer(
+export const EntryCategoryReducer = createReducer(
   initialState,
-);
 
+  on(EntryCategoryActions.loadEntryCategoriesSuccess, (state, { data }) => {
+    return data;
+  }),
+);

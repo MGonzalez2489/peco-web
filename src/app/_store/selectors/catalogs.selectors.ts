@@ -6,5 +6,5 @@ const catalogsState = (state: AppState) => state.catalogs;
 
 export const selectCatEntryTypes = createSelector(
   catalogsState,
-  (state: CatalogsState) => state.entrytypes,
+  (state: CatalogsState) => state.entryTypes,
 );

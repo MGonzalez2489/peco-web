@@ -1,0 +1,19 @@
+<p-floatlabel>
+  <p-select
+    [formControl]="selectedCategory"
+    [options]="groupedEntryCategories"
+    optionLabel="label"
+    optionValue="value"
+    placeholder="Categoria"
+    [fluid]="true"
+    id="entryCategory"
+    [group]="true"
+    (onChange)="select($event)"
+  >
+    <ng-template let-group #group>
+      <span class="font-bold">{{ group.label }}</span>
+    </ng-template>
+  </p-select>
+
+  <label for="entryCategory">Categoria</label>
+</p-floatlabel>

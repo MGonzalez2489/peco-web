@@ -15,4 +15,12 @@ export const routes: Routes = [
       ),
     title: 'Crear Registro',
   },
+  {
+    path: 'new/:accountId',
+    loadComponent: () =>
+      import('./pages/create-entry/create-entry.component').then(
+        (c) => c.CreateEntryComponent,
+      ),
+    title: 'Crear Registro',
+  },
 ];

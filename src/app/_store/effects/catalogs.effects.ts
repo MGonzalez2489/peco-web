@@ -20,8 +20,8 @@ export class CatalogsEffects {
       exhaustMap(() =>
         this.catalogsService.getEntryTipes().pipe(
           map((result) => {
-            console.log('res', result);
-            return CatalogsActions.loadEntryTypeSuccess({ data: result });
+            console.log('entr types', result);
+            return CatalogsActions.loadEntryTypeSuccess({ data: result.data });
           }),
         ),
       ),
@@ -34,7 +34,6 @@ export class CatalogsEffects {
       this.actions$.pipe(
         ofType(AuthActions.loginSuccess, AuthActions.registerSuccess),
         map(() => {
-          console.log('entro');
           this.store$.dispatch(CatalogsActions.loadEntryType());
         }),
       ),

@@ -18,7 +18,11 @@ import { RouterLink } from '@angular/router';
 
 import { TagModule } from 'primeng/tag';
 import { AccountService } from '@core/services';
-import { PaginationMetaDto, ResultListDto } from '@core/models/dtos';
+import {
+  PaginationMetaDto,
+  PagMetaReqDto,
+  ResultListDto,
+} from '@core/models/dtos';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 
 @Component({
@@ -52,13 +56,13 @@ export class AccountsComponent implements OnInit {
   ngOnInit(): void {
     this.search();
   }
-  search(pagination?: PaginationMetaDto) {
+  search(pagination?: PagMetaReqDto) {
     this.accounts$ = this.accountService.getAll(pagination);
   }
   onPageChange(event: PaginatorState, pagination: PaginationMetaDto) {
     pagination.page = event.page! + 1;
     pagination.take = event.rows!;
 
-    this.search(pagination);
+    this.search(new PagMetaReqDto(pagination));
   }
 }

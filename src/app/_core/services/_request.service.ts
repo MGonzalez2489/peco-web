@@ -31,13 +31,14 @@ export class RequestService {
       .pipe(map((res) => res));
   }
 
-  public getList<T>(url: string, pagination?: PaginationMetaDto, params?: any) {
+  public getList<T>(url: string, pagination?: PagMetaReqDto, params?: any) {
     let reqParams = {};
 
-    if (pagination) {
-      let paginationModel = new PagMetaReqDto(pagination);
-      reqParams = { ...reqParams, ...paginationModel };
+    if (!pagination) {
+      pagination = new PagMetaReqDto();
     }
+
+    reqParams = { ...reqParams, ...pagination };
     if (params) {
       reqParams = { ...reqParams, ...params };
     }
@@ -45,20 +46,7 @@ export class RequestService {
     reqParams = this.objectToQueryParameter(reqParams);
 
     return this.httpClient
-      .get<T[]>(this.getUrl(url), { params: reqParams })
-      .pipe(map((res) => res));
-  }
-  public getPaginatedList<T>(
-    url: string,
-    pagination?: PaginationMetaDto,
-    params?: any,
-  ): Observable<ResultListDto<T>> {
-    const pagParams = new PagMetaReqDto(pagination);
-    const reqParams = this.objectToQueryParameter({ ...pagParams, ...params });
-    return this.httpClient
-      .get<ResultListDto<T>>(this.getUrl(url), {
-        params: reqParams,
-      })
+      .get<ResultListDto<T>>(this.getUrl(url), { params: reqParams })
       .pipe(map((res) => res));
   }
 

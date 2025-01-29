@@ -26,6 +26,15 @@
           <label for="amount">Cantidad</label>
         </p-floatlabel>
       </div>
+      <!-- Entry Category -->
+      <div class="my-6">
+        <app-select-entry-category
+          [isRequired]="true"
+          formControlName="entryCategory"
+        />
+      </div>
+
+      <!-- Entry Type -->
       <div class="my-6">
         @if (entryTypes$ | async; as entryTypes) {
           <p-floatlabel>
@@ -39,6 +48,24 @@
             />
 
             <label for="entryType">Tipo</label>
+          </p-floatlabel>
+        }
+      </div>
+      <!-- Entry Type -->
+      <div class="my-6">
+        @if (accounts$ | async; as accounts) {
+          <p-floatlabel>
+            <p-select
+              formControlName="accountId"
+              [options]="accounts"
+              optionValue="publicId"
+              optionLabel="name"
+              placeholder="Cuenta"
+              [fluid]="true"
+              id="accountId"
+            />
+
+            <label for="accountId">Cuenta</label>
           </p-floatlabel>
         }
       </div>

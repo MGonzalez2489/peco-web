@@ -5,20 +5,19 @@ import { CatalogsActions } from '@store/actions/catalogs.actions';
 export const catalogsFeatureKey = 'catalogs';
 
 export interface CatalogsState {
-  entrytypes: EntryType[];
+  entryTypes: EntryType[];
 }
 
 export const initialState: CatalogsState = {
-  entrytypes: [],
+  entryTypes: [],
 };
 
 export const CatalogsReducer = createReducer(
   initialState,
   on(CatalogsActions.loadEntryTypeSuccess, (state, { data }) => {
-    console.log('data', data);
     return {
       ...state,
-      entrytypes: data,
+      entryTypes: data,
     };
   }),
 );
