@@ -10,7 +10,7 @@ export class AccountService {
   private reqService = inject(RequestService);
 
   getAll(pagination?: PaginationMetaDto) {
-    return this.reqService.getList<Account>('accounts', pagination);
+    return this.reqService.getPaginatedList<Account>('accounts', pagination);
   }
   getById(accountId: string) {
     return this.reqService.get<Account>('accounts/' + accountId);

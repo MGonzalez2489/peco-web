@@ -1,1 +1,59 @@
-<p>create-entry works!</p>
+<p-card>
+  <div class="flex justify-center">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="size-1/2">
+      <!-- description -->
+      <div class="my-6">
+        <p-floatlabel>
+          <input
+            pInputText
+            formControlName="description"
+            id="description"
+            fluid="true"
+          />
+          <label for="description">Descripcion</label>
+        </p-floatlabel>
+      </div>
+      <!-- Amount -->
+      <div class="my-6">
+        <p-floatlabel>
+          <p-inputnumber
+            inputId="amount"
+            mode="currency"
+            currency="MXN"
+            fluid="true"
+            formControlName="amount"
+          />
+          <label for="amount">Cantidad</label>
+        </p-floatlabel>
+      </div>
+      <div class="my-6">
+        @if (entryTypes$ | async; as entryTypes) {
+          <p-floatlabel>
+            <p-select
+              formControlName="entryType"
+              [options]="entryTypes"
+              optionLabel="displayName"
+              placeholder="Tipo"
+              [fluid]="true"
+              id="entryType"
+            />
+
+            <label for="entryType">Tipo</label>
+          </p-floatlabel>
+        }
+      </div>
+
+      <!-- Options -->
+      <div class="mt-10 flex justify-center gap-x-8">
+        <p-button
+          label="Cancelar"
+          (click)="cancel()"
+          severity="secondary"
+          [text]="true"
+        />
+
+        <p-button type="submit" size="small" pButton label="Guardar" />
+      </div>
+    </form>
+  </div>
+</p-card>

@@ -20,7 +20,6 @@ import { takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { CheckboxModule } from 'primeng/checkbox';
 import { MessageModule } from 'primeng/message';
-import { Account } from '@core/models/entities';
 import { AccountCreateDto } from '@core/models/dtos';
 
 @Component({

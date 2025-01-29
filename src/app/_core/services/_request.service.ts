@@ -45,7 +45,20 @@ export class RequestService {
     reqParams = this.objectToQueryParameter(reqParams);
 
     return this.httpClient
-      .get<ResultListDto<T>>(this.getUrl(url), { params: reqParams })
+      .get<T[]>(this.getUrl(url), { params: reqParams })
+      .pipe(map((res) => res));
+  }
+  public getPaginatedList<T>(
+    url: string,
+    pagination?: PaginationMetaDto,
+    params?: any,
+  ): Observable<ResultListDto<T>> {
+    const pagParams = new PagMetaReqDto(pagination);
+    const reqParams = this.objectToQueryParameter({ ...pagParams, ...params });
+    return this.httpClient
+      .get<ResultListDto<T>>(this.getUrl(url), {
+        params: reqParams,
+      })
       .pipe(map((res) => res));
   }
 
