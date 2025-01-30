@@ -1,5 +1,6 @@
 import { ActionReducer, INIT } from '@ngrx/store';
 import { AppState } from '..';
+import { AuthActions } from '@store/actions/auth.actions';
 
 export const HydrationMetaReducer = (
   reducer: ActionReducer<AppState>,
@@ -15,8 +16,24 @@ export const HydrationMetaReducer = (
         }
       }
     }
+
     const nextState = reducer(state, action);
+
     localStorage.setItem('state', JSON.stringify(nextState));
+    return nextState;
+  };
+};
+export const LogoutMetaReducer = (
+  reducer: ActionReducer<AppState>,
+): ActionReducer<AppState> => {
+  return (state, action) => {
+    let nextState = reducer(state, action);
+
+    if (action.type === AuthActions.logout.type) {
+      localStorage.removeItem('state');
+      localStorage.clear();
+      nextState = {} as AppState;
+    }
     return nextState;
   };
 };

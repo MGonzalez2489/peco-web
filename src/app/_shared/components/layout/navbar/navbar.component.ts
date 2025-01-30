@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 //primeng
 import { MenuItem } from 'primeng/api';
@@ -12,6 +12,10 @@ import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
 
 import { PrimeIcons } from 'primeng/api';
+import { Store } from '@ngrx/store';
+import { AppState } from '@store/reducers';
+import { AuthActions } from '@store/actions/auth.actions';
+import { Router } from '@angular/router';
 const components = [
   Toolbar,
   ButtonModule,
@@ -29,6 +33,8 @@ const components = [
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
+  private store$ = inject(Store<AppState>);
+  private router = inject(Router);
   items: MenuItem[] | undefined;
 
   ngOnInit() {
@@ -45,8 +51,14 @@ export class NavbarComponent {
       {
         label: 'Cerrar Sesion',
         icon: PrimeIcons.SIGN_OUT,
-        routerLink: '/login',
+        command: () => {
+          this.logout();
+        },
       },
     ];
+  }
+  logout(): void {
+    this.store$.dispatch(AuthActions.logout());
+    this.router.navigate(['/login']);
   }
 }

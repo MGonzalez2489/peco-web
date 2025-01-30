@@ -1,5 +1,5 @@
 import { LoginDto, TokenDto } from '@core/models/dtos';
-import { createActionGroup, props } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 export const AuthActions = createActionGroup({
   source: 'Auth',
@@ -12,5 +12,8 @@ export const AuthActions = createActionGroup({
     Register: props<{ data: LoginDto }>(),
     'Register Success': props<{ data: TokenDto }>(),
     'Register Failure': props<{ payload: any }>(),
+
+    //Logout
+    Logout: emptyProps(),
   },
 });
