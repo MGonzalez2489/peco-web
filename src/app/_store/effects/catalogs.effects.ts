@@ -20,7 +20,6 @@ export class CatalogsEffects {
       exhaustMap(() =>
         this.catalogsService.getEntryTipes().pipe(
           map((result) => {
-            console.log('entr types', result);
             return CatalogsActions.loadEntryTypeSuccess({ data: result.data });
           }),
         ),

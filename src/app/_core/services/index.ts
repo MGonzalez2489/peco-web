@@ -3,3 +3,4 @@ export * from './account.service';
 export * from './entry.service';
 export * from './catalogs.service';
 export * from './entry-category.service';
+export * from './user.service';

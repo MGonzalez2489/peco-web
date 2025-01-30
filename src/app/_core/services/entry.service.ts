@@ -12,10 +12,6 @@ export class EntryService {
   getAll(pagination?: PagMetaReqDto) {
     return this.reqService.getList<Entry>(`entries`, pagination);
   }
-  // getById(accountId: string) {
-  //   return this.reqService.get<Account>('accounts/' + accountId);
-  // }
-  //
 
   create(accountId: string, newEntry: EntryCreateDto) {
     return this.reqService.post<Entry>(`entries/${accountId}/entry`, newEntry);
