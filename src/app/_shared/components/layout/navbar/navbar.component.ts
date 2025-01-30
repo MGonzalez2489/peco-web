@@ -16,6 +16,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@store/reducers';
 import { AuthActions } from '@store/actions/auth.actions';
 import { Router } from '@angular/router';
+import { selectIdentity } from '@store/selectors';
+import { AsyncPipe } from '@angular/common';
+
 const components = [
   Toolbar,
   ButtonModule,
@@ -24,6 +27,7 @@ const components = [
   AvatarModule,
   BadgeModule,
   MenuModule,
+  AsyncPipe,
 ];
 
 @Component({
@@ -35,9 +39,13 @@ const components = [
 export class NavbarComponent {
   private store$ = inject(Store<AppState>);
   private router = inject(Router);
+  user$ = this.store$.select(selectIdentity);
   items: MenuItem[] | undefined;
 
   ngOnInit() {
+    this.generateMenuItems();
+  }
+  generateMenuItems(): void {
     this.items = [
       {
         label: 'Perfil',
