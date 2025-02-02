@@ -1,0 +1,33 @@
+@if (account) {
+  <p-card>
+    <ng-template #title>
+      <div class="flex w-full justify-between">
+        <span class="font-semibold text-lg">{{
+          account.name | titlecase
+        }}</span>
+
+        <div class="flex justify-center items-center gap-3">
+          <span class="text-sm mb-2 text-gray-400" for="isDefault"
+            >Es Default</span
+          >
+          <p-toggleswitch
+            inputId="isDefault"
+            [(ngModel)]="account.isDefault"
+            readonly="true"
+          />
+        </div>
+      </div>
+    </ng-template>
+    <!-- content -->
+    <ng-template #content>
+      <!-- <div> -->
+      <!--   <span class="me-2">Balance Inicial</span> -->
+      <!--   <app-amount [amount]="account.initialBalance"></app-amount> -->
+      <!-- </div> -->
+      <div>
+        <span class="me-2">Balance Actual</span>
+        <app-amount [amount]="account.balance"></app-amount>
+      </div>
+    </ng-template>
+  </p-card>
+}

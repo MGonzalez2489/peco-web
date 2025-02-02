@@ -26,6 +26,15 @@ export const AccountReducer = createReducer(
     });
     return accounts;
   }),
+  on(AccountActions.getByIdSuccess, (state, { data }) => {
+    const accounts = state.map((acc) => {
+      if (acc.publicId === data.publicId) {
+        return data;
+      }
+      return acc;
+    });
+    return accounts;
+  }),
 
   on(AccountActions.deleteSuccess, (state, { accountId }) => {
     const accounts = state.filter((f) => f.publicId !== accountId);

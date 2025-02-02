@@ -23,6 +23,23 @@ export class AccountEffects {
       ),
     );
   });
+
+  //GET BY ID
+  getById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AccountActions.getById),
+      exhaustMap((action) =>
+        this.accountService
+          .getById(action.accountId)
+          .pipe(
+            map((result) =>
+              AccountActions.getByIdSuccess({ data: result.data }),
+            ),
+          ),
+      ),
+    );
+  });
+
   //CREATE
   create$ = createEffect(() =>
     this.actions$.pipe(

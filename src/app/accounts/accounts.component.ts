@@ -24,6 +24,7 @@ import {
   ResultListDto,
 } from '@core/models/dtos';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+import { Menu } from 'primeng/menu';
 
 @Component({
   selector: 'app-accounts',
@@ -50,6 +51,7 @@ export class AccountsComponent implements OnInit {
   store$ = inject(Store<AppState>);
   accountService = inject(AccountService);
   accounts$ = new Observable<ResultListDto<Account>>();
+
   constructor() {}
 
   //aquyi
@@ -65,4 +67,5 @@ export class AccountsComponent implements OnInit {
 
     this.search(new PagMetaReqDto(pagination));
   }
+  view() {}
 }

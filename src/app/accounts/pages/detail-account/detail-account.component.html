@@ -1,0 +1,21 @@
+@if (account$ | async; as account) {
+  <div class="flex flex-col gap-4">
+    <!-- Account details -->
+    <app-account-card [account]="account"></app-account-card>
+    <!-- Entries -->
+    <p-card>
+      <div class="flex justify-between items-center p-5">
+        <span> aqui </span>
+        <p-button
+          icon="pi pi-plus"
+          label="Nuevo"
+          text="true"
+          [routerLink]="['/entries/new/', account.publicId]"
+        />
+      </div>
+      @if (entries$ | async; as entries) {
+        <app-entry-table [entries]="entries.data"></app-entry-table>
+      }
+    </p-card>
+  </div>
+}

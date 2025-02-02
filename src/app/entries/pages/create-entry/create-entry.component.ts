@@ -13,6 +13,7 @@ import { EntryService } from '@core/services';
 import { Store } from '@ngrx/store';
 import { BaseComponent } from '@shared/components';
 import { SelectEntryCategoryComponent } from '@shared/components/form/select-entry-category/select-entry-category.component';
+import { AccountActions } from '@store/actions/account.actions';
 import { AppState } from '@store/reducers';
 import { selectAccounts, selectCatEntryTypes } from '@store/selectors';
 import { ButtonModule } from 'primeng/button';
@@ -57,10 +58,14 @@ export class CreateEntryComponent extends BaseComponent {
     accountId: new FormControl<string | null>(null, [Validators.required]),
   });
 
+  //
+  fromAccountView: boolean = false;
+
   constructor() {
     super();
     const accId = this.activatedRoute.snapshot.params['accountId'];
     if (accId) {
+      this.fromAccountView = true;
       this.form.patchValue({ accountId: accId });
     }
   }
@@ -79,10 +84,17 @@ export class CreateEntryComponent extends BaseComponent {
       .create(this.form.value.accountId!, value)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
+        this.store$.dispatch(
+          AccountActions.getById({ accountId: this.form.value.accountId! }),
+        );
         this.cancel();
       });
   }
   cancel(): void {
-    this.router.navigate(['/entries']);
+    if (this.fromAccountView) {
+      this.router.navigate(['/accounts/' + this.form.value.accountId!]);
+    } else {
+      this.router.navigate(['/entries']);
+    }
   }
 }

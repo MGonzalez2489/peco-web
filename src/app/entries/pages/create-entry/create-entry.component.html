@@ -51,24 +51,26 @@
           </p-floatlabel>
         }
       </div>
-      <!-- Entry Type -->
-      <div class="my-6">
-        @if (accounts$ | async; as accounts) {
-          <p-floatlabel>
-            <p-select
-              formControlName="accountId"
-              [options]="accounts"
-              optionValue="publicId"
-              optionLabel="name"
-              placeholder="Cuenta"
-              [fluid]="true"
-              id="accountId"
-            />
+      <!-- Account -->
+      @if (!fromAccountView) {
+        <div class="my-6">
+          @if (accounts$ | async; as accounts) {
+            <p-floatlabel>
+              <p-select
+                formControlName="accountId"
+                [options]="accounts"
+                optionValue="publicId"
+                optionLabel="name"
+                placeholder="Cuenta"
+                [fluid]="true"
+                id="accountId"
+              />
 
-            <label for="accountId">Cuenta</label>
-          </p-floatlabel>
-        }
-      </div>
+              <label for="accountId">Cuenta</label>
+            </p-floatlabel>
+          }
+        </div>
+      }
 
       <!-- Options -->
       <div class="mt-10 flex justify-center gap-x-8">

@@ -16,4 +16,8 @@ export class EntryService {
   create(accountId: string, newEntry: EntryCreateDto) {
     return this.reqService.post<Entry>(`entries/${accountId}/entry`, newEntry);
   }
+
+  getEntriesByAccountId(accountId: string, pageOptions?: PagMetaReqDto) {
+    return this.reqService.getList<Entry>(`entries/${accountId}`, pageOptions);
+  }
 }

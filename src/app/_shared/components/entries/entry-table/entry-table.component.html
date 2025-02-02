@@ -1,0 +1,30 @@
+<p-table [value]="entries" stripedRows>
+  <ng-template #header>
+    <tr>
+      @if (showAccountColumn) {
+        <th>Cuenta</th>
+      }
+
+      <th>Descripcion</th>
+      <th>Categoria</th>
+      <th>Tipo</th>
+      <th>Monto</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-entry>
+    <tr>
+      @if (showAccountColumn) {
+        <td>{{ entry.account }}</td>
+      }
+
+      <td>{{ entry.description }}</td>
+      <td>{{ entry.category }}</td>
+      <td>{{ entry.type }}</td>
+      <td>
+        <app-amount
+          [amount]="entry.type === 'Gasto' ? entry.amount * -1 : entry.amount"
+        ></app-amount>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

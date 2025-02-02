@@ -1,35 +1,19 @@
-<p-card>
-  <p-table [value]="entries">
-    <ng-template #caption>
-      <div class="flex justify-between">
-        <p-iconField iconPosition="left">
-          <p-inputIcon>
-            <i class="pi pi-search"></i>
-          </p-inputIcon>
-          <input pInputText type="text" placeholder="Buscar" size="small" />
-        </p-iconField>
-        <p-button
-          icon="pi pi-plus"
-          label="Nuevo"
-          [routerLink]="['/entries/new']"
-        />
-      </div>
-    </ng-template>
-    <ng-template #header>
-      <tr>
-        <th>Descripcion</th>
-        <th>Categoria</th>
-        <th>Tipo</th>
-        <th>Monto</th>
-      </tr>
-    </ng-template>
-    <ng-template #body let-entry>
-      <tr>
-        <td>{{ entry.description }}</td>
-        <td>{{ entry.category }}</td>
-        <td>{{ entry.type }}</td>
-        <td>{{ entry.amount | currency }}</td>
-      </tr>
-    </ng-template>
-  </p-table>
-</p-card>
+<div class="flex flex-col gap-4">
+  <p-card>
+    <div class="flex justify-between items-center p-5">
+      <span> aqui </span>
+      <p-button
+        icon="pi pi-plus"
+        label="Nuevo"
+        text="true"
+        [routerLink]="['/entries/new/']"
+      />
+    </div>
+  </p-card>
+
+  <p-card>
+    @if (entries$ | async; as entries) {
+      <app-entry-table [entries]="entries.data" [showAccountColumn]="true" />
+    }
+  </p-card>
+</div>
