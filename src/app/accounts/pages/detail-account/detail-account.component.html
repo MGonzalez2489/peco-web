@@ -13,12 +13,10 @@
           [routerLink]="['/entries/new/', account.publicId]"
         />
       </div>
-      @if (entries$ | async; as entries) {
-        <app-entry-table
-          [entries]="entries"
-          (search)="searchEntries(account.publicId, $event)"
-        ></app-entry-table>
-      }
+      <app-entry-table
+        [entries]="entries$ | async"
+        (search)="searchEntries(account.publicId, $event)"
+      ></app-entry-table>
     </p-card>
   </div>
 }

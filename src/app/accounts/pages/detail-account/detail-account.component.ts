@@ -27,7 +27,7 @@ export class DetailAccountComponent {
   private entriesService = inject(EntryService);
   //
   account$: Observable<Account | undefined>;
-  entries$ = new Observable<ResultListDto<Entry> | undefined>();
+  entries$ = new Observable<ResultListDto<Entry>>();
   constructor() {
     const accId = this.activatedRoute.snapshot.params['accountId'];
     if (!accId) {
