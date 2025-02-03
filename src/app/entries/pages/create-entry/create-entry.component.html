@@ -36,20 +36,7 @@
 
       <!-- Entry Type -->
       <div class="my-6">
-        @if (entryTypes$ | async; as entryTypes) {
-          <p-floatlabel>
-            <p-select
-              formControlName="entryType"
-              [options]="entryTypes"
-              optionLabel="displayName"
-              placeholder="Tipo"
-              [fluid]="true"
-              id="entryType"
-            />
-
-            <label for="entryType">Tipo</label>
-          </p-floatlabel>
-        }
+        <app-select-entry-type formControlName="entryType" />
       </div>
       <!-- Account -->
       @if (!fromAccountView) {

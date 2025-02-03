@@ -1,0 +1,49 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <!-- Description -->
+  <div class="mb-6">
+    <p-floatlabel>
+      <input
+        pInputText
+        formControlName="description"
+        id="description"
+        fluid="true"
+      />
+      <label for="description">Description</label>
+    </p-floatlabel>
+  </div>
+  <!-- Category -->
+  <div class="mb-6">
+    <app-select-entry-category formControlName="category" />
+  </div>
+  <!-- Type -->
+  <div class="mb-6">
+    <p-floatlabel>
+      <input pInputText formControlName="type" id="type" fluid="true" />
+      <label for="type">Tipo</label>
+    </p-floatlabel>
+  </div>
+  <!-- Description -->
+  <div class="mb-6">
+    <p-floatlabel>
+      <input
+        pInputText
+        formControlName="description"
+        id="description"
+        fluid="true"
+      />
+      <label for="email">Description</label>
+    </p-floatlabel>
+  </div>
+  <!-- Description -->
+  <div class="mb-6">
+    <p-floatlabel>
+      <input
+        pInputText
+        formControlName="description"
+        id="description"
+        fluid="true"
+      />
+      <label for="email">Description</label>
+    </p-floatlabel>
+  </div>
+</form>

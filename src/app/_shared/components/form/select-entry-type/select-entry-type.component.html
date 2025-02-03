@@ -1,0 +1,19 @@
+@if (entryTypes$ | async; as et) {
+  <p-floatlabel>
+    <p-select
+      [formControl]="selectedEntryType"
+      optionLabel="displayName"
+      placeholder="Tipo"
+      [options]="et"
+      [fluid]="true"
+      id="entryType"
+      (onChange)="select($event)"
+    >
+      <ng-template let-group #group>
+        <span class="font-bold">{{ group.displayName }}</span>
+      </ng-template>
+    </p-select>
+
+    <label for="entryType">Tipo</label>
+  </p-floatlabel>
+}

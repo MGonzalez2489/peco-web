@@ -139,7 +139,8 @@ export class SelectEntryCategoryComponent
     this.updateValidators();
   }
   select(event: SelectChangeEvent) {
-    this.selectedCategory.setValue(event.value);
+    this.onChange(event.value);
+    // this.selectedCategory.setValue(event.value);
   }
   private updateValidators() {
     if (!this.isRequired) {

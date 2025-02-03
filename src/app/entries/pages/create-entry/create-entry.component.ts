@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
   FormGroup,
@@ -13,6 +13,7 @@ import { EntryService } from '@core/services';
 import { Store } from '@ngrx/store';
 import { BaseComponent } from '@shared/components';
 import { SelectEntryCategoryComponent } from '@shared/components/form/select-entry-category/select-entry-category.component';
+import { SelectEntryTypeComponent } from '@shared/components/form/select-entry-type/select-entry-type.component';
 import { AccountActions } from '@store/actions/account.actions';
 import { AppState } from '@store/reducers';
 import { selectAccounts, selectCatEntryTypes } from '@store/selectors';
@@ -36,6 +37,7 @@ import { takeUntil } from 'rxjs';
     SelectModule,
     AsyncPipe,
     SelectEntryCategoryComponent,
+    SelectEntryTypeComponent,
   ],
   templateUrl: './create-entry.component.html',
   styleUrl: './create-entry.component.scss',
@@ -47,7 +49,6 @@ export class CreateEntryComponent extends BaseComponent {
   private router = inject(Router);
 
   accounts$ = this.store$.select(selectAccounts);
-  entryTypes$ = this.store$.select(selectCatEntryTypes);
   form = new FormGroup({
     description: new FormControl<string | null>(null, [Validators.required]),
     amount: new FormControl<number | null>(null, [Validators.required]),
