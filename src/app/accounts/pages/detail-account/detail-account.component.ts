@@ -8,7 +8,7 @@ import { selectAccountById } from '@store/selectors';
 import { AccountCardComponent } from '../../components/account-card/account-card.component';
 import { Observable } from 'rxjs';
 import { EntryService } from '@core/services';
-import { ResultListDto } from '@core/models/dtos';
+import { ResultListDto, SearchDto } from '@core/models/dtos';
 import { EntryTableComponent } from '@shared/components/entries';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -27,7 +27,7 @@ export class DetailAccountComponent {
   private entriesService = inject(EntryService);
   //
   account$: Observable<Account | undefined>;
-  entries$: Observable<ResultListDto<Entry> | undefined>;
+  entries$ = new Observable<ResultListDto<Entry> | undefined>();
   constructor() {
     const accId = this.activatedRoute.snapshot.params['accountId'];
     if (!accId) {
@@ -35,7 +35,13 @@ export class DetailAccountComponent {
     }
 
     this.account$ = this.store$.select(selectAccountById(accId));
-    this.entries$ = this.entriesService.getEntriesByAccountId(accId);
+    this.searchEntries(accId);
+  }
+  searchEntries(accountId: string, search?: SearchDto) {
+    this.entries$ = this.entriesService.getEntriesByAccountId(
+      accountId,
+      search,
+    );
   }
 
   //TODO:

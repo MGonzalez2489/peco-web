@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { RequestService } from './_request.service';
 import { Account } from '@core/models/entities';
-import { AccountCreateDto, PagMetaReqDto } from '@core/models/dtos';
+import { AccountCreateDto, SearchDto } from '@core/models/dtos';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +9,8 @@ import { AccountCreateDto, PagMetaReqDto } from '@core/models/dtos';
 export class AccountService {
   private reqService = inject(RequestService);
 
-  getAll(pagination?: PagMetaReqDto) {
-    return this.reqService.getList<Account>('accounts', pagination);
+  getAll(search?: SearchDto) {
+    return this.reqService.getList<Account>('accounts', search);
   }
   getById(accountId: string) {
     return this.reqService.get<Account>('accounts/' + accountId);

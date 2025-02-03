@@ -14,7 +14,10 @@
         />
       </div>
       @if (entries$ | async; as entries) {
-        <app-entry-table [entries]="entries.data"></app-entry-table>
+        <app-entry-table
+          [entries]="entries"
+          (search)="searchEntries(account.publicId, $event)"
+        ></app-entry-table>
       }
     </p-card>
   </div>

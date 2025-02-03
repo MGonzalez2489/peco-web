@@ -13,7 +13,7 @@
 
   <p-card>
     @if (entries$ | async; as entries) {
-      <app-entry-table [entries]="entries.data" [showAccountColumn]="true" />
+      <app-entry-table [entries]="entries" [showAccountColumn]="true" />
     }
   </p-card>
 </div>

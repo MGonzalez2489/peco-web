@@ -1,4 +1,4 @@
-import { AsyncPipe, CurrencyPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ResultListDto } from '@core/models/dtos';
@@ -21,7 +21,6 @@ import { Observable } from 'rxjs';
     ButtonModule,
     RouterLink,
     TableModule,
-    CurrencyPipe,
     IconFieldModule,
     InputIconModule,
     InputTextModule,

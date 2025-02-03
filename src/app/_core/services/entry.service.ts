@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { EntryCreateDto, PagMetaReqDto } from '@core/models/dtos';
+import { EntryCreateDto, SearchDto } from '@core/models/dtos';
 import { Entry } from '@core/models/entities';
 import { RequestService } from './_request.service';
 
@@ -9,15 +9,15 @@ import { RequestService } from './_request.service';
 export class EntryService {
   private reqService = inject(RequestService);
 
-  getAll(pagination?: PagMetaReqDto) {
-    return this.reqService.getList<Entry>(`entries`, pagination);
+  getAll(search?: SearchDto) {
+    return this.reqService.getList<Entry>(`entries`, search);
   }
 
   create(accountId: string, newEntry: EntryCreateDto) {
     return this.reqService.post<Entry>(`entries/${accountId}/entry`, newEntry);
   }
 
-  getEntriesByAccountId(accountId: string, pageOptions?: PagMetaReqDto) {
-    return this.reqService.getList<Entry>(`entries/${accountId}`, pageOptions);
+  getEntriesByAccountId(accountId: string, search?: SearchDto) {
+    return this.reqService.getList<Entry>(`entries/${accountId}`, search);
   }
 }

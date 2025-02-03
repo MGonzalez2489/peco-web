@@ -1,6 +1,6 @@
-export interface ResultListDto<T> {
-  data: T[];
-  meta: PaginationMetaDto;
+export class ResultListDto<T> {
+  data: T[] = [];
+  meta: PaginationMetaDto = new PaginationMetaDto();
 }
 export class PaginationMetaDto {
   page: number = 1;
@@ -16,7 +16,7 @@ export class PaginationMetaDto {
   hint?: string;
 }
 
-export class PagMetaReqDto {
+export class SearchDto {
   page: number = 1;
   take: number = 10;
   showAll: boolean = false;

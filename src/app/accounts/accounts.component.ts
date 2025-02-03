@@ -18,13 +18,8 @@ import { RouterLink } from '@angular/router';
 
 import { TagModule } from 'primeng/tag';
 import { AccountService } from '@core/services';
-import {
-  PaginationMetaDto,
-  PagMetaReqDto,
-  ResultListDto,
-} from '@core/models/dtos';
+import { PaginationMetaDto, SearchDto, ResultListDto } from '@core/models/dtos';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
-import { Menu } from 'primeng/menu';
 
 @Component({
   selector: 'app-accounts',
@@ -54,18 +49,17 @@ export class AccountsComponent implements OnInit {
 
   constructor() {}
 
-  //aquyi
   ngOnInit(): void {
     this.search();
   }
-  search(pagination?: PagMetaReqDto) {
-    this.accounts$ = this.accountService.getAll(pagination);
+  search(search?: SearchDto) {
+    this.accounts$ = this.accountService.getAll(search);
   }
   onPageChange(event: PaginatorState, pagination: PaginationMetaDto) {
     pagination.page = event.page! + 1;
     pagination.take = event.rows!;
 
-    this.search(new PagMetaReqDto(pagination));
+    this.search(new SearchDto(pagination));
   }
   view() {}
 }
