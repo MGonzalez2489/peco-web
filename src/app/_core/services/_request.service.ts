@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ResultDto, ResultListDto, SearchDto } from '@core/models/dtos';
+import { ResultDto, ResultListDto } from '@core/models/dtos';
+import { SearchDto } from '@core/models/dtos/search';
 import { environment } from '@envs/environment';
 import { map, Observable } from 'rxjs';
 

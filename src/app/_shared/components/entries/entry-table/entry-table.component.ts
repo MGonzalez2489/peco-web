@@ -1,6 +1,7 @@
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ResultListDto, SearchDto } from '@core/models/dtos';
+import { ResultListDto } from '@core/models/dtos';
+import { EntrySearchDto, SearchDto } from '@core/models/dtos/search';
 import { Entry } from '@core/models/entities';
 import { AmountComponent } from '@shared/components/amount/amount.component';
 import { SortEvent } from 'primeng/api';
@@ -50,17 +51,14 @@ export class EntryTableComponent {
     this.search.emit(this.searchObj);
   }
   sort(event: SortEvent) {
-    const newOrder = event.order === 1 ? 'ASC' : 'DESC';
-    if (
-      this.searchObj.orderBy != event.field ||
-      this.searchObj.order != newOrder
-    ) {
-      this.searchObj.orderBy = event.field;
-      this.searchObj.order = newOrder;
-      this.search.emit(this.searchObj);
-    }
+    this.searchObj.setSort(event);
+    this.search.emit(this.searchObj);
   }
   showDialog() {
     this.visible = true;
+  }
+  filter(event: EntrySearchDto) {
+    console.log('filter', event);
+    this.search.emit(event);
   }
 }

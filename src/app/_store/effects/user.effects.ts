@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { SearchDto } from '@core/models/dtos/search';
 import { UserService } from '@core/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -34,7 +35,9 @@ export class UserEffects {
       this.actions$.pipe(
         ofType(AuthActions.loginSuccess, AuthActions.registerSuccess),
         map(() => {
-          this.store$.dispatch(AccountActions.loadAccounts());
+          this.store$.dispatch(
+            AccountActions.loadAccounts({ search: new SearchDto() }),
+          );
           this.store$.dispatch(EntryCategoryActions.loadEntryCategories());
           this.store$.dispatch(IdentityActions.loadIdentity());
         }),

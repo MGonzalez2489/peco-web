@@ -8,10 +8,11 @@ import { selectAccountById } from '@store/selectors';
 import { AccountCardComponent } from '../../components/account-card/account-card.component';
 import { Observable } from 'rxjs';
 import { EntryService } from '@core/services';
-import { ResultListDto, SearchDto } from '@core/models/dtos';
+import { ResultListDto } from '@core/models/dtos';
 import { EntryTableComponent } from '@shared/components/entries';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { SearchDto } from '@core/models/dtos/search';
 
 const primeSources = [EntryTableComponent, CardModule, ButtonModule];
 

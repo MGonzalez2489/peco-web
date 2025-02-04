@@ -17,33 +17,54 @@
   </div>
   <!-- Type -->
   <div class="mb-6">
-    <p-floatlabel>
-      <input pInputText formControlName="type" id="type" fluid="true" />
-      <label for="type">Tipo</label>
-    </p-floatlabel>
+    <app-select-entry-type formControlName="type" />
   </div>
-  <!-- Description -->
-  <div class="mb-6">
-    <p-floatlabel>
-      <input
-        pInputText
-        formControlName="description"
-        id="description"
-        fluid="true"
-      />
-      <label for="email">Description</label>
-    </p-floatlabel>
+  <div class="flex w-full gap-5">
+    <!-- From -->
+    <div class="mb-6 w-full">
+      <p-floatlabel>
+        <p-datepicker
+          formControlName="fromDate"
+          inputId="from"
+          showIcon
+          iconDisplay="input"
+          fluid="true"
+        />
+        <label for="from">Desde</label>
+      </p-floatlabel>
+    </div>
+    <!-- To -->
+    <div class="mb-6 w-full">
+      <p-floatlabel>
+        <p-datepicker
+          formControlName="toDate"
+          inputId="to"
+          showIcon
+          iconDisplay="input"
+          fluid="true"
+        />
+        <label for="To">Hasta</label>
+      </p-floatlabel>
+    </div>
   </div>
-  <!-- Description -->
-  <div class="mb-6">
-    <p-floatlabel>
-      <input
-        pInputText
-        formControlName="description"
-        id="description"
-        fluid="true"
+
+  <!-- Options -->
+  <div class="mt-10 flex justify-between gap-x-8">
+    <p-button
+      label="Limpiar Filtros"
+      severity="secondary"
+      [text]="true"
+      type="reset"
+    />
+
+    <div>
+      <p-button
+        label="Cancelar"
+        (click)="cancel()"
+        severity="secondary"
+        [text]="true"
       />
-      <label for="email">Description</label>
-    </p-floatlabel>
+      <p-button type="submit" size="small" pButton label="Buscar" />
+    </div>
   </div>
 </form>

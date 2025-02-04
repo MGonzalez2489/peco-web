@@ -5,7 +5,7 @@ import { AppState } from '@store/reducers';
 import { Observable } from 'rxjs';
 
 import { TableModule } from 'primeng/table';
-import { AsyncPipe, CurrencyPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, DatePipe, JsonPipe } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
@@ -18,8 +18,13 @@ import { RouterLink } from '@angular/router';
 
 import { TagModule } from 'primeng/tag';
 import { AccountService } from '@core/services';
-import { PaginationMetaDto, SearchDto, ResultListDto } from '@core/models/dtos';
+import { PaginationMetaDto, ResultListDto } from '@core/models/dtos';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+import { SearchDto } from '@core/models/dtos/search';
+import { SortEvent } from 'primeng/api';
+//
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @Component({
   selector: 'app-accounts',
@@ -28,8 +33,6 @@ import { PaginatorModule, PaginatorState } from 'primeng/paginator';
     AsyncPipe,
     CurrencyPipe,
     CardModule,
-    IconField,
-    InputIcon,
     InputTextModule,
     ButtonModule,
     CheckboxModule,
@@ -38,6 +41,11 @@ import { PaginatorModule, PaginatorState } from 'primeng/paginator';
     RouterLink,
     TagModule,
     PaginatorModule,
+    JsonPipe,
+    //
+    InputGroupModule,
+    InputGroupAddonModule,
+    FormsModule,
   ],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss',
@@ -45,21 +53,41 @@ import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 export class AccountsComponent implements OnInit {
   store$ = inject(Store<AppState>);
   accountService = inject(AccountService);
+  //
+  searchObj: SearchDto;
   accounts$ = new Observable<ResultListDto<Account>>();
+  //search hint
 
-  constructor() {}
+  constructor() {
+    this.searchObj = new SearchDto();
+    this.searchObj.orderBy = 'name';
+  }
 
   ngOnInit(): void {
     this.search();
   }
-  search(search?: SearchDto) {
-    this.accounts$ = this.accountService.getAll(search);
+  search() {
+    this.accounts$ = this.accountService.getAll(this.searchObj);
   }
   onPageChange(event: PaginatorState, pagination: PaginationMetaDto) {
-    pagination.page = event.page! + 1;
-    pagination.take = event.rows!;
-
-    this.search(new SearchDto(pagination));
+    this.searchObj.setPagination(event, pagination);
+    this.search();
   }
-  view() {}
+  sort(event: SortEvent) {
+    console.log('se llamo el on sort', event);
+    this.searchObj.setSort(event);
+    this.search();
+  }
+  clearSearch() {
+    delete this.searchObj.hint;
+    this.search();
+  }
+  handleSearch() {
+    console.log('search');
+    if (this.searchObj.hint && this.searchObj.hint.length % 4 === 0) {
+      this.search();
+    } else if (this.searchObj.hint === '') {
+      this.clearSearch();
+    }
+  }
 }

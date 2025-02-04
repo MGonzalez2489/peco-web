@@ -3,7 +3,7 @@ import { createSelector } from '@ngrx/store';
 import { AppState } from '@store/reducers';
 import { AccountState } from '@store/reducers/account.reducer';
 
-const accountsState = (state: AppState) => state.user.accounts;
+const accountsState = (state: AppState) => state.user?.accounts;
 
 export const selectAccounts = createSelector(
   accountsState,

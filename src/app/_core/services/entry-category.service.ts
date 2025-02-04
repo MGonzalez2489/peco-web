@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { EntryCategory } from '@core/models/entities';
 import { RequestService } from './_request.service';
-import { SearchDto } from '@core/models/dtos';
+import { SearchDto } from '@core/models/dtos/search';
 
 @Injectable({
   providedIn: 'root',

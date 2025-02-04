@@ -14,7 +14,7 @@ export class AccountEffects {
       ofType(AccountActions.loadAccounts),
       exhaustMap((action) =>
         this.accountService
-          .getAll()
+          .getAll(action.search)
           .pipe(
             map((result) =>
               AccountActions.loadAccountsSuccess({ data: result.data }),
