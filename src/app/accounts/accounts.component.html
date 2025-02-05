@@ -1,23 +1,7 @@
 <p-card>
-  <pre>{{ searchObj | json }}</pre>
   <div class="flex justify-between my-5">
     <!-- Search -->
-    <p-inputgroup>
-      <input
-        pInputText
-        placeholder="Keyword"
-        [(ngModel)]="searchObj.hint"
-        (ngModelChange)="handleSearch()"
-      />
-      <p-inputgroup-addon>
-        <p-button
-          variant="text"
-          icon="pi pi-times"
-          severity="secondary"
-          (click)="clearSearch()"
-        />
-      </p-inputgroup-addon>
-    </p-inputgroup>
+    <app-input-search [(hint)]="searchObj.hint" (hintChange)="search()" />
     <!-- New -->
     <p-button
       icon="pi pi-plus"
@@ -26,7 +10,6 @@
       [routerLink]="['/accounts/new']"
     />
   </div>
-
   @if (accounts$ | async; as accounts) {
     <p-table
       [value]="accounts.data"

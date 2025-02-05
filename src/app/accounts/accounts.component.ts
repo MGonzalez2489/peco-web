@@ -7,8 +7,6 @@ import { Observable } from 'rxjs';
 import { TableModule } from 'primeng/table';
 import { AsyncPipe, CurrencyPipe, DatePipe, JsonPipe } from '@angular/common';
 import { CardModule } from 'primeng/card';
-import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 
@@ -23,8 +21,7 @@ import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { SearchDto } from '@core/models/dtos/search';
 import { SortEvent } from 'primeng/api';
 //
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputSearchComponent } from '@shared/components/form/input-search/input-search.component';
 
 @Component({
   selector: 'app-accounts',
@@ -41,11 +38,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     RouterLink,
     TagModule,
     PaginatorModule,
-    JsonPipe,
-    //
-    InputGroupModule,
-    InputGroupAddonModule,
-    FormsModule,
+    InputSearchComponent,
   ],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss',
@@ -82,12 +75,5 @@ export class AccountsComponent implements OnInit {
     delete this.searchObj.hint;
     this.search();
   }
-  handleSearch() {
-    console.log('search');
-    if (this.searchObj.hint && this.searchObj.hint.length % 4 === 0) {
-      this.search();
-    } else if (this.searchObj.hint === '') {
-      this.clearSearch();
-    }
-  }
+  handleSearch() {}
 }

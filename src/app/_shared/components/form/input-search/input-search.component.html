@@ -1,0 +1,17 @@
+<p-inputgroup>
+  <app-input-search />
+  <input
+    pInputText
+    [placeholder]="placeholder"
+    [(ngModel)]="hint"
+    (ngModelChange)="this.handleSearch.next($event)"
+  />
+  <p-inputgroup-addon>
+    <p-button
+      variant="text"
+      icon="pi pi-times"
+      severity="secondary"
+      (click)="clearSearch()"
+    />
+  </p-inputgroup-addon>
+</p-inputgroup>

@@ -1,6 +1,6 @@
-import { DatePipe, TitleCasePipe } from '@angular/common';
+import { DatePipe, JsonPipe, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ResultListDto } from '@core/models/dtos';
+import { PaginationMetaDto, ResultListDto } from '@core/models/dtos';
 import { EntrySearchDto, SearchDto } from '@core/models/dtos/search';
 import { Entry } from '@core/models/entities';
 import { AmountComponent } from '@shared/components/amount/amount.component';
@@ -24,6 +24,7 @@ import { EntriesFilterFormComponent } from '../entries-filter-form/entries-filte
     AmountComponent,
     DatePipe,
     TitleCasePipe,
+    JsonPipe,
     //
     Dialog,
     EntriesFilterFormComponent,
@@ -45,9 +46,11 @@ export class EntryTableComponent {
   //filter
   visible: boolean = false;
 
-  onPageChange(event: PaginatorState): void {
-    this.searchObj.page = event.page! + 1;
-    this.searchObj.take = event.rows!;
+  onPageChange(
+    event: PaginatorState,
+    currentPagination: PaginationMetaDto,
+  ): void {
+    this.searchObj.setPagination(event, currentPagination);
     this.search.emit(this.searchObj);
   }
   sort(event: SortEvent) {
