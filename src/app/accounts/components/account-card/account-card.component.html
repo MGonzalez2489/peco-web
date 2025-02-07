@@ -20,13 +20,15 @@
     </ng-template>
     <!-- content -->
     <ng-template #content>
-      <!-- <div> -->
-      <!--   <span class="me-2">Balance Inicial</span> -->
-      <!--   <app-amount [amount]="account.initialBalance"></app-amount> -->
-      <!-- </div> -->
-      <div>
-        <span class="me-2">Balance Actual</span>
-        <app-amount [amount]="account.balance"></app-amount>
+      <div class="flex gap-3">
+        <div>
+          <span class="me-2 text-gray-400">Balance Inicial</span>
+          <app-amount [amount]="account.initialBalance"></app-amount>
+        </div>
+        <div>
+          <span class="me-2 text-gray-400">Balance Actual</span>
+          <app-amount [amount]="account.balance"></app-amount>
+        </div>
       </div>
     </ng-template>
   </p-card>

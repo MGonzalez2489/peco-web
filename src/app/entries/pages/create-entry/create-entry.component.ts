@@ -1,4 +1,4 @@
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe, Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
   FormGroup,
@@ -16,7 +16,7 @@ import { SelectEntryCategoryComponent } from '@shared/components/form/select-ent
 import { SelectEntryTypeComponent } from '@shared/components/form/select-entry-type/select-entry-type.component';
 import { AccountActions } from '@store/actions/account.actions';
 import { AppState } from '@store/reducers';
-import { selectAccounts, selectCatEntryTypes } from '@store/selectors';
+import { selectAccounts } from '@store/selectors';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -46,7 +46,7 @@ export class CreateEntryComponent extends BaseComponent {
   private store$ = inject(Store<AppState>);
   private activatedRoute = inject(ActivatedRoute);
   private entryService = inject(EntryService);
-  private router = inject(Router);
+  private location = inject(Location);
 
   accounts$ = this.store$.select(selectAccounts);
   form = new FormGroup({
@@ -92,10 +92,6 @@ export class CreateEntryComponent extends BaseComponent {
       });
   }
   cancel(): void {
-    if (this.fromAccountView) {
-      this.router.navigate(['/accounts/' + this.form.value.accountId!]);
-    } else {
-      this.router.navigate(['/entries']);
-    }
+    this.location.back();
   }
 }

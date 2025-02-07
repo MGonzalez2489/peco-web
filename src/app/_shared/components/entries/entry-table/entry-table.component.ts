@@ -1,4 +1,4 @@
-import { AsyncPipe, DatePipe, JsonPipe, TitleCasePipe } from '@angular/common';
+import { AsyncPipe, DatePipe, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { PaginationMetaDto, ResultListDto } from '@core/models/dtos';
 import { EntrySearchDto } from '@core/models/dtos/search';
@@ -17,6 +17,7 @@ import { AppState } from '@store/reducers';
 import { selectAccounts } from '@store/selectors';
 import { SelectModule } from 'primeng/select';
 import { map } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-entry-table',
@@ -51,6 +52,7 @@ export class EntryTableComponent {
   //
   searchObj = new EntrySearchDto();
   store$ = inject(Store<AppState>);
+  router = inject(Router);
   accounts$ = this.store$.select(selectAccounts).pipe(
     map((options) => [
       {
@@ -74,5 +76,12 @@ export class EntryTableComponent {
   }
   filter(event: EntrySearchDto) {
     this.search.emit(event);
+  }
+  newEntry() {
+    let createEntryUrl = '/entries/new';
+    if (this.searchObj.accountId) {
+      createEntryUrl += `/${this.searchObj.accountId}`;
+    }
+    this.router.navigateByUrl(createEntryUrl);
   }
 }
