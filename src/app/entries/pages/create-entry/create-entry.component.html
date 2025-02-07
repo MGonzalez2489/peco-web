@@ -1,6 +1,17 @@
 <p-card>
-  <div class="flex justify-center">
+  <div
+    class="flex justify-center"
+    [ngClass]="{
+      'bg-red-100': form.value.entryType?.name == 'outcome',
+      'bg-green-100': form.value.entryType?.name == 'income',
+    }"
+  >
     <form [formGroup]="form" (ngSubmit)="submit()" class="size-1/2">
+      <!-- Entry Type -->
+      <div class="my-6 w-full flex justify-center">
+        <app-select-entry-type formControlName="entryType" />
+      </div>
+
       <!-- description -->
       <div class="my-6">
         <p-floatlabel>
@@ -34,10 +45,6 @@
         />
       </div>
 
-      <!-- Entry Type -->
-      <div class="my-6">
-        <app-select-entry-type formControlName="entryType" />
-      </div>
       <!-- Account -->
       @if (!fromAccountView) {
         <div class="my-6">
@@ -71,5 +78,6 @@
         <p-button type="submit" size="small" pButton label="Guardar" />
       </div>
     </form>
+    <!-- <pre>{{ form.value | json }}</pre> -->
   </div>
 </p-card>

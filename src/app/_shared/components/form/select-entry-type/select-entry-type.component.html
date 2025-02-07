@@ -1,19 +1,29 @@
-@if (entryTypes$ | async; as et) {
-  <p-floatlabel>
-    <p-select
-      [formControl]="selectedEntryType"
-      optionLabel="displayName"
-      placeholder="Tipo"
-      [options]="et"
-      [fluid]="true"
-      id="entryType"
-      (onChange)="select($event)"
-    >
-      <ng-template let-group #group>
-        <span class="font-bold">{{ group.displayName }}</span>
-      </ng-template>
-    </p-select>
+<p-selectbutton
+  [options]="(entryTypes$ | async)!"
+  [formControl]="selectedEntryType"
+  optionLabel="displayName"
+  id="entryType"
+  (onChange)="selectButton($event)"
+/>
+<!-- [ngClass]="{ -->
+<!--   'btn-primary': selectedEntryType.value.name === 'income', -->
+<!--   'btn-secondary': selectedEntryType.value.name === 'expense', -->
+<!-- }" -->
 
-    <label for="entryType">Tipo</label>
-  </p-floatlabel>
-}
+<!-- <p-floatlabel> -->
+<!--   <p-select -->
+<!--     [formControl]="selectedEntryType" -->
+<!--     optionLabel="displayName" -->
+<!--     placeholder="Tipo" -->
+<!--     [options]="et" -->
+<!--     [fluid]="true" -->
+<!--     id="entryType" -->
+<!--     (onChange)="select($event)" -->
+<!--   > -->
+<!--     <ng-template let-group #group> -->
+<!--       <span class="font-bold">{{ group.displayName }}</span> -->
+<!--     </ng-template> -->
+<!--   </p-select> -->
+<!---->
+<!--   <label for="entryType">Tipo</label> -->
+<!-- </p-floatlabel> -->

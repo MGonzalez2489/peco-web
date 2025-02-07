@@ -1,11 +1,9 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { ResultListDto } from '@core/models/dtos';
 import { EntrySearchDto } from '@core/models/dtos/search';
 import { Entry } from '@core/models/entities';
 import { EntryService } from '@core/services';
-import { BaseComponent } from '@shared/components';
 import { EntryTableComponent } from '@shared/components/entries';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -20,7 +18,6 @@ import { Observable } from 'rxjs';
   imports: [
     CardModule,
     ButtonModule,
-    RouterLink,
     TableModule,
     IconFieldModule,
     InputIconModule,

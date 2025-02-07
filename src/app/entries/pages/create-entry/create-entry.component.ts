@@ -1,4 +1,4 @@
-import { AsyncPipe, Location } from '@angular/common';
+import { AsyncPipe, Location, NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
   FormGroup,
@@ -38,6 +38,7 @@ import { takeUntil } from 'rxjs';
     AsyncPipe,
     SelectEntryCategoryComponent,
     SelectEntryTypeComponent,
+    NgClass,
   ],
   templateUrl: './create-entry.component.html',
   styleUrl: './create-entry.component.scss',

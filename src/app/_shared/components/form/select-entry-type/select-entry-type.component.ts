@@ -1,11 +1,10 @@
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   forwardRef,
   inject,
   Input,
   OnChanges,
-  OnInit,
   SimpleChanges,
 } from '@angular/core';
 import {
@@ -25,7 +24,11 @@ import { AppState } from '@store/reducers';
 import { selectCatEntryTypes } from '@store/selectors';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
-import { Observable } from 'rxjs';
+import {
+  SelectButtonChangeEvent,
+  SelectButtonModule,
+} from 'primeng/selectbutton';
+import { Observable, tap } from 'rxjs';
 @Component({
   selector: 'app-select-entry-type',
   imports: [
@@ -34,6 +37,7 @@ import { Observable } from 'rxjs';
     SelectModule,
     ReactiveFormsModule,
     AsyncPipe,
+    SelectButtonModule,
   ],
   providers: [
     {
@@ -52,19 +56,25 @@ import { Observable } from 'rxjs';
   styleUrl: './select-entry-type.component.scss',
 })
 export class SelectEntryTypeComponent
-  implements ControlValueAccessor, Validator, OnInit, OnChanges
+  implements ControlValueAccessor, Validator, OnChanges
 {
   //
   store$ = inject(Store<AppState>);
-  entryTypes$: Observable<EntryType[]> =
-    this.store$.select(selectCatEntryTypes);
+  entryTypes$: Observable<EntryType[]> = this.store$
+    .select(selectCatEntryTypes)
+    .pipe(
+      tap((values) => {
+        //default selected
+        this.writeValue(values[0]);
+        this.onChange(values[0]);
+      }),
+    );
   //
   @Input() isRequired: boolean = false;
 
   selectedEntryType = new FormControl();
   onChange = (value: EntryType) => {};
   onTouched = () => {};
-
   writeValue(obj: any): void {
     this.selectedEntryType.setValue(obj);
   }
@@ -88,11 +98,13 @@ export class SelectEntryTypeComponent
   registerOnValidatorChange?(fn: () => void): void {
     this.onChange = fn;
   }
-  ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges): void {
     this.updateValidators();
   }
   select(event: SelectChangeEvent) {
+    this.onChange(event.value);
+  }
+  selectButton(event: SelectButtonChangeEvent) {
     this.onChange(event.value);
   }
 
