@@ -1,7 +1,7 @@
-import { DatePipe, JsonPipe, TitleCasePipe } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AsyncPipe, DatePipe, JsonPipe, TitleCasePipe } from '@angular/common';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { PaginationMetaDto, ResultListDto } from '@core/models/dtos';
-import { EntrySearchDto, SearchDto } from '@core/models/dtos/search';
+import { EntrySearchDto } from '@core/models/dtos/search';
 import { Entry } from '@core/models/entities';
 import { AmountComponent } from '@shared/components/amount/amount.component';
 import { SortEvent } from 'primeng/api';
@@ -10,8 +10,13 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
-import { Dialog } from 'primeng/dialog';
-import { EntriesFilterFormComponent } from '../entries-filter-form/entries-filter-form.component';
+import { EntryFilterDateComponent } from '../entry-filter-date/entry-filter-date.component';
+import { FormsModule } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AppState } from '@store/reducers';
+import { selectAccounts } from '@store/selectors';
+import { SelectModule } from 'primeng/select';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-entry-table',
@@ -24,10 +29,11 @@ import { EntriesFilterFormComponent } from '../entries-filter-form/entries-filte
     AmountComponent,
     DatePipe,
     TitleCasePipe,
-    JsonPipe,
     //
-    Dialog,
-    EntriesFilterFormComponent,
+    EntryFilterDateComponent,
+    FormsModule,
+    SelectModule,
+    AsyncPipe,
   ],
   templateUrl: './entry-table.component.html',
   styleUrl: './entry-table.component.scss',
@@ -40,11 +46,20 @@ export class EntryTableComponent {
   showAccountColumn: boolean = false;
 
   @Output()
-  search: EventEmitter<SearchDto> = new EventEmitter<SearchDto>();
+  search: EventEmitter<EntrySearchDto> = new EventEmitter<EntrySearchDto>();
 
-  searchObj = new SearchDto();
-  //filter
-  visible: boolean = false;
+  //
+  searchObj = new EntrySearchDto();
+  store$ = inject(Store<AppState>);
+  accounts$ = this.store$.select(selectAccounts).pipe(
+    map((options) => [
+      {
+        name: 'Todas',
+        publicId: undefined,
+      },
+      ...options,
+    ]),
+  );
 
   onPageChange(
     event: PaginatorState,
@@ -57,11 +72,7 @@ export class EntryTableComponent {
     this.searchObj.setSort(event);
     this.search.emit(this.searchObj);
   }
-  showDialog() {
-    this.visible = true;
-  }
   filter(event: EntrySearchDto) {
-    console.log('filter', event);
     this.search.emit(event);
   }
 }

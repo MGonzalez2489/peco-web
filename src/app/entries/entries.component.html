@@ -12,8 +12,10 @@
   </p-card>
 
   <p-card>
-    @if (entries$ | async; as entries) {
-      <app-entry-table [entries]="entries" [showAccountColumn]="true" />
-    }
+    <app-entry-table
+      [entries]="entries$ | async"
+      [showAccountColumn]="true"
+      (search)="search($event)"
+    />
   </p-card>
 </div>

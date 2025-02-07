@@ -2,6 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ResultListDto } from '@core/models/dtos';
+import { EntrySearchDto } from '@core/models/dtos/search';
 import { Entry } from '@core/models/entities';
 import { EntryService } from '@core/services';
 import { BaseComponent } from '@shared/components';
@@ -30,15 +31,11 @@ import { Observable } from 'rxjs';
   templateUrl: './entries.component.html',
   styleUrl: './entries.component.scss',
 })
-export class EntriesComponent extends BaseComponent {
+export class EntriesComponent {
   entryService = inject(EntryService);
-  entries$ = new Observable<ResultListDto<Entry> | undefined>();
-  constructor() {
-    super();
-    this.search();
-  }
+  entries$ = new Observable<ResultListDto<Entry>>();
 
-  search(): void {
-    this.entries$ = this.entryService.getAll();
+  search(search?: EntrySearchDto): void {
+    this.entries$ = this.entryService.search(search);
   }
 }

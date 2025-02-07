@@ -4,15 +4,6 @@
     <app-account-card [account]="account"></app-account-card>
     <!-- Entries -->
     <p-card>
-      <!-- <div class="flex justify-between items-center p-5"> -->
-      <!--   <span> aqui </span> -->
-      <!--   <p-button -->
-      <!--     icon="pi pi-plus" -->
-      <!--     label="Nuevo" -->
-      <!--     text="true" -->
-      <!--     [routerLink]="['/entries/new/', account.publicId]" -->
-      <!--   /> -->
-      <!-- </div> -->
       <app-entry-table
         [entries]="entries$ | async"
         (search)="searchEntries(account.publicId, $event)"

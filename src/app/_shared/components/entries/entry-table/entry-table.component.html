@@ -1,23 +1,39 @@
 <div>
-  <pre>{{ searchObj | json }}</pre>
-  @if (entries) {
-    <!-- <p-button (click)="showDialog()" label="Show" /> -->
-    <!-- <p-dialog -->
-    <!--   header="Filtrar Registros" -->
-    <!--   [modal]="true" -->
-    <!--   [(visible)]="visible" -->
-    <!--   [style]="{ width: '50rem', height: '100rem' }" -->
-    <!-- > -->
-    <!--   <app-entries-filter-form (search)="filter($event)" /> -->
-    <!-- </p-dialog> -->
+  <!-- Actions -->
+  <div class="flex justify-between items-center mx-3 mb-5">
+    <!-- Left -->
+    <div class="flex gap-3 items-center w-auto">
+      <!-- Accounts -->
+      @if (showAccountColumn) {
+        <div class="flex items-center gap-3">
+          <p>Cuenta</p>
+          <p-select
+            [options]="(accounts$ | async)!"
+            [(ngModel)]="searchObj.accountId"
+            optionLabel="name"
+            optionValue="publicId"
+            class="w-full md:w-56"
+            (onChange)="filter(searchObj)"
+          />
+        </div>
+      }
 
-    <!-- Options -->
-    <div class="flex justify-between p-10 w-full bg-gray-200">
-      <!-- Filtros -->
-      <div>aqui van los filtros</div>
-      <!-- Botones -->
-      <div>Aqui van los botones</div>
+      <!-- date -->
+      <div class="flex items-center gap-3">
+        <p>Mostrar</p>
+        <app-entry-filter-date
+          [search]="searchObj"
+          (onChangeSearch)="filter(searchObj)"
+        />
+      </div>
     </div>
+    <!-- Right -->
+    <div>
+      <p-button icon="pi pi-plus" label="Nuevo Registro" text="true" />
+    </div>
+  </div>
+
+  @if (entries) {
     <!-- Table -->
     <p-table
       [value]="entries.data"
@@ -59,7 +75,7 @@
           <td>{{ entry.description | titlecase }}</td>
           <td>{{ entry.category }}</td>
           <td>{{ entry.type }}</td>
-          <td>{{ entry.createdAt | date }}</td>
+          <td>{{ entry.createdAt | date: "short" }}</td>
           <td>
             <app-amount
               [amount]="
@@ -71,12 +87,21 @@
       </ng-template>
     </p-table>
     <!-- Pagination -->
-    <p-paginator
-      (onPageChange)="onPageChange($event, entries.meta)"
-      [rows]="searchObj.take"
-      [totalRecords]="entries.meta.itemCount"
-      [rowsPerPageOptions]="[5, 10, 25, { showAll: 'All' }]"
-      [first]="entries.meta.take * entries.meta.page"
-    />
+    <div class="flex justify-between items-center">
+      <div>
+        <span class="ms-3 text-gray-500"
+          >Pagina {{ entries.meta.page + 1 }} de {{ entries.meta.pageCount }},
+          {{ entries.data.length }} registros de
+          {{ entries.meta.itemCount }}</span
+        >
+      </div>
+      <p-paginator
+        (onPageChange)="onPageChange($event, entries.meta)"
+        [rows]="searchObj.take"
+        [totalRecords]="entries.meta.itemCount"
+        [rowsPerPageOptions]="[5, 10, 25, { showAll: 'All' }]"
+        [first]="entries.meta.take * entries.meta.page"
+      />
+    </div>
   }
 </div>
