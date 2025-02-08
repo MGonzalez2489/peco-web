@@ -18,6 +18,7 @@ import { AuthActions } from '@store/actions/auth.actions';
 import { Router } from '@angular/router';
 import { selectIdentity } from '@store/selectors';
 import { AsyncPipe } from '@angular/common';
+import { UiService } from '@core/services';
 
 const components = [
   Toolbar,
@@ -39,6 +40,7 @@ const components = [
 export class NavbarComponent {
   private store$ = inject(Store<AppState>);
   private router = inject(Router);
+  private uiService = inject(UiService);
   user$ = this.store$.select(selectIdentity);
   items: MenuItem[] | undefined;
 
@@ -68,5 +70,9 @@ export class NavbarComponent {
   logout(): void {
     this.store$.dispatch(AuthActions.logout());
     this.router.navigate(['/login']);
+  }
+
+  openSideNav() {
+    this.uiService.isSideNavOpen.set(!this.uiService.isSideNavOpen());
   }
 }

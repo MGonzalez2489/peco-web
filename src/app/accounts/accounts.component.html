@@ -39,7 +39,7 @@
       <ng-template #body let-account>
         <tr>
           <td>{{ account.name }}</td>
-          <td>{{ account.createdAt | date }}</td>
+          <td>{{ account.createdAt | date: "short" }}</td>
           <td>
             <p-tag
               [severity]="
@@ -74,12 +74,22 @@
         </tr>
       </ng-template>
     </p-table>
-    <p-paginator
-      (onPageChange)="onPageChange($event, accounts.meta)"
-      [rows]="searchObj.take"
-      [totalRecords]="accounts.meta.itemCount"
-      [rowsPerPageOptions]="[5, 10, 25, { showAll: 'All' }]"
-      [first]="accounts.meta.take * accounts.meta.page"
-    />
+    <div class="flex justify-between items-center">
+      <div>
+        <span class="ms-3 text-gray-500"
+          >Pagina {{ accounts.meta.page + 1 }} de {{ accounts.meta.pageCount }},
+          {{ accounts.data.length }} registros de
+          {{ accounts.meta.itemCount }}</span
+        >
+      </div>
+
+      <p-paginator
+        (onPageChange)="onPageChange($event, accounts.meta)"
+        [rows]="searchObj.take"
+        [totalRecords]="accounts.meta.itemCount"
+        [rowsPerPageOptions]="[5, 10, 25, { showAll: 'All' }]"
+        [first]="accounts.meta.take * accounts.meta.page"
+      />
+    </div>
   }
 </p-card>
