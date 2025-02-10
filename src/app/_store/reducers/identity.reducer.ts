@@ -11,6 +11,6 @@ export const initialState: IdentityState = null;
 export const IdentityReducer = createReducer(
   initialState,
   on(IdentityActions.loadIdentitySuccess, (state, { data }) => {
-    return data;
+    return { ...state, data };
   }),
 );

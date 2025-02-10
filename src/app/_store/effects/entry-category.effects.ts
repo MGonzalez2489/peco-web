@@ -4,7 +4,7 @@ import { EntryCategory } from '@core/models/entities';
 import { EntryCategoryService } from '@core/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EntryCategoryActions } from '@store/actions/entry-category.actions';
-import { mergeMap, map, catchError, of } from 'rxjs';
+import { catchError, map, mergeMap, of } from 'rxjs';
 
 @Injectable()
 export class EntryCategoryEffects {
@@ -15,7 +15,7 @@ export class EntryCategoryEffects {
   getCategories$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EntryCategoryActions.loadEntryCategories),
-      mergeMap((data) => {
+      mergeMap(() => {
         return this.entryCategoryService.getAll().pipe(
           map((response: ResultListDto<EntryCategory>) => {
             return EntryCategoryActions.loadEntryCategoriesSuccess({

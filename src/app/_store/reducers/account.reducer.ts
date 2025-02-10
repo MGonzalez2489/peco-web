@@ -1,5 +1,5 @@
-import { createReducer, on } from '@ngrx/store';
 import { Account } from '@core/models/entities';
+import { createReducer, on } from '@ngrx/store';
 import { AccountActions } from '@store/actions/account.actions';
 
 export const accountFeatureKey = 'account';
@@ -10,7 +10,7 @@ export const initialState: AccountState = [];
 export const AccountReducer = createReducer(
   initialState,
   on(AccountActions.loadAccountsSuccess, (state, { data }) => {
-    return data;
+    return { ...state, data };
   }),
 
   on(AccountActions.createSuccess, (state, { data }) => {

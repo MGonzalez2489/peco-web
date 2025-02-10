@@ -6,19 +6,26 @@
     "baseUrl": "src",
     "outDir": "./dist/out-tsc",
     "strict": true,
-    "strictPropertyInitialization": false,
+    "strictPropertyInitialization": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-    "isolatedModules": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
+    //
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "useUnknownInCatchVariables": true,
     "paths": {
       "@core/*": ["app/_core/*"],
       "@shared/*": ["app/_shared/*"],
@@ -30,6 +37,25 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    //
+    "strictStandalone": true,
+    "fullTemplateTypeCheck": true,
+    "disableTypeScriptVersionCheck": true,
+    "extendedDiagnostics": {
+      //
+      "checks": {
+        "optionalChainNotNullable": "suppress",
+        "nullishCoalescingNotNullable": "suppress",
+        "suffixNotSupported": "warning",
+        "textAttributeNotBinding": "warning",
+        "invalidBananaInBox": "error",
+        "missingControlFlowDirective": "error",
+        "missingNgForOfLet": "error",
+        "controlFlowPreventingContentProjection": "error",
+        "unusedStandaloneImports": "warning"
+      },
+      "defaultCategory": "error"
+    }
   }
 }

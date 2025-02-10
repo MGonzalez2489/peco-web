@@ -1,12 +1,12 @@
 import { AsyncPipe, Location, NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
-  FormGroup,
   FormControl,
-  Validators,
+  FormGroup,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { EntryCreateDto } from '@core/models/dtos';
 import { EntryCategory, EntryType } from '@core/models/entities';
 import { EntryService } from '@core/services';
@@ -85,7 +85,7 @@ export class CreateEntryComponent extends BaseComponent {
     this.entryService
       .create(this.form.value.accountId!, value)
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((data) => {
+      .subscribe(() => {
         this.store$.dispatch(
           AccountActions.getById({ accountId: this.form.value.accountId! }),
         );

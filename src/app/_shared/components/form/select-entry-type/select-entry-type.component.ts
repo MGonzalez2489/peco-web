@@ -1,12 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  forwardRef,
-  inject,
-  Input,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, forwardRef, inject, Input, OnChanges } from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -73,7 +66,9 @@ export class SelectEntryTypeComponent
   @Input() isRequired: boolean = false;
 
   selectedEntryType = new FormControl();
-  onChange = (value: EntryType) => {};
+  onChange = (value: EntryType) => {
+    this.selectedEntryType.setValue(value);
+  };
   onTouched = () => {};
   writeValue(obj: any): void {
     this.selectedEntryType.setValue(obj);
@@ -84,7 +79,6 @@ export class SelectEntryTypeComponent
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
-  setDisabledState?(isDisabled: boolean): void {}
   validate(control: AbstractControl): ValidationErrors | null {
     if (!control.value) {
       return { required: true };
@@ -98,7 +92,7 @@ export class SelectEntryTypeComponent
   registerOnValidatorChange?(fn: () => void): void {
     this.onChange = fn;
   }
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.updateValidators();
   }
   select(event: SelectChangeEvent) {

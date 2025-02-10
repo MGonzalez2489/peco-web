@@ -66,7 +66,7 @@ export class EntryFilterDateComponent implements OnInit, ControlValueAccessor {
   selected = new FormControl<EntryFilterByDate | null>(null);
 
   @Input()
-  search: EntrySearchDto;
+  search: EntrySearchDto | null = null;
   @Output()
   onChangeSearch = new EventEmitter<EntrySearchDto>();
 
@@ -102,7 +102,7 @@ export class EntryFilterDateComponent implements OnInit, ControlValueAccessor {
       default:
         break;
     }
-    this.onChangeSearch.emit(this.search);
+    this.onChangeSearch.emit(this.search!);
   }
   private generateTodayFilter() {
     let sDate: Date = new Date();
@@ -151,7 +151,9 @@ export class EntryFilterDateComponent implements OnInit, ControlValueAccessor {
 
   //
   //value accessor
-  onChange = (value: EntryFilterByDate) => {};
+  onChange = (value: EntryFilterByDate) => {
+    this.selected.setValue(value);
+  };
   onTouched = () => {};
 
   writeValue(obj: any): void {
@@ -163,5 +165,4 @@ export class EntryFilterDateComponent implements OnInit, ControlValueAccessor {
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
-  setDisabledState?(isDisabled: boolean): void {}
 }

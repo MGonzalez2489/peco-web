@@ -12,6 +12,6 @@ export const EntryCategoryReducer = createReducer(
   initialState,
 
   on(EntryCategoryActions.loadEntryCategoriesSuccess, (state, { data }) => {
-    return data;
+    return { ...state, data };
   }),
 );

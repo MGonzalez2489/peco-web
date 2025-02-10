@@ -1,4 +1,4 @@
-import { combineReducers, createReducer, on } from '@ngrx/store';
+import { combineReducers } from '@ngrx/store';
 import { AccountReducer, AccountState } from './account.reducer';
 import {
   EntryCategoryReducer,

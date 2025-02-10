@@ -5,7 +5,6 @@ import {
   Input,
   OnChanges,
   OnInit,
-  SimpleChanges,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -109,7 +108,9 @@ export class SelectEntryCategoryComponent
 
   selectedCategory = new FormControl();
   @Input() isRequired: boolean = false;
-  onChange = (value: EntryCategory) => {};
+  onChange = (value: EntryCategory) => {
+    this.selectedCategory.setValue(value);
+  };
   onTouched = () => {};
   writeValue(obj: any): void {
     this.selectedCategory.setValue(obj);
@@ -120,7 +121,6 @@ export class SelectEntryCategoryComponent
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
-  setDisabledState?(isDisabled: boolean): void {}
   validate(control: AbstractControl): ValidationErrors | null {
     if (!control.value) {
       return { required: true };
@@ -135,7 +135,7 @@ export class SelectEntryCategoryComponent
     this.onChange = fn;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.updateValidators();
   }
   select(event: SelectChangeEvent) {

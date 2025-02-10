@@ -4,22 +4,22 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@store/reducers';
 import { Observable } from 'rxjs';
 
-import { TableModule } from 'primeng/table';
-import { AsyncPipe, CurrencyPipe, DatePipe, JsonPipe } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, DatePipe } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
 
-import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { CheckboxModule } from 'primeng/checkbox';
 
-import { TagModule } from 'primeng/tag';
-import { AccountService } from '@core/services';
 import { PaginationMetaDto, ResultListDto } from '@core/models/dtos';
-import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { SearchDto } from '@core/models/dtos/search';
+import { AccountService } from '@core/services';
 import { SortEvent } from 'primeng/api';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+import { TagModule } from 'primeng/tag';
 //
 import { InputSearchComponent } from '@shared/components/form/input-search/input-search.component';
 

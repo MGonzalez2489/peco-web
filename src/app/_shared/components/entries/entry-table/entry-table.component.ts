@@ -41,7 +41,7 @@ import { Router } from '@angular/router';
 })
 export class EntryTableComponent {
   @Input()
-  entries: ResultListDto<Entry> | null;
+  entries: ResultListDto<Entry> | null = null;
 
   @Input()
   showAccountColumn: boolean = false;

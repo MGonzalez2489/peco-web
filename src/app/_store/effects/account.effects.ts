@@ -80,7 +80,7 @@ export class AccountEffects {
         this.accountService
           .delete(action.accountId)
           .pipe(
-            map((result) =>
+            map(() =>
               AccountActions.deleteSuccess({ accountId: action.accountId }),
             ),
           ),
