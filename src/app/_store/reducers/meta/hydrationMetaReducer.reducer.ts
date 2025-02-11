@@ -32,7 +32,7 @@ export const LogoutMetaReducer = (
     if (action.type === AuthActions.logout.type) {
       localStorage.removeItem('state');
       localStorage.clear();
-      nextState = {} as AppState;
+      nextState = reducer(undefined, action);
     }
     return nextState;
   };

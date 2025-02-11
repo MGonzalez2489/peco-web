@@ -4,7 +4,7 @@ import { SessionState } from '@store/reducers/session';
 
 const sessionState = (state: AppState) => state.session;
 
-export const selectEntryCategories = createSelector(
+export const selectUser = createSelector(
   sessionState,
-  (state: SessionState) => state.entryCategories.data,
+  (state: SessionState) => state.user,
 );

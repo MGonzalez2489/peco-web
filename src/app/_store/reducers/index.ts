@@ -1,15 +1,18 @@
-import { ActionReducerMap } from '@ngrx/store';
+import { ActionReducerMap, combineReducers } from '@ngrx/store';
 import { CatalogsReducer, CatalogsState } from './catalogs.reducer';
-import { SessionReducer, SessionState } from './session';
+import { SessionReducerMap, SessionState } from './session';
 import { UiReducer, UiState } from './ui.reducer';
 
-export interface AppState extends SessionState {
+export interface AppState {
   ui: UiState;
   catalogs: CatalogsState;
+  session: SessionState;
 }
+
+const sessionReducer = combineReducers(SessionReducerMap);
 
 export const AppReducers: ActionReducerMap<AppState> = {
   ui: UiReducer,
   catalogs: CatalogsReducer,
-  ...SessionReducer,
+  session: sessionReducer,
 };

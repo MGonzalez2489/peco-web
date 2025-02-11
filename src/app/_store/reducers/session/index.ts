@@ -1,11 +1,11 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { AuthReducer, AuthState } from './auth.reducer';
-import { UserReducer, UserState } from './user.reducer';
 import { AccountReducer, AccountState } from './accounts.reducer';
+import { AuthReducer, AuthState } from './auth.reducer';
 import {
   EntryCategoryReducer,
   EntryCategoryState,
 } from './entry-category.reducer';
+import { UserReducer, UserState } from './user.reducer';
 
 export const sessionFeatureKey = 'session';
 
@@ -16,7 +16,7 @@ export interface SessionState {
   entryCategories: EntryCategoryState;
 }
 
-export const SessionReducer: ActionReducerMap<SessionState> = {
+export const SessionReducerMap: ActionReducerMap<SessionState> = {
   auth: AuthReducer,
   user: UserReducer,
   accounts: AccountReducer,
