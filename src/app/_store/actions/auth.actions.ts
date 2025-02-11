@@ -7,11 +7,11 @@ export const AuthActions = createActionGroup({
     //Login
     Login: props<{ data: LoginDto }>(),
     'Login Success': props<{ data: TokenDto }>(),
-    'Login Failure': props<{ payload: any }>(),
+    'Login Failure': props<{ payload: never }>(),
     //Register
     Register: props<{ data: LoginDto }>(),
     'Register Success': props<{ data: TokenDto }>(),
-    'Register Failure': props<{ payload: any }>(),
+    'Register Failure': props<{ payload: never }>(),
 
     //Logout
     Logout: emptyProps(),

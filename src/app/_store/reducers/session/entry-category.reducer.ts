@@ -4,14 +4,21 @@ import { EntryCategoryActions } from '@store/actions/entry-category.actions';
 
 export const entryCategoryFeatureKey = 'entryCategory';
 
-export type EntryCategoryState = EntryCategory[];
+export interface EntryCategoryState {
+  data: EntryCategory[];
+}
 
-export const initialState: EntryCategoryState = [];
+const initialState: EntryCategoryState = {
+  data: [],
+};
 
 export const EntryCategoryReducer = createReducer(
   initialState,
 
-  on(EntryCategoryActions.loadEntryCategoriesSuccess, (state, { data }) => {
-    return { ...state, data };
-  }),
+  on(
+    EntryCategoryActions.loadEntryCategoriesSuccess,
+    (state, { entryCategoryArray }) => {
+      return { ...state, data: entryCategoryArray };
+    },
+  ),
 );

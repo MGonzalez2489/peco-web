@@ -63,19 +63,23 @@ export class SelectEntryTypeComponent
       }),
     );
   //
-  @Input() isRequired: boolean = false;
+  @Input() isRequired = false;
 
   selectedEntryType = new FormControl();
   onChange = (value: EntryType) => {
     this.selectedEntryType.setValue(value);
   };
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onTouched = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(obj: any): void {
     this.selectedEntryType.setValue(obj);
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }

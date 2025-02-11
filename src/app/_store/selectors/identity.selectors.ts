@@ -1,10 +1,9 @@
 import { createSelector } from '@ngrx/store';
 import { AppState } from '@store/reducers';
-import { IdentityState } from '@store/reducers/identity.reducer';
 
-const identityState = (state: AppState) => state.user?.identity;
+const state = (state: AppState) => state;
 
-export const selectIdentity = createSelector(
-  identityState,
-  (state: IdentityState) => state,
+export const selectUser = createSelector(
+  state,
+  (state: AppState) => state.user,
 );

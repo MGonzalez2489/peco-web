@@ -10,17 +10,17 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@store/reducers';
 import { CardModule } from 'primeng/card';
 
-import { InputTextModule } from 'primeng/inputtext';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { ButtonModule } from 'primeng/button';
-import { AccountActions } from '@store/actions/account.actions';
-import { BaseComponent } from '@shared/components';
-import { takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
-import { CheckboxModule } from 'primeng/checkbox';
-import { MessageModule } from 'primeng/message';
 import { AccountCreateDto } from '@core/models/dtos';
+import { BaseComponent } from '@shared/components';
+import { AccountActions } from '@store/actions/account.actions';
+import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { MessageModule } from 'primeng/message';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-create-account',

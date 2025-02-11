@@ -11,16 +11,16 @@ import { AuthActions } from '@store/actions/auth.actions';
 import { AppState } from '@store/reducers';
 
 //primeng
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { Message } from 'primeng/message';
 import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { CheckboxModule } from 'primeng/checkbox';
 import { LoginDto } from '@core/models/dtos';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+import { Message } from 'primeng/message';
+import { PasswordModule } from 'primeng/password';
 
 const components = [
   ButtonModule,

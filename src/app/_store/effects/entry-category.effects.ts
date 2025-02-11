@@ -19,7 +19,7 @@ export class EntryCategoryEffects {
         return this.entryCategoryService.getAll().pipe(
           map((response: ResultListDto<EntryCategory>) => {
             return EntryCategoryActions.loadEntryCategoriesSuccess({
-              data: response.data,
+              entryCategoryArray: response.data,
             });
           }),
           catchError((err) => {

@@ -1,24 +1,24 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
 //primeng
 import { MenuItem } from 'primeng/api';
-import { Toolbar } from 'primeng/toolbar';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
 import { AvatarModule } from 'primeng/avatar';
 import { BadgeModule } from 'primeng/badge';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { Toolbar } from 'primeng/toolbar';
 
-import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
+import { MenubarModule } from 'primeng/menubar';
 
-import { PrimeIcons } from 'primeng/api';
-import { Store } from '@ngrx/store';
-import { AppState } from '@store/reducers';
-import { AuthActions } from '@store/actions/auth.actions';
-import { Router } from '@angular/router';
-import { selectIdentity } from '@store/selectors';
 import { AsyncPipe } from '@angular/common';
+import { Router } from '@angular/router';
 import { UiService } from '@core/services';
+import { Store } from '@ngrx/store';
+import { AuthActions } from '@store/actions/auth.actions';
+import { AppState } from '@store/reducers';
+import { PrimeIcons } from 'primeng/api';
+import { selectUser } from '@store/selectors';
 
 const components = [
   Toolbar,
@@ -37,11 +37,11 @@ const components = [
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   private store$ = inject(Store<AppState>);
   private router = inject(Router);
   private uiService = inject(UiService);
-  user$ = this.store$.select(selectIdentity);
+  user$ = this.store$.select(selectUser);
   items: MenuItem[] | undefined;
 
   ngOnInit() {

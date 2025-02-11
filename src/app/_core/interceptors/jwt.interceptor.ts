@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/reducers';
 import { selectToken } from '@store/selectors';
-import { take, mergeMap } from 'rxjs';
+import { mergeMap, take } from 'rxjs';
 
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
   const store$ = inject(Store<AppState>);

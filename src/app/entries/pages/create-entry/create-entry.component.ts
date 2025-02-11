@@ -61,7 +61,7 @@ export class CreateEntryComponent extends BaseComponent {
   });
 
   //
-  fromAccountView: boolean = false;
+  fromAccountView = false;
 
   constructor() {
     super();
@@ -78,8 +78,8 @@ export class CreateEntryComponent extends BaseComponent {
     const value: EntryCreateDto = {
       amount: this.form.value.amount!,
       description: this.form.value.description!,
-      categoryId: this.form.value.entryCategory?.publicId!,
-      entryTypeId: this.form.value.entryType?.publicId!,
+      categoryId: this.form.value.entryCategory!.publicId!,
+      entryTypeId: this.form.value.entryType!.publicId!,
     };
 
     this.entryService

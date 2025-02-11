@@ -107,19 +107,21 @@ export class SelectEntryCategoryComponent
   //value accesor
 
   selectedCategory = new FormControl();
-  @Input() isRequired: boolean = false;
+  @Input() isRequired = false;
   onChange = (value: EntryCategory) => {
     this.selectedCategory.setValue(value);
   };
-  onTouched = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(obj: any): void {
     this.selectedCategory.setValue(obj);
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerOnTouched(fn: any): void {
-    this.onTouched = fn;
+    return fn;
   }
   validate(control: AbstractControl): ValidationErrors | null {
     if (!control.value) {
@@ -140,7 +142,6 @@ export class SelectEntryCategoryComponent
   }
   select(event: SelectChangeEvent) {
     this.onChange(event.value);
-    // this.selectedCategory.setValue(event.value);
   }
   private updateValidators() {
     if (!this.isRequired) {

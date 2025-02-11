@@ -1,16 +1,16 @@
 import { Account } from '@core/models/entities';
 import { createSelector } from '@ngrx/store';
 import { AppState } from '@store/reducers';
-import { AccountState } from '@store/reducers/account.reducer';
+import { SessionState } from '@store/reducers/session';
 
-const accountsState = (state: AppState) => state.user?.accounts;
+const accountsState = (state: AppState) => state;
 
 export const selectAccounts = createSelector(
   accountsState,
-  (state: AccountState) => state,
+  (state: SessionState) => state.accounts.data,
 );
 
 export const selectAccountById = (accountId: string) =>
-  createSelector(accountsState, (state: AccountState) =>
-    state.find((f: Account) => f.publicId == accountId),
+  createSelector(accountsState, (state: SessionState) =>
+    state.accounts.data.find((f: Account) => f.publicId == accountId),
   );

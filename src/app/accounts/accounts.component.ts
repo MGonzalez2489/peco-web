@@ -75,5 +75,4 @@ export class AccountsComponent implements OnInit {
     delete this.searchObj.hint;
     this.search();
   }
-  handleSearch() {}
 }

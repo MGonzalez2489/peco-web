@@ -1,23 +1,23 @@
 import { AsyncPipe, DatePipe, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PaginationMetaDto, ResultListDto } from '@core/models/dtos';
 import { EntrySearchDto } from '@core/models/dtos/search';
 import { Entry } from '@core/models/entities';
+import { Store } from '@ngrx/store';
 import { AmountComponent } from '@shared/components/amount/amount.component';
+import { AppState } from '@store/reducers';
+import { selectAccounts } from '@store/selectors';
 import { SortEvent } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
-import { TableModule } from 'primeng/table';
-import { EntryFilterDateComponent } from '../entry-filter-date/entry-filter-date.component';
-import { FormsModule } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { AppState } from '@store/reducers';
-import { selectAccounts } from '@store/selectors';
 import { SelectModule } from 'primeng/select';
+import { TableModule } from 'primeng/table';
 import { map } from 'rxjs';
-import { Router } from '@angular/router';
+import { EntryFilterDateComponent } from '../entry-filter-date/entry-filter-date.component';
 
 @Component({
   selector: 'app-entry-table',
@@ -44,7 +44,7 @@ export class EntryTableComponent {
   entries: ResultListDto<Entry> | null = null;
 
   @Input()
-  showAccountColumn: boolean = false;
+  showAccountColumn = false;
 
   @Output()
   search: EventEmitter<EntrySearchDto> = new EventEmitter<EntrySearchDto>();

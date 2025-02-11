@@ -1,6 +1,5 @@
 import { EntryType } from '@core/models/entities';
-import { createReducer, on } from '@ngrx/store';
-import { CatalogsActions } from '@store/actions/catalogs.actions';
+import { createReducer } from '@ngrx/store';
 
 export const catalogsFeatureKey = 'catalogs';
 
@@ -12,12 +11,4 @@ export const initialState: CatalogsState = {
   entryTypes: [],
 };
 
-export const CatalogsReducer = createReducer(
-  initialState,
-  on(CatalogsActions.loadEntryTypeSuccess, (state, { data }) => {
-    return {
-      ...state,
-      entryTypes: data,
-    };
-  }),
-);
+export const CatalogsReducer = createReducer(initialState);

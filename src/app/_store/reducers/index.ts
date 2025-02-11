@@ -1,18 +1,15 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { AuthReducer, AuthState } from './auth.reducer';
 import { CatalogsReducer, CatalogsState } from './catalogs.reducer';
-import { UserReducer, UserState } from './user.reducer';
+import { SessionReducer, SessionState } from './session';
+import { UiReducer, UiState } from './ui.reducer';
 
-export const pecoFeatureKey = 'peco';
-
-export interface AppState {
-  auth: AuthState;
+export interface AppState extends SessionState {
+  ui: UiState;
   catalogs: CatalogsState;
-  user: UserState;
 }
 
-export const reducers: ActionReducerMap<AppState> = {
-  auth: AuthReducer,
+export const AppReducers: ActionReducerMap<AppState> = {
+  ui: UiReducer,
   catalogs: CatalogsReducer,
-  user: UserReducer,
+  ...SessionReducer,
 };

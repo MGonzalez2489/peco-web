@@ -1,22 +1,20 @@
 import {
   ApplicationConfig,
   provideExperimentalZonelessChangeDetection,
-  provideZoneChangeDetection,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providePrimeNG } from 'primeng/config';
+import { provideRouter } from '@angular/router';
 import Aura from '@primeng/themes/aura';
+import { providePrimeNG } from 'primeng/config';
 
-import { routes } from './app.routes';
-import { RequestService } from '@core/services/_request.service';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { PecoStoreProvider } from '@store/store.module';
 import { jwtInterceptor } from '@core/interceptors';
+import { RequestService } from '@core/services/_request.service';
+import { PecoStoreProvider } from '@store/store.module';
+import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
     provideHttpClient(withInterceptors([jwtInterceptor])),

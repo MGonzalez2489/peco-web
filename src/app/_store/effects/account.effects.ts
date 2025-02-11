@@ -17,7 +17,7 @@ export class AccountEffects {
           .getAll(action.search)
           .pipe(
             map((result) =>
-              AccountActions.loadAccountsSuccess({ data: result.data }),
+              AccountActions.loadAccountsSuccess({ accounts: result.data }),
             ),
           ),
       ),
@@ -33,7 +33,7 @@ export class AccountEffects {
           .getById(action.accountId)
           .pipe(
             map((result) =>
-              AccountActions.getByIdSuccess({ data: result.data }),
+              AccountActions.getByIdSuccess({ account: result.data }),
             ),
           ),
       ),
@@ -49,7 +49,7 @@ export class AccountEffects {
           .create(action.data)
           .pipe(
             map((result) =>
-              AccountActions.createSuccess({ data: result.data }),
+              AccountActions.createSuccess({ account: result.data }),
             ),
           ),
       ),
@@ -65,7 +65,7 @@ export class AccountEffects {
           .update(action.data, action.accountId)
           .pipe(
             map((result) =>
-              AccountActions.updateSuccess({ data: result.data }),
+              AccountActions.updateSuccess({ account: result.data }),
             ),
           ),
       ),

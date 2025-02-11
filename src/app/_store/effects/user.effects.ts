@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { AccountActions } from '@store/actions/account.actions';
 import { AuthActions } from '@store/actions/auth.actions';
 import { EntryCategoryActions } from '@store/actions/entry-category.actions';
-import { IdentityActions } from '@store/actions/identity.actions';
+import { UserActions } from '@store/actions/profile.actions';
 import { AppState } from '@store/reducers';
 import { exhaustMap, map } from 'rxjs';
 
@@ -18,11 +18,11 @@ export class UserEffects {
 
   getUser$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(IdentityActions.loadIdentity),
+      ofType(UserActions.loadUser),
       exhaustMap(() =>
         this.userService.get().pipe(
           map((result) => {
-            return IdentityActions.loadIdentitySuccess({ data: result.data });
+            return UserActions.loadUserSuccess({ data: result.data });
           }),
         ),
       ),
@@ -39,7 +39,7 @@ export class UserEffects {
             AccountActions.loadAccounts({ search: new SearchDto() }),
           );
           this.store$.dispatch(EntryCategoryActions.loadEntryCategories());
-          this.store$.dispatch(IdentityActions.loadIdentity());
+          this.store$.dispatch(UserActions.loadUser());
         }),
       ),
     { dispatch: false },
