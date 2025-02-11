@@ -1,7 +1,7 @@
 <p-card>
   <div class="flex justify-between my-5">
     <!-- Search -->
-    <app-input-search [(hint)]="searchObj.hint" (hintChange)="search()" />
+    <app-input-search (hintChange)="handleSearchHint($event)" />
     <!-- New -->
     <p-button
       icon="pi pi-plus"

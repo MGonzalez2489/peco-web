@@ -27,7 +27,6 @@ import { InputSearchComponent } from '@shared/components/form/input-search/input
   selector: 'app-accounts',
   imports: [
     TableModule,
-    AsyncPipe,
     CurrencyPipe,
     CardModule,
     InputTextModule,
@@ -39,6 +38,7 @@ import { InputSearchComponent } from '@shared/components/form/input-search/input
     TagModule,
     PaginatorModule,
     InputSearchComponent,
+    AsyncPipe,
   ],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss',
@@ -61,6 +61,10 @@ export class AccountsComponent implements OnInit {
   }
   search() {
     this.accounts$ = this.accountService.getAll(this.searchObj);
+  }
+  handleSearchHint(value: string | undefined) {
+    this.searchObj.hint = value;
+    this.search();
   }
   onPageChange(event: PaginatorState, pagination: PaginationMetaDto) {
     this.searchObj.setPagination(event, pagination);

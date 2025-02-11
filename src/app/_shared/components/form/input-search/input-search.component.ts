@@ -1,36 +1,35 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
+import { BaseComponent } from '@shared/components/_base.component';
+import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
-import { BaseComponent } from '@shared/components/_base.component';
 
 @Component({
   selector: 'app-input-search',
   imports: [
-    FormsModule,
     InputTextModule,
     InputGroupModule,
     InputGroupAddonModule,
     ButtonModule,
+    FormsModule,
   ],
   templateUrl: './input-search.component.html',
   styleUrl: './input-search.component.scss',
 })
 export class InputSearchComponent extends BaseComponent {
-  @Input()
-  hint: string | undefined;
   @Output()
   hintChange = new EventEmitter<string | undefined>();
-
-  //
   @Input()
-  placeholder: string = 'Buscar...';
+  placeholder = 'Buscar...';
+
+  hint = '';
+  //
 
   //milliseconds
-  debounceTime: number = 500;
+  debounceTime = 500;
   handleSearch = new Subject<string>();
   constructor() {
     super();
@@ -41,17 +40,18 @@ export class InputSearchComponent extends BaseComponent {
         distinctUntilChanged(),
       )
       .subscribe((value) => {
-        this.hint = value && value !== '' ? value : undefined;
+        this.hint = value;
         this.emitValue();
       });
   }
 
   clearSearch(): void {
-    this.hint = undefined;
+    this.hint = '';
     this.emitValue();
   }
 
   private emitValue() {
-    this.hintChange.emit(this.hint);
+    const value = this.hint.length > 0 ? this.hint : undefined;
+    this.hintChange.emit(value);
   }
 }
