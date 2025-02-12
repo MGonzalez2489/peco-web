@@ -24,6 +24,7 @@
       <ng-template #header>
         <tr>
           <th pSortableColumn="name">Cuenta <p-sortIcon field="name" /></th>
+          <th pSortableColumn="typeId">Tipo <p-sortIcon field="typeId" /></th>
           <th pSortableColumn="createdAt">
             Creado <p-sortIcon field="createdAt" />
           </th>
@@ -39,6 +40,7 @@
       <ng-template #body let-account>
         <tr>
           <td>{{ account.name }}</td>
+          <td>{{ account.type.displayName }}</td>
           <td>{{ account.createdAt | date: "short" }}</td>
           <td>
             <p-tag

@@ -21,6 +21,19 @@
           <label for="balance">Balance inicial</label>
         </p-floatlabel>
       </div>
+      <!-- Account Type -->
+      <div class="my-6">
+        <p-floatlabel>
+          <p-select
+            formControlName="accountTypeId"
+            [options]="(accountTypes$ | async)!"
+            optionLabel="displayName"
+            optionValue="publicId"
+            placeholder="Select a City"
+            fluid="true"
+          />
+        </p-floatlabel>
+      </div>
       <!-- Mark Default -->
       <div class="my-6">
         <p-checkbox
@@ -58,5 +71,6 @@
         <p-button type="submit" size="small" pButton label="Guardar" />
       </div>
     </form>
+    <pre>{{ form.value | json }}</pre>
   </div>
 </p-card>

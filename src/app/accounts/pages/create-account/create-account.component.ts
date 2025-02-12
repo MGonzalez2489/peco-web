@@ -10,16 +10,19 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@store/reducers';
 import { CardModule } from 'primeng/card';
 
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { AccountCreateDto } from '@core/models/dtos';
 import { BaseComponent } from '@shared/components';
 import { AccountActions } from '@store/actions/account.actions';
+import { selectCatAccountTypes } from '@store/selectors';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
+import { SelectModule } from 'primeng/select';
 import { takeUntil } from 'rxjs';
 
 @Component({
@@ -33,6 +36,9 @@ import { takeUntil } from 'rxjs';
     ButtonModule,
     CheckboxModule,
     MessageModule,
+    SelectModule,
+    AsyncPipe,
+    JsonPipe,
   ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss',
@@ -41,9 +47,11 @@ export class CreateAccountComponent extends BaseComponent {
   store$ = inject(Store<AppState>);
   actions$ = inject(Actions);
   router = inject(Router);
+  accountTypes$ = this.store$.select(selectCatAccountTypes);
   form = new FormGroup({
     name: new FormControl<string>('', [Validators.required]),
     balance: new FormControl<number>(0, [Validators.required]),
+    accountTypeId: new FormControl<string>('', [Validators.required]),
     isDefault: new FormControl<boolean>(false),
   });
 

@@ -8,3 +8,8 @@ export const selectCatEntryTypes = createSelector(
   catalogsState,
   (state: CatalogsState) => state.entryTypes,
 );
+
+export const selectCatAccountTypes = createSelector(
+  catalogsState,
+  (state: CatalogsState) => state.accountTypes,
+);

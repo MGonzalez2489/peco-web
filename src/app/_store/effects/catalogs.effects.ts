@@ -14,13 +14,29 @@ export class CatalogsEffects {
   private catalogsService = inject(CatalogsService);
 
   //Get Entry Types
-  getEntryType$ = createEffect(() => {
+  getEntryTypes$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CatalogsActions.loadEntryType),
       exhaustMap(() =>
-        this.catalogsService.getEntryTipes().pipe(
+        this.catalogsService.getEntryTypes().pipe(
           map((result) => {
             return CatalogsActions.loadEntryTypeSuccess({ data: result.data });
+          }),
+        ),
+      ),
+    );
+  });
+
+  //Get Account Types
+  getAccountTypes$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CatalogsActions.loadAccountType),
+      exhaustMap(() =>
+        this.catalogsService.getAccountTypes().pipe(
+          map((result) => {
+            return CatalogsActions.loadAccountTypeSuccess({
+              data: result.data,
+            });
           }),
         ),
       ),
@@ -34,6 +50,7 @@ export class CatalogsEffects {
         ofType(AuthActions.loginSuccess, AuthActions.registerSuccess),
         map(() => {
           this.store$.dispatch(CatalogsActions.loadEntryType());
+          this.store$.dispatch(CatalogsActions.loadAccountType());
         }),
       ),
     { dispatch: false },

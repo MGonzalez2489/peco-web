@@ -1,7 +1,5 @@
-export interface BaseCatalog {
+export interface BaseEntity {
   publicId: string;
-}
-export interface BaseEntity extends BaseCatalog {
   createdAt: string;
   updatedAt: string;
 }

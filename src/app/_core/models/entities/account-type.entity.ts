@@ -1,6 +1,6 @@
 import { BaseEntity } from './_base.entity';
 
-export interface EntryType extends BaseEntity {
+export interface AccountType extends BaseEntity {
   name: string;
   displayName: string;
 }

@@ -17,8 +17,8 @@ import { UiService } from '@core/services';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '@store/actions/auth.actions';
 import { AppState } from '@store/reducers';
-import { PrimeIcons } from 'primeng/api';
 import { selectUser } from '@store/selectors';
+import { PrimeIcons } from 'primeng/api';
 
 const components = [
   Toolbar,

@@ -13,13 +13,14 @@
 
     <ng-template #end>
       @if (user$ | async; as user) {
-        <span class="me-5">{{ user.email }}</span>
         <p-menu #menu [model]="items" [popup]="true" />
+        <span class="me-5">{{ user.email }}</span>
+
         <p-avatar
-          [label]="user.email"
-          styleClass="mr-2"
           (click)="menu.toggle($event)"
+          icon="pi pi-user"
           class="cursor-pointer"
+          shape="circle"
         />
       }
     </ng-template>
