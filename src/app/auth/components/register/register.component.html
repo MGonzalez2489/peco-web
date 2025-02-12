@@ -30,6 +30,7 @@
         autocomplete="off"
         formControlName="password"
         fluid="true"
+        feedback="false"
         [class.ng-dirty]="
           registerForm.controls['password'].invalid && formDirective.submitted
         "
@@ -69,15 +70,20 @@
     }
   </div>
 
+  <div class="my-6 min-h-12">
+    <app-error-message />
+  </div>
+
   <!-- Options -->
   <div class="mb-6 mt-10 flex flex-col items-stretch">
     <p-button
+      label="Crear Cuenta"
+      [loading]="isBusy$ | async"
       type="submit"
-      size="small"
-      pButton
       [rounded]="true"
-      label="Entrar"
+      fluid="true"
     />
+
     <div class="w-full flex justify-center mt-5">
       <p-button
         label="Ya tengo cuenta!"

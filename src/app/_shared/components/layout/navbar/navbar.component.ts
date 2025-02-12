@@ -13,7 +13,6 @@ import { MenubarModule } from 'primeng/menubar';
 
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { UiService } from '@core/services';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '@store/actions/auth.actions';
 import { AppState } from '@store/reducers';
@@ -40,7 +39,6 @@ const components = [
 export class NavbarComponent implements OnInit {
   private store$ = inject(Store<AppState>);
   private router = inject(Router);
-  private uiService = inject(UiService);
   user$ = this.store$.select(selectUser);
   items: MenuItem[] | undefined;
 
@@ -73,6 +71,6 @@ export class NavbarComponent implements OnInit {
   }
 
   openSideNav() {
-    this.uiService.isSideNavOpen.set(!this.uiService.isSideNavOpen());
+    return true;
   }
 }

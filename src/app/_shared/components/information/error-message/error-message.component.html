@@ -1,0 +1,9 @@
+@if (error$ | async; as error) {
+  <p-message
+    [life]="lifeTime"
+    (onClose)="cleanMessage()"
+    closable
+    severity="error"
+    >{{ error }}</p-message
+  >
+}

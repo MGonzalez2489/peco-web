@@ -11,9 +11,11 @@ import { AuthActions } from '@store/actions/auth.actions';
 import { AppState } from '@store/reducers';
 
 //primeng
-import { NgClass } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { LoginDto } from '@core/models/dtos';
+import { BaseComponent } from '@shared/components';
+import { selectIsBusy } from '@store/selectors';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -21,6 +23,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { Message } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
+import { ErrorMessageComponent } from '@shared/components/information';
 
 const components = [
   ButtonModule,
@@ -30,20 +33,29 @@ const components = [
   PasswordModule,
   Message,
   CheckboxModule,
+  AsyncPipe,
 ];
 
 @Component({
   selector: 'app-login',
-  imports: [...components, ReactiveFormsModule, NgClass, RouterLink],
+  imports: [
+    ...components,
+    ReactiveFormsModule,
+    NgClass,
+    RouterLink,
+    ErrorMessageComponent,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent extends BaseComponent {
   store$ = inject(Store<AppState>);
+  isBusy$ = this.store$.select(selectIsBusy);
   formBuilder = inject(FormBuilder);
   loginForm: FormGroup;
 
   constructor() {
+    super();
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),

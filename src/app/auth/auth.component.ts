@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { BaseComponent } from '@shared/components';
@@ -12,9 +12,10 @@ import { takeUntil } from 'rxjs';
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
 })
-export class AuthComponent extends BaseComponent implements OnInit {
+export class AuthComponent extends BaseComponent {
   private router = inject(Router);
   private actions$ = inject(Actions);
+
   constructor() {
     super();
 
@@ -28,5 +29,4 @@ export class AuthComponent extends BaseComponent implements OnInit {
         this.router.navigate(['/home']);
       });
   }
-  ngOnInit(): void {}
 }

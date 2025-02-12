@@ -8,7 +8,7 @@ import Aura from '@primeng/themes/aura';
 import { providePrimeNG } from 'primeng/config';
 
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { jwtInterceptor } from '@core/interceptors';
+import { httpInterceptor } from '@core/interceptors';
 import { RequestService } from '@core/services/_request.service';
 import { PecoStoreProvider } from '@store/store.module';
 import { routes } from './app.routes';
@@ -17,7 +17,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(),
-    provideHttpClient(withInterceptors([jwtInterceptor])),
+    provideHttpClient(withInterceptors([httpInterceptor])),
     provideExperimentalZonelessChangeDetection(),
 
     //
