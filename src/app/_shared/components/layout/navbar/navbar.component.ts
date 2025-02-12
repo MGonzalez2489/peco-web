@@ -15,6 +15,7 @@ import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '@store/actions/auth.actions';
+import { UiActions } from '@store/actions/ui.actions';
 import { AppState } from '@store/reducers';
 import { selectUser } from '@store/selectors';
 import { PrimeIcons } from 'primeng/api';
@@ -71,6 +72,6 @@ export class NavbarComponent implements OnInit {
   }
 
   openSideNav() {
-    return true;
+    this.store$.dispatch(UiActions.setSideBarState());
   }
 }

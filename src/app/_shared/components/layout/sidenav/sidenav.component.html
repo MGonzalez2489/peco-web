@@ -1,8 +1,7 @@
-<!-- <div class="sidenav" [ngClass]="{ collapsed: !uiService.isSideNavOpen() }"> -->
-<div class="sidenav">
+<div class="sidenav" [ngClass]="{ collapsed: (sideNavState$ | async) }">
   <p-menu [model]="menuItems" styleClass="flex flex-col h-full">
     <ng-template #start>
-      <div class="bg-primary-100 min-h-16 p-5">App Name</div>
+      <div class="bg-green-100 min-h-16 p-5">App Name</div>
     </ng-template>
     <ng-template #submenuheader let-item>
       <span class="text-primary font-bold">{{ item.label }}</span>

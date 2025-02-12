@@ -5,7 +5,7 @@ export const UiActions = createActionGroup({
   events: {
     'Set Busy on': emptyProps(),
     'Set Busy off': emptyProps(),
-    'Set SideBar Open': props<{ isOpen: boolean }>(),
+    'Set SideBar State': emptyProps(),
 
     'Set Error Message': props<{ message: string }>(),
     'Remove Error Message': emptyProps(),

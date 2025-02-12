@@ -26,9 +26,9 @@ export const UiReducer = createReducer(
     isBusy: false,
   })),
 
-  on(UiActions.setSideBarOpen, (state, { isOpen }) => ({
+  on(UiActions.setSideBarState, (state) => ({
     ...state,
-    isSideBarOpen: isOpen,
+    isSideBarOpen: !state.isSideBarOpen,
   })),
 
   on(UiActions.setErrorMessage, (state, { message }) => ({

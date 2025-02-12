@@ -4,7 +4,7 @@ import { UiState } from '@store/reducers/ui.reducer';
 
 const uiState = (state: AppState) => state.ui;
 
-export const selectIsSideBarOpen = createSelector(
+export const selectSideNavState = createSelector(
   uiState,
   (state: UiState) => state.isSideBarOpen,
 );
