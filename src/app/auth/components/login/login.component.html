@@ -7,12 +7,7 @@
         formControlName="email"
         id="email"
         fluid="true"
-        [ngClass]="{
-          'ng-invalid':
-            loginForm.controls['email'].invalid && formDirective.submitted,
-          'ng-dirty':
-            loginForm.controls['email'].invalid && formDirective.submitted,
-        }"
+        appInvalidDirty
       />
       <label for="email">Email</label>
     </p-floatlabel>
@@ -31,9 +26,7 @@
         formControlName="password"
         fluid="true"
         feedback="false"
-        [class.ng-dirty]="
-          loginForm.controls['password'].invalid && formDirective.submitted
-        "
+        appInvalidDirty
       />
       <label for="password">Contraseña</label>
     </p-floatlabel>

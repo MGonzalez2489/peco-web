@@ -11,10 +11,12 @@ import { AuthActions } from '@store/actions/auth.actions';
 import { AppState } from '@store/reducers';
 
 //primeng
-import { AsyncPipe, NgClass } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { LoginDto } from '@core/models/dtos';
 import { BaseComponent } from '@shared/components';
+import { ErrorMessageComponent } from '@shared/components/information';
+import { InvalidDirtyDirective } from '@shared/directives/forms';
 import { selectIsBusy } from '@store/selectors';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -23,7 +25,6 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { Message } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
-import { ErrorMessageComponent } from '@shared/components/information';
 
 const components = [
   ButtonModule,
@@ -34,6 +35,7 @@ const components = [
   Message,
   CheckboxModule,
   AsyncPipe,
+  InvalidDirtyDirective,
 ];
 
 @Component({
@@ -41,7 +43,6 @@ const components = [
   imports: [
     ...components,
     ReactiveFormsModule,
-    NgClass,
     RouterLink,
     ErrorMessageComponent,
   ],
