@@ -16,14 +16,16 @@ import { RouterLink } from '@angular/router';
 import { LoginDto } from '@core/models/dtos';
 import { BaseComponent } from '@shared/components';
 import { ErrorMessageComponent } from '@shared/components/information';
-import { InvalidDirtyDirective } from '@shared/directives/forms';
+import {
+  InvalidDirtyDirective,
+  ValidationErrorDirective,
+} from '@shared/directives/forms';
 import { selectIsBusy } from '@store/selectors';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
-import { Message } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 
 const components = [
@@ -32,10 +34,8 @@ const components = [
   InputTextModule,
   FloatLabelModule,
   PasswordModule,
-  Message,
   CheckboxModule,
   AsyncPipe,
-  InvalidDirtyDirective,
 ];
 
 @Component({
@@ -45,6 +45,8 @@ const components = [
     ReactiveFormsModule,
     RouterLink,
     ErrorMessageComponent,
+    InvalidDirtyDirective,
+    ValidationErrorDirective,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -71,7 +73,6 @@ export class LoginComponent extends BaseComponent {
       email: this.loginForm.value.email,
       password: this.loginForm.value.password,
     };
-
     this.store$.dispatch(AuthActions.login({ data: request }));
   }
 }

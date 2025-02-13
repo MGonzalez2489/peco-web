@@ -7,15 +7,11 @@
         formControlName="email"
         id="email"
         fluid="true"
-        appInvalidDirty
+        [appInvalidDirty]="formDirective"
       />
       <label for="email">Email</label>
     </p-floatlabel>
-    @if (formDirective.submitted && loginForm.controls["email"].invalid) {
-      <p-message severity="error" variant="simple" size="small"
-        >Email requerido</p-message
-      >
-    }
+    <p [appValidationError]="'email'" [directive]="formDirective"></p>
   </div>
   <!-- Password -->
   <div class="my-6">
@@ -25,17 +21,13 @@
         autocomplete="off"
         formControlName="password"
         fluid="true"
+        id="password"
         feedback="false"
-        appInvalidDirty
+        [appInvalidDirty]="formDirective"
       />
       <label for="password">Contraseña</label>
     </p-floatlabel>
-
-    @if (formDirective.submitted && loginForm.controls["password"].invalid) {
-      <p-message severity="error" variant="simple" size="small"
-        >Password requerido</p-message
-      >
-    }
+    <p [appValidationError]="'email'" [directive]="formDirective"></p>
   </div>
 
   <!-- Rememberme/forgotPassword-->

@@ -7,42 +7,27 @@
         formControlName="email"
         id="email"
         fluid="true"
-        [ngClass]="{
-          'ng-invalid':
-            registerForm.controls['email'].invalid && formDirective.submitted,
-          'ng-dirty':
-            registerForm.controls['email'].invalid && formDirective.submitted,
-        }"
+        [appInvalidDirty]="formDirective"
       />
       <label for="email">Email</label>
     </p-floatlabel>
-    @if (formDirective.submitted && registerForm.controls["email"].invalid) {
-      <p-message severity="error" variant="simple" size="small"
-        >Email requerido</p-message
-      >
-    }
+    <p [appValidationError]="'email'" [directive]="formDirective"></p>
   </div>
   <!-- Password -->
   <div class="my-6">
     <p-floatlabel>
       <p-password
         inputId="password"
+        id="password"
         autocomplete="off"
         formControlName="password"
         fluid="true"
         feedback="false"
-        [class.ng-dirty]="
-          registerForm.controls['password'].invalid && formDirective.submitted
-        "
+        [appInvalidDirty]="formDirective"
       />
       <label for="password">Contraseña</label>
     </p-floatlabel>
-
-    @if (formDirective.submitted && registerForm.controls["password"].invalid) {
-      <p-message severity="error" variant="simple" size="small"
-        >Password requerido</p-message
-      >
-    }
+    <p [appValidationError]="'email'" [directive]="formDirective"></p>
   </div>
   <!-- Confirm Password -->
   <div class="mb-6">
@@ -50,24 +35,15 @@
       <input
         pInputText
         formControlName="confirmPassword"
-        id="confPassword"
+        id="confirmPassword"
         fluid="true"
         type="password"
         autocomplete="off"
-        [ngClass]="{
-          'ng-invalid':
-            registerForm.controls['email'].invalid && formDirective.submitted,
-          'ng-dirty':
-            registerForm.controls['email'].invalid && formDirective.submitted,
-        }"
+        [appInvalidDirty]="formDirective"
       />
-      <label for="confPassword">Confirmar Contraseña</label>
+      <label for="confirmPassword">Confirmar Contraseña</label>
     </p-floatlabel>
-    @if (formDirective.submitted && registerForm.controls["email"].invalid) {
-      <p-message severity="error" variant="simple" size="small"
-        >Email requerido</p-message
-      >
-    }
+    <p [appValidationError]="'confirmPassword'" [directive]="formDirective"></p>
   </div>
 
   <div class="my-6 min-h-12">
@@ -90,6 +66,7 @@
         severity="info"
         [link]="true"
         [routerLink]="['/']"
+        [disabled]="isBusy$ | async"
       />
     </div>
   </div>

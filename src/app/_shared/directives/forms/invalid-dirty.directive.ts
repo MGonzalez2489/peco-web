@@ -1,18 +1,23 @@
-import { Directive, DoCheck, ElementRef } from '@angular/core';
-import { NgControl } from '@angular/forms';
+import { Directive, DoCheck, ElementRef, inject, Input } from '@angular/core';
+import { FormGroupDirective } from '@angular/forms';
 
 @Directive({
   selector: '[appInvalidDirty]',
+  standalone: true,
 })
 export class InvalidDirtyDirective implements DoCheck {
-  constructor(
-    private elementRef: ElementRef,
-    private ngControl: NgControl,
-  ) {}
+  @Input('appInvalidDirty')
+  directive: FormGroupDirective | undefined;
+
+  private elementRef = inject(ElementRef);
 
   ngDoCheck() {
-    if (this.ngControl.invalid) {
+    const ctrl =
+      this.directive?.form.controls[this.elementRef.nativeElement.id];
+
+    if (ctrl?.invalid && this.directive?.submitted) {
       this.elementRef.nativeElement.classList.add('ng-invalid', 'ng-dirty');
+      ctrl.markAsDirty();
     } else {
       this.elementRef.nativeElement.classList.remove('ng-invalid', 'ng-dirty');
     }
