@@ -8,21 +8,35 @@
           <label for="name">Nombre de la cuenta</label>
         </p-floatlabel>
       </div>
-      <!-- initial balance -->
+      <!-- balance -->
       <div class="my-6">
         <p-floatlabel>
           <p-inputnumber
-            formControlName="initialBalance"
-            inputId="initialBalance"
+            formControlName="balance"
+            inputId="balance"
             mode="currency"
             currency="MXN"
             locale="es-ES"
             [fluid]="true"
             [readonly]="true"
           />
-          <label for="initialBalance">Balance</label>
+          <label for="balance">Balance</label>
         </p-floatlabel>
       </div>
+      <!-- Account Type -->
+      <div class="my-6">
+        <p-floatlabel>
+          <p-select
+            formControlName="accountTypeId"
+            [options]="(accountTypes$ | async)!"
+            optionLabel="displayName"
+            optionValue="publicId"
+            placeholder="Select a City"
+            fluid="true"
+          />
+        </p-floatlabel>
+      </div>
+
       <!-- Mark Default -->
       <div class="my-6">
         <p-checkbox

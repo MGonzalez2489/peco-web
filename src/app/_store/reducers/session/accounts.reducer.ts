@@ -28,7 +28,12 @@ export const AccountReducer = createReducer(
   on(AccountActions.updateSuccess, (state, { account }) => {
     const accounts = state.data.map((acc) => {
       if (acc.publicId === account.publicId) {
-        return { ...acc, name: account.name, isDefault: account.isDefault };
+        return {
+          ...acc,
+          name: account.name,
+          isDefault: account.isDefault,
+          type: account.type,
+        };
       }
       return acc;
     });

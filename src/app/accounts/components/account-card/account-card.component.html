@@ -2,31 +2,41 @@
   <p-card>
     <ng-template #title>
       <div class="flex w-full justify-between">
-        <span class="font-semibold text-lg">{{
-          account.name | titlecase
-        }}</span>
+        <div class="flex flex-col">
+          <p class="font-semibold text-2xl">{{ account.name | titlecase }}</p>
+          <p class="text-sm text-gray-400">{{ account.type.displayName }}</p>
+        </div>
 
         <div class="flex justify-center items-center gap-3">
-          <span class="text-sm mb-2 text-gray-400" for="isDefault"
-            >Es Default</span
-          >
-          <p-toggleswitch
-            inputId="isDefault"
-            [(ngModel)]="account.isDefault"
-            readonly="true"
+          <p-button
+            icon="pi pi-pencil"
+            [rounded]="true"
+            [text]="true"
+            severity="secondary"
+            variant="outlined"
+            [routerLink]="['/accounts', account.publicId, 'edit']"
           />
+
+          <!-- <span class="text-sm mb-2 text-gray-400" for="isDefault" -->
+          <!--   >Es Default</span -->
+          <!-- > -->
+          <!-- <p-toggleswitch -->
+          <!--   inputId="isDefault" -->
+          <!--   [(ngModel)]="account.isDefault" -->
+          <!--   readonly="true" -->
+          <!-- /> -->
         </div>
       </div>
     </ng-template>
     <!-- content -->
     <ng-template #content>
-      <div class="flex gap-3">
+      <div class="flex gap-5 justify-start">
         <div>
-          <span class="me-2 text-gray-400">Balance Inicial</span>
+          <span class="me-2 text-gray-300">Balance Inicial</span>
           <app-amount [amount]="account.initialBalance"></app-amount>
         </div>
         <div>
-          <span class="me-2 text-gray-400">Balance Actual</span>
+          <span class="me-2 text-gray-300">Balance Actual</span>
           <app-amount [amount]="account.balance"></app-amount>
         </div>
       </div>

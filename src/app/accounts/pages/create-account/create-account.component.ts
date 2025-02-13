@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@store/reducers';
 import { CardModule } from 'primeng/card';
 
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { AccountCreateDto } from '@core/models/dtos';
 import { BaseComponent } from '@shared/components';
@@ -38,7 +38,6 @@ import { takeUntil } from 'rxjs';
     MessageModule,
     SelectModule,
     AsyncPipe,
-    JsonPipe,
   ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss',

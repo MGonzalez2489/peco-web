@@ -10,17 +10,17 @@ export class SearchDto {
   /**
    * Page to show
    */
-  page: number = 1;
+  page = 1;
   /**
    * Items per page
    */
 
-  take: number = 10;
+  take = 10;
   /**
    * identify if we want to request all data
    */
 
-  showAll: boolean = false;
+  showAll = false;
   /**
    * Order to show the data
    */
@@ -68,6 +68,6 @@ export class EntrySearchDto extends SearchDto {
   description?: string;
   categoryId?: string;
   entryTypeId?: string;
-  fromDate?: string;
-  toDate?: string;
+  fromDate = '';
+  toDate = '';
 }
