@@ -1,82 +1,61 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Account } from '@core/models/entities';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/reducers';
 import { Observable } from 'rxjs';
 
-import { AsyncPipe, CurrencyPipe, DatePipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
-import { TableModule } from 'primeng/table';
 
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CheckboxModule } from 'primeng/checkbox';
 
-import { PaginationMetaDto, ResultListDto } from '@core/models/dtos';
+import { ResultListDto } from '@core/models/dtos';
 import { SearchDto } from '@core/models/dtos/search';
 import { AccountService } from '@core/services';
-import { SortEvent } from 'primeng/api';
-import { PaginatorModule, PaginatorState } from 'primeng/paginator';
-import { TagModule } from 'primeng/tag';
 //
 import { InputSearchComponent } from '@shared/components/form/input-search/input-search.component';
+import { selectIsBusy } from '@store/selectors';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { AccountTableComponent } from './components/account-table/account-table.component';
 
 @Component({
   selector: 'app-accounts',
   imports: [
-    TableModule,
-    CurrencyPipe,
     CardModule,
     InputTextModule,
     ButtonModule,
     CheckboxModule,
     FormsModule,
-    DatePipe,
     RouterLink,
-    TagModule,
-    PaginatorModule,
     InputSearchComponent,
     AsyncPipe,
+    ProgressSpinnerModule,
+    AccountTableComponent,
   ],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss',
 })
-export class AccountsComponent implements OnInit {
+export class AccountsComponent {
   store$ = inject(Store<AppState>);
+  accounts$ = new Observable<ResultListDto<Account>>();
+  isBusy$ = this.store$.select(selectIsBusy);
   accountService = inject(AccountService);
   //
-  searchObj: SearchDto;
-  accounts$ = new Observable<ResultListDto<Account>>();
-  //search hint
-
+  filters = new SearchDto();
   constructor() {
-    this.searchObj = new SearchDto();
-    this.searchObj.orderBy = 'name';
+    this.onSearch(this.filters);
   }
 
-  ngOnInit(): void {
-    this.search();
+  onSearch(newFilters: SearchDto) {
+    this.filters = newFilters;
+    this.accounts$ = this.accountService.getAll(this.filters);
   }
-  search() {
-    this.accounts$ = this.accountService.getAll(this.searchObj);
-  }
-  handleSearchHint(value: string | undefined) {
-    this.searchObj.hint = value;
-    this.search();
-  }
-  onPageChange(event: PaginatorState, pagination: PaginationMetaDto) {
-    this.searchObj.setPagination(event, pagination);
-    this.search();
-  }
-  sort(event: SortEvent) {
-    console.log('se llamo el on sort', event);
-    this.searchObj.setSort(event);
-    this.search();
-  }
-  clearSearch() {
-    delete this.searchObj.hint;
-    this.search();
+  hintSearch(value: string | undefined) {
+    this.filters.hint = value;
+    this.onSearch(this.filters);
   }
 }

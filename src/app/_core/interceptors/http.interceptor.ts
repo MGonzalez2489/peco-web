@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { UiActions } from '@store/actions/ui.actions';
 import { AppState } from '@store/reducers';
 import { selectToken } from '@store/selectors';
-import { catchError, mergeMap, take, tap } from 'rxjs';
+import { catchError, delay, mergeMap, take, tap } from 'rxjs';
 
 export const httpInterceptor: HttpInterceptorFn = (req, next) => {
   const store$ = inject(Store<AppState>);
@@ -14,7 +14,7 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
     tap(() => {
       store$.dispatch(UiActions.setBusyOn());
     }),
-    // delay(2000),
+    delay(200),
     mergeMap((token) => {
       if (token) {
         req = req.clone({

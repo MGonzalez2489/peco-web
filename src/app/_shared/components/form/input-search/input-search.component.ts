@@ -25,7 +25,7 @@ export class InputSearchComponent extends BaseComponent {
   @Input()
   placeholder = 'Buscar...';
 
-  hint = '';
+  hint: string | undefined;
   //
 
   //milliseconds
@@ -46,12 +46,14 @@ export class InputSearchComponent extends BaseComponent {
   }
 
   clearSearch(): void {
-    this.hint = '';
+    this.hint = undefined;
     this.emitValue();
   }
 
   private emitValue() {
-    const value = this.hint.length > 0 ? this.hint : undefined;
-    this.hintChange.emit(value);
+    if (this.hint && this.hint === '') {
+      this.hint = undefined;
+    }
+    this.hintChange.emit(this.hint);
   }
 }
