@@ -1,12 +1,24 @@
 <p-card>
   <div class="flex justify-center">
-    <form [formGroup]="form" (ngSubmit)="submit()" class="size-1/2">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      class="size-1/2"
+      #formDirective="ngForm"
+    >
       <!-- name -->
       <div class="my-6">
         <p-floatlabel>
-          <input pInputText formControlName="name" id="name" fluid="true" />
+          <input
+            pInputText
+            formControlName="name"
+            id="name"
+            fluid="true"
+            [appInvalidDirty]="formDirective"
+          />
           <label for="name">Nombre de la cuenta</label>
         </p-floatlabel>
+        <p [appValidationError]="'name'" [directive]="formDirective"></p>
       </div>
       <!-- initial balance -->
       <div class="my-6">
@@ -23,16 +35,7 @@
       </div>
       <!-- Account Type -->
       <div class="my-6">
-        <p-floatlabel>
-          <p-select
-            formControlName="accountTypeId"
-            [options]="(accountTypes$ | async)!"
-            optionLabel="displayName"
-            optionValue="publicId"
-            placeholder="Select a City"
-            fluid="true"
-          />
-        </p-floatlabel>
+        <app-select-account-type formControlName="accountType" />
       </div>
       <!-- Mark Default -->
       <div class="my-6">
@@ -71,5 +74,6 @@
         <p-button type="submit" size="small" pButton label="Guardar" />
       </div>
     </form>
+    <pre>{{ form.value | json }}</pre>
   </div>
 </p-card>

@@ -63,8 +63,8 @@ export class SelectEntryTypeComponent
       }),
     );
   //
-  @Input() isRequired = false;
 
+  @Input() isRequired = false;
   selectedEntryType = new FormControl();
   onChange = (value: EntryType) => {
     this.selectedEntryType.setValue(value);

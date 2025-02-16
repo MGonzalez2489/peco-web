@@ -1,5 +1,12 @@
-import { Directive, DoCheck, ElementRef, inject, Input } from '@angular/core';
-import { FormGroupDirective } from '@angular/forms';
+import {
+  Directive,
+  DoCheck,
+  ElementRef,
+  inject,
+  Input,
+  Optional,
+} from '@angular/core';
+import { ControlContainer, FormGroupDirective } from '@angular/forms';
 
 @Directive({
   selector: '[appValidationError]',
@@ -15,6 +22,14 @@ export class ValidationErrorDirective implements DoCheck {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   errors: any;
+  constructor(@Optional() private controlContainer: ControlContainer) {}
+
+  get rootControl() {
+    if (this.controlContainer && this.controlContainer.control) {
+      return this.controlContainer.control.get(this.control!);
+    }
+    return null;
+  }
   ngDoCheck() {
     if (this.directive && this.control !== '') {
       const ctrl = this.directive?.form.controls[this.control!];
