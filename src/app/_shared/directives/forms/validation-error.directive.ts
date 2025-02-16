@@ -4,25 +4,35 @@ import {
   ElementRef,
   inject,
   Input,
+  OnInit,
   Optional,
 } from '@angular/core';
-import { ControlContainer, FormGroupDirective } from '@angular/forms';
+import {
+  ControlContainer,
+  FormGroupDirective,
+  ValidationErrors,
+} from '@angular/forms';
+import { ErrorHandlerService } from '@core/services';
 
 @Directive({
   selector: '[appValidationError]',
   standalone: true,
 })
-export class ValidationErrorDirective implements DoCheck {
+export class ValidationErrorDirective implements DoCheck, OnInit {
   private elementRef = inject(ElementRef);
+  private errorHandlerService = inject(ErrorHandlerService);
 
   @Input('appValidationError')
   control: string | undefined;
   @Input()
   directive: FormGroupDirective | undefined;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  errors: any;
-  constructor(@Optional() private controlContainer: ControlContainer) {}
+  constructor(@Optional() private controlContainer: ControlContainer) {
+    this.elementRef.nativeElement.classList.add('text-red-500');
+  }
+  ngOnInit(): void {
+    this.updateErrorMessage(null);
+  }
 
   get rootControl() {
     if (this.controlContainer && this.controlContainer.control) {
@@ -34,10 +44,7 @@ export class ValidationErrorDirective implements DoCheck {
     if (this.directive && this.control !== '') {
       const ctrl = this.directive?.form.controls[this.control!];
       if (ctrl?.invalid && this.directive?.submitted) {
-        this.errors = ctrl?.errors;
-        this.updateErrorMessage();
-      } else {
-        this.cleanErrorMessage();
+        this.updateErrorMessage(ctrl?.errors);
       }
     }
   }
@@ -45,37 +52,9 @@ export class ValidationErrorDirective implements DoCheck {
   /**
    * Updates the displayed error message in the DOM.
    */
-  private updateErrorMessage() {
-    const error = this.getErrorMessage(this.errors);
-    if (error && error !== '') {
-      this.elementRef.nativeElement.innerHTML = error;
-      this.elementRef.nativeElement.classList.add('text-red-500');
-    } else {
-      this.cleanErrorMessage();
-    }
-  }
-
-  private cleanErrorMessage() {
-    this.errors = undefined;
-    this.elementRef.nativeElement.innerHTML = '';
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getErrorMessage(errors: any): string {
-    let errorMessage = '';
-    if (errors.required) {
-      errorMessage += 'Este campo es requerido. ';
-    }
-    if (errors.email) {
-      errorMessage += 'Formato de correo invalido. ';
-    }
-    if (errors.minlength) {
-      errorMessage += `Este campo debe tener al menos ${errors.minlength.requiredLength} caracteres. `;
-    }
-    if (errors.maxlength) {
-      errorMessage += `Este campo no puede tener más de ${errors.maxlength.requiredLength} caracteres. `;
-    }
-    // Agregar más condiciones según sea necesario
-    return errorMessage.trim();
+  private updateErrorMessage(errors: ValidationErrors | null) {
+    this.elementRef.nativeElement.innerHTML = errors
+      ? this.errorHandlerService.mapFormErrorMessages(errors)
+      : null;
   }
 }

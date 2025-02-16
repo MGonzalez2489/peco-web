@@ -1,27 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { AsyncPipe, NgClass } from '@angular/common';
-import { Component, forwardRef, inject, OnInit, Optional } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component, forwardRef, inject, Input, OnInit } from '@angular/core';
 import {
   AbstractControl,
-  ControlContainer,
   ControlValueAccessor,
   FormControl,
+  FormGroupDirective,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
   ValidationErrors,
   Validator,
-  Validators,
 } from '@angular/forms';
 import { AccountType } from '@core/models/entities';
 import { Store } from '@ngrx/store';
-import { BaseComponent } from '@shared/components/_base.component';
+import { InvalidDirtyDirective } from '@shared/directives/forms';
 import { AppState } from '@store/reducers';
 import { selectCatAccountTypes } from '@store/selectors';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
-import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-select-account-type',
@@ -30,9 +28,21 @@ import { takeUntil } from 'rxjs';
     AsyncPipe,
     SelectModule,
     ReactiveFormsModule,
-    NgClass,
+    InvalidDirtyDirective,
   ],
-  templateUrl: './select-account-type.component.html',
+  template: `<p-floatlabel>
+    <p-select
+      [options]="(accountTypes$ | async)!"
+      optionLabel="displayName"
+      fluid="true"
+      id="accountType"
+      [formControl]="formControl"
+      (onChange)="select($event)"
+      (onBlur)="onTouched()"
+      [appInvalidDirty]="directive"
+    />
+    <label for="typeAccount">Tipo de Cuenta</label>
+  </p-floatlabel> `,
   styleUrl: './select-account-type.component.scss',
   providers: [
     {
@@ -49,50 +59,42 @@ import { takeUntil } from 'rxjs';
   ],
 })
 export class SelectAccountTypeComponent
-  extends BaseComponent
   implements ControlValueAccessor, Validator, OnInit
 {
+  @Input()
+  directive: FormGroupDirective | undefined;
+
   private store$ = inject(Store<AppState>);
   accountTypes$ = this.store$.select(selectCatAccountTypes);
 
   formControl = new FormControl();
 
-  errorMessage: string | undefined;
-
-  constructor(@Optional() private controlContainer: ControlContainer) {
-    super();
-  }
-
   ngOnInit(): void {
-    if (this.rootControl?.hasValidator(Validators.required)) {
-      this.formControl.addValidators(Validators.required);
+    //map validators
+    const validators = this.rootControl?.validator;
+    if (validators) {
+      this.formControl.setValidators(validators);
       this.formControl.updateValueAndValidity();
     }
-
-    this.formControl.valueChanges
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((value) => {
-        this.onChange(value);
-      });
-
-    // Subscribe to statusChanges to update the validation messages
-    this.formControl.statusChanges
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(() => {
-        this.errors(this.formControl.errors);
-      });
   }
 
   get rootControl() {
-    if (this.controlContainer && this.controlContainer.control) {
-      return this.controlContainer.control.get('accountType');
+    if (this.directive && this.directive.control) {
+      const form = this.directive.control.get('accountType');
+      return form;
     }
     return null;
   }
+  select(event: SelectChangeEvent) {
+    this.formControl.markAsDirty();
+    this.formControl.markAsTouched();
+    this.onChange(event.value);
+  }
 
-  //
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onChange = (_: any) => {};
+  //ControlValueAccessor && Validator
+  onChange = (_: any) => {
+    this.writeValue(_);
+  };
   onTouched = () => {};
 
   writeValue(obj: AccountType): void {
@@ -112,37 +114,6 @@ export class SelectAccountTypeComponent
   validate(_control: AbstractControl): ValidationErrors | null {
     return this.formControl.validator?.(this.formControl) ?? null;
   }
-  registerOnValidatorChange?(fn: () => void): void {
-    this.formControl.statusChanges
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(fn);
-  }
-
-  select(event: SelectChangeEvent) {
-    this.formControl.markAsDirty();
-    this.formControl.markAsTouched();
-    this.formControl.setValue(event.value);
-  }
-  errors(errors: ValidationErrors | null) {
-    this.errorMessage = undefined;
-
-    if (errors) {
-      this.errorMessage = Object.keys(errors)
-        .map((key) => {
-          switch (key) {
-            case 'required':
-              return 'Este campo es requerido.';
-            case 'email':
-              return 'Formato de correo inválido.';
-            case 'minlength':
-              return `Este campo debe tener al menos ${errors['minlength'].requiredLength} caracteres.`;
-            case 'maxlength':
-              return `Este campo no puede tener más de ${errors['maxlength'].requiredLength} caracteres.`;
-            default:
-              return '';
-          }
-        })
-        .join(' ');
-    }
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  registerOnValidatorChange?(_fn: () => void): void {}
 }

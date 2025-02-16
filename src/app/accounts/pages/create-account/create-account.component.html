@@ -35,7 +35,11 @@
       </div>
       <!-- Account Type -->
       <div class="my-6">
-        <app-select-account-type formControlName="accountType" />
+        <app-select-account-type
+          formControlName="accountType"
+          [directive]="formDirective"
+        />
+        <p [appValidationError]="'accountType'" [directive]="formDirective"></p>
       </div>
       <!-- Mark Default -->
       <div class="my-6">

@@ -10,9 +10,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@store/reducers';
 import { CardModule } from 'primeng/card';
 
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { AccountCreateDto } from '@core/models/dtos';
 import { AccountType } from '@core/models/entities';
 import { BaseComponent } from '@shared/components';
 import { SelectAccountTypeComponent } from '@shared/components/form';
@@ -20,7 +19,6 @@ import {
   InvalidDirtyDirective,
   ValidationErrorDirective,
 } from '@shared/directives/forms';
-import { AccountActions } from '@store/actions/account.actions';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -28,6 +26,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { SelectModule } from 'primeng/select';
+import { AccountCreateDto } from '@core/models/dtos';
+import { AccountActions } from '@store/actions/account.actions';
 import { takeUntil } from 'rxjs';
 
 @Component({
@@ -42,7 +42,6 @@ import { takeUntil } from 'rxjs';
     CheckboxModule,
     MessageModule,
     SelectModule,
-    AsyncPipe,
     SelectAccountTypeComponent,
     InvalidDirtyDirective,
     ValidationErrorDirective,
@@ -65,8 +64,6 @@ export class CreateAccountComponent extends BaseComponent {
   });
 
   submit(): void {
-    this.form.controls.accountType.markAsDirty();
-
     if (this.form.invalid) return;
 
     this.store$.dispatch(
