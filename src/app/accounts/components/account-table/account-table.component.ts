@@ -1,4 +1,4 @@
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -30,6 +30,7 @@ import { TagModule } from 'primeng/tag';
     DatePipe,
     RouterLink,
     ProgressSpinnerModule,
+    TitleCasePipe,
   ],
   templateUrl: './account-table.component.html',
   styleUrl: './account-table.component.scss',

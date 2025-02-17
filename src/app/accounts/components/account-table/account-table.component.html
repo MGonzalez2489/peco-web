@@ -27,7 +27,7 @@
     </ng-template>
     <ng-template #body let-account>
       <tr>
-        <td>{{ account.name }}</td>
+        <td>{{ account.name | titlecase }}</td>
         <td>{{ account.type.displayName }}</td>
         <td>{{ account.createdAt | date: "short" }}</td>
         <td>
