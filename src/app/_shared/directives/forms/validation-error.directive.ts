@@ -45,6 +45,8 @@ export class ValidationErrorDirective implements DoCheck, OnInit {
       const ctrl = this.directive?.form.controls[this.control!];
       if (ctrl?.invalid && this.directive?.submitted) {
         this.updateErrorMessage(ctrl?.errors);
+      } else {
+        this.updateErrorMessage(null);
       }
     }
   }

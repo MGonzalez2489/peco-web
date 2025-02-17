@@ -1,12 +1,11 @@
 <p-card>
-  <div
-    class="flex justify-center"
-    [ngClass]="{
-      'bg-red-100': form.value.entryType?.name == 'outcome',
-      'bg-green-100': form.value.entryType?.name == 'income',
-    }"
-  >
-    <form [formGroup]="form" (ngSubmit)="submit()" class="size-1/2">
+  <div class="flex justify-center">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      class="size-1/2"
+      #formDirective="ngForm"
+    >
       <!-- Entry Type -->
       <div class="my-6 w-full flex justify-center">
         <app-select-entry-type formControlName="entryType" />
@@ -16,13 +15,17 @@
       <div class="my-6">
         <p-floatlabel>
           <input
+            inputId="description"
             pInputText
             formControlName="description"
             id="description"
+            name="description"
             fluid="true"
+            [appInvalidDirty]="formDirective"
           />
           <label for="description">Descripcion</label>
         </p-floatlabel>
+        <p [appValidationError]="'description'" [directive]="formDirective"></p>
       </div>
       <!-- Amount -->
       <div class="my-6">
@@ -32,17 +35,24 @@
             mode="currency"
             currency="MXN"
             fluid="true"
+            id="amount"
             formControlName="amount"
+            [appInvalidDirty]="formDirective"
           />
           <label for="amount">Cantidad</label>
         </p-floatlabel>
+        <p [appValidationError]="'amount'" [directive]="formDirective"></p>
       </div>
       <!-- Entry Category -->
       <div class="my-6">
         <app-select-entry-category
-          [isRequired]="true"
           formControlName="entryCategory"
+          [directive]="formDirective"
         />
+        <p
+          [appValidationError]="'entryCategory'"
+          [directive]="formDirective"
+        ></p>
       </div>
 
       <!-- Account -->
@@ -53,19 +63,22 @@
               <p-select
                 formControlName="accountId"
                 [options]="accounts"
-                optionValue="publicId"
                 optionLabel="name"
-                placeholder="Cuenta"
+                optionValue="publicId"
                 [fluid]="true"
                 id="accountId"
+                [appInvalidDirty]="formDirective"
               />
 
               <label for="accountId">Cuenta</label>
             </p-floatlabel>
+            <p
+              [appValidationError]="'accountId'"
+              [directive]="formDirective"
+            ></p>
           }
         </div>
       }
-
       <!-- Options -->
       <div class="mt-10 flex justify-center gap-x-8">
         <p-button
@@ -78,6 +91,5 @@
         <p-button type="submit" size="small" pButton label="Guardar" />
       </div>
     </form>
-    <!-- <pre>{{ form.value | json }}</pre> -->
   </div>
 </p-card>

@@ -1,4 +1,4 @@
-import { AsyncPipe, Location, NgClass } from '@angular/common';
+import { AsyncPipe, Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
   FormControl,
@@ -14,6 +14,10 @@ import { Store } from '@ngrx/store';
 import { BaseComponent } from '@shared/components';
 import { SelectEntryCategoryComponent } from '@shared/components/form/select-entry-category/select-entry-category.component';
 import { SelectEntryTypeComponent } from '@shared/components/form/select-entry-type/select-entry-type.component';
+import {
+  InvalidDirtyDirective,
+  ValidationErrorDirective,
+} from '@shared/directives/forms';
 import { AccountActions } from '@store/actions/account.actions';
 import { AppState } from '@store/reducers';
 import { selectAccounts } from '@store/selectors';
@@ -38,7 +42,8 @@ import { takeUntil } from 'rxjs';
     AsyncPipe,
     SelectEntryCategoryComponent,
     SelectEntryTypeComponent,
-    NgClass,
+    ValidationErrorDirective,
+    InvalidDirtyDirective,
   ],
   templateUrl: './create-entry.component.html',
   styleUrl: './create-entry.component.scss',
@@ -53,7 +58,7 @@ export class CreateEntryComponent extends BaseComponent {
   form = new FormGroup({
     description: new FormControl<string | null>(null, [Validators.required]),
     amount: new FormControl<number | null>(null, [Validators.required]),
-    entryCategory: new FormControl<EntryCategory | null>(null, [
+    entryCategory: new FormControl<EntryCategory | undefined>(undefined, [
       Validators.required,
     ]),
     entryType: new FormControl<EntryType | null>(null),

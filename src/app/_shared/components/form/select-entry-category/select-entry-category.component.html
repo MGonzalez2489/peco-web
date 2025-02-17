@@ -1,17 +1,33 @@
 <p-floatlabel>
   <p-select
-    [formControl]="selectedCategory"
     [options]="groupedEntryCategories"
-    optionLabel="label"
+    optionLabel="name"
     optionValue="value"
-    placeholder="Categoria"
     [fluid]="true"
-    id="entryCategory"
     [group]="true"
+    name="entryCategory"
+    id="entryCategory"
+    [formControl]="formControl"
     (onChange)="select($event)"
+    [appInvalidDirty]="directive"
   >
-    <ng-template let-group #group>
-      <span class="font-bold">{{ group.label }}</span>
+    <ng-template let-group pTemplate="group">
+      <div class="group-header">
+        {{ group.label }}
+      </div>
+    </ng-template>
+
+    <ng-template let-option let-index="i" pTemplate="item">
+      <div class="group-item pl-3">
+        {{ option.label }}
+      </div>
+    </ng-template>
+    <ng-template #selectedItem let-selectedOption>
+      @if (selectedOption) {
+        <div>
+          <div>{{ selectedOption.label }}</div>
+        </div>
+      }
     </ng-template>
   </p-select>
 

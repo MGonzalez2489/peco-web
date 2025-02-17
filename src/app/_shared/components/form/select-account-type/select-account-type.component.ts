@@ -114,6 +114,4 @@ export class SelectAccountTypeComponent
   validate(_control: AbstractControl): ValidationErrors | null {
     return this.formControl.validator?.(this.formControl) ?? null;
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  registerOnValidatorChange?(_fn: () => void): void {}
 }
