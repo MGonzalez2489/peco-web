@@ -1,6 +1,6 @@
 <div>
   <!-- Actions -->
-  <div class="flex justify-between items-center mx-3 mb-5">
+  <div class="flex justify-between items-center mx-3">
     <!-- Left -->
     <div class="flex gap-3 items-center w-auto">
       <!-- Accounts -->
@@ -39,74 +39,78 @@
   </div>
 
   @if (entries && entries.data.length > 0) {
-    <!-- Table -->
-    <p-table
-      [value]="entries.data"
-      [paginator]="false"
-      stripedRows
-      [customSort]="true"
-      (onSort)="sort($event)"
-      [sortOrder]="searchObj.order === 'ASC' ? 1 : -1"
-      [sortField]="searchObj.orderBy"
-      [lazy]="true"
-    >
-      <ng-template #header>
-        <tr>
-          @if (showAccountColumn) {
-            <th pSortableColumn="account">
-              Cuenta <p-sortIcon field="account" />
+    <div class="mt-6">
+      <!-- Table -->
+      <p-table
+        [value]="entries.data"
+        [paginator]="false"
+        stripedRows
+        [customSort]="true"
+        (onSort)="sort($event)"
+        [sortOrder]="searchObj.order === 'ASC' ? 1 : -1"
+        [sortField]="searchObj.orderBy"
+        [lazy]="true"
+      >
+        <ng-template #header>
+          <tr>
+            @if (showAccountColumn) {
+              <th pSortableColumn="account">
+                Cuenta <p-sortIcon field="account" />
+              </th>
+            }
+
+            <th pSortableColumn="description">
+              Descripcion <p-sortIcon field="description" />
             </th>
-          }
+            <th pSortableColumn="category">
+              Categoria <p-sortIcon field="category" />
+            </th>
+            <th pSortableColumn="type">Tipo <p-sortIcon field="type" /></th>
+            <th pSortableColumn="createdAt">
+              Creado <p-sortIcon field="createdAt" />
+            </th>
+            <th pSortableColumn="amount">
+              Monto <p-sortIcon field="amount" />
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-entry>
+          <tr>
+            @if (showAccountColumn) {
+              <td>{{ entry.account }}</td>
+            }
 
-          <th pSortableColumn="description">
-            Descripcion <p-sortIcon field="description" />
-          </th>
-          <th pSortableColumn="category">
-            Categoria <p-sortIcon field="category" />
-          </th>
-          <th pSortableColumn="type">Tipo <p-sortIcon field="type" /></th>
-          <th pSortableColumn="createdAt">
-            Creado <p-sortIcon field="createdAt" />
-          </th>
-          <th pSortableColumn="amount">Monto <p-sortIcon field="amount" /></th>
-        </tr>
-      </ng-template>
-      <ng-template #body let-entry>
-        <tr>
-          @if (showAccountColumn) {
-            <td>{{ entry.account }}</td>
-          }
-
-          <td>{{ entry.description | titlecase }}</td>
-          <td>{{ entry.category }}</td>
-          <td>{{ entry.type }}</td>
-          <td>{{ entry.createdAt | date: "short" }}</td>
-          <td>
-            <app-amount
-              [amount]="
-                entry.type === 'Gasto' ? entry.amount * -1 : entry.amount
-              "
-            ></app-amount>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-    <!-- Pagination -->
-    <div class="flex justify-between items-center">
-      <div>
-        <span class="ms-3 text-gray-500"
-          >Pagina {{ entries.meta.page + 1 }} de {{ entries.meta.pageCount }},
-          {{ entries.data.length }} registros de
-          {{ entries.meta.itemCount }}</span
-        >
+            <td>{{ entry.description | titlecase }}</td>
+            <td>{{ entry.category }}</td>
+            <td>{{ entry.type }}</td>
+            <td>{{ entry.createdAt | date: "short" }}</td>
+            <td>
+              <app-amount
+                [amount]="
+                  entry.type === 'Gasto' ? entry.amount * -1 : entry.amount
+                "
+              ></app-amount>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <!-- Pagination -->
+      <div class="flex justify-between items-center">
+        <div>
+          <span class="ms-3 text-gray-500"
+            >Pagina {{ entries.meta.page + 1 }} de {{ entries.meta.pageCount }},
+            {{ entries.data.length }} registros de
+            {{ entries.meta.itemCount }}</span
+          >
+        </div>
+        <p-paginator
+          (onPageChange)="onPageChange($event, entries.meta)"
+          [rows]="searchObj.take"
+          [totalRecords]="entries.meta.itemCount"
+          [rowsPerPageOptions]="[5, 10, 25, { showAll: 'All' }]"
+          [first]="entries.meta.take * entries.meta.page"
+        />
       </div>
-      <p-paginator
-        (onPageChange)="onPageChange($event, entries.meta)"
-        [rows]="searchObj.take"
-        [totalRecords]="entries.meta.itemCount"
-        [rowsPerPageOptions]="[5, 10, 25, { showAll: 'All' }]"
-        [first]="entries.meta.take * entries.meta.page"
-      />
     </div>
   }
 </div>

@@ -1,3 +1,6 @@
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable @typescript-eslint/no-wrapper-object-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ResultDto, ResultListDto } from '@core/models/dtos';

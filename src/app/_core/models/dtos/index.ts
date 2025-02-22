@@ -7,3 +7,5 @@ export * from './auth/token.dto';
 //
 export * from './account.dto';
 export * from './entry.dto';
+
+export * from './user.dto';

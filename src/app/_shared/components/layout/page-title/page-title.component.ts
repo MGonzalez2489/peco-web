@@ -19,7 +19,8 @@ export class PageTitleComponent extends BaseComponent {
   private titleStrategy = inject(TitleStrategy);
   private router = inject(Router);
 
-  title: string = '-- SIN TITULO --';
+  appName = 'PECO';
+  title = '-- SIN TITULO --';
   constructor() {
     super();
     //listen title changes

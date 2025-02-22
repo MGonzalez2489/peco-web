@@ -29,6 +29,19 @@ export class UserEffects {
     );
   });
 
+  update$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.updateUser),
+      exhaustMap((action) =>
+        this.userService.update(action.data).pipe(
+          map((result) => {
+            return UserActions.updateUserSuccess({ data: result.data });
+          }),
+        ),
+      ),
+    );
+  });
+
   //get user info
   getUserInfo$ = createEffect(
     () =>

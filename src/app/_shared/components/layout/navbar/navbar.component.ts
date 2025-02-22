@@ -51,7 +51,7 @@ export class NavbarComponent implements OnInit {
       {
         label: 'Perfil',
         icon: PrimeIcons.USER,
-        disabled: true,
+        routerLink: '/profile',
       },
 
       {
