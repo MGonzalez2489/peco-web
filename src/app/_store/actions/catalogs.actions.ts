@@ -1,4 +1,4 @@
-import { AccountType, EntryType } from '@core/models/entities';
+import { AccountType, EntryStatus, EntryType } from '@core/models/entities';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 export const CatalogsActions = createActionGroup({
@@ -11,5 +11,9 @@ export const CatalogsActions = createActionGroup({
     'Load Account Type': emptyProps(),
     'Load Account Type Success': props<{ data: AccountType[] }>(),
     'Load Account Type Failure': props<{ payload: any }>(),
+
+    'Load Entry Status': emptyProps(),
+    'Load Entry Status Success': props<{ data: EntryStatus[] }>(),
+    'Load Entry Status Failure': props<{ payload: any }>(),
   },
 });

@@ -15,6 +15,6 @@ export class EntryService {
   }
 
   create(accountId: string, newEntry: EntryCreateDto) {
-    return this.reqService.post<Entry>(`entries/${accountId}/entry`, newEntry);
+    return this.reqService.post<Entry>(`entries/${accountId}/new`, newEntry);
   }
 }

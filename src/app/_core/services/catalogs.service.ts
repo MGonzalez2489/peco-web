@@ -15,4 +15,8 @@ export class CatalogsService {
   getAccountTypes() {
     return this.reqService.getList<EntryType>('catalogs/account-types');
   }
+
+  getEntryStatus() {
+    return this.reqService.getList<EntryType>('catalogs/entry-status');
+  }
 }

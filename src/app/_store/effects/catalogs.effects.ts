@@ -27,6 +27,22 @@ export class CatalogsEffects {
     );
   });
 
+  //Get Entry Status
+  getEntryStatus$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CatalogsActions.loadEntryStatus),
+      exhaustMap(() =>
+        this.catalogsService.getEntryStatus().pipe(
+          map((result) => {
+            return CatalogsActions.loadEntryStatusSuccess({
+              data: result.data,
+            });
+          }),
+        ),
+      ),
+    );
+  });
+
   //Get Account Types
   getAccountTypes$ = createEffect(() => {
     return this.actions$.pipe(
@@ -51,6 +67,7 @@ export class CatalogsEffects {
         map(() => {
           this.store$.dispatch(CatalogsActions.loadEntryType());
           this.store$.dispatch(CatalogsActions.loadAccountType());
+          this.store$.dispatch(CatalogsActions.loadEntryStatus());
         }),
       ),
     { dispatch: false },
