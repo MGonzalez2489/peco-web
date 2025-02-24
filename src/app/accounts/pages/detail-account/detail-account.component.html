@@ -3,11 +3,9 @@
     <!-- Account details -->
     <app-account-card [account]="account"></app-account-card>
     <!-- Entries -->
-    <p-card>
-      <app-entry-table
-        [entries]="entries$ | async"
-        (search)="searchEntries(account.publicId, $event)"
-      ></app-entry-table>
-    </p-card>
+    <app-entry-table
+      [entries]="entries$ | async"
+      (search)="searchEntries(account.publicId, $event)"
+    ></app-entry-table>
   </div>
 }

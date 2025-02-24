@@ -18,6 +18,7 @@ import { SelectModule } from 'primeng/select';
 import { TableModule } from 'primeng/table';
 import { map } from 'rxjs';
 import { EntryFilterDateComponent } from '../entry-filter-date/entry-filter-date.component';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-entry-table',
@@ -35,6 +36,7 @@ import { EntryFilterDateComponent } from '../entry-filter-date/entry-filter-date
     FormsModule,
     SelectModule,
     AsyncPipe,
+    CardModule,
   ],
   templateUrl: './entry-table.component.html',
   styleUrl: './entry-table.component.scss',

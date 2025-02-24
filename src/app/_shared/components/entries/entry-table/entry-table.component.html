@@ -39,7 +39,7 @@
   </div>
 
   @if (entries && entries.data.length > 0) {
-    <div class="mt-6">
+    <p-card [style]="{ marginTop: '1.5rem' }">
       <!-- Table -->
       <p-table
         [value]="entries.data"
@@ -111,6 +111,6 @@
           [first]="entries.meta.take * entries.meta.page"
         />
       </div>
-    </div>
+    </p-card>
   }
 </div>

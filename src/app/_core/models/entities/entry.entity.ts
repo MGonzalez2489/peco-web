@@ -6,4 +6,5 @@ export interface Entry extends BaseEntity {
   category: string;
   type: string;
   account: string;
+  status: string;
 }
