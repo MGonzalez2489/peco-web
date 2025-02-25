@@ -1,0 +1,66 @@
+<form [formGroup]="form" (ngSubmit)="submit()" #formDirective="ngForm">
+  <!-- Entry Type -->
+  <div class="my-6 w-full flex justify-center">
+    <app-select-entry-type formControlName="entryType" />
+  </div>
+  <!-- description -->
+  <div class="my-6">
+    <p-floatlabel>
+      <input
+        inputId="description"
+        pInputText
+        formControlName="description"
+        id="description"
+        name="description"
+        fluid="true"
+        [appInvalidDirty]="formDirective"
+      />
+      <label for="description">Descripcion</label>
+    </p-floatlabel>
+    <p [appValidationError]="'description'" [directive]="formDirective"></p>
+  </div>
+  <!-- Amount -->
+  <div class="my-6">
+    <p-floatlabel>
+      <p-inputnumber
+        inputId="amount"
+        mode="currency"
+        currency="MXN"
+        fluid="true"
+        id="amount"
+        formControlName="amount"
+        [appInvalidDirty]="formDirective"
+      />
+      <label for="amount">Cantidad</label>
+    </p-floatlabel>
+    <p [appValidationError]="'amount'" [directive]="formDirective"></p>
+  </div>
+  <!-- Entry Category -->
+  <div class="my-6">
+    <app-select-entry-category
+      formControlName="category"
+      [directive]="formDirective"
+    />
+    <p [appValidationError]="'category'" [directive]="formDirective"></p>
+  </div>
+  <!-- Account -->
+  @if (!accountId) {
+    <div class="my-6">
+      <app-select-account
+        formControlName="account"
+        [directive]="formDirective"
+      />
+      <p [appValidationError]="'account'" [directive]="formDirective"></p>
+    </div>
+  }
+  <!-- Options -->
+  <div class="mt-10 flex justify-center gap-x-8">
+    <p-button
+      label="Cancelar"
+      (click)="cancel()"
+      severity="secondary"
+      [text]="true"
+    />
+    <p-button type="submit" size="small" pButton label="Guardar" />
+  </div>
+</form>

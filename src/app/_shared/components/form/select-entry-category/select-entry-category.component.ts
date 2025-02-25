@@ -80,7 +80,7 @@ export class SelectEntryCategoryComponent
   }
   get rootControl() {
     if (this.directive && this.directive.control) {
-      const form = this.directive.control.get('entryCategory');
+      const form = this.directive.control.get('category');
       return form;
     }
     return null;
@@ -139,66 +139,3 @@ export class SelectEntryCategoryComponent
     return this.formControl.validator?.(this.formControl) ?? null;
   }
 }
-
-//   ngOnInit(): void {
-//     if (this.isRequired) {
-//       this.selectedCategory = new FormControl('-1', {
-//         validators: [Validators.required, this.validate],
-//       });
-//     } else {
-//       this.selectedCategory = new FormControl('-1', {});
-//     }
-//
-//     //
-//     this.selectedCategory.valueChanges
-//       .pipe(takeUntil(this.unsubscribe$))
-//       .subscribe((data) => {
-//         this.onChange(data);
-//       });
-//   }
-
-//   //value accesor
-//
-//   selectedCategory = new FormControl();
-//   @Input() isRequired = false;
-//   onChange = (value: EntryCategory) => {
-//     this.selectedCategory.setValue(value);
-//   };
-//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//   writeValue(obj: any): void {
-//     this.selectedCategory.setValue(obj);
-//   }
-//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//   registerOnChange(fn: any): void {
-//     this.onChange = fn;
-//   }
-//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//   registerOnTouched(fn: any): void {
-//     return fn;
-//   }
-//   validate(control: AbstractControl): ValidationErrors | null {
-//     if (!control.value) {
-//       return { required: true };
-//     }
-//     if (control.value === '-1') {
-//       return { required: true };
-//     }
-//
-//     return null;
-//   }
-//   registerOnValidatorChange?(fn: () => void): void {
-//     this.onChange = fn;
-//   }
-//
-//   ngOnChanges(): void {
-//     this.updateValidators();
-//   }
-//   select(event: SelectChangeEvent) {
-//     this.onChange(event.value);
-//   }
-//   private updateValidators() {
-//     if (!this.isRequired) {
-//       this.selectedCategory.removeValidators(Validators.required);
-//     }
-//   }
-// }

@@ -3,4 +3,5 @@ export interface EntryCreateDto {
   description: string;
   categoryId: string;
   entryTypeId: string;
+  accountId?: string;
 }

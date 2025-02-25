@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { Component, forwardRef, inject, Input, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -13,58 +13,70 @@ import {
   ValidationErrors,
   Validator,
 } from '@angular/forms';
-import { AccountType } from '@core/models/entities';
+import { Account } from '@core/models/entities';
 import { Store } from '@ngrx/store';
 import { InvalidDirtyDirective } from '@shared/directives/forms';
 import { AppState } from '@store/reducers';
-import { selectCatAccountTypes } from '@store/selectors';
+import { selectAccounts } from '@store/selectors';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
 
 @Component({
-  selector: 'app-select-account-type',
+  selector: 'app-select-account',
   imports: [
+    SelectModule,
     FloatLabelModule,
     AsyncPipe,
-    SelectModule,
-    ReactiveFormsModule,
     InvalidDirtyDirective,
+    ReactiveFormsModule,
+    TitleCasePipe,
   ],
+  standalone: true,
   template: `<p-floatlabel>
     <p-select
-      [options]="(accountTypes$ | async)!"
-      optionLabel="displayName"
-      fluid="true"
-      id="accountType"
+      [options]="(accounts$ | async)!"
+      optionLabel="name"
+      [fluid]="true"
+      id="account"
       [formControl]="formControl"
       (onChange)="select($event)"
       (onBlur)="onTouched()"
       [appInvalidDirty]="directive"
-    />
-    <label for="typeAccount">Tipo de Cuenta</label>
+    >
+      <ng-template #selectedItem let-selectedOption>
+        @if (selectedOption) {
+          <div>{{ selectedOption.name | titlecase }}</div>
+        }
+      </ng-template>
+      <ng-template let-account #item>
+        <div>{{ account.name | titlecase }}</div>
+      </ng-template>
+    </p-select>
+
+    <label for="account">Cuenta</label>
   </p-floatlabel> `,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectAccountTypeComponent),
+      useExisting: forwardRef(() => SelectAccountComponent),
       multi: true,
     },
     {
       provide: NG_VALIDATORS,
 
-      useExisting: forwardRef(() => SelectAccountTypeComponent),
+      useExisting: forwardRef(() => SelectAccountComponent),
       multi: true,
     },
   ],
 })
-export class SelectAccountTypeComponent
+export class SelectAccountComponent
   implements ControlValueAccessor, Validator, OnInit
 {
   @Input()
   directive: FormGroupDirective | undefined;
 
   private store$ = inject(Store<AppState>);
-  accountTypes$ = this.store$.select(selectCatAccountTypes);
+  accounts$ = this.store$.select(selectAccounts);
 
   formControl = new FormControl();
 
@@ -76,10 +88,9 @@ export class SelectAccountTypeComponent
       this.formControl.updateValueAndValidity();
     }
   }
-
   get rootControl() {
     if (this.directive && this.directive.control) {
-      const form = this.directive.control.get('accountType');
+      const form = this.directive.control.get('account');
       return form;
     }
     return null;
@@ -91,13 +102,12 @@ export class SelectAccountTypeComponent
     this.onChange(event.value);
   }
 
-  //ControlValueAccessor && Validator
-  onChange = (_: any) => {
-    this.writeValue(_);
-  };
+  //value accesor
+  onChange = (_value: Account) => {};
+
   onTouched = () => {};
 
-  writeValue(obj: AccountType): void {
+  writeValue(obj: any): void {
     this.formControl.setValue(obj);
   }
   registerOnChange(fn: any): void {

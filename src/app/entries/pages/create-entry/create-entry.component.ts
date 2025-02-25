@@ -1,26 +1,14 @@
-import { AsyncPipe, Location } from '@angular/common';
+import { Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EntryCreateDto } from '@core/models/dtos';
-import { EntryCategory, EntryType } from '@core/models/entities';
 import { EntryService } from '@core/services';
 import { Store } from '@ngrx/store';
 import { BaseComponent } from '@shared/components';
-import { SelectEntryCategoryComponent } from '@shared/components/form/select-entry-category/select-entry-category.component';
-import { SelectEntryTypeComponent } from '@shared/components/form/select-entry-type/select-entry-type.component';
-import {
-  InvalidDirtyDirective,
-  ValidationErrorDirective,
-} from '@shared/directives/forms';
+import { EntryFormComponent } from '@shared/components/entries';
 import { AccountActions } from '@store/actions/account.actions';
 import { AppState } from '@store/reducers';
-import { selectAccounts } from '@store/selectors';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -39,31 +27,17 @@ import { takeUntil } from 'rxjs';
     ButtonModule,
     InputTextModule,
     SelectModule,
-    AsyncPipe,
-    SelectEntryCategoryComponent,
-    SelectEntryTypeComponent,
-    ValidationErrorDirective,
-    InvalidDirtyDirective,
+    EntryFormComponent,
   ],
   templateUrl: './create-entry.component.html',
   styleUrl: './create-entry.component.scss',
 })
 export class CreateEntryComponent extends BaseComponent {
-  private store$ = inject(Store<AppState>);
   private activatedRoute = inject(ActivatedRoute);
+  private store$ = inject(Store<AppState>);
   private entryService = inject(EntryService);
   private location = inject(Location);
-
-  accounts$ = this.store$.select(selectAccounts);
-  form = new FormGroup({
-    description: new FormControl<string | null>(null, [Validators.required]),
-    amount: new FormControl<number | null>(null, [Validators.required]),
-    entryCategory: new FormControl<EntryCategory | undefined>(undefined, [
-      Validators.required,
-    ]),
-    entryType: new FormControl<EntryType | null>(null),
-    accountId: new FormControl<string | null>(null, [Validators.required]),
-  });
+  accountId: string | undefined;
 
   //
   fromAccountView = false;
@@ -73,26 +47,24 @@ export class CreateEntryComponent extends BaseComponent {
     const accId = this.activatedRoute.snapshot.params['accountId'];
     if (accId) {
       this.fromAccountView = true;
-      this.form.patchValue({ accountId: accId });
+      this.accountId = accId;
     }
   }
 
-  submit(): void {
-    if (this.form.invalid) return;
+  submit(newValue: EntryCreateDto | null): void {
+    if (!newValue) this.cancel();
 
-    const value: EntryCreateDto = {
-      amount: this.form.value.amount!,
-      description: this.form.value.description!,
-      categoryId: this.form.value.entryCategory!.publicId!,
-      entryTypeId: this.form.value.entryType!.publicId!,
-    };
+    if (!this.accountId && newValue?.accountId) {
+      this.accountId = newValue.accountId;
+      delete newValue.accountId;
+    }
 
     this.entryService
-      .create(this.form.value.accountId!, value)
+      .create(this.accountId!, newValue!)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(() => {
         this.store$.dispatch(
-          AccountActions.getById({ accountId: this.form.value.accountId! }),
+          AccountActions.getById({ accountId: this.accountId! }),
         );
         this.cancel();
       });
