@@ -11,10 +11,16 @@ import { AppState } from '@store/reducers';
 import { selectAccountById } from '@store/selectors';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { TabsModule } from 'primeng/tabs';
 import { Observable } from 'rxjs';
 import { AccountCardComponent } from '../../components/account-card/account-card.component';
 
-const primeSources = [EntryTableComponent, CardModule, ButtonModule];
+const primeSources = [
+  EntryTableComponent,
+  CardModule,
+  ButtonModule,
+  TabsModule,
+];
 
 @Component({
   selector: 'app-detail-account',
