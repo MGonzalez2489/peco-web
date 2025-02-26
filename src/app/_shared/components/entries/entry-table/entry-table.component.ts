@@ -11,6 +11,7 @@ import { AppState } from '@store/reducers';
 import { selectAccounts } from '@store/selectors';
 import { SortEvent } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
@@ -18,7 +19,6 @@ import { SelectModule } from 'primeng/select';
 import { TableModule } from 'primeng/table';
 import { map } from 'rxjs';
 import { EntryFilterDateComponent } from '../entry-filter-date/entry-filter-date.component';
-import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-entry-table',
