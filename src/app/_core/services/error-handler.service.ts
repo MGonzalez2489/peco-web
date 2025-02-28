@@ -11,6 +11,8 @@ export class ErrorHandlerService {
       errorMessage = Object.keys(errors)
         .map((key) => {
           switch (key) {
+            case 'mismatch':
+              return 'El valor no coincide.';
             case 'required':
               return 'Este campo es requerido.';
             case 'email':

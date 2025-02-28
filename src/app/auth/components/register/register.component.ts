@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -11,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { AuthActions } from '@store/actions/auth.actions';
 import { AppState } from '@store/reducers';
 //primeng
-import { AsyncPipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { LoginDto } from '@core/models/dtos';
 import { ErrorMessageComponent } from '@shared/components/information';
@@ -19,6 +18,7 @@ import {
   InvalidDirtyDirective,
   ValidationErrorDirective,
 } from '@shared/directives/forms';
+import { CustomValidators } from '@shared/validators/passwordMatch.validator';
 import { selectIsBusy } from '@store/selectors';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -41,7 +41,6 @@ const components = [
     ReactiveFormsModule,
     RouterLink,
     ErrorMessageComponent,
-    AsyncPipe,
     ValidationErrorDirective,
     InvalidDirtyDirective,
   ],
@@ -49,21 +48,27 @@ const components = [
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
-  store$ = inject(Store<AppState>);
-  isBusy$ = this.store$.select(selectIsBusy);
-  formBuilder = inject(FormBuilder);
+  private store$ = inject(Store<AppState>);
+  isBusy = toSignal(this.store$.select(selectIsBusy));
   registerForm: FormGroup;
 
   constructor() {
-    this.registerForm = this.formBuilder.group({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
-      confirmPassword: new FormControl('', [Validators.required]),
-    });
+    this.registerForm = new FormGroup(
+      {
+        email: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl('', [Validators.required]),
+        confirmPassword: new FormControl('', [Validators.required]),
+      },
+      [CustomValidators.MatchValidator('password', 'confirmPassword')],
+    );
   }
 
   submit(): void {
     if (this.registerForm.invalid) return;
+
+    if (this.registerForm.errors && this.registerForm.hasError('mismatch')) {
+      this.registerForm.controls['password'].setErrors({ mismatch: true });
+    }
 
     const request: LoginDto = {
       email: this.registerForm.value.email,

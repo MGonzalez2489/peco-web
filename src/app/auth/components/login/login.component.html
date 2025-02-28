@@ -54,7 +54,7 @@
   <div class="mb-6 mt-10 flex flex-col items-stretch">
     <p-button
       label="Entrar"
-      [loading]="isBusy$ | async"
+      [loading]="isBusy()"
       type="submit"
       [rounded]="true"
       fluid="true"
@@ -66,7 +66,7 @@
         severity="info"
         [link]="true"
         [routerLink]="['/registrar']"
-        [disabled]="isBusy$ | async"
+        [disabled]="isBusy()"
       />
     </div>
   </div>

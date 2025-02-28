@@ -27,7 +27,7 @@
       />
       <label for="password">Contraseña</label>
     </p-floatlabel>
-    <p [appValidationError]="'email'" [directive]="formDirective"></p>
+    <p [appValidationError]="'password'" [directive]="formDirective"></p>
   </div>
   <!-- Confirm Password -->
   <div class="mb-6">
@@ -54,7 +54,7 @@
   <div class="mb-6 mt-10 flex flex-col items-stretch">
     <p-button
       label="Crear Cuenta"
-      [loading]="isBusy$ | async"
+      [loading]="isBusy()"
       type="submit"
       [rounded]="true"
       fluid="true"
@@ -66,7 +66,7 @@
         severity="info"
         [link]="true"
         [routerLink]="['/']"
-        [disabled]="isBusy$ | async"
+        [disabled]="isBusy()"
       />
     </div>
   </div>

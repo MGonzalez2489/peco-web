@@ -11,10 +11,9 @@ import { AuthActions } from '@store/actions/auth.actions';
 import { AppState } from '@store/reducers';
 
 //primeng
-import { AsyncPipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { LoginDto } from '@core/models/dtos';
-import { BaseComponent } from '@shared/components';
 import { ErrorMessageComponent } from '@shared/components/information';
 import {
   InvalidDirtyDirective,
@@ -35,7 +34,6 @@ const components = [
   FloatLabelModule,
   PasswordModule,
   CheckboxModule,
-  AsyncPipe,
 ];
 
 @Component({
@@ -51,14 +49,14 @@ const components = [
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent extends BaseComponent {
-  store$ = inject(Store<AppState>);
-  isBusy$ = this.store$.select(selectIsBusy);
-  formBuilder = inject(FormBuilder);
+export class LoginComponent {
+  private store$ = inject(Store<AppState>);
+  private formBuilder = inject(FormBuilder);
+
+  isBusy = toSignal(this.store$.select(selectIsBusy));
   loginForm: FormGroup;
 
   constructor() {
-    super();
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
