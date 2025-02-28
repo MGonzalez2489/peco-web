@@ -1,6 +1,11 @@
 <p-card>
   <div class="flex justify-center">
-    <form [formGroup]="form" (ngSubmit)="submit()" class="size-1/2">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      class="size-1/2"
+      #formDirective="ngForm"
+    >
       <!-- name -->
       <div class="my-6">
         <p-floatlabel>
@@ -24,17 +29,13 @@
         </p-floatlabel>
       </div>
       <!-- Account Type -->
+
       <div class="my-6">
-        <p-floatlabel>
-          <p-select
-            formControlName="accountTypeId"
-            [options]="(accountTypes$ | async)!"
-            optionLabel="displayName"
-            optionValue="publicId"
-            placeholder="Select a City"
-            fluid="true"
-          />
-        </p-floatlabel>
+        <app-select-account-type
+          formControlName="accountType"
+          [directive]="formDirective"
+        />
+        <p [appValidationError]="'accountType'" [directive]="formDirective"></p>
       </div>
 
       <!-- Mark Default -->

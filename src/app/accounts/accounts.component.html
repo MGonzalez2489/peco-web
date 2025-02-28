@@ -12,8 +12,8 @@
 
 <p-card>
   <app-account-table
-    [accounts]="accounts$ | async"
-    [filters]="filters"
+    [accounts]="accounts()"
+    [filters]="filterSignal()"
     (search)="onSearch($event)"
   />
 </p-card>

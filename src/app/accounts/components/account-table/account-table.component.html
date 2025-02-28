@@ -1,6 +1,6 @@
 <div>
   <p-table
-    [value]="accounts?.data || []"
+    [value]="accountsSignal()?.data || []"
     [paginator]="false"
     stripedRows
     [customSort]="true"

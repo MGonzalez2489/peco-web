@@ -1,5 +1,5 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import {
   FormControl,
   FormGroup,
@@ -7,10 +7,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Account } from '@core/models/entities';
+import { Account, AccountType } from '@core/models/entities';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { BaseComponent } from '@shared/components';
+import { SelectAccountTypeComponent } from '@shared/components/form';
+import { ValidationErrorDirective } from '@shared/directives/forms';
 import { AccountActions } from '@store/actions/account.actions';
 import { AppState } from '@store/reducers';
 import { selectAccountById, selectCatAccountTypes } from '@store/selectors';
@@ -22,7 +23,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { SelectModule } from 'primeng/select';
-import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-edit-account',
@@ -36,58 +36,66 @@ import { takeUntil } from 'rxjs';
     MessageModule,
     InputNumberModule,
     SelectModule,
-    AsyncPipe,
+    ValidationErrorDirective,
+    SelectAccountTypeComponent,
   ],
   templateUrl: './edit-account.component.html',
   styleUrl: './edit-account.component.scss',
 })
-export class EditAccountComponent extends BaseComponent {
+export class EditAccountComponent {
   private activatedRoute = inject(ActivatedRoute);
   private store$ = inject(Store<AppState>);
+  private actions$ = inject(Actions);
+  private router = inject(Router);
 
-  actions$ = inject(Actions);
-  router = inject(Router);
-  accountTypes$ = this.store$.select(selectCatAccountTypes);
+  accountTypes = toSignal(this.store$.select(selectCatAccountTypes));
 
-  accountId: string;
+  account = signal<Account | undefined>(undefined);
+
   form = new FormGroup({
     name: new FormControl('', [Validators.required]),
     balance: new FormControl<number>(0),
-    accountTypeId: new FormControl<string>('', [Validators.required]),
+    accountType: new FormControl<AccountType | undefined>(undefined, [
+      Validators.required,
+    ]),
     isDefault: new FormControl(false),
   });
 
   constructor() {
-    super();
-    this.accountId = this.activatedRoute.snapshot.params['accountId'];
-    this.store$
-      .select(selectAccountById(this.accountId))
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((data) => {
+    const accId = this.activatedRoute.snapshot.params['accountId'];
+
+    this.account.set(toSignal(this.store$.select(selectAccountById(accId)))());
+    effect(() => {
+      const acc = this.account();
+      if (acc) {
         this.form.patchValue({
-          name: data?.name,
-          balance: data?.balance,
-          isDefault: data?.isDefault,
-          accountTypeId: data?.type.publicId,
+          name: acc.name,
+          balance: acc.balance,
+          isDefault: acc.isDefault,
+          accountType: acc.type,
         });
+      }
+    });
+
+    effect(() => {
+      this.actions$.pipe(ofType(AccountActions.updateSuccess)).subscribe(() => {
+        this.cancel();
       });
+    });
   }
 
   submit() {
     if (this.form.invalid) return;
 
-    this.store$.dispatch(
-      AccountActions.update({
-        data: this.form.value as Account,
-        accountId: this.accountId,
-      }),
-    );
-
-    this.actions$
-      .pipe(ofType(AccountActions.updateSuccess), takeUntil(this.unsubscribe$))
-      .subscribe(() => {
-        this.cancel();
-      });
+    const acc = this.account();
+    if (acc) {
+      this.store$.dispatch(
+        AccountActions.update({
+          data: this.form.value as Account,
+          accountId: acc.publicId,
+        }),
+      );
+    }
   }
   cancel(): void {
     this.router.navigate(['/accounts']);

@@ -1,5 +1,5 @@
 import { CurrencyPipe, DatePipe, TitleCasePipe } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { PaginationMetaDto, ResultListDto } from '@core/models/dtos';
@@ -36,26 +36,34 @@ import { TagModule } from 'primeng/tag';
   styleUrl: './account-table.component.scss',
 })
 export class AccountTableComponent {
-  @Input()
-  accounts: ResultListDto<Account> | undefined | null;
+  accountsSignal = signal<ResultListDto<Account> | undefined | null>(undefined);
+  private filtersSignal = signal<SearchDto | undefined>(undefined);
 
   @Input()
-  filters: SearchDto | undefined;
+  set accounts(value: ResultListDto<Account> | undefined | null) {
+    this.accountsSignal.set(value);
+  }
+
+  @Input()
+  set filters(value: SearchDto | undefined) {
+    this.filtersSignal.set(value);
+  }
 
   @Output()
   search = new EventEmitter<SearchDto>();
 
   onSort(event: SortEvent) {
-    this.filters?.setSort(event);
-    this.emit();
+    const filters = this.filtersSignal();
+    if (filters) {
+      filters.setSort(event);
+      this.search.emit(filters);
+    }
   }
-
   onPageChange(event: PaginatorState, pagination: PaginationMetaDto) {
-    this.filters?.setPagination(event, pagination);
-    this.emit();
-  }
-
-  private emit(): void {
-    this.search.emit(this.filters!);
+    const filters = this.filtersSignal();
+    if (filters) {
+      filters.setPagination(event, pagination);
+      this.search.emit(filters);
+    }
   }
 }

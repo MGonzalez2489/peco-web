@@ -1,10 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { Account } from '@core/models/entities';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/reducers';
-import { Observable } from 'rxjs';
 
-import { AsyncPipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
@@ -17,6 +15,7 @@ import { ResultListDto } from '@core/models/dtos';
 import { SearchDto } from '@core/models/dtos/search';
 import { AccountService } from '@core/services';
 //
+import { toSignal } from '@angular/core/rxjs-interop';
 import { InputSearchComponent } from '@shared/components/form/input-search/input-search.component';
 import { selectIsBusy } from '@store/selectors';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -32,7 +31,6 @@ import { AccountTableComponent } from './components/account-table/account-table.
     FormsModule,
     RouterLink,
     InputSearchComponent,
-    AsyncPipe,
     ProgressSpinnerModule,
     AccountTableComponent,
   ],
@@ -40,22 +38,30 @@ import { AccountTableComponent } from './components/account-table/account-table.
   styleUrl: './accounts.component.scss',
 })
 export class AccountsComponent {
-  store$ = inject(Store<AppState>);
-  accounts$ = new Observable<ResultListDto<Account>>();
-  isBusy$ = this.store$.select(selectIsBusy);
-  accountService = inject(AccountService);
-  //
-  filters = new SearchDto();
+  private store$ = inject(Store<AppState>);
+  private accountService = inject(AccountService);
+  filterSignal = signal(new SearchDto());
+
+  isBusy = toSignal(this.store$.select(selectIsBusy));
+  accounts = signal<ResultListDto<Account> | undefined>(undefined);
+
   constructor() {
-    this.onSearch(this.filters);
+    effect(() => {
+      const filters = this.filterSignal();
+
+      this.accountService.getAll(filters).subscribe((data) => {
+        this.accounts.set(data);
+      });
+    });
   }
 
   onSearch(newFilters: SearchDto) {
-    this.filters = newFilters;
-    this.accounts$ = this.accountService.getAll(this.filters);
+    this.filterSignal.set(newFilters);
   }
   hintSearch(value: string | undefined) {
-    this.filters.hint = value;
-    this.onSearch(this.filters);
+    const filters = this.filterSignal();
+    const newFilters = Object.assign({}, filters);
+    newFilters.hint = value;
+    this.filterSignal.set(newFilters);
   }
 }

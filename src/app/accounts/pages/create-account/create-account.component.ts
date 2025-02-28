@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -13,7 +13,6 @@ import { CardModule } from 'primeng/card';
 import { Router } from '@angular/router';
 import { AccountCreateDto } from '@core/models/dtos';
 import { AccountType } from '@core/models/entities';
-import { BaseComponent } from '@shared/components';
 import { SelectAccountTypeComponent } from '@shared/components/form';
 import {
   InvalidDirtyDirective,
@@ -27,7 +26,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { SelectModule } from 'primeng/select';
-import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-create-account',
@@ -48,10 +46,11 @@ import { takeUntil } from 'rxjs';
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss',
 })
-export class CreateAccountComponent extends BaseComponent {
-  store$ = inject(Store<AppState>);
-  actions$ = inject(Actions);
-  router = inject(Router);
+export class CreateAccountComponent {
+  private store$ = inject(Store<AppState>);
+  private actions$ = inject(Actions);
+  private router = inject(Router);
+
   form = new FormGroup({
     name: new FormControl<string>('', [Validators.required]),
     balance: new FormControl<number>(0, [Validators.required]),
@@ -61,18 +60,28 @@ export class CreateAccountComponent extends BaseComponent {
     isDefault: new FormControl<boolean>(false),
   });
 
+  constructor() {
+    effect(() => {
+      const createSuccess = this.actions$.pipe(
+        ofType(AccountActions.createSuccess),
+      );
+      createSuccess.subscribe(() => {
+        this.cancel();
+      });
+    });
+  }
+
   submit(): void {
     if (this.form.invalid) return;
 
-    this.store$.dispatch(
-      AccountActions.create({ data: this.form.value as AccountCreateDto }),
-    );
+    const newAccount: AccountCreateDto = {
+      name: this.form.value.name!,
+      accountTypeId: this.form.value.accountType!.publicId,
+      balance: this.form.value.balance!,
+      isDefault: this.form.value.isDefault!,
+    };
 
-    this.actions$
-      .pipe(ofType(AccountActions.createSuccess), takeUntil(this.unsubscribe$))
-      .subscribe(() => {
-        this.cancel();
-      });
+    this.store$.dispatch(AccountActions.create({ data: newAccount }));
   }
 
   cancel(): void {

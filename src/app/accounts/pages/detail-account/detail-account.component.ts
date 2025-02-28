@@ -1,5 +1,5 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { ResultListDto } from '@core/models/dtos';
 import { EntrySearchDto } from '@core/models/dtos/search';
@@ -12,7 +12,6 @@ import { selectAccountById } from '@store/selectors';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { TabsModule } from 'primeng/tabs';
-import { Observable } from 'rxjs';
 import { AccountCardComponent } from '../../components/account-card/account-card.component';
 
 const primeSources = [
@@ -24,7 +23,7 @@ const primeSources = [
 
 @Component({
   selector: 'app-detail-account',
-  imports: [AsyncPipe, AccountCardComponent, ...primeSources],
+  imports: [AccountCardComponent, ...primeSources],
   templateUrl: './detail-account.component.html',
   styleUrl: './detail-account.component.scss',
 })
@@ -32,26 +31,39 @@ export class DetailAccountComponent {
   private activatedRoute = inject(ActivatedRoute);
   private store$ = inject(Store<AppState>);
   private entriesService = inject(EntryService);
-  private accountId: string;
-  //
-  account$: Observable<Account | undefined>;
-  entries$ = new Observable<ResultListDto<Entry>>();
-  constructor() {
-    this.accountId = this.activatedRoute.snapshot.params['accountId'];
-    if (!this.accountId) {
-      alert('he que pedo no hay accId');
-    }
 
-    this.account$ = this.store$.select(selectAccountById(this.accountId));
+  account = signal<Account | undefined>(undefined);
+  entries = signal<ResultListDto<Entry> | undefined>(undefined);
+  private searchSignal = signal<EntrySearchDto | undefined>(undefined);
+
+  constructor() {
+    const accId = this.activatedRoute.snapshot.params['accountId'];
+
+    const search = this.searchSignal();
+    const newSearch = Object.assign({}, search);
+    newSearch.accountId = accId;
+    this.searchSignal.set(search);
+    this.account.set(toSignal(this.store$.select(selectAccountById(accId)))());
+
+    effect(() => {
+      const search = this.searchSignal();
+
+      if (search) {
+        this.entriesService.search(search).subscribe((data) => {
+          this.entries.set(data);
+        });
+      }
+    });
   }
 
   searchEntries(accountId: string, search?: EntrySearchDto) {
-    if (search) search.accountId = accountId;
-    this.entries$ = this.entriesService.search(search);
+    const newSearch = Object.assign({}, search);
+    newSearch.accountId = accountId;
+
+    this.searchSignal.set(newSearch);
   }
 
   //TODO:
-  //agregar tabla de registros para cuenta especifica con filtros
   //agregar boton para editar/borrar
   //widtgets con graficas
 }

@@ -1,11 +1,9 @@
-@if (account$ | async; as account) {
-  <div class="flex flex-col gap-4">
-    <!-- Account details -->
-    <app-account-card [account]="account"> </app-account-card>
-    <!-- Entries -->
-    <app-entry-table
-      [entries]="entries$ | async"
-      (search)="searchEntries(account.publicId, $event)"
-    ></app-entry-table>
-  </div>
-}
+<div class="flex flex-col gap-4">
+  <!-- Account details -->
+  <app-account-card [account]="account()"> </app-account-card>
+  <!-- Entries -->
+  <app-entry-table
+    [entries]="entries() || null"
+    (search)="searchEntries(account()?.publicId!, $event)"
+  ></app-entry-table>
+</div>

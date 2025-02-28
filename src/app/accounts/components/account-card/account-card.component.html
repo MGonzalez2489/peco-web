@@ -4,7 +4,7 @@
       <div class="flex w-full justify-between">
         <div class="flex flex-col">
           <p class="font-semibold text-2xl">{{ account.name | titlecase }}</p>
-          <p class="text-sm text-gray-400">{{ account.type.displayName }}</p>
+          <p class="text-sm text-gray-400">{{ account.type?.displayName }}</p>
         </div>
 
         <div class="flex justify-center items-center gap-3">
