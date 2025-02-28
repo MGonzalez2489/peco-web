@@ -1,5 +1,5 @@
-<p-card>
-  <div class="flex justify-center">
+<p-card header="Perfil">
+  <div class="flex justify-center p-10">
     <form
       [formGroup]="form"
       class="size-1/2"
@@ -49,16 +49,8 @@
 
       <!-- Options -->
       <div class="mt-10 flex justify-center gap-x-8">
-        <p-button
-          label="Cancelar"
-          (click)="cancel()"
-          severity="secondary"
-          [text]="true"
-        />
-
-        <p-button type="submit" size="small" pButton label="Guardar" />
+        <p-button type="submit" size="small" pButton label="Actualizar" />
       </div>
     </form>
   </div>
-  <pre>{{ form.value | json }}</pre>
 </p-card>

@@ -17,7 +17,7 @@ import { Store } from '@ngrx/store';
 import { BaseComponent } from '@shared/components/_base.component';
 import { InvalidDirtyDirective } from '@shared/directives/forms';
 import { AppState } from '@store/reducers';
-import { selectEntryCategories } from '@store/selectors';
+import { selectVisibleEntryCategories } from '@store/selectors';
 import { SelectItemGroup } from 'primeng/api';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
@@ -55,7 +55,6 @@ export class SelectEntryCategoryComponent
   directive: FormGroupDirective | undefined;
 
   private store$ = inject(Store<AppState>);
-  entryCategories$ = this.store$.select(selectEntryCategories);
   groupedEntryCategories: SelectItemGroup[] = [];
 
   formControl = new FormControl();
@@ -63,7 +62,7 @@ export class SelectEntryCategoryComponent
   constructor() {
     super();
     this.store$
-      .select(selectEntryCategories)
+      .select(selectVisibleEntryCategories)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
         this.createItemsGroup(data);

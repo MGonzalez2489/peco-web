@@ -32,8 +32,9 @@ export const routes: Routes = [
           import('./entries/entries.routes').then((c) => c.routes),
       },
       {
-        path: 'profile',
-        loadChildren: () => import('./user/user.routes').then((c) => c.routes),
+        path: 'settings',
+        loadChildren: () =>
+          import('./settings/settings.routes').then((c) => c.routes),
       },
     ],
   },

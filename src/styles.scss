@@ -6,3 +6,19 @@ html,
 body {
   margin: 0px;
 }
+
+::ng-deep {
+  .p-ripple.p-menubar-item-link.p-menubar-item-link-active {
+    background: #ffffff;
+    border-color: #2196f3;
+    color: #2196f3;
+  }
+}
+
+::ng-deep {
+  .p-menu-item.p-menu-item-link.p-menu-item-link-active {
+    background: #ffffff;
+    border-color: #2196f3;
+    color: #2196f3;
+  }
+}

@@ -1,0 +1,41 @@
+<div class="flex items-center justify-between px-5 py-3 rounded-md">
+  @if (mode() === "read") {
+    @let category = categorySignal();
+    <h3>{{ category?.name | titlecase }}</h3>
+    <div class="flex items-center">
+      <p-button
+        label="Editar"
+        text="true"
+        icon="pi pi-pencil"
+        severity="secondary"
+        (click)="editMode()"
+      />
+      <p-button
+        [label]="category?.isVisible ? 'Ocultar' : 'Mostrar'"
+        text="true"
+        [icon]="category?.isVisible ? 'pi pi-eye-slash' : 'pi pi-eye'"
+        (click)="submitVisible()"
+      />
+    </div>
+  } @else if (mode() === "edit") {
+    <form [formGroup]="form" (ngSubmit)="submit()" #formDirective="ngForm">
+      <div class="flex gap-3">
+        <p-floatlabel>
+          <input
+            pInputText
+            formControlName="name"
+            id="name"
+            fluid="true"
+            [appInvalidDirty]="formDirective"
+          />
+          <label for="name">Nombre</label>
+        </p-floatlabel>
+        <p [appValidationError]="'name'" [directive]="formDirective"></p>
+        <div>
+          <p-button label="Cancelar" text="true" (click)="readMode()" />
+          <p-button label="Guardar" text="true" type="submit" />
+        </div>
+      </div>
+    </form>
+  }
+</div>

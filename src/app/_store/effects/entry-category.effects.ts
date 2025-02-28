@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ResultListDto } from '@core/models/dtos';
+import { ResultDto, ResultListDto } from '@core/models/dtos';
 import { EntryCategory } from '@core/models/entities';
 import { EntryCategoryService } from '@core/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -31,4 +31,31 @@ export class EntryCategoryEffects {
       }),
     ),
   );
+
+  //update
+  update$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EntryCategoryActions.updateEntryCategory),
+      mergeMap((action) => {
+        return this.entryCategoryService
+          .update(action.categoryId, action.category)
+          .pipe(
+            map((response: ResultDto<EntryCategory>) => {
+              return EntryCategoryActions.updateEntryCategorySuccess({
+                category: response.data,
+              });
+            }),
+            catchError((err) => {
+              return of(
+                EntryCategoryActions.updateEntryCategoryFailure({
+                  payload: err,
+                }),
+              );
+            }),
+          );
+      }),
+    ),
+  );
+
+  //
 }

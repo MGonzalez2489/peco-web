@@ -4,23 +4,24 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./user.component').then((c) => c.UserComponent),
-    title: 'Perfil',
+      import('./settings.component').then((c) => c.SettingsComponent),
     children: [
       { path: '', pathMatch: 'full', redirectTo: '' },
       {
-        path: '',
+        path: 'profile',
         loadComponent: () =>
-          import('./components/profile/profile.component').then(
+          import('./pages/profile/profile.component').then(
             (c) => c.ProfileComponent,
           ),
+        title: 'Perfil',
       },
       {
-        path: 'edit',
+        path: 'categories',
         loadComponent: () =>
-          import('./components/profile-form/profile-form.component').then(
-            (c) => c.ProfileFormComponent,
+          import('./pages/categories/categories.component').then(
+            (c) => c.CategoriesComponent,
           ),
+        title: 'Categorias',
       },
     ],
   },

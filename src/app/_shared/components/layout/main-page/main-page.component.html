@@ -1,13 +1,9 @@
 <div class="h-screen w-screen bg-gray-100">
-  <div class="flex h-full">
-    <app-sidenav />
-    <div class="w-full h-full">
-      <app-navbar />
-      <div class="flex justify-center">
-        <div class="container p-5">
-          <app-page-title></app-page-title>
-          <router-outlet></router-outlet>
-        </div>
+  <div class="w-full h-full">
+    <app-navbar />
+    <div class="flex justify-center p-5">
+      <div class="container">
+        <router-outlet></router-outlet>
       </div>
     </div>
   </div>

@@ -1,28 +1,18 @@
-<div class="card">
-  <p-toolbar>
-    <ng-template #start>
-      <div class="flex items-center gap-2">
-        <p-button
-          icon="pi pi-bars"
-          [text]="true"
-          severity="secondary"
-          (click)="openSideNav()"
-        />
-      </div>
-    </ng-template>
+<p-toolbar>
+  <ng-template #start>
+    <p-menubar [model]="toolBarItems" [style]="{ border: 'none' }" />
+  </ng-template>
+  <ng-template #end>
+    @if (user$ | async; as user) {
+      <p-menu #menu [model]="items" [popup]="true" />
+      <span class="me-5">{{ user.email }}</span>
 
-    <ng-template #end>
-      @if (user$ | async; as user) {
-        <p-menu #menu [model]="items" [popup]="true" />
-        <span class="me-5">{{ user.email }}</span>
-
-        <p-avatar
-          (click)="menu.toggle($event)"
-          icon="pi pi-user"
-          class="cursor-pointer"
-          shape="circle"
-        />
-      }
-    </ng-template>
-  </p-toolbar>
-</div>
+      <p-avatar
+        (click)="menu.toggle($event)"
+        icon="pi pi-user"
+        class="cursor-pointer"
+        shape="circle"
+      />
+    }
+  </ng-template>
+</p-toolbar>

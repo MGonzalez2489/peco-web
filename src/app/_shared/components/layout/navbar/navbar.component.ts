@@ -29,6 +29,7 @@ const components = [
   BadgeModule,
   MenuModule,
   AsyncPipe,
+  MenubarModule,
 ];
 
 @Component({
@@ -43,15 +44,43 @@ export class NavbarComponent implements OnInit {
   user$ = this.store$.select(selectUser);
   items: MenuItem[] | undefined;
 
+  toolBarItems: MenuItem[] | undefined;
+
   ngOnInit() {
+    this.generateToolBarItems();
     this.generateMenuItems();
+  }
+  generateToolBarItems() {
+    this.toolBarItems = [
+      {
+        label: 'Inicio',
+        icon: PrimeIcons.HOME,
+        routerLink: '/home',
+        routerLinkActiveOptions: { exact: true },
+      },
+      {
+        label: 'Cuentas',
+        icon: PrimeIcons.LIST_CHECK,
+        routerLink: '/accounts',
+      },
+      {
+        label: 'Registros',
+        icon: PrimeIcons.LIST,
+        routerLink: '/entries',
+      },
+    ];
   }
   generateMenuItems(): void {
     this.items = [
       {
         label: 'Perfil',
         icon: PrimeIcons.USER,
-        routerLink: '/profile',
+        routerLink: '/settings/profile',
+      },
+      {
+        label: 'Categorias',
+        icon: PrimeIcons.RECEIPT,
+        routerLink: '/settings/categories',
       },
 
       {
