@@ -8,6 +8,7 @@ import {
   forwardRef,
   inject,
   Input,
+  OnInit,
   signal,
 } from '@angular/core';
 import {
@@ -55,7 +56,7 @@ import { SelectChangeEvent, SelectModule } from 'primeng/select';
   styleUrl: './select-entry-category.component.scss',
 })
 export class SelectEntryCategoryComponent
-  implements ControlValueAccessor, Validator
+  implements ControlValueAccessor, Validator, OnInit
 {
   @Input()
   set directive(value: FormGroupDirective | undefined) {
@@ -63,7 +64,7 @@ export class SelectEntryCategoryComponent
   }
 
   private store$ = inject(Store<AppState>);
-  private directiveSignal = signal<FormGroupDirective | undefined>(undefined);
+  directiveSignal = signal<FormGroupDirective | undefined>(undefined);
   groupedEntryCategories: SelectItemGroup[] = [];
   formControl = new FormControl();
 
@@ -73,17 +74,17 @@ export class SelectEntryCategoryComponent
         this.createItemsGroup(data);
       });
     });
-
-    effect(() => {
-      const directive = this.directiveSignal();
-      if (directive && directive.control) {
-        const form = directive.control.get('category');
-        if (form && form.validator) {
-          this.formControl.setValidators(form.validator);
-          this.formControl.updateValueAndValidity();
-        }
+  }
+  ngOnInit(): void {
+    //map validators
+    const directive = this.directiveSignal();
+    if (directive) {
+      const control = directive.control.get('category');
+      if (control) {
+        this.formControl.setValidators(control.validator);
+        this.formControl.updateValueAndValidity();
       }
-    });
+    }
   }
   createItemsGroup(entryCategories: EntryCategory[]) {
     this.groupedEntryCategories = [];
