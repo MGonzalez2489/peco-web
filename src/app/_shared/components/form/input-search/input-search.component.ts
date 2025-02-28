@@ -1,11 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, effect, Input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BaseComponent } from '@shared/components/_base.component';
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
-import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-input-search',
@@ -19,41 +18,49 @@ import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
   templateUrl: './input-search.component.html',
   styleUrl: './input-search.component.scss',
 })
-export class InputSearchComponent extends BaseComponent {
-  @Output()
-  hintChange = new EventEmitter<string | undefined>();
+export class InputSearchComponent {
+  private hintSubject = new Subject<string | undefined>();
+
+  hintSignal = signal<string | undefined>(undefined);
+  private placeholderSignal = signal<string>('Buscar...');
+
   @Input()
-  placeholder = 'Buscar...';
+  set placeholder(value: string) {
+    this.placeholderSignal.set(value);
+  }
 
-  hint: string | undefined;
-  //
+  @Input()
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onHintChange: (hint: string | undefined) => void = () => {};
 
-  //milliseconds
-  debounceTime = 500;
-  handleSearch = new Subject<string>();
+  debounceTimeValue = 500;
+
   constructor() {
-    super();
-    this.handleSearch
-      .pipe(
-        takeUntil(this.unsubscribe$),
-        debounceTime(this.debounceTime),
-        distinctUntilChanged(),
-      )
-      .subscribe((value) => {
-        this.hint = value;
-        this.emitValue();
-      });
+    effect(() => {
+      this.hintSubject
+        .pipe(debounceTime(this.debounceTimeValue), distinctUntilChanged())
+        .subscribe((value) => {
+          this.onHintChange(value);
+        });
+    });
+  }
+
+  updateHint(value: string | undefined) {
+    if (value === '') {
+      this.hintSignal.set(undefined);
+    } else {
+      this.hintSignal.set(value);
+    }
+    this.hintSubject.next(this.hintSignal());
   }
 
   clearSearch(): void {
-    this.hint = undefined;
-    this.emitValue();
+    this.hintSignal.set(undefined);
+    this.hintSubject.next(this.hintSignal());
   }
 
-  private emitValue() {
-    if (this.hint && this.hint === '') {
-      this.hint = undefined;
-    }
-    this.hintChange.emit(this.hint);
+  // eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures
+  get placeholder() {
+    return this.placeholderSignal();
   }
 }

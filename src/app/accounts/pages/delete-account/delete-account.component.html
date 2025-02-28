@@ -1,40 +1,42 @@
 <p-card>
-  @if (account$ | async; as account) {
-    <p-fieldset legend="Informacion de la cuenta">
-      <!-- Information -->
-      <div class="grid grid-cols-2 gap-4 gap-x-6">
-        <!-- Name -->
-        <div class="text-right font-bold">Nombre de la cuenta</div>
-        <div>{{ account.name }}</div>
-        <!-- Balance -->
-        <div class="text-right font-bold">Balance</div>
-        <div>{{ account.balance | currency }}</div>
-        <!-- IsDefault -->
-        <div class="text-right font-bold">Default</div>
-        <div>
-          <p-checkbox [(ngModel)]="account.isDefault" [binary]="true" />
-        </div>
+  <p-fieldset legend="Informacion de la cuenta">
+    <!-- Information -->
+    <div class="grid grid-cols-2 gap-4 gap-x-6">
+      <!-- Name -->
+      <div class="text-right font-bold">Nombre de la cuenta</div>
+      <div>{{ account()?.name }}</div>
+      <!-- Balance -->
+      <div class="text-right font-bold">Balance</div>
+      <div>{{ account()?.balance | currency }}</div>
+      <!-- IsDefault -->
+      <div class="text-right font-bold">Default</div>
+      <div>
+        <p-checkbox
+          [value]="account()?.isDefault!"
+          (onChange)="updateIsDefault($event.checked)"
+          [binary]="true"
+        />
       </div>
-    </p-fieldset>
-
-    <!-- Options -->
-    <div class="mt-10 flex justify-center gap-x-8">
-      <p-button
-        label="Cancelar"
-        (click)="cancel()"
-        severity="secondary"
-        [text]="true"
-      />
-
-      <p-button
-        type="button"
-        size="small"
-        (click)="delete(account.publicId)"
-        [disabled]="account.isDefault"
-        severity="danger"
-        pButton
-        label="Borrar"
-      />
     </div>
-  }
+  </p-fieldset>
+
+  <!-- Options -->
+  <div class="mt-10 flex justify-center gap-x-8">
+    <p-button
+      label="Cancelar"
+      (click)="cancel()"
+      severity="secondary"
+      [text]="true"
+    />
+
+    <p-button
+      type="button"
+      size="small"
+      (click)="delete(account()?.publicId!)"
+      [disabled]="account()?.isDefault!"
+      severity="danger"
+      pButton
+      label="Borrar"
+    />
+  </div>
 </p-card>

@@ -1,6 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, forwardRef, inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  effect,
+  forwardRef,
+  inject,
+  Input,
+  signal,
+} from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -14,14 +23,12 @@ import {
 } from '@angular/forms';
 import { EntryCategory } from '@core/models/entities';
 import { Store } from '@ngrx/store';
-import { BaseComponent } from '@shared/components/_base.component';
 import { InvalidDirtyDirective } from '@shared/directives/forms';
 import { AppState } from '@store/reducers';
 import { selectVisibleEntryCategories } from '@store/selectors';
 import { SelectItemGroup } from 'primeng/api';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
-import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-select-entry-category',
@@ -48,44 +55,38 @@ import { takeUntil } from 'rxjs';
   styleUrl: './select-entry-category.component.scss',
 })
 export class SelectEntryCategoryComponent
-  extends BaseComponent
-  implements ControlValueAccessor, Validator, OnInit
+  implements ControlValueAccessor, Validator
 {
   @Input()
-  directive: FormGroupDirective | undefined;
+  set directive(value: FormGroupDirective | undefined) {
+    this.directiveSignal.set(value);
+  }
 
   private store$ = inject(Store<AppState>);
+  private directiveSignal = signal<FormGroupDirective | undefined>(undefined);
   groupedEntryCategories: SelectItemGroup[] = [];
-
   formControl = new FormControl();
 
   constructor() {
-    super();
-    this.store$
-      .select(selectVisibleEntryCategories)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((data) => {
+    effect(() => {
+      this.store$.select(selectVisibleEntryCategories).forEach((data) => {
         this.createItemsGroup(data);
       });
-  }
+    });
 
-  ngOnInit(): void {
-    //map validators
-    const validators = this.rootControl?.validator;
-    if (validators) {
-      this.formControl.setValidators(validators);
-      this.formControl.updateValueAndValidity();
-    }
+    effect(() => {
+      const directive = this.directiveSignal();
+      if (directive && directive.control) {
+        const form = directive.control.get('category');
+        if (form && form.validator) {
+          this.formControl.setValidators(form.validator);
+          this.formControl.updateValueAndValidity();
+        }
+      }
+    });
   }
-  get rootControl() {
-    if (this.directive && this.directive.control) {
-      const form = this.directive.control.get('category');
-      return form;
-    }
-    return null;
-  }
-
   createItemsGroup(entryCategories: EntryCategory[]) {
+    this.groupedEntryCategories = [];
     entryCategories.forEach((entryCat) => {
       if (entryCat.subCategories && entryCat.subCategories.length > 0) {
         const newGroup: SelectItemGroup = {
@@ -100,6 +101,13 @@ export class SelectEntryCategoryComponent
         };
         this.groupedEntryCategories.push(newGroup);
       } else {
+        if (!this.groupedEntryCategories[0]) {
+          this.groupedEntryCategories[0] = {
+            label: 'Categorias',
+            value: null,
+            items: [],
+          };
+        }
         this.groupedEntryCategories[0].items.push({
           label: entryCat.name,
           value: entryCat,
@@ -107,13 +115,13 @@ export class SelectEntryCategoryComponent
       }
     });
   }
+
   select(event: SelectChangeEvent) {
     this.formControl.markAsDirty();
     this.formControl.markAsTouched();
     this.onChange(event.value);
   }
 
-  //ValueAccesor
   onChange = (value: EntryCategory) => {
     this.writeValue(value);
   };
@@ -129,11 +137,9 @@ export class SelectEntryCategoryComponent
     this.onTouched = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     isDisabled ? this.formControl.disable() : this.formControl.enable();
   }
-  //validator
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   validate(_control: AbstractControl): ValidationErrors | null {
     return this.formControl.validator?.(this.formControl) ?? null;
   }

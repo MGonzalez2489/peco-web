@@ -2,8 +2,8 @@
   <input
     pInputText
     [placeholder]="placeholder"
-    [(ngModel)]="hint"
-    (ngModelChange)="this.handleSearch.next($event)"
+    placeholder="placeholder"
+    (input)="updateHint($any($event.target).value)"
   />
   <p-inputgroup-addon>
     <p-button

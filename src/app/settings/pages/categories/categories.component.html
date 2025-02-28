@@ -1,5 +1,5 @@
 <div class="flex items-stretch justify-stretch">
-  <p-tabs [value]="selected().publicId">
+  <p-tabs [value]="selected()?.publicId!">
     @for (cat of categories(); track cat.publicId) {
       <p-tablist orientation="left">
         <p-tab [value]="cat.publicId">{{ cat.name | titlecase }}</p-tab>

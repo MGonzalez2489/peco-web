@@ -1,3 +1,6 @@
 <p-card>
-  <app-entry-form (save)="submit($event)" [accountId]="accountId" />
+  <app-entry-form
+    (save)="submit($event)"
+    [accountId]="accountIdSignal() || ''"
+  />
 </p-card>

@@ -1,10 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
-import { BaseComponent } from '@shared/components';
 import { PageTitleComponent } from '@shared/components/layout';
 import { AuthActions } from '@store/actions/auth.actions';
-import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -12,21 +10,17 @@ import { takeUntil } from 'rxjs';
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
 })
-export class AuthComponent extends BaseComponent {
+export class AuthComponent {
   private router = inject(Router);
   private actions$ = inject(Actions);
 
   constructor() {
-    super();
-
-    //redirect
-    this.actions$
-      .pipe(
-        ofType(AuthActions.registerSuccess, AuthActions.loginSuccess),
-        takeUntil(this.unsubscribe$),
-      )
-      .subscribe(() => {
-        this.router.navigate(['/home']);
-      });
+    effect(() => {
+      this.actions$
+        .pipe(ofType(AuthActions.registerSuccess, AuthActions.loginSuccess))
+        .subscribe(() => {
+          this.router.navigate(['/home']);
+        });
+    });
   }
 }

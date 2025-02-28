@@ -9,5 +9,5 @@ import { Component, Input } from '@angular/core';
 })
 export class AmountComponent {
   @Input()
-  amount: number = 0;
+  amount = 0;
 }
