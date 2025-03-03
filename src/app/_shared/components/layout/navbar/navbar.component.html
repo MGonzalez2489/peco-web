@@ -1,18 +1,16 @@
 <p-toolbar>
   <ng-template #start>
-    <p-menubar [model]="toolBarItems" [style]="{ border: 'none' }" />
+    <p-menubar [model]="toolBarItems()" [style]="{ border: 'none' }" />
   </ng-template>
   <ng-template #end>
-    @if (user$ | async; as user) {
-      <p-menu #menu [model]="items" [popup]="true" />
-      <span class="me-5">{{ user.email }}</span>
+    <p-menu #menu [model]="items()" [popup]="true" />
+    <span class="me-5">{{ user()?.email }}</span>
 
-      <p-avatar
-        (click)="menu.toggle($event)"
-        icon="pi pi-user"
-        class="cursor-pointer"
-        shape="circle"
-      />
-    }
+    <p-avatar
+      (click)="menu.toggle($event)"
+      icon="pi pi-user"
+      class="cursor-pointer"
+      shape="circle"
+    />
   </ng-template>
 </p-toolbar>

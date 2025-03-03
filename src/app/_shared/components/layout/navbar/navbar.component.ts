@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 
 //primeng
 import { MenuItem } from 'primeng/api';
@@ -11,14 +11,12 @@ import { Toolbar } from 'primeng/toolbar';
 import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
 
-import { AsyncPipe } from '@angular/common';
-import { Router } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
-import { AuthActions } from '@store/actions/auth.actions';
-import { UiActions } from '@store/actions/ui.actions';
 import { AppState } from '@store/reducers';
 import { selectUser } from '@store/selectors';
 import { PrimeIcons } from 'primeng/api';
+import { AuthActions } from '@store/actions/auth.actions';
 
 const components = [
   Toolbar,
@@ -28,7 +26,6 @@ const components = [
   AvatarModule,
   BadgeModule,
   MenuModule,
-  AsyncPipe,
   MenubarModule,
 ];
 
@@ -38,20 +35,15 @@ const components = [
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   private store$ = inject(Store<AppState>);
-  private router = inject(Router);
-  user$ = this.store$.select(selectUser);
-  items: MenuItem[] | undefined;
+  user = toSignal(this.store$.select(selectUser));
 
-  toolBarItems: MenuItem[] | undefined;
+  toolBarItems = computed(() => this.generateToolBarItems());
+  items = computed(() => this.generateMenuItems());
 
-  ngOnInit() {
-    this.generateToolBarItems();
-    this.generateMenuItems();
-  }
-  generateToolBarItems() {
-    this.toolBarItems = [
+  private generateToolBarItems(): MenuItem[] {
+    return [
       {
         label: 'Inicio',
         icon: PrimeIcons.HOME,
@@ -70,8 +62,8 @@ export class NavbarComponent implements OnInit {
       },
     ];
   }
-  generateMenuItems(): void {
-    this.items = [
+  private generateMenuItems(): MenuItem[] {
+    return [
       {
         label: 'Perfil',
         icon: PrimeIcons.USER,
@@ -82,25 +74,17 @@ export class NavbarComponent implements OnInit {
         icon: PrimeIcons.RECEIPT,
         routerLink: '/settings/categories',
       },
-
       {
         separator: true,
       },
       {
         label: 'Cerrar Sesion',
         icon: PrimeIcons.SIGN_OUT,
-        command: () => {
-          this.logout();
-        },
+        command: () => this.logOut(),
       },
     ];
   }
-  logout(): void {
+  private logOut() {
     this.store$.dispatch(AuthActions.logout());
-    this.router.navigate(['/login']);
-  }
-
-  openSideNav() {
-    this.store$.dispatch(UiActions.setSideBarState());
   }
 }
