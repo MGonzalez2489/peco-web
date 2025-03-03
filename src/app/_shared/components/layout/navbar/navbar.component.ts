@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 
 //primeng
 import { MenuItem } from 'primeng/api';
@@ -13,10 +13,10 @@ import { MenubarModule } from 'primeng/menubar';
 
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
-import { AppState } from '@store/reducers';
-import { selectUser } from '@store/selectors';
-import { PrimeIcons } from 'primeng/api';
 import { AuthActions } from '@store/actions/auth.actions';
+import { AppState } from '@store/reducers';
+import { selectToken, selectUser } from '@store/selectors';
+import { PrimeIcons } from 'primeng/api';
 
 const components = [
   Toolbar,
@@ -37,10 +37,33 @@ const components = [
 })
 export class NavbarComponent {
   private store$ = inject(Store<AppState>);
+  private sessionTimeout: ReturnType<typeof setTimeout> | undefined;
   user = toSignal(this.store$.select(selectUser));
+  token = toSignal(this.store$.select(selectToken));
 
   toolBarItems = computed(() => this.generateToolBarItems());
   items = computed(() => this.generateMenuItems());
+
+  constructor() {
+    //token timer
+    effect(() => {
+      const tokenInfo = this.token();
+      if (tokenInfo && !this.sessionTimeout) {
+        let lifeTime = 0;
+
+        //
+        const expDate = new Date(tokenInfo.expiresAt);
+        const nowDate = Date.now();
+        lifeTime = expDate.getTime() - nowDate;
+        //
+
+        this.sessionTimeout = setTimeout(() => {
+          alert('se acabo el session time');
+          this.store$.dispatch(AuthActions.logout());
+        }, lifeTime);
+      }
+    });
+  }
 
   private generateToolBarItems(): MenuItem[] {
     return [

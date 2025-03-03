@@ -1,5 +1,6 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
+import { TokenDto } from '@core/models/dtos';
 import { Store } from '@ngrx/store';
 import { UiActions } from '@store/actions/ui.actions';
 import { AppState } from '@store/reducers';
@@ -15,10 +16,13 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
       store$.dispatch(UiActions.setBusyOn());
     }),
     delay(200),
-    mergeMap((token) => {
+    mergeMap((token: TokenDto) => {
       if (token) {
         req = req.clone({
-          headers: req.headers.append('Authorization', `Bearer ${token}`),
+          headers: req.headers.append(
+            'Authorization',
+            `Bearer ${token.access_token}`,
+          ),
         });
       }
 

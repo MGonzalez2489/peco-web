@@ -1,5 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
+import { TokenDto } from '@core/models/dtos';
 import { select, Store } from '@ngrx/store';
 import { AuthActions } from '@store/actions/auth.actions';
 import { AppState } from '@store/reducers';
@@ -11,9 +12,18 @@ export const AuthGuard: CanActivateFn = () => {
 
   return store$.pipe(
     select(selectToken),
-    map((token: string | null) => {
-      if (token) {
-        return true;
+    map((token: TokenDto) => {
+      if (token && token.access_token && token.expiresAt) {
+        //validate expiration
+        const expDate = new Date(token.expiresAt);
+        const nowDate = Date.now();
+
+        if (expDate.getTime() > nowDate) {
+          return true;
+        }
+
+        store$.dispatch(AuthActions.logout());
+        return false;
       }
 
       store$.dispatch(AuthActions.logout());
