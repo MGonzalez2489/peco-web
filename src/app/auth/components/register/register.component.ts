@@ -66,10 +66,6 @@ export class RegisterComponent {
   submit(): void {
     if (this.registerForm.invalid) return;
 
-    if (this.registerForm.errors && this.registerForm.hasError('mismatch')) {
-      this.registerForm.controls['password'].setErrors({ mismatch: true });
-    }
-
     const request: LoginDto = {
       email: this.registerForm.value.email,
       password: this.registerForm.value.password,

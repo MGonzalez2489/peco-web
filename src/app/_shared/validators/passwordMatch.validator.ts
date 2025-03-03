@@ -10,8 +10,25 @@ export class CustomValidators {
         sourceCtrl.setErrors({ mismatch: true });
         targetCtrl.setErrors({ mismatch: true });
         return { mismatch: true };
+      } else {
+        if (
+          sourceCtrl &&
+          sourceCtrl.errors &&
+          sourceCtrl.hasError('mismatch')
+        ) {
+          delete sourceCtrl.errors['mismatch'];
+          sourceCtrl.updateValueAndValidity();
+        }
+        if (
+          targetCtrl &&
+          targetCtrl.errors &&
+          targetCtrl.hasError('mismatch')
+        ) {
+          delete targetCtrl.errors['mismatch'];
+          targetCtrl.updateValueAndValidity();
+        }
+        return null;
       }
-      return null;
     };
   }
 }
