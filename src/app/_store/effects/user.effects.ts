@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { SearchDto } from '@core/models/dtos/search';
-import { UserService } from '@core/services';
+import { UiService, UserService } from '@core/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { AccountActions } from '@store/actions/account.actions';
@@ -15,6 +15,7 @@ export class UserEffects {
   private actions$ = inject(Actions);
   private store$ = inject(Store<AppState>);
   private userService = inject(UserService);
+  private uiService = inject(UiService);
 
   getUser$ = createEffect(() => {
     return this.actions$.pipe(
@@ -35,6 +36,7 @@ export class UserEffects {
       exhaustMap((action) =>
         this.userService.update(action.data).pipe(
           map((result) => {
+            this.uiService.message.set('Usuario actualizado.');
             return UserActions.updateUserSuccess({ data: result.data });
           }),
         ),
