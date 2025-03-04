@@ -1,8 +1,10 @@
 <div class="h-screen w-screen bg-gray-100">
   <div class="w-full h-full">
     <app-navbar />
-    <div class="flex justify-center p-5">
+    <div class="flex justify-center p-5 gap-8">
+      <app-sidenav />
       <div class="container">
+        <app-page-title />
         <router-outlet></router-outlet>
       </div>
     </div>
