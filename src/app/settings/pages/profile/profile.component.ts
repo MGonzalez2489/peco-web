@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
   FormControl,
@@ -34,8 +34,10 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class ProfileComponent {
   private store$ = inject(Store<AppState>);
-  actions$ = inject(Actions);
+  private actions$ = inject(Actions);
   router = inject(Router);
+
+  mode = signal<'read' | 'edit'>('read');
 
   form = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -47,17 +49,29 @@ export class ProfileComponent {
 
   constructor() {
     effect(() => {
-      const userData = this.user();
-      if (userData) {
-        this.form.patchValue({
-          firstName: userData.firstName,
-          lastName: userData.lastName,
-          dateOfBirth: userData.dateOfBirth
-            ? new Date(userData.dateOfBirth)
-            : null,
-        });
+      this.patchForm();
+    });
+
+    effect(() => {
+      const m = this.mode();
+      if (m === 'read') {
+        this.form.disable();
+      } else {
+        this.form.enable();
       }
     });
+    effect(() => {
+      this.actions$
+        .pipe(ofType(UserActions.updateUserSuccess))
+        .subscribe(() => {
+          this.mode.set('read');
+        });
+    });
+  }
+
+  cancel(): void {
+    this.mode.set('read');
+    this.patchForm();
   }
 
   submit(): void {
@@ -66,9 +80,17 @@ export class ProfileComponent {
     this.store$.dispatch(
       UserActions.updateUser({ data: this.form.value as UpdateUserDto }),
     );
-
-    this.actions$.pipe(ofType(UserActions.updateUserSuccess)).subscribe(() => {
-      console.log('actualizado');
-    });
+  }
+  private patchForm() {
+    const userData = this.user();
+    if (userData) {
+      this.form.patchValue({
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        dateOfBirth: userData.dateOfBirth
+          ? new Date(userData.dateOfBirth)
+          : null,
+      });
+    }
   }
 }

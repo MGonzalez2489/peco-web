@@ -1,4 +1,4 @@
-<p-card header="Perfil">
+<p-card>
   <div class="flex justify-center p-10">
     <form
       [formGroup]="form"
@@ -48,9 +48,29 @@
       </div>
 
       <!-- Options -->
-      <div class="mt-10 flex justify-center gap-x-8">
-        <p-button type="submit" size="small" pButton label="Actualizar" />
-      </div>
+      @if (mode() === "edit") {
+        <div class="mt-10 flex justify-center gap-x-8">
+          <p-button
+            type="button"
+            size="small"
+            pButton
+            label="Cancelar"
+            severity="secondary"
+            (click)="cancel()"
+          />
+          <p-button type="submit" size="small" pButton label="Actualizar" />
+        </div>
+      } @else {
+        <div class="mt-10 flex justify-center gap-x-8">
+          <p-button
+            type="button"
+            size="small"
+            pButton
+            label="Editar"
+            (click)="mode.set('edit')"
+          />
+        </div>
+      }
     </form>
   </div>
 </p-card>
