@@ -2,7 +2,10 @@ import { inject, Injectable } from '@angular/core';
 import { SearchDto } from '@core/models/dtos/search';
 import { EntryCategory } from '@core/models/entities';
 import { RequestService } from './_request.service';
-import { EntryCategoryUpdateDto } from '@core/models/dtos';
+import {
+  EntryCategoryCreateDto,
+  EntryCategoryUpdateDto,
+} from '@core/models/dtos';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +15,9 @@ export class EntryCategoryService {
 
   getAll(search?: SearchDto) {
     return this.reqService.getList<EntryCategory>('entry-category', search);
+  }
+  create(category: EntryCategoryCreateDto) {
+    return this.reqService.post<EntryCategory>(`entry-category`, category);
   }
 
   update(categoryId: string, dto: EntryCategoryUpdateDto) {

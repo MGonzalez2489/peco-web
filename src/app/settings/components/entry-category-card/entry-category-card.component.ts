@@ -12,15 +12,15 @@ import {
 import { EntryCategoryActions } from '@store/actions/entry-category.actions';
 import { AppState } from '@store/reducers';
 import { ButtonModule } from 'primeng/button';
-import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
+import { IftaLabelModule } from 'primeng/iftalabel';
 
 @Component({
   selector: 'app-entry-category-card',
   imports: [
     ButtonModule,
     ReactiveFormsModule,
-    FloatLabelModule,
+    IftaLabelModule,
     InputTextModule,
     InvalidDirtyDirective,
     ValidationErrorDirective,

@@ -20,16 +20,17 @@
   } @else if (mode() === "edit") {
     <form [formGroup]="form" (ngSubmit)="submit()" #formDirective="ngForm">
       <div class="flex gap-3">
-        <p-floatlabel>
+        <p-iftalabel>
           <input
             pInputText
             formControlName="name"
             id="name"
             fluid="true"
             [appInvalidDirty]="formDirective"
+            pSize="small"
           />
           <label for="name">Nombre</label>
-        </p-floatlabel>
+        </p-iftalabel>
         <p [appValidationError]="'name'" [directive]="formDirective"></p>
         <div>
           <p-button label="Cancelar" text="true" (click)="readMode()" />

@@ -1,20 +1,35 @@
-<div class="flex items-stretch justify-stretch">
-  <p-tabs [value]="selected()?.publicId!">
-    @for (cat of categories(); track cat.publicId) {
-      <p-tablist orientation="left">
-        <p-tab [value]="cat.publicId">{{ cat.name | titlecase }}</p-tab>
-      </p-tablist>
-    }
-  </p-tabs>
-
-  <!-- Contenido -->
-  <div class="w-full">
-    <app-entry-category-card [category]="selected()" />
-
-    <p-divider />
-    @for (cat of selected()?.subCategories; track cat.publicId) {
-      <app-entry-category-card [category]="cat" />
-      <p-divider />
-    }
+<div>
+  <div class="flex justify-center my-8">
+    <p-button
+      icon="pi pi-plus"
+      [rounded]="true"
+      severity="secondary"
+      (click)="addNewCategory()"
+    />
   </div>
+
+  <p-accordion>
+    @for (cat of categories(); track cat.publicId) {
+      <p-accordion-panel [value]="cat.publicId">
+        <p-accordion-header>
+          <div class="flex justify-between items-center w-full">
+            <span> {{ cat.name | titlecase }}</span>
+            <p-button
+              label="Nueva Sub Categoria"
+              text="true"
+              (click)="addNewCategory(cat)"
+            />
+          </div>
+        </p-accordion-header>
+        <p-accordion-content>
+          <app-entry-category-card [category]="cat" />
+          <p-divider />
+          @for (catSub of cat.subCategories; track catSub.publicId) {
+            <app-entry-category-card [category]="catSub" />
+            <p-divider />
+          }
+        </p-accordion-content>
+      </p-accordion-panel>
+    }
+  </p-accordion>
 </div>

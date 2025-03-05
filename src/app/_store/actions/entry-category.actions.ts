@@ -2,7 +2,10 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 import { EntryCategory } from '@core/models/entities';
-import { EntryCategoryUpdateDto } from '@core/models/dtos';
+import {
+  EntryCategoryCreateDto,
+  EntryCategoryUpdateDto,
+} from '@core/models/dtos';
 export const EntryCategoryActions = createActionGroup({
   source: 'EntryCategory',
   events: {
@@ -11,6 +14,14 @@ export const EntryCategoryActions = createActionGroup({
       entryCategoryArray: EntryCategory[];
     }>(),
     'Load Entry Categories Failure': props<{ payload: any }>(),
+
+    'Create Entry Category': props<{
+      category: EntryCategoryCreateDto;
+    }>(),
+    'Create Entry Category Success': props<{
+      category: EntryCategory;
+    }>(),
+    'Create Entry Category Failure': props<{ payload: any }>(),
 
     'Update Entry Category': props<{
       categoryId: string;

@@ -32,6 +32,29 @@ export class EntryCategoryEffects {
     ),
   );
 
+  //create
+  create$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EntryCategoryActions.createEntryCategory),
+      mergeMap((action) => {
+        return this.entryCategoryService.create(action.category).pipe(
+          map((response: ResultDto<EntryCategory>) => {
+            return EntryCategoryActions.createEntryCategorySuccess({
+              category: response.data,
+            });
+          }),
+          catchError((err) => {
+            return of(
+              EntryCategoryActions.createEntryCategoryFailure({
+                payload: err,
+              }),
+            );
+          }),
+        );
+      }),
+    ),
+  );
+
   //update
   update$ = createEffect(() =>
     this.actions$.pipe(

@@ -21,21 +21,39 @@ export const EntryCategoryReducer = createReducer(
       return { ...state, data: entryCategoryArray };
     },
   ),
+  on(EntryCategoryActions.createEntryCategorySuccess, (state, { category }) => {
+    if (!category.parentId) {
+      return { ...state, data: [...state.data, category] };
+    } else {
+      const updatedData = state.data.map((item) => {
+        if (item.publicId === category.parentId) {
+          return {
+            ...item,
+            subCategories: [...(item.subCategories || []), category],
+          };
+          // item.subCategories = [...item.subCategories, category];
+        }
+        return item;
+      });
+
+      return {
+        ...state,
+        data: updatedData,
+      };
+    }
+  }),
 
   on(EntryCategoryActions.updateEntryCategorySuccess, (state, { category }) => {
     const updatedData = state.data.map((item) => {
       if (item.publicId === category.publicId) {
-        // Actualizar la categoría principal
         return {
           ...item,
           name: category.name,
           isVisible: category.isVisible,
         };
       } else if (item.subCategories) {
-        // Actualizar las subcategorías (si existen)
         const updatedSubCategories = item.subCategories.map((subCategory) => {
           if (subCategory.publicId === category.publicId) {
-            // Actualizar la subcategoría
             return {
               ...subCategory,
               name: category.name,
@@ -45,7 +63,6 @@ export const EntryCategoryReducer = createReducer(
           return subCategory; // Mantener la subcategoría sin cambios
         });
 
-        // Crear un nuevo objeto item con las subcategorías actualizadas
         return {
           ...item,
           subCategories: updatedSubCategories,
