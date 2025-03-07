@@ -1,1 +1,10 @@
-<p>Home component</p>
+<div class="grid grid-cols-4 gap-4">
+  @for (account of accounts(); track account.publicId) {
+    <div
+      class="cursor-pointer transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+      [routerLink]="['/accounts', account.publicId]"
+    >
+      <app-account-card [account]="account" />
+    </div>
+  }
+</div>

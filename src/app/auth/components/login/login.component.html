@@ -8,6 +8,7 @@
         id="email"
         fluid="true"
         [appInvalidDirty]="formDirective"
+        autocomplete="on"
       />
       <label for="email">Email</label>
     </p-floatlabel>
@@ -17,13 +18,12 @@
   <div class="my-6">
     <p-floatlabel>
       <p-password
-        inputId="password"
-        autocomplete="off"
         formControlName="password"
         fluid="true"
-        id="password"
         feedback="false"
         [appInvalidDirty]="formDirective"
+        inputId="password"
+        autocomplete="off"
       />
       <label for="password">Contraseña</label>
     </p-floatlabel>

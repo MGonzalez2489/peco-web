@@ -46,6 +46,9 @@ export class EntryTableComponent {
   entries: ResultListDto<Entry> | null = null;
 
   @Input()
+  accountId: string | undefined;
+
+  @Input()
   showAccountColumn = false;
 
   @Output()
@@ -81,8 +84,8 @@ export class EntryTableComponent {
   }
   newEntry() {
     let createEntryUrl = '/entries/new';
-    if (this.searchObj.accountId) {
-      createEntryUrl += `/${this.searchObj.accountId}`;
+    if (this.accountId) {
+      createEntryUrl += `/${this.accountId}`;
     }
     this.router.navigateByUrl(createEntryUrl);
   }

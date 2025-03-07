@@ -6,11 +6,12 @@
     [fluid]="true"
     [group]="true"
     name="category"
-    id="category"
     [formControl]="formControl"
     (onChange)="select($event)"
     (onBlur)="onTouched()"
     [appInvalidDirty]="directiveSignal()"
+    inputId="category"
+    id="category"
   >
     <ng-template let-group pTemplate="group">
       <div class="group-header">

@@ -8,14 +8,16 @@
         </div>
 
         <div class="flex justify-center items-center gap-3">
-          <p-button
-            icon="pi pi-pencil"
-            [rounded]="true"
-            [text]="true"
-            severity="secondary"
-            variant="outlined"
-            [routerLink]="['/accounts', account.publicId, 'edit']"
-          />
+          @if (showEdit) {
+            <p-button
+              icon="pi pi-pencil"
+              [rounded]="true"
+              [text]="true"
+              severity="secondary"
+              variant="outlined"
+              [routerLink]="['/accounts', account.publicId, 'edit']"
+            />
+          }
         </div>
       </div>
     </ng-template>
@@ -23,11 +25,11 @@
     <ng-template #content>
       <div class="flex gap-5 justify-start">
         <div>
-          <span class="me-2 text-gray-300">Balance Inicial</span>
+          <small class="me-2 text-gray-300">Inicial</small>
           <app-amount [amount]="account.initialBalance"></app-amount>
         </div>
         <div>
-          <span class="me-2 text-gray-300">Balance Actual</span>
+          <small class="me-2 text-gray-300">Actual</small>
           <app-amount [amount]="account.balance"></app-amount>
         </div>
       </div>

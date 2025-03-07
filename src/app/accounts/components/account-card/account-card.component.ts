@@ -25,4 +25,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 export class AccountCardComponent {
   @Input()
   account: Account | undefined;
+
+  @Input()
+  showEdit = false;
 }
