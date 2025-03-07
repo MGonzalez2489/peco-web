@@ -18,7 +18,7 @@ export const AccountActions = createActionGroup({
     'Create Success': props<{ account: Account }>(),
     'Create Failed': props<{ payload: never }>(),
 
-    Update: props<{ data: Account; accountId: string }>(),
+    Update: props<{ data: AccountCreateDto; accountId: string }>(),
     'Update Success': props<{ account: Account }>(),
     'Update Failed': props<{ payload: never }>(),
 

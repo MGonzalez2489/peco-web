@@ -1,12 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  signal,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -37,10 +30,7 @@ import { InputTextModule } from 'primeng/inputtext';
   templateUrl: './entry-category-form.component.html',
   styleUrl: './entry-category-form.component.scss',
 })
-export class EntryCategoryFormComponent implements OnInit {
-  ngOnInit(): void {
-    console.log('on init');
-  }
+export class EntryCategoryFormComponent {
   @Output()
   save = new EventEmitter<EntryCategoryCreateDto | null>();
 

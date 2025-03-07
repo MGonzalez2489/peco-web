@@ -1,3 +1,4 @@
+import { JsonPipe, Location } from '@angular/common';
 import { Component, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
@@ -6,7 +7,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { AccountCreateDto } from '@core/models/dtos';
 import { Account, AccountType } from '@core/models/entities';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -38,6 +40,7 @@ import { SelectModule } from 'primeng/select';
     SelectModule,
     ValidationErrorDirective,
     SelectAccountTypeComponent,
+    JsonPipe,
   ],
   templateUrl: './edit-account.component.html',
   styleUrl: './edit-account.component.scss',
@@ -46,7 +49,7 @@ export class EditAccountComponent {
   private activatedRoute = inject(ActivatedRoute);
   private store$ = inject(Store<AppState>);
   private actions$ = inject(Actions);
-  private router = inject(Router);
+  private location = inject(Location);
 
   accountTypes = toSignal(this.store$.select(selectCatAccountTypes));
 
@@ -89,15 +92,22 @@ export class EditAccountComponent {
 
     const acc = this.account();
     if (acc) {
+      const newValue: AccountCreateDto = {
+        name: this.form.value.name!,
+        accountTypeId: this.form.value.accountType!.publicId,
+        balance: this.form.value.balance!,
+        isDefault: this.form.value.isDefault!,
+      };
+
       this.store$.dispatch(
         AccountActions.update({
-          data: this.form.value as Account,
+          data: newValue,
           accountId: acc.publicId,
         }),
       );
     }
   }
   cancel(): void {
-    this.router.navigate(['/accounts']);
+    this.location.back();
   }
 }

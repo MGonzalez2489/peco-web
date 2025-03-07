@@ -8,28 +8,40 @@
     />
   </div>
 
-  <p-accordion>
-    @for (cat of categories(); track cat.publicId) {
-      <p-accordion-panel [value]="cat.publicId">
-        <p-accordion-header>
-          <div class="flex justify-between items-center w-full">
-            <span> {{ cat.name | titlecase }}</span>
-            <p-button
-              label="Nueva Sub Categoria"
-              text="true"
-              (click)="addNewCategory(cat)"
-            />
-          </div>
-        </p-accordion-header>
-        <p-accordion-content>
-          <app-entry-category-card [category]="cat" />
-          <p-divider />
-          @for (catSub of cat.subCategories; track catSub.publicId) {
-            <app-entry-category-card [category]="catSub" />
-            <p-divider />
-          }
-        </p-accordion-content>
-      </p-accordion-panel>
-    }
-  </p-accordion>
+  <p-card>
+    <p-accordion>
+      @for (cat of categories(); track cat.publicId) {
+        <p-accordion-panel [value]="cat.publicId">
+          <p-accordion-header>
+            <div class="flex justify-between items-center w-full">
+              <span> {{ cat.name | titlecase }}</span>
+              <p-button
+                label="Nueva Sub Categoria"
+                text="true"
+                (click)="addNewCategory(cat)"
+              />
+            </div>
+          </p-accordion-header>
+          <p-accordion-content>
+            <app-entry-category-card [category]="cat" />
+            @if (cat.subCategories && cat.subCategories.length > 1) {
+              <p-divider />
+            }
+            @for (
+              catSub of cat.subCategories;
+              track catSub.publicId;
+              let i = $index;
+              let first = $first;
+              let last = $last
+            ) {
+              <app-entry-category-card [category]="catSub" />
+              @if (!last) {
+                <p-divider />
+              }
+            }
+          </p-accordion-content>
+        </p-accordion-panel>
+      }
+    </p-accordion>
+  </p-card>
 </div>

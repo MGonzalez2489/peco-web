@@ -20,7 +20,7 @@ export class AccountService {
   create(dto: AccountCreateDto) {
     return this.reqService.post<Account>('accounts', dto);
   }
-  update(dto: Account, accountId: string) {
+  update(dto: AccountCreateDto, accountId: string) {
     return this.reqService.put<Account>(`accounts/${accountId}`, dto);
   }
   delete(accountId: string) {

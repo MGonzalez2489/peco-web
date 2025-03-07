@@ -1,0 +1,11 @@
+.sidenav {
+  height: 100%;
+  width: 300px;
+  transition: 0.4s cubic-bezier(0.36, -0.01, 0, 0.77);
+}
+
+.sidenav.collapsed {
+  width: 0px;
+  visibility: collapse;
+  opacity: 0;
+}

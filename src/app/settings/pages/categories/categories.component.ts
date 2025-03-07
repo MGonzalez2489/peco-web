@@ -59,8 +59,7 @@ export class CategoriesComponent {
       this.actions$
         .pipe(ofType(EntryCategoryActions.createEntryCategorySuccess))
         .subscribe(() => {
-          this.dialogService.getInstance(this.ref!).close();
-          this.ref = undefined;
+          this.closeDialog();
         });
     });
   }
@@ -69,6 +68,10 @@ export class CategoriesComponent {
     this.ref = this.dialogService.open(EntryCategoryFormComponent, {
       inputValues: { parent },
       header: 'Crear Categoria',
+      width: '20vw',
+      closeOnEscape: true,
+      focusOnShow: true,
+      modal: true,
     });
 
     const dialogRef = this.dialogService.dialogComponentRefMap.get(this.ref);
@@ -82,7 +85,13 @@ export class CategoriesComponent {
         this.store$.dispatch(
           EntryCategoryActions.createEntryCategory({ category: data }),
         );
+      } else {
+        this.closeDialog();
       }
     });
+  }
+  private closeDialog() {
+    this.dialogService.getInstance(this.ref!).close();
+    this.ref = undefined;
   }
 }

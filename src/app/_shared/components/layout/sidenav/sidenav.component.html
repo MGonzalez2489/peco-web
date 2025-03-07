@@ -1,3 +1,18 @@
-@if (items) {
-  <p-menu [model]="items" styleClass="mt-22 " />
-}
+<div class="sidenav">
+  <p-menu [model]="items" styleClass="flex flex-col h-full">
+    <ng-template #start>
+      <div class="bg-primary-100 min-h-16 p-5">App Name</div>
+    </ng-template>
+    <ng-template #submenuheader let-item>
+      <span class="text-primary font-bold">{{ item.label }}</span>
+    </ng-template>
+    <ng-template #item let-item class="grow">
+      <ng-container>
+        <a [routerLink]="item.route" class="p-menu-item-link">
+          <span [class]="item.icon"></span>
+          <span class="ml-2">{{ item.label }}</span>
+        </a>
+      </ng-container>
+    </ng-template>
+  </p-menu>
+</div>
