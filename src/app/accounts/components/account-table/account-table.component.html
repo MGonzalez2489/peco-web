@@ -48,6 +48,8 @@
             [(ngModel)]="account.isDefault"
             [binary]="true"
             [disabled]="true"
+            [id]="'account_' + account.publicId"
+            [inputId]="'account_' + account.publicId"
           />
         </td>
 

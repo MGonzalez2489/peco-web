@@ -1,0 +1,13 @@
+<p-floatlabel>
+  <p-select
+    inputId="typeAccount"
+    [options]="accountTypes()"
+    optionLabel="displayName"
+    fluid="true"
+    [formControl]="formControl"
+    (onChange)="select($event)"
+    (onBlur)="onTouched()"
+    [appInvalidDirty]="directive"
+  />
+  <label for="typeAccount">Tipo de Cuenta</label>
+</p-floatlabel>

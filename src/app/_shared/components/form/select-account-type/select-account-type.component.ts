@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { AsyncPipe } from '@angular/common';
 import { Component, forwardRef, inject, Input, OnInit } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -25,24 +25,11 @@ import { SelectChangeEvent, SelectModule } from 'primeng/select';
   selector: 'app-select-account-type',
   imports: [
     FloatLabelModule,
-    AsyncPipe,
     SelectModule,
     ReactiveFormsModule,
     InvalidDirtyDirective,
   ],
-  template: `<p-floatlabel>
-    <p-select
-      [options]="(accountTypes$ | async)!"
-      optionLabel="displayName"
-      fluid="true"
-      id="accountType"
-      [formControl]="formControl"
-      (onChange)="select($event)"
-      (onBlur)="onTouched()"
-      [appInvalidDirty]="directive"
-    />
-    <label for="typeAccount">Tipo de Cuenta</label>
-  </p-floatlabel> `,
+  templateUrl: './select-account-type.component.html',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -64,7 +51,9 @@ export class SelectAccountTypeComponent
   directive: FormGroupDirective | undefined;
 
   private store$ = inject(Store<AppState>);
-  accountTypes$ = this.store$.select(selectCatAccountTypes);
+  accountTypes = toSignal(this.store$.select(selectCatAccountTypes), {
+    initialValue: [],
+  });
 
   formControl = new FormControl();
 
