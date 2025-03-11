@@ -9,3 +9,9 @@
   visibility: collapse;
   opacity: 0;
 }
+
+.active {
+  background-color: var(--p-primary-200);
+  border-right: 2px solid var(--p-primary-500);
+  color: var(--p-green-800);
+}

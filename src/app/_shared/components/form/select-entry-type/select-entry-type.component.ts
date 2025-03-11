@@ -57,7 +57,6 @@ export class SelectEntryTypeComponent
     .select(selectCatEntryTypes)
     .pipe(
       tap((values) => {
-        //default selected
         this.writeValue(values[0]);
         this.onChange(values[0]);
       }),

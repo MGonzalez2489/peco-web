@@ -8,7 +8,11 @@
     </ng-template>
     <ng-template #item let-item class="grow">
       <ng-container>
-        <a [routerLink]="item.route" class="p-menu-item-link">
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          class="p-menu-item-link"
+        >
           <span [class]="item.icon"></span>
           <span class="ml-2">{{ item.label }}</span>
         </a>
