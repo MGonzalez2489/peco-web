@@ -1,0 +1,140 @@
+<form
+  [formGroup]="form"
+  #formDirective="ngForm"
+  (submit)="submit()"
+  class="flex flex-col gap-5"
+>
+  <p-card header="requerido">
+    <!-- description -->
+    <div class="my-6">
+      <p-floatlabel>
+        <input
+          inputId="description"
+          pInputText
+          formControlName="description"
+          name="description"
+          fluid="true"
+          [appInvalidDirty]="formDirective"
+          id="description"
+        />
+        <label for="description">Descripcion</label>
+      </p-floatlabel>
+      <p [appValidationError]="'description'" [directive]="formDirective"></p>
+    </div>
+    <!-- Amount -->
+    <div class="my-6">
+      <p-floatlabel>
+        <p-inputnumber
+          inputId="amount"
+          mode="currency"
+          currency="MXN"
+          fluid="true"
+          formControlName="amount"
+          [appInvalidDirty]="formDirective"
+        />
+        <label for="amount">Cantidad</label>
+      </p-floatlabel>
+      <p [appValidationError]="'amount'" [directive]="formDirective"></p>
+    </div>
+    <!-- Entry Type -->
+    <div class="my-6 w-full flex justify-center">
+      <app-select-entry-type formControlName="entryType" />
+    </div>
+    <!-- Entry Category -->
+    <div class="my-6">
+      <app-select-entry-category
+        formControlName="category"
+        [directive]="formDirective"
+      />
+      <p [appValidationError]="'category'" [directive]="formDirective"></p>
+    </div>
+  </p-card>
+  <!-- ---- FRECUENCIA ---- -->
+  <p-card header="frecuencia">
+    <div class="grid grid-cols-2 gap-5">
+      <div class="my-6">
+        <app-p-e-select-enum
+          formControlName="frecuency"
+          [enum]="frecuencyEnum"
+          label="Frecuencia"
+        />
+      </div>
+      <div class="my-6">
+        <p-floatlabel>
+          <p-datepicker
+            formControlName="startDate"
+            inputId="startDate"
+            fluid="true"
+            showIcon="true"
+          />
+          <label for="startDate">Date</label>
+        </p-floatlabel>
+      </div>
+    </div>
+  </p-card>
+  <pre>Frecuencya: {{ frecuencyFormS() | json }}</pre>
+  <!-- ---- RECURRENCIA ---- -->
+  @if (frecuencyFormS() !== "ONE_TIME") {
+    <p-card header="recurrencia">
+      <div class="grid grid-cols-3 gap-5">
+        <div class="my-6">
+          <app-p-e-select-enum
+            label="Repetir"
+            formControlName="recurrency"
+            [enum]="recurrencyEnum"
+          />
+        </div>
+        <div class="my-6">
+          <app-p-e-select-enum
+            label="Hasta"
+            formControlName="frecuencyEnd"
+            [enum]="frecuencyEndEnum"
+          />
+        </div>
+        @if (true) {
+          <div class="my-6">
+            @if (
+              form.value.frecuencyEnd ===
+              (frecuencyEndEnum | enumReverse)[frecuencyEndEnum.UNTIL_DATE]
+            ) {
+              <p-floatlabel>
+                <p-datepicker
+                  formControlName="endDate"
+                  inputId="endDate"
+                  fluid="true"
+                  showIcon="true"
+                />
+                <label for="endDate">End Date</label>
+              </p-floatlabel>
+            } @else if (
+              form.value.frecuencyEnd ===
+              (frecuencyEndEnum | enumReverse)[
+                frecuencyEndEnum.NUMBER_OF_EVENTS
+              ]
+            ) {
+              <p-floatlabel>
+                <p-select
+                  formControlName="numberOfEvents"
+                  [options]="numberOfEventsOptions"
+                  fluid="true"
+                  inputId="numberOfEvents"
+                />
+
+                <label for="numberOfEvents">Numbero de Eventos</label>
+              </p-floatlabel>
+            }
+          </div>
+        }
+      </div>
+    </p-card>
+  }
+
+  <!-- ---- CONSECUENCIA ---- -->
+  <div class="my-6">
+    <!-- <app-p-e-select-enum [typeInput]="'days-of-week'" /> -->
+  </div>
+
+  <p-card header="consecuencia"> </p-card>
+  <div class="my-6">dayOfMonth control</div>
+  <pre>value: {{ form.value | json }}</pre>
+</form>
