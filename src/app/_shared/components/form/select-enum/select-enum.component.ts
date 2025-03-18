@@ -25,25 +25,26 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectModule } from 'primeng/select';
 
 @Component({
-  selector: 'app-p-e-select-enum',
+  selector: 'app-select-enum',
   imports: [SelectModule, FloatLabelModule, ReactiveFormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PESelectEnumComponent),
+      useExisting: forwardRef(() => SelectEnumComponent),
       multi: true,
     },
     {
       provide: NG_VALIDATORS,
 
-      useExisting: forwardRef(() => PESelectEnumComponent),
+      useExisting: forwardRef(() => SelectEnumComponent),
       multi: true,
     },
   ],
-  templateUrl: './p-e-select-enum.component.html',
-  styleUrl: './p-e-select-enum.component.scss',
+
+  templateUrl: './select-enum.component.html',
+  styleUrl: './select-enum.component.scss',
 })
-export class PESelectEnumComponent
+export class SelectEnumComponent
   implements ControlValueAccessor, Validator, OnInit, OnChanges
 {
   @Input() enum: any; // El enum a utilizar

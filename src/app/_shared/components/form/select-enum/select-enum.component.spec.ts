@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PESelectEnumComponent } from './p-e-select-enum.component';
+import { SelectEnumComponent } from './select-enum.component';
 
-describe('PESelectEnumComponent', () => {
-  let component: PESelectEnumComponent;
-  let fixture: ComponentFixture<PESelectEnumComponent>;
+describe('SelectEnumComponent', () => {
+  let component: SelectEnumComponent;
+  let fixture: ComponentFixture<SelectEnumComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PESelectEnumComponent]
+      imports: [SelectEnumComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PESelectEnumComponent);
+    fixture = TestBed.createComponent(SelectEnumComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

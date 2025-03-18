@@ -1,8 +1,8 @@
-import {
-  PlannedEntryFrecuencyEndEnum,
-  PlannedEntryFrecuencyEnum,
-  PlannedEntryRecurrencyEnum,
-} from '@core/enums';
+// import {
+//   PlannedEntryFrecuencyEnum,
+//   PlannedEntryRecurrencyEnum,
+//   PlannedEntryFrecuencyEndEnum,
+// } from '@core/enums/planned-entry.enum';
 import { BaseEntity } from './_base.entity';
 
 export interface PlannedEntry extends BaseEntity {
@@ -15,9 +15,9 @@ export interface PlannedEntry extends BaseEntity {
   entryTypeId: string;
 
   //recurrency
-  frecuency: PlannedEntryFrecuencyEnum;
-  recurrency: PlannedEntryRecurrencyEnum;
-  frecuencyEnd: PlannedEntryFrecuencyEndEnum;
+  // frecuency: PlannedEntryFrecuencyEnum;
+  // recurrency: PlannedEntryRecurrencyEnum;
+  // frecuencyEnd: PlannedEntryFrecuencyEndEnum;
 
   startDate: string;
   endDate: string;

@@ -1,9 +1,3 @@
-import {
-  PlannedEntryFrecuencyEndEnum,
-  PlannedEntryFrecuencyEnum,
-  PlannedEntryRecurrencyEnum,
-} from '@core/enums';
-
 export interface PlannedEntryCreateDto {
   description: string | undefined;
   amount: number;
@@ -11,11 +5,11 @@ export interface PlannedEntryCreateDto {
   categoryId: string;
   entryTypeId: string;
   //recurency
-  frecuency: PlannedEntryFrecuencyEnum;
-  recurrency: PlannedEntryRecurrencyEnum;
-  frecuencyEnd: PlannedEntryFrecuencyEndEnum;
+  frecuency: string;
+  recurrency: string | undefined;
+  frecuencyEnd: string | undefined;
   startDate: string;
-  endDate: string;
-  dayOfWeek: string;
-  dayOfMonth: number;
+  endDate: string | undefined;
+  dayOfWeek: string | undefined;
+  dayOfMonth: number | undefined;
 }
