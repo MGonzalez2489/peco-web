@@ -2,10 +2,11 @@
   <p-select
     [formControl]="formControl"
     [options]="options"
-    [inputId]="label"
     [showClear]="showClear"
     fluid="true"
+    [id]="inpId"
+    [appInvalidDirty]="directive"
   />
-  <!-- [appInvalidDirty]="directive" -->
   <label [for]="label">{{ label }}</label>
 </p-floatlabel>
+<p [appValidationError]="inpId" [directive]="directive"></p>

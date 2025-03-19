@@ -1,20 +1,20 @@
 //if one single event or is recurrent
 export enum PlannedEntryFrecuencyEnum {
-  ONE_TIME = 'One Time',
-  RECURRENT = 'Recurrent',
+  ONE_TIME = 'Una vez',
+  RECURRENT = 'Recurrente',
 }
 //how often is repeated
 export enum PlannedEntryRecurrencyEnum {
-  DAILY = 'Daily',
-  WEEKLY = 'Weekly',
-  MONTHLY = 'Monthly',
-  YEARLY = 'Yearly',
+  DAILY = 'Diario',
+  WEEKLY = 'Semanal',
+  MONTHLY = 'Mensual',
+  YEARLY = 'Anual',
 }
 //When the frecuency & recurrency ends
 export enum PlannedEntryFrecuencyEndEnum {
-  UNTIL_DATE = 'Until Date',
-  NUMBER_OF_EVENTS = 'Number of Events',
-  FOREVER = 'Forever',
+  UNTIL_DATE = 'Hasta la fecha',
+  NUMBER_OF_EVENTS = 'Numero de eventos',
+  FOREVER = 'Por siempre',
 }
 
 //se ejecuta una vez o es recurrente

@@ -31,6 +31,7 @@ import { Observable, tap } from 'rxjs';
     ReactiveFormsModule,
     AsyncPipe,
     SelectButtonModule,
+    SelectModule,
   ],
   providers: [
     {
@@ -51,6 +52,8 @@ import { Observable, tap } from 'rxjs';
 export class SelectEntryTypeComponent
   implements ControlValueAccessor, Validator, OnChanges
 {
+  @Input()
+  mode: 'select' | 'button' = 'button';
   //
   store$ = inject(Store<AppState>);
   entryTypes$: Observable<EntryType[]> = this.store$

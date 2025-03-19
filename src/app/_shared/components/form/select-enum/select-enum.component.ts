@@ -14,19 +14,30 @@ import {
   AbstractControl,
   ControlValueAccessor,
   FormControl,
+  FormGroupDirective,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
   ValidationErrors,
   Validator,
 } from '@angular/forms';
+import {
+  InvalidDirtyDirective,
+  ValidationErrorDirective,
+} from '@shared/directives/forms';
 import { SelectItem } from 'primeng/api';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-select-enum',
-  imports: [SelectModule, FloatLabelModule, ReactiveFormsModule],
+  imports: [
+    SelectModule,
+    FloatLabelModule,
+    ReactiveFormsModule,
+    InvalidDirtyDirective,
+    ValidationErrorDirective,
+  ],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -51,6 +62,11 @@ export class SelectEnumComponent
   @Input() placeholder = 'Seleccione una opción';
   @Input() label = 'Opciones';
   @Input() showClear = false;
+  @Input()
+  directive: FormGroupDirective | undefined;
+
+  @Input()
+  inpId = 'inputId';
 
   options: SelectItem[] = [];
   formControl = new FormControl();

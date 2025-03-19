@@ -1,1 +1,22 @@
-<app-planned-create-entry-form />
+<p-card>
+  <form [formGroup]="form" #formDirective="ngForm" (submit)="submit()">
+    <app-planned-entry-general-form
+      [form]="form"
+      [formDirective]="formDirective"
+    />
+    <app-planned-entry-frecuency-form
+      [form]="form"
+      [formDirective]="formDirective"
+    />
+
+    <div class="mt-10 flex justify-center gap-x-8">
+      <p-button
+        label="Cancelar"
+        (click)="cancel()"
+        severity="secondary"
+        [text]="true"
+      />
+      <p-button type="submit" size="small" pButton label="Guardar" />
+    </div>
+  </form>
+</p-card>
