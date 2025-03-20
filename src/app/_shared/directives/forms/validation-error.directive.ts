@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   computed,
   Directive,
@@ -26,9 +28,14 @@ export class ValidationErrorDirective implements OnInit, OnDestroy {
   @Input('appValidationError') controlName: string | undefined;
   @Input() directive: FormGroupDirective | undefined;
 
+  @Input() value = signal<any>(null);
   private errorMessage = computed(() => {
     const ctrl = this.control();
-    if (ctrl?.invalid && this.formSubmitted()) {
+    this.value();
+    if (
+      (ctrl?.invalid && ctrl?.dirty) ||
+      (ctrl?.invalid && this.formSubmitted())
+    ) {
       return this.errorHandlerService.mapFormErrorMessages(ctrl.errors!);
     }
     return null;
@@ -49,6 +56,10 @@ export class ValidationErrorDirective implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.directive && this.controlName) {
       this.control.set(this.directive.form.get(this.controlName));
+
+      this.control()?.valueChanges.subscribe((val) => {
+        this.value.set(val);
+      });
 
       this.directive.ngSubmit.subscribe(() => {
         this.formSubmitted.set(true);
