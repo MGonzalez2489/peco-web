@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { Component, effect, inject } from '@angular/core';
 import {
   FormControl,
@@ -24,7 +23,6 @@ import { CardModule } from 'primeng/card';
     PlannedEntryFrecuencyFormComponent,
     ButtonModule,
     ReactiveFormsModule,
-    JsonPipe,
     CardModule,
   ],
   templateUrl: './create-planned-entry.component.html',

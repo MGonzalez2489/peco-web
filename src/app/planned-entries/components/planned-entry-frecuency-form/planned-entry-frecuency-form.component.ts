@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { Component, effect, Input, OnInit, signal } from '@angular/core';
 import {
   FormGroup,
@@ -30,7 +29,6 @@ import { SelectModule } from 'primeng/select';
     FloatLabelModule,
     DatePickerModule,
     ValidationErrorDirective,
-    JsonPipe,
     InvalidDirtyDirective,
     SelectModule,
     InputNumberModule,
