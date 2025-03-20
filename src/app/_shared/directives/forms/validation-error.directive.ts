@@ -1,62 +1,61 @@
 import {
+  computed,
   Directive,
-  DoCheck,
+  effect,
   ElementRef,
   inject,
   Input,
+  OnDestroy,
   OnInit,
-  Optional,
+  signal,
 } from '@angular/core';
-import {
-  ControlContainer,
-  FormGroupDirective,
-  ValidationErrors,
-} from '@angular/forms';
+import { AbstractControl, FormGroupDirective } from '@angular/forms';
 import { ErrorHandlerService } from '@core/services';
 
 @Directive({
   selector: '[appValidationError]',
   standalone: true,
 })
-export class ValidationErrorDirective implements DoCheck, OnInit {
+export class ValidationErrorDirective implements OnInit, OnDestroy {
   private elementRef = inject(ElementRef);
   private errorHandlerService = inject(ErrorHandlerService);
+  private errorColor = 'text-red-400';
+  private control = signal<AbstractControl | null>(null);
+  private formSubmitted = signal(false);
 
-  @Input('appValidationError')
-  control: string | undefined;
-  @Input()
-  directive: FormGroupDirective | undefined;
+  @Input('appValidationError') controlName: string | undefined;
+  @Input() directive: FormGroupDirective | undefined;
 
-  constructor(@Optional() private controlContainer: ControlContainer) {
-    this.elementRef.nativeElement.classList.add('text-red-500');
-  }
-  ngOnInit(): void {
-    this.updateErrorMessage(null);
-  }
-
-  get rootControl() {
-    if (this.controlContainer && this.controlContainer.control) {
-      return this.controlContainer.control.get(this.control!);
+  private errorMessage = computed(() => {
+    const ctrl = this.control();
+    if (ctrl?.invalid && this.formSubmitted()) {
+      return this.errorHandlerService.mapFormErrorMessages(ctrl.errors!);
     }
     return null;
-  }
-  ngDoCheck() {
-    if (this.directive && this.control !== '') {
-      const ctrl = this.directive?.form.controls[this.control!];
-      if (ctrl?.invalid && this.directive?.submitted) {
-        this.updateErrorMessage(ctrl?.errors);
-      } else {
-        this.updateErrorMessage(null);
-      }
-    }
+  });
+
+  private effectRef = effect(() => {
+    this.elementRef.nativeElement.textContent = this.errorMessage();
+  });
+
+  constructor() {
+    this.elementRef.nativeElement.classList.add(
+      this.errorColor,
+      'ml-2',
+      'mt-1',
+    );
   }
 
-  /**
-   * Updates the displayed error message in the DOM.
-   */
-  private updateErrorMessage(errors: ValidationErrors | null) {
-    this.elementRef.nativeElement.innerHTML = errors
-      ? this.errorHandlerService.mapFormErrorMessages(errors)
-      : null;
+  ngOnInit(): void {
+    if (this.directive && this.controlName) {
+      this.control.set(this.directive.form.get(this.controlName));
+
+      this.directive.ngSubmit.subscribe(() => {
+        this.formSubmitted.set(true);
+      });
+    }
+  }
+  ngOnDestroy(): void {
+    this.effectRef.destroy();
   }
 }
