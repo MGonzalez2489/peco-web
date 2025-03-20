@@ -1,15 +1,9 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, forwardRef, inject, Input, OnChanges } from '@angular/core';
+import { Component, forwardRef, inject, Input } from '@angular/core';
 import {
-  AbstractControl,
-  ControlValueAccessor,
-  FormControl,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
-  ValidationErrors,
-  Validator,
-  Validators,
 } from '@angular/forms';
 import { EntryType } from '@core/models/entities';
 import { Store } from '@ngrx/store';
@@ -22,6 +16,7 @@ import {
   SelectButtonModule,
 } from 'primeng/selectbutton';
 import { Observable, tap } from 'rxjs';
+import { BaseFormControl } from '../base-form-control';
 @Component({
   selector: 'app-select-entry-type',
   imports: [
@@ -49,13 +44,12 @@ import { Observable, tap } from 'rxjs';
   templateUrl: './select-entry-type.component.html',
   styleUrl: './select-entry-type.component.scss',
 })
-export class SelectEntryTypeComponent
-  implements ControlValueAccessor, Validator, OnChanges
-{
+export class SelectEntryTypeComponent extends BaseFormControl {
   @Input()
   mode: 'select' | 'button' = 'button';
+  private store$ = inject(Store<AppState>);
+  protected override inpId = 'entryType';
   //
-  store$ = inject(Store<AppState>);
   entryTypes$: Observable<EntryType[]> = this.store$
     .select(selectCatEntryTypes)
     .pipe(
@@ -66,51 +60,10 @@ export class SelectEntryTypeComponent
     );
   //
 
-  @Input() isRequired = false;
-  selectedEntryType = new FormControl();
-  onChange = (value: EntryType) => {
-    this.selectedEntryType.setValue(value);
-  };
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onTouched = () => {};
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  writeValue(obj: any): void {
-    this.selectedEntryType.setValue(obj);
-  }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-  validate(control: AbstractControl): ValidationErrors | null {
-    if (!control.value) {
-      return { required: true };
-    }
-    if (control.value === '-1') {
-      return { required: true };
-    }
-
-    return null;
-  }
-  registerOnValidatorChange?(fn: () => void): void {
-    this.onChange = fn;
-  }
-  ngOnChanges(): void {
-    this.updateValidators();
-  }
   select(event: SelectChangeEvent) {
     this.onChange(event.value);
   }
   selectButton(event: SelectButtonChangeEvent) {
     this.onChange(event.value);
-  }
-
-  private updateValidators() {
-    if (!this.isRequired) {
-      this.selectedEntryType.removeValidators(Validators.required);
-    }
   }
 }

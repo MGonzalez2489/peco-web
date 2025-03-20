@@ -1,26 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-empty-function */
+import { Component, effect, forwardRef, inject } from '@angular/core';
 import {
-  Component,
-  effect,
-  forwardRef,
-  inject,
-  Input,
-  OnInit,
-  signal,
-} from '@angular/core';
-import {
-  AbstractControl,
-  ControlValueAccessor,
-  FormControl,
-  FormGroupDirective,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
-  ValidationErrors,
-  Validator,
 } from '@angular/forms';
 import { EntryCategory } from '@core/models/entities';
 import { Store } from '@ngrx/store';
@@ -30,6 +12,7 @@ import { selectVisibleEntryCategories } from '@store/selectors';
 import { SelectItemGroup } from 'primeng/api';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
+import { BaseFormControl } from '../base-form-control';
 
 @Component({
   selector: 'app-select-entry-category',
@@ -55,36 +38,18 @@ import { SelectChangeEvent, SelectModule } from 'primeng/select';
   ],
   styleUrl: './select-entry-category.component.scss',
 })
-export class SelectEntryCategoryComponent
-  implements ControlValueAccessor, Validator, OnInit
-{
-  @Input()
-  set directive(value: FormGroupDirective | undefined) {
-    this.directiveSignal.set(value);
-  }
-
+export class SelectEntryCategoryComponent extends BaseFormControl {
   private store$ = inject(Store<AppState>);
-  directiveSignal = signal<FormGroupDirective | undefined>(undefined);
+  protected override inpId = 'category';
   groupedEntryCategories: SelectItemGroup[] = [];
-  formControl = new FormControl();
 
   constructor() {
+    super();
     effect(() => {
       this.store$.select(selectVisibleEntryCategories).forEach((data) => {
         this.createItemsGroup(data);
       });
     });
-  }
-  ngOnInit(): void {
-    //map validators
-    const directive = this.directiveSignal();
-    if (directive) {
-      const control = directive.control.get('category');
-      if (control) {
-        this.formControl.setValidators(control.validator);
-        this.formControl.updateValueAndValidity();
-      }
-    }
   }
   createItemsGroup(entryCategories: EntryCategory[]) {
     this.groupedEntryCategories = [];
@@ -121,27 +86,5 @@ export class SelectEntryCategoryComponent
     this.formControl.markAsDirty();
     this.formControl.markAsTouched();
     this.onChange(event.value);
-  }
-
-  onChange = (value: EntryCategory) => {
-    this.writeValue(value);
-  };
-  onTouched = () => {};
-
-  writeValue(obj: EntryCategory): void {
-    this.formControl.setValue(obj);
-  }
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-  setDisabledState?(isDisabled: boolean): void {
-    isDisabled ? this.formControl.disable() : this.formControl.enable();
-  }
-
-  validate(_control: AbstractControl): ValidationErrors | null {
-    return this.formControl.validator?.(this.formControl) ?? null;
   }
 }

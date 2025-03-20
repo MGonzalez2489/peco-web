@@ -1,0 +1,25 @@
+<p-floatlabel>
+  <p-select
+    optionLabel="name"
+    [id]="inpId"
+    [inputId]="inpId"
+    [name]="inpId"
+    [options]="accounts()"
+    [fluid]="true"
+    [formControl]="formControl"
+    (onChange)="select($event)"
+    (onBlur)="onTouched()"
+    [appInvalidDirty]="directive"
+  >
+    <ng-template #selectedItem let-selectedOption>
+      @if (selectedOption) {
+        <div>{{ selectedOption.name | titlecase }}</div>
+      }
+    </ng-template>
+    <ng-template let-account #item>
+      <div>{{ account.name | titlecase }}</div>
+    </ng-template>
+  </p-select>
+
+  <label for="account">Cuenta</label>
+</p-floatlabel>

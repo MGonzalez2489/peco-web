@@ -1,11 +1,11 @@
 <p-inputgroup>
   <input
     pInputText
-    [placeholder]="placeholder"
     placeholder="placeholder"
+    [id]="inpId"
+    [name]="inpId"
+    [placeholder]="placeholder"
     (input)="updateHint($any($event.target).value)"
-    inputId="search"
-    id="search"
   />
   <p-inputgroup-addon>
     <p-button
