@@ -49,7 +49,7 @@ export class EntryTableComponent {
   accountId: string | undefined;
 
   @Input()
-  showAccountColumn = true;
+  showAccountColumn = false;
 
   @Output()
   search: EventEmitter<EntrySearchDto> = new EventEmitter<EntrySearchDto>();

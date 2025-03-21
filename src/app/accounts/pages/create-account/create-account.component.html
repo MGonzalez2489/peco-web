@@ -10,12 +10,15 @@
       <div class="my-6">
         <p-floatlabel>
           <input
+            id="name"
+            inputId="name"
+            name="name"
             pInputText
             formControlName="name"
-            id="name"
             fluid="true"
-            [appInvalidDirty]="formDirective"
             autocomplete="off"
+            autofocus="true"
+            [appInvalidDirty]="formDirective"
           />
           <label for="name">Nombre de la cuenta</label>
         </p-floatlabel>
@@ -26,6 +29,7 @@
         <p-floatlabel>
           <p-inputnumber
             inputId="balance"
+            name="balance"
             mode="currency"
             currency="MXN"
             fluid="true"

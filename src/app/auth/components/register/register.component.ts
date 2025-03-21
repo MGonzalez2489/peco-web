@@ -50,25 +50,21 @@ const components = [
 export class RegisterComponent {
   private store$ = inject(Store<AppState>);
   isBusy = toSignal(this.store$.select(selectIsBusy));
-  registerForm: FormGroup;
-
-  constructor() {
-    this.registerForm = new FormGroup(
-      {
-        email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', [Validators.required]),
-        confirmPassword: new FormControl('', [Validators.required]),
-      },
-      [CustomValidators.MatchValidator('password', 'confirmPassword')],
-    );
-  }
+  registerForm = new FormGroup(
+    {
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl('', [Validators.required]),
+    },
+    [CustomValidators.MatchValidator('password', 'confirmPassword')],
+  );
 
   submit(): void {
     if (this.registerForm.invalid) return;
 
     const request: LoginDto = {
-      email: this.registerForm.value.email,
-      password: this.registerForm.value.password,
+      email: this.registerForm.value.email!,
+      password: this.registerForm.value.password!,
     };
 
     this.store$.dispatch(AuthActions.register({ data: request }));

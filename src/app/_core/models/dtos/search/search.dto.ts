@@ -1,6 +1,6 @@
 import { SortEvent } from 'primeng/api';
-import { PaginationMetaDto } from '../responses/ResultList.dto';
 import { PaginatorState } from 'primeng/paginator';
+import { PaginationMetaDto } from '../responses/ResultList.dto';
 
 /**
  * Dto used tu request information to the API,
@@ -56,18 +56,8 @@ export class SearchDto {
   setPagination(event: PaginatorState, currentPagination: PaginationMetaDto) {
     this.page = event.page! + 1;
     this.take = event.rows!;
-    if (event.rows! === currentPagination.itemCount) {
+    if (event.rows === currentPagination.itemCount) {
       this.showAll = true;
     }
   }
-}
-
-export class EntrySearchDto extends SearchDto {
-  accountId?: string;
-
-  description?: string;
-  categoryId?: string;
-  entryTypeId?: string;
-  fromDate = '';
-  toDate = '';
 }

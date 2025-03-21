@@ -1,38 +1,36 @@
-@if (account) {
-  <p-card>
-    <ng-template #title>
-      <div class="flex w-full justify-between">
-        <div class="flex flex-col">
-          <p class="font-semibold text-2xl">{{ account.name | titlecase }}</p>
-          <p class="text-sm text-gray-400">{{ account.type?.displayName }}</p>
-        </div>
+<p-card>
+  <ng-template #title>
+    <div class="flex w-full justify-between">
+      <div class="flex flex-col">
+        <p class="font-semibold text-2xl">{{ account?.name | titlecase }}</p>
+        <p class="text-sm text-gray-400">{{ account?.type?.displayName }}</p>
+      </div>
 
-        <div class="flex justify-center items-center gap-3">
-          @if (showEdit) {
-            <p-button
-              icon="pi pi-pencil"
-              [rounded]="true"
-              [text]="true"
-              severity="secondary"
-              variant="outlined"
-              [routerLink]="['/accounts', account.publicId, 'edit']"
-            />
-          }
-        </div>
+      <div class="flex justify-center items-center gap-3">
+        @if (showEdit) {
+          <p-button
+            icon="pi pi-pencil"
+            [rounded]="true"
+            [text]="true"
+            severity="secondary"
+            variant="outlined"
+            [routerLink]="['/accounts', account?.publicId, 'edit']"
+          />
+        }
       </div>
-    </ng-template>
-    <!-- content -->
-    <ng-template #content>
-      <div class="flex gap-5 justify-start">
-        <div>
-          <small class="me-2 text-gray-300">Inicial</small>
-          <app-amount [amount]="account.initialBalance"></app-amount>
-        </div>
-        <div>
-          <small class="me-2 text-gray-300">Actual</small>
-          <app-amount [amount]="account.balance"></app-amount>
-        </div>
+    </div>
+  </ng-template>
+  <!-- content -->
+  <ng-template #content>
+    <div class="flex gap-5 justify-start">
+      <div>
+        <small class="me-2 text-gray-300">Inicial</small>
+        <app-amount [amount]="account?.initialBalance || 0"></app-amount>
       </div>
-    </ng-template>
-  </p-card>
-}
+      <div>
+        <small class="me-2 text-gray-300">Actual</small>
+        <app-amount [amount]="account?.balance || 0"></app-amount>
+      </div>
+    </div>
+  </ng-template>
+</p-card>

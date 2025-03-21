@@ -1,3 +1,7 @@
 <div class="flex flex-col gap-4">
-  <app-entry-table [entries]="entries$ | async" (search)="search($event)" />
+  <app-entry-table
+    [showAccountColumn]="true"
+    [entries]="entries$ | async"
+    (search)="search($event)"
+  />
 </div>
