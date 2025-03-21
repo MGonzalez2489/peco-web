@@ -21,9 +21,10 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 export class InputSearchComponent {
   private hintSubject = new Subject<string | undefined>();
 
-  hintSignal = signal<string | undefined>(undefined);
   private placeholderSignal = signal<string>('Buscar...');
+  protected inpId = 'searchInp';
 
+  hintSignal = signal<string | undefined>(undefined);
   @Input()
   set placeholder(value: string) {
     this.placeholderSignal.set(value);

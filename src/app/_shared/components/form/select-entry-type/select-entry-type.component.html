@@ -1,8 +1,25 @@
-<p-selectbutton
-  [options]="(entryTypes$ | async)!"
-  [formControl]="selectedEntryType"
-  optionLabel="displayName"
-  id="entryType"
-  (onChange)="selectButton($event)"
-  [allowEmpty]="false"
-/>
+@if (mode === "button") {
+  <p-selectbutton
+    optionLabel="displayName"
+    [id]="inpId"
+    [options]="(entryTypes$ | async)!"
+    [formControl]="formControl"
+    [allowEmpty]="false"
+    (onChange)="selectButton($event)"
+  />
+} @else if (mode === "select") {
+  <p-floatlabel>
+    <p-select
+      optionLabel="displayName"
+      fluid="true"
+      [id]="inpId"
+      [inputId]="inpId"
+      [name]="inpId"
+      [formControl]="formControl"
+      [options]="(entryTypes$ | async)!"
+      (onChange)="selectButton($event)"
+      (onBlur)="onTouched()"
+    />
+    <label [for]="inpId">Tipo </label>
+  </p-floatlabel>
+}

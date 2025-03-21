@@ -1,0 +1,12 @@
+<p-floatlabel>
+  <p-select
+    [formControl]="formControl"
+    [options]="options"
+    [showClear]="showClear"
+    fluid="true"
+    [id]="inpId"
+    [appInvalidDirty]="directive"
+  />
+  <label [for]="label">{{ label }}</label>
+</p-floatlabel>
+<p [appValidationError]="inpId" [directive]="directive"></p>

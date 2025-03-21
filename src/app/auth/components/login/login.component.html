@@ -1,14 +1,16 @@
-<form [formGroup]="loginForm" (ngSubmit)="submit()" #formDirective="ngForm">
+<form [formGroup]="form" (ngSubmit)="submit()" #formDirective="ngForm">
   <!-- Email -->
   <div class="mb-6">
     <p-floatlabel>
       <input
+        id="email"
+        name="email"
         pInputText
         formControlName="email"
-        id="email"
         fluid="true"
-        [appInvalidDirty]="formDirective"
         autocomplete="on"
+        autofocus="true"
+        [appInvalidDirty]="formDirective"
       />
       <label for="email">Email</label>
     </p-floatlabel>
@@ -18,16 +20,17 @@
   <div class="my-6">
     <p-floatlabel>
       <p-password
+        name="password"
+        inputId="password"
         formControlName="password"
         fluid="true"
         feedback="false"
         [appInvalidDirty]="formDirective"
-        inputId="password"
         autocomplete="off"
       />
       <label for="password">Contraseña</label>
     </p-floatlabel>
-    <p [appValidationError]="'email'" [directive]="formDirective"></p>
+    <p [appValidationError]="'password'" [directive]="formDirective"></p>
   </div>
 
   <!-- Rememberme/forgotPassword-->

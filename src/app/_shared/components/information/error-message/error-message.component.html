@@ -1,7 +1,7 @@
 @if (errorMessage()) {
   <p-message
     [life]="lifeTime"
-    (onClose)="cleanMessage()"
+    (onClose)="cleanMessageTimer()"
     closable
     severity="error"
     >{{ errorMessage() }}</p-message

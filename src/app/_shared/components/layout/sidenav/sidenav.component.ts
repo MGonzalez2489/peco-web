@@ -27,6 +27,12 @@ export class SidenavComponent {
           label: 'Registros',
           route: '/entries',
         },
+        { separator: true },
+
+        {
+          label: 'Planear registros',
+          route: '/planned-entries',
+        },
       ],
     },
   ];

@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -51,25 +50,25 @@ const components = [
 })
 export class LoginComponent {
   private store$ = inject(Store<AppState>);
-  private formBuilder = inject(FormBuilder);
+  protected form = new FormGroup({
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email],
+    }),
+    password: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+  });
 
   isBusy = toSignal(this.store$.select(selectIsBusy));
-  loginForm: FormGroup;
-
-  constructor() {
-    this.loginForm = this.formBuilder.group({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
-      rememberme: new FormControl(false),
-    });
-  }
 
   submit(): void {
-    if (this.loginForm.invalid) return;
+    if (this.form.invalid) return;
 
     const request: LoginDto = {
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password,
+      email: this.form.value.email!,
+      password: this.form.value.password!,
     };
     this.store$.dispatch(AuthActions.login({ data: request }));
   }

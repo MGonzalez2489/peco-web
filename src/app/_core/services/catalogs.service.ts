@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { EntryType } from '@core/models/entities';
+import { AccountType, EntryStatus, EntryType } from '@core/models/entities';
 import { RequestService } from './_request.service';
 
 @Injectable({
@@ -13,10 +13,10 @@ export class CatalogsService {
   }
 
   getAccountTypes() {
-    return this.reqService.getList<EntryType>('catalogs/account-types');
+    return this.reqService.getList<AccountType>('catalogs/account-types');
   }
 
   getEntryStatus() {
-    return this.reqService.getList<EntryType>('catalogs/entry-status');
+    return this.reqService.getList<EntryStatus>('catalogs/entry-status');
   }
 }

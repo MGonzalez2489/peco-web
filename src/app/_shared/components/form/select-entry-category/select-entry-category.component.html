@@ -1,17 +1,18 @@
 <p-floatlabel>
   <p-select
-    [options]="groupedEntryCategories"
     optionLabel="name"
     optionValue="value"
+    [id]="inpId"
+    [inputId]="inpId"
+    [name]="inpId"
+    [options]="groupedEntryCategories"
     [fluid]="true"
     [group]="true"
-    name="category"
     [formControl]="formControl"
     (onChange)="select($event)"
     (onBlur)="onTouched()"
-    [appInvalidDirty]="directiveSignal()"
-    inputId="category"
-    id="category"
+    [appInvalidDirty]="directive"
+    [inputId]="inpId"
   >
     <ng-template let-group pTemplate="group">
       <div class="group-header">
