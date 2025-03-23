@@ -42,8 +42,6 @@ export class CreateEntryComponent {
     { initialValue: null },
   );
 
-  //
-
   fromAccountView = signal<boolean>(false);
   private newValueSignal = signal<EntryCreateDto | null>(null);
 
@@ -57,22 +55,14 @@ export class CreateEntryComponent {
 
     effect(() => {
       const newValue = this.newValueSignal();
-      const accountId = this.accountIdSignal();
 
       if (newValue) {
-        let accId = accountId;
-
-        if (!accId && newValue.accountId) {
-          accId = newValue.accountId;
-          delete newValue.accountId;
-        }
-
-        if (accId) {
-          this.entryService.create(accId, newValue).subscribe(() => {
-            this.store$.dispatch(AccountActions.getById({ accountId: accId! }));
-            this.cancel();
-          });
-        }
+        this.entryService.create(newValue).subscribe(() => {
+          this.store$.dispatch(
+            AccountActions.getById({ accountId: newValue.accountId }),
+          );
+          this.cancel();
+        });
       }
     });
   }
