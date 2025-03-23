@@ -3,14 +3,10 @@ export class ResultListDto<T> {
   meta: PaginationMetaDto = new PaginationMetaDto();
 }
 export class PaginationMetaDto {
-  page: number = 1;
-  take: number = 10;
-  itemCount: number = 0;
-  pageCount: number = 0;
-  hasPreviousPage: boolean = false;
-  hasNextPage: boolean = false;
-
-  ////order
-  //order?: string;
-  //orderBy?: string;
+  page = 1;
+  take = 10;
+  itemCount = 0;
+  pageCount = 0;
+  hasPreviousPage = false;
+  hasNextPage = false;
 }

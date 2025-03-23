@@ -1,15 +1,16 @@
 <p-floatlabel>
   <p-select
     optionLabel="name"
+    fluid="true"
     [id]="inpId"
     [inputId]="inpId"
     [name]="inpId"
     [options]="accounts()"
-    [fluid]="true"
     [formControl]="formControl"
     (onChange)="select($event)"
     (onBlur)="onTouched()"
     [appInvalidDirty]="directive"
+    styleClass="min-w-3xs"
   >
     <ng-template #selectedItem let-selectedOption>
       @if (selectedOption) {

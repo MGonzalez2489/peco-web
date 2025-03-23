@@ -1,5 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TitleCasePipe } from '@angular/common';
-import { Component, forwardRef, inject } from '@angular/core';
+import {
+  Component,
+  effect,
+  forwardRef,
+  inject,
+  Input,
+  signal,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
   NG_VALIDATORS,
@@ -13,6 +21,7 @@ import { selectAccounts } from '@store/selectors';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
 import { BaseFormControl } from '../base-form-control';
+import { Account } from '@core/models/entities';
 
 @Component({
   selector: 'app-select-account',
@@ -41,9 +50,29 @@ import { BaseFormControl } from '../base-form-control';
   ],
 })
 export class SelectAccountComponent extends BaseFormControl {
+  @Input() showAllOption = false;
+
   private store$ = inject(Store<AppState>);
   protected override inpId = 'account';
-  accounts = toSignal(this.store$.select(selectAccounts), { initialValue: [] });
+  accounts = signal<Account[]>([]);
+
+  private accsSignal = toSignal(this.store$.select(selectAccounts));
+
+  constructor() {
+    super();
+    effect(() => {
+      const accs = this.accsSignal;
+      let newArray: any[] = [];
+      if (accs) {
+        if (this.showAllOption) {
+          newArray = [{ publicId: undefined, name: 'Todas' }, ...accs()!];
+        } else {
+          newArray = accs()!;
+        }
+        this.accounts.set(newArray);
+      }
+    });
+  }
 
   select(event: SelectChangeEvent) {
     this.formControl.markAsDirty();

@@ -1,5 +1,4 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { ResultListDto } from '@core/models/dtos';
 import { EntrySearchDto } from '@core/models/dtos/search';
 import { Entry } from '@core/models/entities';
@@ -11,7 +10,6 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-entries',
@@ -23,16 +21,26 @@ import { Observable } from 'rxjs';
     InputIconModule,
     InputTextModule,
     EntryTableComponent,
-    AsyncPipe,
   ],
   templateUrl: './entries.component.html',
   styleUrl: './entries.component.scss',
 })
 export class EntriesComponent {
-  entryService = inject(EntryService);
-  entries$ = new Observable<ResultListDto<Entry>>();
+  private entryService = inject(EntryService);
+  entries = signal<ResultListDto<Entry> | null>(null);
+  filters = signal<EntrySearchDto | undefined>(undefined);
+
+  constructor() {
+    effect(() => {
+      const f = this.filters();
+      if (f)
+        this.entryService.search(f).subscribe((r) => {
+          this.entries.set(r);
+        });
+    });
+  }
 
   search(search?: EntrySearchDto): void {
-    this.entries$ = this.entryService.search(search);
+    this.filters.set(search);
   }
 }

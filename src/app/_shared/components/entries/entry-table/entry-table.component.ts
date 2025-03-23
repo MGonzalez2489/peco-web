@@ -1,4 +1,4 @@
-import { AsyncPipe, DatePipe, TitleCasePipe } from '@angular/common';
+import { DatePipe, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,8 +7,8 @@ import { EntrySearchDto } from '@core/models/dtos/search';
 import { Entry } from '@core/models/entities';
 import { Store } from '@ngrx/store';
 import { AmountComponent } from '@shared/components/amount/amount.component';
+import { SelectAccountComponent } from '@shared/components/form';
 import { AppState } from '@store/reducers';
-import { selectAccounts } from '@store/selectors';
 import { SortEvent } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -17,7 +17,6 @@ import { InputIconModule } from 'primeng/inputicon';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { SelectModule } from 'primeng/select';
 import { TableModule } from 'primeng/table';
-import { map } from 'rxjs';
 import { EntryFilterDateComponent } from '../entry-filter-date/entry-filter-date.component';
 
 @Component({
@@ -35,8 +34,8 @@ import { EntryFilterDateComponent } from '../entry-filter-date/entry-filter-date
     EntryFilterDateComponent,
     FormsModule,
     SelectModule,
-    AsyncPipe,
     CardModule,
+    SelectAccountComponent,
   ],
   templateUrl: './entry-table.component.html',
   styleUrl: './entry-table.component.scss',
@@ -58,15 +57,6 @@ export class EntryTableComponent {
   searchObj = new EntrySearchDto();
   store$ = inject(Store<AppState>);
   router = inject(Router);
-  accounts$ = this.store$.select(selectAccounts).pipe(
-    map((options) => [
-      {
-        name: 'Todas',
-        publicId: undefined,
-      },
-      ...options,
-    ]),
-  );
 
   onPageChange(
     event: PaginatorState,
