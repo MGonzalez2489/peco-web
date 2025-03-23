@@ -30,7 +30,10 @@
       "@core/*": ["app/_core/*"],
       "@shared/*": ["app/_shared/*"],
       "@envs/*": ["environments/*"],
-      "@store/*": ["app/_store/*"]
+      "@store/*": ["app/_store/*"],
+      //Packages
+    "@auth/*":["app/packages/auth/*"]
+
     }
   },
   "angularCompilerOptions": {

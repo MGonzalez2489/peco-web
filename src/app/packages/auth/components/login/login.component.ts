@@ -12,7 +12,6 @@ import { AppState } from '@store/reducers';
 //primeng
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { LoginDto } from '@core/models/dtos';
 import { ErrorMessageComponent } from '@shared/components/information';
 import {
   InvalidDirtyDirective,
@@ -25,6 +24,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { LoginDto } from '@auth/dto/login.dto';
 
 const components = [
   ButtonModule,

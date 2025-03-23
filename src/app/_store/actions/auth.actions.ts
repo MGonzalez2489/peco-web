@@ -1,4 +1,5 @@
-import { LoginDto, TokenDto } from '@core/models/dtos';
+import { LoginDto } from '@auth/dto/login.dto';
+import { TokenDto } from '@auth/dto/token.dto';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 export const AuthActions = createActionGroup({

@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
-import { TokenDto } from '@core/models/dtos';
+import { TokenDto } from '@auth/dto/token.dto';
 import { select, Store } from '@ngrx/store';
 import { AuthActions } from '@store/actions/auth.actions';
 import { AppState } from '@store/reducers';

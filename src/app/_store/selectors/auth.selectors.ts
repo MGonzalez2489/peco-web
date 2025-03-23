@@ -1,4 +1,4 @@
-import { TokenDto } from '@core/models/dtos';
+import { TokenDto } from '@auth/dto/token.dto';
 import { createSelector } from '@ngrx/store';
 import { AppState } from '@store/reducers';
 import { AuthState } from '@store/reducers/session/auth.reducer';

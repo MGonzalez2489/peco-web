@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { RequestService } from './_request.service';
-import { LoginDto, TokenDto } from '@core/models/dtos';
+import { LoginDto } from './dto/login.dto';
+import { TokenDto } from './dto/token.dto';
+import { RequestService } from '@core/services/_request.service';
 
 @Injectable({
   providedIn: 'root',
