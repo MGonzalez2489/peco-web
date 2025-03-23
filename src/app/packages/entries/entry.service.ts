@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { EntryCreateDto } from '@core/models/dtos';
-import { Entry } from '@core/models/entities';
-import { RequestService } from './_request.service';
 import { EntrySearchDto } from '@core/models/dtos/search';
+import { Entry } from '@core/models/entities';
+import { RequestService } from '@core/services/_request.service';
 
 @Injectable({
   providedIn: 'root',

@@ -32,10 +32,12 @@
       "@envs/*": ["environments/*"],
       "@store/*": ["app/_store/*"],
       //Packages
-    "@auth/*":["app/packages/auth/*"],
-    "@home/*":["app/packages/home/*"]
-
-
+      "@auth/*": ["app/packages/auth/*"],
+      "@home/*": ["app/packages/home/*"],
+      "@accounts/*": ["app/packages/accounts/*"],
+      "@entries/*": ["app/packages/entries/*"],
+      "@settings/*": ["app/packages/settings/*"],
+      "@planned-entries/*": ["app/packages/planned-entries/*"]
     }
   },
   "angularCompilerOptions": {

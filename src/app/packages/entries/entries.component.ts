@@ -2,7 +2,6 @@ import { Component, effect, inject, signal } from '@angular/core';
 import { ResultListDto } from '@core/models/dtos';
 import { EntrySearchDto } from '@core/models/dtos/search';
 import { Entry } from '@core/models/entities';
-import { EntryService } from '@core/services';
 import { EntryTableComponent } from '@shared/components/entries';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -10,6 +9,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
+import { EntryService } from './entry.service';
 
 @Component({
   selector: 'app-entries',

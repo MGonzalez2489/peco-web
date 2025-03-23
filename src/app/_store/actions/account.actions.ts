@@ -1,7 +1,7 @@
 import { createActionGroup, props } from '@ngrx/store';
 import { Account } from '@core/models/entities';
-import { AccountCreateDto } from '@core/models/dtos';
 import { SearchDto } from '@core/models/dtos/search';
+import { AccountCreateDto } from '@accounts/dto';
 
 export const AccountActions = createActionGroup({
   source: 'Account',

@@ -9,7 +9,8 @@ export const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('./packages/auth/auth.routes').then((m) => m.routes),
+    loadChildren: () =>
+      import('./packages/auth/auth.routes').then((m) => m.routes),
   },
   {
     path: '',
@@ -20,35 +21,35 @@ export const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () => import('./packages/home/home.routes').then((c) => c.routes),
+        loadChildren: () => import('@home/home.routes').then((c) => c.routes),
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
       },
       {
         path: 'accounts',
         loadChildren: () =>
-          import('./accounts/accounts.routes').then((c) => c.routes),
+          import('@accounts/accounts.routes').then((c) => c.routes),
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
       },
       {
         path: 'entries',
         loadChildren: () =>
-          import('./entries/entries.routes').then((c) => c.routes),
+          import('@entries/entries.routes').then((c) => c.routes),
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
       },
       {
         path: 'settings',
         loadChildren: () =>
-          import('./settings/settings.routes').then((c) => c.routes),
+          import('@settings/settings.routes').then((c) => c.routes),
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
       },
       {
         path: 'planned-entries',
         loadChildren: () =>
-          import('./planned-entries/planned-entries.routes').then(
+          import('@planned-entries/planned-entries.routes').then(
             (c) => c.routes,
           ),
         canActivate: [AuthGuard],

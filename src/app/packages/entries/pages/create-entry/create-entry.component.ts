@@ -4,7 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EntryCreateDto } from '@core/models/dtos';
-import { EntryService } from '@core/services';
+import { EntryService } from '@entries/entry.service';
 import { Store } from '@ngrx/store';
 import { EntryFormComponent } from '@shared/components/entries';
 import { AccountActions } from '@store/actions/account.actions';

@@ -1,3 +1,4 @@
+import { AccountCreateDto } from '@accounts/dto';
 import { JsonPipe, Location } from '@angular/common';
 import { Component, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -8,7 +9,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AccountCreateDto } from '@core/models/dtos';
 import { Account, AccountType } from '@core/models/entities';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';

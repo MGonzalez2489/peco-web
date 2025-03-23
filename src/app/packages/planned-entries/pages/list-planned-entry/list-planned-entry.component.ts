@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { PlannedEntryService } from '@core/services';
-import { PlannedEntriesTableComponent } from 'app/planned-entries/components/planned-entries-table/planned-entries-table.component';
+import { PlannedEntriesTableComponent } from '@planned-entries/components/planned-entries-table/planned-entries-table.component';
+import { PlannedEntryService } from '@planned-entries/planned-entry.service';
 import { ButtonModule } from 'primeng/button';
 
 @Component({

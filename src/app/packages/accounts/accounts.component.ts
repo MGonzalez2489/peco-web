@@ -13,12 +13,12 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 import { ResultListDto } from '@core/models/dtos';
 import { SearchDto } from '@core/models/dtos/search';
-import { AccountService } from '@core/services';
 //
 import { toSignal } from '@angular/core/rxjs-interop';
 import { InputSearchComponent } from '@shared/components/form/input-search/input-search.component';
 import { selectIsBusy } from '@store/selectors';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { AccountService } from './account.service';
 import { AccountTableComponent } from './components/account-table/account-table.component';
 
 @Component({

@@ -11,7 +11,6 @@ import { AppState } from '@store/reducers';
 import { CardModule } from 'primeng/card';
 
 import { Router } from '@angular/router';
-import { AccountCreateDto } from '@core/models/dtos';
 import { AccountType } from '@core/models/entities';
 import { SelectAccountTypeComponent } from '@shared/components/form';
 import {
@@ -26,6 +25,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { SelectModule } from 'primeng/select';
+import { AccountCreateDto } from '@accounts/dto';
 
 @Component({
   selector: 'app-create-account',

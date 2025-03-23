@@ -9,10 +9,10 @@ import { PlannedEntryCreateDto } from '@core/models/dtos/planned-entry.dto';
 import { EntryCategory, EntryType } from '@core/models/entities';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { PlannedEntryFrecuencyFormComponent } from '@planned-entries/components/planned-entry-frecuency-form/planned-entry-frecuency-form.component';
+import { PlannedEntryGeneralFormComponent } from '@planned-entries/components/planned-entry-general-form/planned-entry-general-form.component';
 import { PlannedEntryActions } from '@store/actions/planned-entry.actions';
 import { AppState } from '@store/reducers';
-import { PlannedEntryFrecuencyFormComponent } from 'app/planned-entries/components/planned-entry-frecuency-form/planned-entry-frecuency-form.component';
-import { PlannedEntryGeneralFormComponent } from 'app/planned-entries/components/planned-entry-general-form/planned-entry-general-form.component';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ResultListDto } from '@core/models/dtos';
 import { EntrySearchDto } from '@core/models/dtos/search';
 import { Account, Entry } from '@core/models/entities';
-import { EntryService } from '@core/services';
+import { EntryService } from '@entries/entry.service';
 import { Store } from '@ngrx/store';
 import { EntryTableComponent } from '@shared/components/entries';
 import { AppState } from '@store/reducers';

@@ -14,13 +14,13 @@ import { TabsModule } from 'primeng/tabs';
 
 import { TitleCasePipe } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { EntryCategoryCardComponent } from 'app/settings/components/entry-category-card/entry-category-card.component';
 
 import { Actions, ofType } from '@ngrx/effects';
 import { EntryCategoryActions } from '@store/actions/entry-category.actions';
 import { DialogModule } from 'primeng/dialog';
 
-import { EntryCategoryFormComponent } from 'app/settings/components/entry-category-form/entry-category-form.component';
+import { EntryCategoryCardComponent } from '@settings/components/entry-category-card/entry-category-card.component';
+import { EntryCategoryFormComponent } from '@settings/components/entry-category-form/entry-category-form.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
