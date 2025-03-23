@@ -20,7 +20,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () => import('./home/home.routes').then((c) => c.routes),
+        loadChildren: () => import('./packages/home/home.routes').then((c) => c.routes),
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
       },

@@ -32,7 +32,9 @@
       "@envs/*": ["environments/*"],
       "@store/*": ["app/_store/*"],
       //Packages
-    "@auth/*":["app/packages/auth/*"]
+    "@auth/*":["app/packages/auth/*"],
+    "@home/*":["app/packages/home/*"]
+
 
     }
   },
