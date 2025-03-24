@@ -1,4 +1,4 @@
-import { SearchDto } from './search.dto';
+import { SearchDto } from '@core/models/dtos/search';
 
 export class EntrySearchDto extends SearchDto {
   accountId?: string;
