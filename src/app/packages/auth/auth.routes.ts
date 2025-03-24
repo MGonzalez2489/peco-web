@@ -14,15 +14,13 @@ export const routes: Routes = [
       {
         path: 'login',
         loadComponent: () =>
-          import('./components/login/login.component').then(
-            (c) => c.LoginComponent,
-          ),
+          import('./pages/login/login.component').then((c) => c.LoginComponent),
         title: 'Login',
       },
       {
         path: 'registrar',
         loadComponent: () =>
-          import('./components/register/register.component').then(
+          import('./pages/register/register.component').then(
             (c) => c.RegisterComponent,
           ),
         title: 'Crear Cuenta',
