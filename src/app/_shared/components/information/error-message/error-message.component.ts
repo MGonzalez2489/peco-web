@@ -28,7 +28,6 @@ export class ErrorMessageComponent implements OnDestroy {
     effect(() => {
       const message = this.errorMessage();
       if (message) {
-        this.cleanMessageTimer();
         this.timerSubscription = timer(this.lifeTime)
           .pipe(takeUntil(this.destroy$))
           .subscribe(() => {
