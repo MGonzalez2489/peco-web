@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { ResultDto, ResultListDto } from '@core/models/dtos';
 import { PlannedEntry } from '@core/models/entities';
-import { PlannedEntryService } from '@core/services/planned-entry.service';
+import { PlannedEntryService } from '@planned-entries/planned-entry.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '@store/actions/auth.actions';

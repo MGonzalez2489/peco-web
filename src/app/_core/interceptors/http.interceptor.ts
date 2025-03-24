@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { TokenDto } from '@core/models/dtos';
+import { TokenDto } from '@auth/dto';
 import { Store } from '@ngrx/store';
 import { UiActions } from '@store/actions/ui.actions';
 import { AppState } from '@store/reducers';

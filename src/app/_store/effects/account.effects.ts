@@ -1,5 +1,5 @@
+import { AccountService } from '@accounts/account.service';
 import { inject, Injectable } from '@angular/core';
-import { AccountService } from '@core/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AccountActions } from '@store/actions/account.actions';
 import { exhaustMap, map } from 'rxjs';
