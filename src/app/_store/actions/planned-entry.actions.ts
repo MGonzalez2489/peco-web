@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PlannedEntryCreateDto } from '@core/models/dtos/planned-entry.dto';
+import { PlannedEntryCreateDto } from '@planned-entries/dto/planned-entry.dto';
 import { PlannedEntry } from '@core/models/entities/';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 

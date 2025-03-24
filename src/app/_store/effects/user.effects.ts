@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { SearchDto } from '@core/models/dtos/search';
-import { UiService, UserService } from '@core/services';
+import { UiService } from '@core/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { UserService } from '@settings/services';
 import { AccountActions } from '@store/actions/account.actions';
 import { AuthActions } from '@store/actions/auth.actions';
 import { EntryCategoryActions } from '@store/actions/entry-category.actions';

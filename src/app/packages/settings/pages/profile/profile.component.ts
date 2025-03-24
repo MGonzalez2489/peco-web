@@ -7,9 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UpdateUserDto } from '@core/models/dtos';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { UpdateUserDto } from '@settings/dto/user.dto';
 import { UserActions } from '@store/actions/profile.actions';
 import { AppState } from '@store/reducers';
 import { selectUser } from '@store/selectors';

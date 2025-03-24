@@ -5,7 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { PlannedEntryCreateDto } from '@core/models/dtos/planned-entry.dto';
+import { PlannedEntryCreateDto } from '@planned-entries/dto/planned-entry.dto';
 import { EntryCategory, EntryType } from '@core/models/entities';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';

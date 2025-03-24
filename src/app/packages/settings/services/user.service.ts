@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { User } from '@core/models/entities';
-import { RequestService } from './_request.service';
-import { UpdateUserDto } from '@core/models/dtos';
+import { RequestService } from '@core/services/_request.service';
+import { UpdateUserDto } from '@settings/dto/user.dto';
 
 @Injectable({
   providedIn: 'root',

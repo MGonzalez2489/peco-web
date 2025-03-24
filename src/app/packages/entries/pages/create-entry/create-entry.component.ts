@@ -3,7 +3,7 @@ import { Component, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { EntryCreateDto } from '@core/models/dtos';
+import { EntryCreateDto } from '@entries/dto/entry.dto';
 import { EntryService } from '@entries/entry.service';
 import { Store } from '@ngrx/store';
 import { EntryFormComponent } from '@shared/components/entries';

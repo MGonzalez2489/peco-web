@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { RequestService } from '../../_core/services/_request.service';
-import { PlannedEntryCreateDto } from '@core/models/dtos/planned-entry.dto';
+import { PlannedEntryCreateDto } from '@planned-entries/dto/planned-entry.dto';
 import { PlannedEntry } from '@core/models/entities';
 import { SearchDto } from '@core/models/dtos/search';
 

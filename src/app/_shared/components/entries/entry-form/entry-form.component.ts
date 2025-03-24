@@ -5,8 +5,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { EntryCreateDto } from '@core/models/dtos';
 import { Account, EntryCategory, EntryType } from '@core/models/entities';
+import { EntryCreateDto } from '@entries/dto/entry.dto';
 import {
   SelectAccountComponent,
   SelectEntryCategoryComponent,
