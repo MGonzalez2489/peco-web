@@ -9,16 +9,8 @@ import { EntryTableComponent } from '@entries/components';
 import { EntryService } from '@entries/entry.service';
 import { BasePage } from '@shared/components/base';
 import { selectAccountById } from '@store/selectors';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { TabsModule } from 'primeng/tabs';
 
-const primeSources = [
-  EntryTableComponent,
-  CardModule,
-  ButtonModule,
-  TabsModule,
-];
+const primeSources = [EntryTableComponent];
 
 @Component({
   selector: 'app-detail-account',

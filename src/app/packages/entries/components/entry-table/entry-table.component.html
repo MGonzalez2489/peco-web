@@ -19,7 +19,6 @@
     <p-table
       [value]="entries?.data || []"
       [paginator]="false"
-      stripedRows
       [customSort]="true"
       (onSort)="onSort($event)"
       [sortOrder]="filters?.order === 'ASC' ? 1 : -1"
