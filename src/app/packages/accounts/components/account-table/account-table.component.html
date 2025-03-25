@@ -31,17 +31,7 @@
         <td>{{ account.type.displayName }}</td>
         <td>{{ account.createdAt | date: "short" }}</td>
         <td>
-          <p-tag
-            [severity]="
-              account.balance > 0
-                ? 'success'
-                : account.balance < 0
-                  ? 'danger'
-                  : 'secondary'
-            "
-          >
-            {{ account.balance | currency }}
-          </p-tag>
+          <app-amount [amount]="account.balance" />
         </td>
         <td>
           <p-checkbox

@@ -6,12 +6,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { AppState } from '@store/reducers';
 import { CardModule } from 'primeng/card';
 
-import { Router } from '@angular/router';
+import { AccountCreateDto } from '@accounts/dto';
 import { AccountType } from '@core/models/entities';
+import { BasePage } from '@shared/components/base';
 import { SelectAccountTypeComponent } from '@shared/components/form';
 import {
   InvalidDirtyDirective,
@@ -25,7 +24,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { SelectModule } from 'primeng/select';
-import { AccountCreateDto } from '@accounts/dto';
 
 @Component({
   selector: 'app-create-account',
@@ -46,10 +44,8 @@ import { AccountCreateDto } from '@accounts/dto';
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss',
 })
-export class CreateAccountComponent {
-  private store$ = inject(Store<AppState>);
+export class CreateAccountComponent extends BasePage {
   private actions$ = inject(Actions);
-  private router = inject(Router);
 
   form = new FormGroup({
     name: new FormControl<string>('', [Validators.required]),
@@ -61,6 +57,7 @@ export class CreateAccountComponent {
   });
 
   constructor() {
+    super();
     effect(() => {
       const createSuccess = this.actions$.pipe(
         ofType(AccountActions.createSuccess),
@@ -85,6 +82,6 @@ export class CreateAccountComponent {
   }
 
   cancel(): void {
-    this.router.navigate(['/accounts']);
+    this.location.back();
   }
 }

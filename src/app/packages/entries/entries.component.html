@@ -1,7 +1,26 @@
 <div class="flex flex-col gap-4">
-  <app-entry-table
-    [showAccountColumn]="true"
-    [entries]="entries()"
-    (search)="search($event)"
-  />
+  <div class="flex justify-between">
+    <div class="flex gap-5">
+      <app-select-account [showAllOption]="true" [(ngModel)]="account" />
+      <app-entry-filter-date
+        [search]="filters"
+        (onChangeSearch)="onSearch(filters)"
+      />
+    </div>
+
+    <p-button
+      icon="pi pi-plus"
+      label="Nuevo"
+      text="true"
+      [routerLink]="'new'"
+    />
+  </div>
+
+  <p-card>
+    <app-entry-table
+      [showAccountColumn]="true"
+      [entries]="entries()"
+      [filters]="filters"
+    />
+  </p-card>
 </div>

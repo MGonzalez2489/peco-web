@@ -2,9 +2,5 @@
   <!-- Account details -->
   <app-account-card [account]="account()"> </app-account-card>
   <!-- Entries -->
-  <app-entry-table
-    [accountId]="account()?.publicId!"
-    [entries]="entries() || null"
-    (search)="searchEntries(account()?.publicId!, $event)"
-  ></app-entry-table>
+  <app-entry-table [entries]="entries()"></app-entry-table>
 </div>

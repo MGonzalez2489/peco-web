@@ -1,8 +1,5 @@
-<span
-  [ngClass]="{
-    'text-red-400': amount < 0,
-    'text-green-400': amount > 0,
-    'text-gray-400': amount == 0,
-  }"
-  >{{ amount | currency }}</span
+<p-tag
+  [severity]="amount > 0 ? 'success' : amount < 0 ? 'danger' : 'secondary'"
 >
+  {{ amount | currency }}
+</p-tag>

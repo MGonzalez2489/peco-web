@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -36,7 +35,6 @@ export class CreateEntryComponent {
   private activatedRoute = inject(ActivatedRoute);
   private store$ = inject(Store<AppState>);
   private entryService = inject(EntryService);
-  private location = inject(Location);
   accountIdSignal = toSignal(
     this.activatedRoute.paramMap.pipe(map((params) => params.get('accountId'))),
     { initialValue: null },
@@ -73,6 +71,6 @@ export class CreateEntryComponent {
     this.newValueSignal.set(newValue);
   }
   cancel(): void {
-    this.location.back();
+    console.log('cancel');
   }
 }

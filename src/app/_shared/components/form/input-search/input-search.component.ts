@@ -1,4 +1,4 @@
-import { Component, effect, Input, signal } from '@angular/core';
+import { Component, effect, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -19,49 +19,28 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
   styleUrl: './input-search.component.scss',
 })
 export class InputSearchComponent {
+  @Input() placeholder = ' Buscar...';
+  @Output() search = new EventEmitter<string | undefined>();
+
   private hintSubject = new Subject<string | undefined>();
-
-  private placeholderSignal = signal<string>('Buscar...');
+  private debounceTimeValue = 500;
   protected inpId = 'searchInp';
-
-  hintSignal = signal<string | undefined>(undefined);
-  @Input()
-  set placeholder(value: string) {
-    this.placeholderSignal.set(value);
-  }
-
-  @Input()
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onHintChange: (hint: string | undefined) => void = () => {};
-
-  debounceTimeValue = 500;
-
+  protected hint: string | undefined;
   constructor() {
     effect(() => {
       this.hintSubject
         .pipe(debounceTime(this.debounceTimeValue), distinctUntilChanged())
         .subscribe((value) => {
-          this.onHintChange(value);
+          this.search.emit(value);
         });
     });
   }
-
+  //
   updateHint(value: string | undefined) {
     if (value === '') {
-      this.hintSignal.set(undefined);
-    } else {
-      this.hintSignal.set(value);
+      value = undefined;
     }
-    this.hintSubject.next(this.hintSignal());
-  }
-
-  clearSearch(): void {
-    this.hintSignal.set(undefined);
-    this.hintSubject.next(this.hintSignal());
-  }
-
-  // eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures
-  get placeholder() {
-    return this.placeholderSignal();
+    this.hint = value;
+    this.hintSubject.next(this.hint);
   }
 }

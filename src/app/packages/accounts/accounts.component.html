@@ -1,19 +1,14 @@
 <div class="flex justify-between my-5">
   <!-- Search -->
-  <app-input-search />
+  <app-input-search (search)="searchHint($event)" />
   <!-- New -->
-  <p-button
-    icon="pi pi-plus"
-    label="Nuevo"
-    text="true"
-    [routerLink]="['/accounts/new']"
-  />
+  <p-button icon="pi pi-plus" label="Nuevo" [routerLink]="['/accounts/new']" />
 </div>
 
 <p-card>
   <app-account-table
     [accounts]="accounts()"
-    [filters]="filterSignal()"
+    [filters]="filters"
     (search)="onSearch($event)"
   />
 </p-card>

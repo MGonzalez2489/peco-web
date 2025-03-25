@@ -7,8 +7,7 @@ import { EntrySearchDto } from '@core/models/dtos/search';
 import { Account, Entry } from '@core/models/entities';
 import { EntryTableComponent } from '@entries/components';
 import { EntryService } from '@entries/entry.service';
-import { Store } from '@ngrx/store';
-import { AppState } from '@store/reducers';
+import { BasePage } from '@shared/components/base';
 import { selectAccountById } from '@store/selectors';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -27,9 +26,8 @@ const primeSources = [
   templateUrl: './detail-account.component.html',
   styleUrl: './detail-account.component.scss',
 })
-export class DetailAccountComponent {
+export class DetailAccountComponent extends BasePage {
   private activatedRoute = inject(ActivatedRoute);
-  private store$ = inject(Store<AppState>);
   private entriesService = inject(EntryService);
 
   account = signal<Account | undefined>(undefined);
@@ -37,6 +35,7 @@ export class DetailAccountComponent {
   private searchSignal = signal<EntrySearchDto | undefined>(undefined);
 
   constructor() {
+    super();
     const accId = this.activatedRoute.snapshot.params['accountId'];
 
     const search = this.searchSignal();

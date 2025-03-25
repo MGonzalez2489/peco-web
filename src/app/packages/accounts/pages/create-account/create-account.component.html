@@ -75,12 +75,19 @@
       <div class="mt-10 flex justify-center gap-x-8">
         <p-button
           label="Cancelar"
-          (click)="cancel()"
           severity="secondary"
           [text]="true"
+          [loading]="isBusy()"
+          (click)="cancel()"
         />
 
-        <p-button type="submit" size="small" pButton label="Guardar" />
+        <p-button
+          [loading]="isBusy()"
+          type="submit"
+          size="small"
+          pButton
+          label="Guardar"
+        />
       </div>
     </form>
   </div>

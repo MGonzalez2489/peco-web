@@ -79,4 +79,9 @@ export class SelectAccountComponent extends BaseFormControl {
     this.formControl.markAsTouched();
     this.onChange(event.value);
   }
+
+  override writeValue(obj: any): void {
+    const acc = this.accounts().find((f) => f.publicId === obj);
+    this.formControl.setValue(acc);
+  }
 }

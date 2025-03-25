@@ -15,7 +15,7 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
     tap(() => {
       store$.dispatch(UiActions.setBusyOn());
     }),
-    delay(200),
+    delay(300),
     mergeMap((token: TokenDto) => {
       if (token) {
         req = req.clone({

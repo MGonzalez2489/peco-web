@@ -2,9 +2,11 @@
   <input
     pInputText
     placeholder="placeholder"
+    fluid="true"
     [id]="inpId"
     [name]="inpId"
     [placeholder]="placeholder"
+    [(ngModel)]="hint"
     (input)="updateHint($any($event.target).value)"
   />
   <p-inputgroup-addon>
@@ -14,7 +16,7 @@
       [text]="true"
       variant="outlined"
       severity="secondary"
-      (click)="clearSearch()"
+      (click)="updateHint(undefined)"
     />
   </p-inputgroup-addon>
 </p-inputgroup>
