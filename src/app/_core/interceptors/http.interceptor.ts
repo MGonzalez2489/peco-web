@@ -9,7 +9,7 @@ import { catchError, delay, mergeMap, take, tap } from 'rxjs';
 
 export const httpInterceptor: HttpInterceptorFn = (req, next) => {
   const store$ = inject(Store<AppState>);
-  const requestDelay = 800;
+  const requestDelay = 1200;
 
   return store$.select(selectToken).pipe(
     take(1),

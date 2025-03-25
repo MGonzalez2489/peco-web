@@ -39,15 +39,9 @@ import { TagModule } from 'primeng/tag';
 })
 export class AccountTableComponent extends PaginatedComponent {
   accountsSignal = signal<ResultListDto<Account> | undefined | null>(undefined);
-  isLoading = signal(false);
 
   @Input()
   set accounts(value: ResultListDto<Account> | undefined | null) {
     this.accountsSignal.set(value);
-  }
-
-  @Input()
-  set isBusy(value: boolean) {
-    this.isLoading.set(value);
   }
 }

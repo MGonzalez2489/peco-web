@@ -1,14 +1,20 @@
 import { DatePipe, TitleCasePipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, effect, Input, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ResultListDto } from '@core/models/dtos';
-import { Entry } from '@core/models/entities';
+import { Account, Entry } from '@core/models/entities';
+import { EntrySearchDto } from '@entries/dto/search.dto';
 import { AmountComponent } from '@shared/components/amount/amount.component';
 import { PaginatedComponent } from '@shared/components/base';
+import { TablePlaceholderComponent } from '@shared/components/data';
+import { SelectAccountComponent } from '@shared/components/form';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
+import { EntryFilterDateComponent } from '../entry-filter-date/entry-filter-date.component';
 
 @Component({
   selector: 'app-entry-table',
@@ -21,6 +27,11 @@ import { TableModule } from 'primeng/table';
     AmountComponent,
     DatePipe,
     TitleCasePipe,
+    CardModule,
+    TablePlaceholderComponent,
+    SelectAccountComponent,
+    EntryFilterDateComponent,
+    FormsModule,
   ],
   templateUrl: './entry-table.component.html',
   styleUrl: './entry-table.component.scss',
@@ -30,5 +41,30 @@ export class EntryTableComponent extends PaginatedComponent {
   entries: ResultListDto<Entry> | undefined;
 
   @Input()
-  showAccountColumn = false;
+  set account(value: Account | undefined) {
+    if (value) {
+      this.showAccountColumn = false;
+    }
+    this.selectedAccount.set(value);
+  }
+
+  override filters = new EntrySearchDto();
+
+  showAccountColumn = true;
+
+  protected selectedAccount = signal<Account | undefined>(undefined);
+  constructor() {
+    super();
+    effect(() => {
+      const nAccount = this.selectedAccount();
+      if (nAccount && this.filters) {
+        this.filters.accountId = nAccount.publicId;
+        this.onSearch(this.filters!);
+      }
+    });
+  }
+
+  onSearch(filters: EntrySearchDto) {
+    if (filters.fromDate && filters.toDate) this.search.emit(filters);
+  }
 }

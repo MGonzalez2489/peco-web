@@ -7,7 +7,7 @@
 
 <p-card>
   <app-account-table
-    [isBusy]="isBusy()"
+    [loadingData]="isBusy()"
     [accounts]="accounts()"
     [filters]="filters"
     (search)="onSearch($event)"

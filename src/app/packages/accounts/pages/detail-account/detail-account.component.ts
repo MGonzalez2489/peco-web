@@ -1,9 +1,9 @@
 import { AccountCardComponent } from '@accounts/components/account-card/account-card.component';
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { ResultListDto } from '@core/models/dtos';
-import { EntrySearchDto } from '@core/models/dtos/search';
+import { EntrySearchDto, SearchDto } from '@core/models/dtos/search';
 import { Account, Entry } from '@core/models/entities';
 import { EntryTableComponent } from '@entries/components';
 import { EntryService } from '@entries/entry.service';
@@ -28,38 +28,20 @@ const primeSources = [
 })
 export class DetailAccountComponent extends BasePage {
   private activatedRoute = inject(ActivatedRoute);
-  private entriesService = inject(EntryService);
+  private entryService = inject(EntryService);
 
   account = signal<Account | undefined>(undefined);
   entries = signal<ResultListDto<Entry> | undefined>(undefined);
-  private searchSignal = signal<EntrySearchDto | undefined>(undefined);
 
   constructor() {
     super();
     const accId = this.activatedRoute.snapshot.params['accountId'];
-
-    const search = this.searchSignal();
-    const newSearch = Object.assign({}, search);
-    newSearch.accountId = accId;
-    this.searchSignal.set(search);
     this.account.set(toSignal(this.store$.select(selectAccountById(accId)))());
-
-    effect(() => {
-      const search = this.searchSignal();
-
-      if (search) {
-        this.entriesService.search(search).subscribe((data) => {
-          this.entries.set(data);
-        });
-      }
-    });
   }
-
-  searchEntries(accountId: string, search?: EntrySearchDto) {
-    const newSearch = Object.assign({}, search);
-    newSearch.accountId = accountId;
-
-    this.searchSignal.set(newSearch);
+  onSearch(search: SearchDto): void {
+    this.entryService.search(search as EntrySearchDto).subscribe((data) => {
+      this.entries.set(data);
+    });
   }
 
   //TODO:

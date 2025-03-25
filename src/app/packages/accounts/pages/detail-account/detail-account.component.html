@@ -2,5 +2,10 @@
   <!-- Account details -->
   <app-account-card [account]="account()"> </app-account-card>
   <!-- Entries -->
-  <app-entry-table [entries]="entries()"></app-entry-table>
+  <app-entry-table
+    [loadingData]="isBusy()"
+    [account]="account()"
+    [entries]="entries()"
+    (search)="onSearch($event)"
+  ></app-entry-table>
 </div>
