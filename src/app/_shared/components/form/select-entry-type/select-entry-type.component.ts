@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, forwardRef, inject, Input } from '@angular/core';
+import { Component, forwardRef, inject, Input, signal } from '@angular/core';
 import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
@@ -9,12 +9,9 @@ import { EntryType } from '@core/models/entities';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/reducers';
 import { selectCatEntryTypes } from '@store/selectors';
+import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
-import {
-  SelectButtonChangeEvent,
-  SelectButtonModule,
-} from 'primeng/selectbutton';
 import { Observable, tap } from 'rxjs';
 import { BaseFormControl } from '../base-form-control';
 @Component({
@@ -25,8 +22,8 @@ import { BaseFormControl } from '../base-form-control';
     SelectModule,
     ReactiveFormsModule,
     AsyncPipe,
-    SelectButtonModule,
     SelectModule,
+    ButtonModule,
   ],
   providers: [
     {
@@ -49,6 +46,8 @@ export class SelectEntryTypeComponent extends BaseFormControl {
   mode: 'select' | 'button' = 'button';
   private store$ = inject(Store<AppState>);
   protected override inpId = 'entryType';
+
+  protected selectedSeverity = signal<'success' | 'danger'>('danger');
   //
   entryTypes$: Observable<EntryType[]> = this.store$
     .select(selectCatEntryTypes)
@@ -63,7 +62,12 @@ export class SelectEntryTypeComponent extends BaseFormControl {
   select(event: SelectChangeEvent) {
     this.onChange(event.value);
   }
-  selectButton(event: SelectButtonChangeEvent) {
-    this.onChange(event.value);
+  selectButton(value: EntryType) {
+    this.determineButtonSeverity(value);
+    this.writeValue(value);
+    this.onChange(value);
+  }
+  private determineButtonSeverity(value: EntryType) {
+    this.selectedSeverity.set(value.name === 'income' ? 'success' : 'danger');
   }
 }

@@ -1,12 +1,20 @@
 @if (mode === "button") {
-  <p-selectbutton
-    optionLabel="displayName"
-    [id]="inpId"
-    [options]="(entryTypes$ | async)!"
-    [formControl]="formControl"
-    [allowEmpty]="false"
-    (onChange)="selectButton($event)"
-  />
+  @if (entryTypes$ | async; as entryTypes) {
+    <div class="flex gap-2 bg-gray-100 p-2 rounded-lg">
+      @for (btn of entryTypes; track btn) {
+        <p-button
+          styleClass="w-45"
+          (click)="selectButton(btn)"
+          [severity]="
+            formControl.value.publicId === btn.publicId
+              ? selectedSeverity()
+              : 'secondary'
+          "
+          [label]="btn.displayName"
+        />
+      }
+    </div>
+  }
 } @else if (mode === "select") {
   <p-floatlabel>
     <p-select
@@ -17,7 +25,7 @@
       [name]="inpId"
       [formControl]="formControl"
       [options]="(entryTypes$ | async)!"
-      (onChange)="selectButton($event)"
+      (onChange)="select($event)"
       (onBlur)="onTouched()"
     />
     <label [for]="inpId">Tipo </label>
