@@ -9,13 +9,14 @@ import { catchError, delay, mergeMap, take, tap } from 'rxjs';
 
 export const httpInterceptor: HttpInterceptorFn = (req, next) => {
   const store$ = inject(Store<AppState>);
+  const requestDelay = 800;
 
   return store$.select(selectToken).pipe(
     take(1),
     tap(() => {
       store$.dispatch(UiActions.setBusyOn());
     }),
-    delay(300),
+    delay(requestDelay),
     mergeMap((token: TokenDto) => {
       if (token) {
         req = req.clone({

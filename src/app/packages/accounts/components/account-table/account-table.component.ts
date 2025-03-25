@@ -6,6 +6,7 @@ import { ResultListDto } from '@core/models/dtos';
 import { Account } from '@core/models/entities';
 import { AmountComponent } from '@shared/components/amount/amount.component';
 import { PaginatedComponent } from '@shared/components/base';
+import { TablePlaceholderComponent } from '@shared/components/data';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -31,15 +32,22 @@ import { TagModule } from 'primeng/tag';
     ProgressSpinnerModule,
     TitleCasePipe,
     AmountComponent,
+    TablePlaceholderComponent,
   ],
   templateUrl: './account-table.component.html',
   styleUrl: './account-table.component.scss',
 })
 export class AccountTableComponent extends PaginatedComponent {
   accountsSignal = signal<ResultListDto<Account> | undefined | null>(undefined);
+  isLoading = signal(false);
 
   @Input()
   set accounts(value: ResultListDto<Account> | undefined | null) {
     this.accountsSignal.set(value);
+  }
+
+  @Input()
+  set isBusy(value: boolean) {
+    this.isLoading.set(value);
   }
 }

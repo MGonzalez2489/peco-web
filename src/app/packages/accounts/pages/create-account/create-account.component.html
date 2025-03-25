@@ -37,6 +37,7 @@
           />
           <label for="balance">Balance inicial</label>
         </p-floatlabel>
+        <p [appValidationError]="'balance'" [directive]="formDirective"></p>
       </div>
       <!-- Account Type -->
       <div class="my-6">
@@ -70,6 +71,9 @@
           </p-message>
         }
       </div>
+      <div class="my-6 min-h-12">
+        <app-error-message />
+      </div>
 
       <!-- Options -->
       <div class="mt-10 flex justify-center gap-x-8">
@@ -77,12 +81,12 @@
           label="Cancelar"
           severity="secondary"
           [text]="true"
-          [loading]="isBusy()"
+          [disabled]="isBusy()"
           (click)="cancel()"
         />
 
         <p-button
-          [loading]="isBusy()"
+          [loading]="isBusy() === true"
           type="submit"
           size="small"
           pButton

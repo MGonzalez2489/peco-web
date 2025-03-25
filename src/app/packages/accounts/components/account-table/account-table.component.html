@@ -1,8 +1,7 @@
-<div>
+<app-table-placeholder [isLoading]="isLoading()">
   <p-table
     [value]="accountsSignal()?.data || []"
     [paginator]="false"
-    stripedRows
     [customSort]="true"
     (onSort)="onSort($event)"
     [sortOrder]="filters?.order === 'ASC' ? 1 : -1"
@@ -75,4 +74,4 @@
       />
     </div>
   }
-</div>
+</app-table-placeholder>
