@@ -11,4 +11,8 @@ export class BasePage {
     initialValue: false,
   });
   protected location = inject(Location);
+
+  protected navigateBack() {
+    this.location.back();
+  }
 }

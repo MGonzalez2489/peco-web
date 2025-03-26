@@ -59,7 +59,14 @@
       (click)="cancel()"
       severity="secondary"
       [text]="true"
+      [disabled]="isBusy"
     />
-    <p-button type="submit" size="small" pButton label="Guardar" />
+    <p-button
+      type="submit"
+      [loading]="isBusy === true"
+      size="small"
+      pButton
+      label="Guardar"
+    />
   </div>
 </form>

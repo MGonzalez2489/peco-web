@@ -1,6 +1,11 @@
 <p-card>
-  <app-entry-form
-    (save)="submit($event)"
-    [accountId]="accountIdSignal() || ''"
-  />
+  <div class="flex justify-center">
+    <div class="w-1/2">
+      <app-entry-form
+        [isBusy]="isBusy()"
+        (save)="submit($event)"
+        [accountId]="accountIdSignal() || ''"
+      />
+    </div>
+  </div>
 </p-card>

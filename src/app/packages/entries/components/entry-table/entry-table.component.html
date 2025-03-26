@@ -49,7 +49,7 @@
       <ng-template #body let-entry>
         <tr>
           @if (showAccountColumn) {
-            <td>{{ entry.account }}</td>
+            <td>{{ entry.account | titlecase }}</td>
           }
 
           <td>{{ entry.description | titlecase }}</td>

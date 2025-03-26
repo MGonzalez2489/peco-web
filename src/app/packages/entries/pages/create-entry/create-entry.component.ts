@@ -5,9 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { EntryFormComponent } from '@entries/components';
 import { EntryCreateDto } from '@entries/dto/entry.dto';
 import { EntryService } from '@entries/entry.service';
-import { Store } from '@ngrx/store';
+import { BasePage } from '@shared/components/base';
 import { AccountActions } from '@store/actions/account.actions';
-import { AppState } from '@store/reducers';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -31,9 +30,8 @@ import { map } from 'rxjs';
   templateUrl: './create-entry.component.html',
   styleUrl: './create-entry.component.scss',
 })
-export class CreateEntryComponent {
+export class CreateEntryComponent extends BasePage {
   private activatedRoute = inject(ActivatedRoute);
-  private store$ = inject(Store<AppState>);
   private entryService = inject(EntryService);
   accountIdSignal = toSignal(
     this.activatedRoute.paramMap.pipe(map((params) => params.get('accountId'))),
@@ -44,6 +42,7 @@ export class CreateEntryComponent {
   private newValueSignal = signal<EntryCreateDto | null>(null);
 
   constructor() {
+    super();
     effect(() => {
       const accId = this.accountIdSignal();
       if (accId) {
@@ -71,6 +70,6 @@ export class CreateEntryComponent {
     this.newValueSignal.set(newValue);
   }
   cancel(): void {
-    console.log('cancel');
+    this.navigateBack();
   }
 }

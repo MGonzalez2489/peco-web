@@ -47,6 +47,9 @@ export class EntryFormComponent implements OnInit {
   @Input()
   accountId: string | undefined;
 
+  @Input()
+  isBusy = false;
+
   form = new FormGroup({
     description: new FormControl<string>('', [Validators.required]),
     amount: new FormControl<number>(0, [Validators.required]),
