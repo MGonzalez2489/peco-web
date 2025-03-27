@@ -2,23 +2,27 @@
 @use "tailwindcss";
 @use "primeicons/primeicons.css";
 
-html,
-body {
+html {
+  font-size: 14px;
   margin: 0px;
 }
 
-::ng-deep {
-  .p-ripple.p-menubar-item-link.p-menubar-item-link-active {
-    background: #ffffff;
-    border-color: #2196f3;
-    color: #2196f3;
-  }
+:root {
+  --body-bg: var(--p-surface-50);
+  --body-text-color: var(--p-surface-900);
+  --card-border: 1px solid var(--border-color);
+  --card-bg: var(--p-surface-0);
+  --border-color: var(--p-surface-200);
+  --text-color: var(--p-surface-700);
+  --overlay-background: #ffffff;
 }
 
-::ng-deep {
-  .p-menu-item.p-menu-item-link.p-menu-item-link-active {
-    background: #ffffff;
-    border-color: #2196f3;
-    color: #2196f3;
-  }
+body {
+  margin: 0px;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: var(--body-bg);
+  font-weight: normal;
+  color: var(--body-text-color);
 }

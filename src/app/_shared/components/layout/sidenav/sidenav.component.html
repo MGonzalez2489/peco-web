@@ -1,22 +1,59 @@
-<div class="sidenav">
-  <p-menu [model]="items" styleClass="flex flex-col h-full">
-    <ng-template #start>
-      <div class="bg-primary-100 min-h-16 p-5">App Name</div>
-    </ng-template>
-    <ng-template #submenuheader let-item>
-      <span class="text-primary font-bold">{{ item.label }}</span>
-    </ng-template>
-    <ng-template #item let-item class="grow">
-      <ng-container>
-        <a
-          [routerLink]="item.route"
-          routerLinkActive="active"
-          class="p-menu-item-link"
-        >
-          <span [class]="item.icon"></span>
-          <span class="ml-2">{{ item.label }}</span>
-        </a>
-      </ng-container>
-    </ng-template>
-  </p-menu>
+<div class="sidenav flex flex-col h-full">
+  <!-- Header -->
+  <!-- Content -->
+  <div>
+    <ul class="list-none p-4 m-0">
+      @for (pItem of items; track pItem) {
+        <li>
+          <!-- Title -->
+          <div
+            pRipple
+            class="p-4 flex items-center justify-between text-gray-500 cursor-pointer"
+          >
+            <span class="font-medium">{{ pItem.label }}</span>
+          </div>
+          <ul class="list-none p-0 m-0">
+            @for (cItem of pItem.items; track cItem) {
+              @if (cItem.separator) {
+                <p-divider />
+              } @else if (!cItem.items) {
+                <a
+                  pRipple
+                  class="flex items-center cursor-pointer p-4 rounded-md text-gray-700 hover:bg-gray-100 duration-150 transition-colors"
+                  [routerLink]="cItem.routerLink"
+                >
+                  <span [class]="cItem.icon" class="mr-2"> </span>
+                  <span class="font-medium"> {{ cItem.label }}</span>
+                </a>
+              } @else {
+                <p-accordion value="0">
+                  <p-accordion-panel class="acPanel">
+                    <p-accordion-header>
+                      <div>
+                        <span [class]="cItem.icon" class="mr-2"></span>
+                        <span class="font-medium"> {{ cItem.label }}</span>
+                      </div>
+                    </p-accordion-header>
+                    <p-accordion-content>
+                      @for (nItem of cItem.items; track nItem) {
+                        <a
+                          pRipple
+                          class="flex items-center cursor-pointer p-4 rounded-md text-gray-700 hover:bg-gray-100 duration-150 transition-colors"
+                          [routerLink]="nItem.routerLink"
+                        >
+                          <span [class]="nItem.icon" class="mr-2"></span>
+                          <span class="font-medium"> {{ nItem.label }}</span>
+                        </a>
+                      }
+                    </p-accordion-content>
+                  </p-accordion-panel>
+                </p-accordion>
+              }
+            }
+          </ul>
+        </li>
+      }
+    </ul>
+  </div>
+  <!-- Footer -->
 </div>

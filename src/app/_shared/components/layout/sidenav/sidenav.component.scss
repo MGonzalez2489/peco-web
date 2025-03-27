@@ -1,13 +1,19 @@
 .sidenav {
-  height: 100%;
-  width: 300px;
-  transition: 0.4s cubic-bezier(0.36, -0.01, 0, 0.77);
+  background-color: var(--card-bg);
+  border: var(--card-border);
+  // padding: 2rem;
+  margin-bottom: 1rem;
+  // border-radius: 10px;
+  width: 20rem;
 }
 
 .sidenav.collapsed {
   width: 0px;
   visibility: collapse;
   opacity: 0;
+}
+.acPanel {
+  border: none !important;
 }
 
 .active {
