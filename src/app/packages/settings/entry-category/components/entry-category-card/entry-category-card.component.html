@@ -1,4 +1,4 @@
-<div class="flex items-center justify-between px-5 py-3 rounded-md">
+<div class="flex items-center w-full justify-between px-5 py-3 rounded-md">
   @if (mode() === "read") {
     @let category = categorySignal();
     <h3>{{ category?.name | titlecase }}</h3>

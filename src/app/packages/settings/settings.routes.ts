@@ -5,23 +5,20 @@ export const routes: Routes = [
     path: '',
     loadComponent: () =>
       import('./settings.component').then((c) => c.SettingsComponent),
+    title: 'Configuracion',
     children: [
-      { path: '', pathMatch: 'full', redirectTo: '' },
+      { path: '', pathMatch: 'full', redirectTo: 'profile' },
       {
         path: 'profile',
         loadComponent: () =>
-          import('./pages/profile/profile.component').then(
-            (c) => c.ProfileComponent,
-          ),
-        title: 'Perfil',
+          import('./profile/profile.component').then((c) => c.ProfileComponent),
       },
       {
         path: 'categories',
         loadComponent: () =>
-          import('./pages/categories/categories.component').then(
+          import('./entry-category/categories.component').then(
             (c) => c.CategoriesComponent,
           ),
-        title: 'Categorias',
       },
     ],
   },

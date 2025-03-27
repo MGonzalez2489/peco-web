@@ -6,29 +6,29 @@ export class CustomValidators {
       const sourceCtrl = control.get(source);
       const targetCtrl = control.get(target);
 
-      if (sourceCtrl && targetCtrl && sourceCtrl.value !== targetCtrl.value) {
+      if (!sourceCtrl || !targetCtrl) return null;
+
+      const sValue = sourceCtrl.value;
+      const tValue = targetCtrl.value;
+
+      if (!sValue || !tValue) return null;
+
+      if (tValue !== sValue) {
         sourceCtrl.setErrors({ mismatch: true });
         targetCtrl.setErrors({ mismatch: true });
         return { mismatch: true };
-      } else {
-        if (
-          sourceCtrl &&
-          sourceCtrl.errors &&
-          sourceCtrl.hasError('mismatch')
-        ) {
-          delete sourceCtrl.errors['mismatch'];
-          sourceCtrl.updateValueAndValidity();
-        }
-        if (
-          targetCtrl &&
-          targetCtrl.errors &&
-          targetCtrl.hasError('mismatch')
-        ) {
-          delete targetCtrl.errors['mismatch'];
-          targetCtrl.updateValueAndValidity();
-        }
-        return null;
       }
+
+      if (sourceCtrl.hasError('mismatch')) {
+        delete sourceCtrl!.errors!['mismatch'];
+        sourceCtrl.updateValueAndValidity();
+      }
+      if (targetCtrl.hasError('mismatch')) {
+        delete targetCtrl!.errors!['mismatch'];
+        targetCtrl.updateValueAndValidity();
+      }
+
+      return null;
     };
   }
 }

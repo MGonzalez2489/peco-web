@@ -9,15 +9,14 @@ import {
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { UpdateUserDto } from '@settings/dto/user.dto';
 import { UserActions } from '@store/actions/profile.actions';
 import { AppState } from '@store/reducers';
 import { selectUser } from '@store/selectors';
 import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
+import { UpdateUserDto } from './dto/user.dto';
 
 @Component({
   selector: 'app-profile',
@@ -26,7 +25,6 @@ import { InputTextModule } from 'primeng/inputtext';
     InputTextModule,
     DatePickerModule,
     FloatLabelModule,
-    CardModule,
     ButtonModule,
   ],
   templateUrl: './profile.component.html',

@@ -3,7 +3,7 @@ import { SearchDto } from '@core/models/dtos/search';
 import { UiService } from '@core/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { UserService } from '@settings/services';
+import { UserService } from '@settings/profile/profile.service';
 import { AccountActions } from '@store/actions/account.actions';
 import { AuthActions } from '@store/actions/auth.actions';
 import { EntryCategoryActions } from '@store/actions/entry-category.actions';

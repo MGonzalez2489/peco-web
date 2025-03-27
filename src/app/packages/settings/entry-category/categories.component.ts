@@ -12,16 +12,17 @@ import { DividerModule } from 'primeng/divider';
 import { PanelModule } from 'primeng/panel';
 import { TabsModule } from 'primeng/tabs';
 
-import { TitleCasePipe } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 import { Actions, ofType } from '@ngrx/effects';
 import { EntryCategoryActions } from '@store/actions/entry-category.actions';
 import { DialogModule } from 'primeng/dialog';
 
-import { EntryCategoryCardComponent } from '@settings/components/entry-category-card/entry-category-card.component';
-import { EntryCategoryFormComponent } from '@settings/components/entry-category-form/entry-category-form.component';
+import { MenuItem } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MenuModule } from 'primeng/menu';
+import { EntryCategoryFormComponent } from './components/entry-category-form/entry-category-form.component';
+import { EntryCategoryCardComponent } from './components/entry-category-card/entry-category-card.component';
 
 @Component({
   selector: 'app-categories',
@@ -34,9 +35,11 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
     ButtonGroupModule,
     FormsModule,
     TabsModule,
-    TitleCasePipe,
+    // TitleCasePipe,
     EntryCategoryCardComponent,
     DialogModule,
+    MenuModule,
+    PanelModule,
   ],
   providers: [DialogService],
   templateUrl: './categories.component.html',
@@ -51,6 +54,9 @@ export class CategoriesComponent {
     this.store$.select(selectEntryCategories),
     { initialValue: [] },
   );
+  //
+  catMenuItems: MenuItem[] = [];
+  selectedItem: EntryCategory | undefined;
 
   ref: DynamicDialogRef<EntryCategoryFormComponent> | undefined;
 
@@ -62,6 +68,17 @@ export class CategoriesComponent {
           this.closeDialog();
         });
     });
+    effect(() => {
+      const cats = this.categories();
+      this.catMenuItems = cats.map((f) => {
+        return { label: f.name, id: f.publicId };
+      });
+      this.selectMenuItem(this.catMenuItems[0]);
+    });
+  }
+  selectMenuItem(item: MenuItem) {
+    this.selectedItem = this.categories().find((f) => f.publicId === item.id);
+    console.log('selected item', this.selectedItem);
   }
 
   addNewCategory(parent?: EntryCategory) {

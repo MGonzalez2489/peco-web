@@ -1,0 +1,24 @@
+<div class="flex h-max bg-white">
+  <p-menu [model]="catMenuItems" class="bg-green-100">
+    <ng-template #item let-item>
+      <a
+        pRipple
+        class="flex items-center p-menu-item-link"
+        (click)="selectMenuItem(item)"
+      >
+        <span [class]="item.icon"></span>
+        <span class="ml-2">{{ item.label }}</span>
+      </a>
+    </ng-template>
+  </p-menu>
+  <div class="grow">
+    @if (selectedItem) {
+      <p-panel>
+        <app-entry-category-card [category]="selectedItem!" />
+        @for (catSub of selectedItem.subCategories; track catSub.publicId) {
+          <app-entry-category-card [category]="catSub" />
+        }
+      </p-panel>
+    }
+  </div>
+</div>

@@ -88,14 +88,9 @@ export class NavbarComponent {
   private generateMenuItems(): MenuItem[] {
     return [
       {
-        label: 'Perfil',
-        icon: PrimeIcons.USER,
-        routerLink: '/settings/profile',
-      },
-      {
-        label: 'Categorias',
-        icon: PrimeIcons.RECEIPT,
-        routerLink: '/settings/categories',
+        label: 'Configuracion',
+        icon: PrimeIcons.COG,
+        routerLink: '/settings',
       },
       {
         separator: true,

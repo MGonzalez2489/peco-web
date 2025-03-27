@@ -45,7 +45,7 @@ const components = [
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent extends BasePage {
-  registerForm = new FormGroup(
+  form = new FormGroup(
     {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
@@ -55,11 +55,11 @@ export class RegisterComponent extends BasePage {
   );
 
   submit(): void {
-    if (this.registerForm.invalid) return;
+    if (this.form.invalid) return;
 
     const request: LoginDto = {
-      email: this.registerForm.value.email!,
-      password: this.registerForm.value.password!,
+      email: this.form.value.email!,
+      password: this.form.value.password!,
     };
 
     this.store$.dispatch(AuthActions.register({ data: request }));
