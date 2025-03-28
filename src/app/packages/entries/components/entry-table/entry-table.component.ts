@@ -9,12 +9,12 @@ import { PaginatedComponent } from '@shared/components/base';
 import { TablePlaceholderComponent } from '@shared/components/data';
 import { SelectAccountComponent } from '@shared/components/form';
 import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
 import { EntryFilterDateComponent } from '../entry-filter-date/entry-filter-date.component';
+import { PanelModule } from 'primeng/panel';
 
 @Component({
   selector: 'app-entry-table',
@@ -27,11 +27,11 @@ import { EntryFilterDateComponent } from '../entry-filter-date/entry-filter-date
     AmountComponent,
     DatePipe,
     TitleCasePipe,
-    CardModule,
     TablePlaceholderComponent,
     SelectAccountComponent,
     EntryFilterDateComponent,
     FormsModule,
+    PanelModule,
   ],
   templateUrl: './entry-table.component.html',
   styleUrl: './entry-table.component.scss',

@@ -6,8 +6,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Actions, ofType } from '@ngrx/effects';
-import { CardModule } from 'primeng/card';
 
+import { AccountCreateDto } from '@accounts/dto';
 import { AccountType } from '@core/models/entities';
 import { BasePage } from '@shared/components/base';
 import { SelectAccountTypeComponent } from '@shared/components/form';
@@ -23,13 +23,12 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
+import { PanelModule } from 'primeng/panel';
 import { SelectModule } from 'primeng/select';
-import { AccountCreateDto } from '@accounts/dto';
 
 @Component({
   selector: 'app-create-account',
   imports: [
-    CardModule,
     ReactiveFormsModule,
     InputTextModule,
     InputNumberModule,
@@ -42,6 +41,7 @@ import { AccountCreateDto } from '@accounts/dto';
     InvalidDirtyDirective,
     ValidationErrorDirective,
     ErrorMessageComponent,
+    PanelModule,
   ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss',

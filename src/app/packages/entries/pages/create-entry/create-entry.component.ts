@@ -8,17 +8,16 @@ import { EntryService } from '@entries/entry.service';
 import { BasePage } from '@shared/components/base';
 import { AccountActions } from '@store/actions/account.actions';
 import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+import { PanelModule } from 'primeng/panel';
 import { SelectModule } from 'primeng/select';
 import { map } from 'rxjs';
 
 @Component({
   selector: 'app-create-entry',
   imports: [
-    CardModule,
     ReactiveFormsModule,
     FloatLabelModule,
     InputNumberModule,
@@ -26,6 +25,7 @@ import { map } from 'rxjs';
     InputTextModule,
     SelectModule,
     EntryFormComponent,
+    PanelModule,
   ],
   templateUrl: './create-entry.component.html',
   styleUrl: './create-entry.component.scss',

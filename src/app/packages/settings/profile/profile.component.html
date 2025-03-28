@@ -1,74 +1,76 @@
-<div class="flex justify-center">
-  <form
-    [formGroup]="form"
-    class="size-1/2"
-    (ngSubmit)="submit()"
-    #formDirective="ngForm"
-  >
-    <!-- firstName -->
-    <div class="mb-6">
-      <p-floatlabel>
-        <input
-          pInputText
-          formControlName="firstName"
-          id="firstName"
-          fluid="true"
-          placeholder="Nombre"
-        />
-        <label for="firstName">Nombre</label>
-      </p-floatlabel>
-    </div>
-    <!-- lastName -->
-    <div class="mb-6">
-      <p-floatlabel>
-        <input
-          pInputText
-          formControlName="lastName"
-          id="lastName"
-          fluid="true"
-          placeholder="Apellidos"
-        />
-        <label for="lastName">Apellidos</label>
-      </p-floatlabel>
-    </div>
-    <!-- dateOfBirth -->
-    <div class="mb-6">
-      <p-floatlabel>
-        <p-datepicker
-          formControlName="dateOfBirth"
-          showIcon
-          fluid="true"
-          iconDisplay="input"
-          inputId="dateOfBirth"
-          id="dateOfBirth"
-        />
-        <label for="dateOfBirth">Fecha de Nacimiento</label>
-      </p-floatlabel>
-    </div>
+<p-panel header="Perfil">
+  <div class="flex justify-center">
+    <form
+      [formGroup]="form"
+      class="size-1/2"
+      (ngSubmit)="submit()"
+      #formDirective="ngForm"
+    >
+      <!-- firstName -->
+      <div class="mb-6">
+        <p-floatlabel>
+          <input
+            pInputText
+            formControlName="firstName"
+            id="firstName"
+            fluid="true"
+            placeholder="Nombre"
+          />
+          <label for="firstName">Nombre</label>
+        </p-floatlabel>
+      </div>
+      <!-- lastName -->
+      <div class="mb-6">
+        <p-floatlabel>
+          <input
+            pInputText
+            formControlName="lastName"
+            id="lastName"
+            fluid="true"
+            placeholder="Apellidos"
+          />
+          <label for="lastName">Apellidos</label>
+        </p-floatlabel>
+      </div>
+      <!-- dateOfBirth -->
+      <div class="mb-6">
+        <p-floatlabel>
+          <p-datepicker
+            formControlName="dateOfBirth"
+            showIcon
+            fluid="true"
+            iconDisplay="input"
+            inputId="dateOfBirth"
+            id="dateOfBirth"
+          />
+          <label for="dateOfBirth">Fecha de Nacimiento</label>
+        </p-floatlabel>
+      </div>
 
-    <!-- Options -->
-    @if (mode() === "edit") {
-      <div class="mt-10 flex justify-center gap-x-8">
-        <p-button
-          type="button"
-          size="small"
-          pButton
-          label="Cancelar"
-          severity="secondary"
-          (click)="cancel()"
-        />
-        <p-button type="submit" size="small" pButton label="Actualizar" />
-      </div>
-    } @else {
-      <div class="mt-10 flex justify-center gap-x-8">
-        <p-button
-          type="button"
-          size="small"
-          pButton
-          label="Editar"
-          (click)="mode.set('edit')"
-        />
-      </div>
-    }
-  </form>
-</div>
+      <!-- Options -->
+      @if (mode() === "edit") {
+        <div class="mt-10 flex justify-center gap-x-8">
+          <p-button
+            type="button"
+            size="small"
+            pButton
+            label="Cancelar"
+            severity="secondary"
+            (click)="cancel()"
+          />
+          <p-button type="submit" size="small" pButton label="Actualizar" />
+        </div>
+      } @else {
+        <div class="mt-10 flex justify-center gap-x-8">
+          <p-button
+            type="button"
+            size="small"
+            pButton
+            label="Editar"
+            (click)="mode.set('edit')"
+          />
+        </div>
+      }
+    </form>
+  </div>
+</p-panel>

@@ -41,6 +41,7 @@ export class SidenavComponent {
           route: '/planned-entries',
           routerLink: '/planned-entries',
           icon: PrimeIcons.LIST,
+          disabled: true,
         },
         { separator: true },
         {

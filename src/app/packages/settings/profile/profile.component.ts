@@ -16,6 +16,7 @@ import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
+import { PanelModule } from 'primeng/panel';
 import { UpdateUserDto } from './dto/user.dto';
 
 @Component({
@@ -26,6 +27,7 @@ import { UpdateUserDto } from './dto/user.dto';
     DatePickerModule,
     FloatLabelModule,
     ButtonModule,
+    PanelModule,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',

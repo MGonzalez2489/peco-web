@@ -2,7 +2,6 @@ import { Component, inject, signal } from '@angular/core';
 import { Account } from '@core/models/entities';
 
 import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { FormsModule } from '@angular/forms';
@@ -14,6 +13,7 @@ import { SearchDto } from '@core/models/dtos/search';
 //
 import { BasePage } from '@shared/components/base';
 import { InputSearchComponent } from '@shared/components/form/input-search/input-search.component';
+import { PanelModule } from 'primeng/panel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { AccountService } from './account.service';
 import { AccountTableComponent } from './components/account-table/account-table.component';
@@ -21,7 +21,6 @@ import { AccountTableComponent } from './components/account-table/account-table.
 @Component({
   selector: 'app-accounts',
   imports: [
-    CardModule,
     InputTextModule,
     ButtonModule,
     CheckboxModule,
@@ -30,6 +29,7 @@ import { AccountTableComponent } from './components/account-table/account-table.
     InputSearchComponent,
     ProgressSpinnerModule,
     AccountTableComponent,
+    PanelModule,
   ],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss',

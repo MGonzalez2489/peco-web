@@ -5,11 +5,11 @@
   <p-button icon="pi pi-plus" label="Nuevo" [routerLink]="['/accounts/new']" />
 </div>
 
-<p-card>
+<p-panel>
   <app-account-table
     [loadingData]="isBusy()"
     [accounts]="accounts()"
     [filters]="filters"
     (search)="onSearch($event)"
   />
-</p-card>
+</p-panel>
