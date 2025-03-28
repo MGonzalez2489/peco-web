@@ -1,0 +1,54 @@
+<ng-container
+  *ngTemplateOutlet="
+    type() === 'title'
+      ? title
+      : type() === 'link'
+        ? link
+        : type() === 'accordion'
+          ? accordion
+          : separator
+  "
+></ng-container>
+
+<ng-template #title>
+  <div
+    pRipple
+    class="p-4 flex items-center justify-between text-gray-500 cursor-pointer"
+  >
+    <span class="font-medium">{{ menuItem()?.title }}</span>
+  </div>
+</ng-template>
+
+<ng-template #link>
+  <a
+    pRipple
+    class="flex items-center cursor-pointer p-4 rounded-md text-gray-700 hover:bg-gray-100 duration-150 transition-colors"
+    [routerLink]="menuItem()?.routerLink"
+    routerLinkActive="bg-green-100"
+  >
+    <span [class]="menuItem()?.icon" class="mr-2"> </span>
+    <span class="font-medium"> {{ menuItem()?.label }}</span>
+  </a>
+</ng-template>
+
+<ng-template #accordion>
+  <p-accordion [(value)]="activeIndex">
+    <p-accordion-panel class="no-border-panel" [value]="0">
+      <p-accordion-header styleClass="hover:bg-gray-100">
+        <div>
+          <span [class]="menuItem()?.icon" class="mr-2"></span>
+          <span class="font-medium"> {{ menuItem()?.label }}</span>
+        </div>
+      </p-accordion-header>
+      <p-accordion-content>
+        @for (nItem of menuItem()?.items; track nItem) {
+          <app-sidenav-item [item]="nItem" />
+        }
+      </p-accordion-content>
+    </p-accordion-panel>
+  </p-accordion>
+</ng-template>
+
+<ng-template #separator>
+  <p-divider />
+</ng-template>

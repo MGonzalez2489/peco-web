@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { AccordionModule } from 'primeng/accordion';
+import { MenuItem } from 'primeng/api';
 
 import { PrimeIcons } from 'primeng/api';
-import { RouterLink } from '@angular/router';
 import { DividerModule } from 'primeng/divider';
+import { SidenavItemComponent } from '../sidenav-item/sidenav-item.component';
 
 @Component({
   selector: 'app-sidenav',
-  imports: [AccordionModule, RouterLink, DividerModule],
+  imports: [AccordionModule, DividerModule, SidenavItemComponent],
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.scss',
 })
 export class SidenavComponent {
   items: MenuItem[] = [
     {
-      label: 'Navigate',
+      title: 'Navigate',
       items: [
         {
           label: 'Inicio',
@@ -45,10 +45,15 @@ export class SidenavComponent {
         },
         { separator: true },
         {
+          id: '1',
           label: 'Configuracion',
           icon: PrimeIcons.COG,
           items: [
-            { label: 'Perfil', routerLink: '/settings', icon: PrimeIcons.USER },
+            {
+              label: 'Perfil',
+              routerLink: '/settings/profile',
+              icon: PrimeIcons.USER,
+            },
             {
               label: 'Categorias',
               routerLink: '/settings/categories',
