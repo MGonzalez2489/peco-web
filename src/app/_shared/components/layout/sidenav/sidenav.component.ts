@@ -36,7 +36,6 @@ export class SidenavComponent {
           icon: PrimeIcons.SHOP,
         },
         { separator: true },
-
         {
           label: 'Planear registros',
           route: '/planned-entries',

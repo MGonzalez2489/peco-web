@@ -14,6 +14,7 @@ import { AppState } from '@store/reducers';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { IftaLabelModule } from 'primeng/iftalabel';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
   selector: 'app-entry-category-card',
@@ -25,6 +26,7 @@ import { IftaLabelModule } from 'primeng/iftalabel';
     InvalidDirtyDirective,
     ValidationErrorDirective,
     TitleCasePipe,
+    FloatLabelModule,
   ],
   templateUrl: './entry-category-card.component.html',
   styleUrl: './entry-category-card.component.scss',

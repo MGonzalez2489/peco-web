@@ -1,19 +1,20 @@
-<div class="flex h-max bg-white">
-  <p-menu [model]="catMenuItems" class="bg-green-100">
-    <ng-template #item let-item>
-      <a
-        pRipple
-        class="flex items-center p-menu-item-link"
-        (click)="selectMenuItem(item)"
-      >
-        <span [class]="item.icon"></span>
-        <span class="ml-2">{{ item.label }}</span>
-      </a>
-    </ng-template>
-  </p-menu>
+<div class="flex gap-5">
+  <p-panel header="Categorias" styleClass="rounded-xs">
+    <ul>
+      @for (cat of categories(); track cat) {
+        <li
+          class="cursor-pointer rounded-sm p-4 hover:bg-gray-100"
+          [ngClass]="{ active: selectedItem?.publicId === cat.publicId }"
+          (click)="selectedItem = cat"
+        >
+          {{ cat.name }}
+        </li>
+      }
+    </ul>
+  </p-panel>
   <div class="grow">
     @if (selectedItem) {
-      <p-panel>
+      <p-panel header="Detalle">
         <app-entry-category-card [category]="selectedItem!" />
         @for (catSub of selectedItem.subCategories; track catSub.publicId) {
           <app-entry-category-card [category]="catSub" />

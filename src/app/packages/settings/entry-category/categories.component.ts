@@ -14,14 +14,12 @@ import { TabsModule } from 'primeng/tabs';
 
 import { toSignal } from '@angular/core/rxjs-interop';
 
-import { Actions, ofType } from '@ngrx/effects';
-import { EntryCategoryActions } from '@store/actions/entry-category.actions';
 import { DialogModule } from 'primeng/dialog';
 
+import { NgClass } from '@angular/common';
 import { MenuItem } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService } from 'primeng/dynamicdialog';
 import { MenuModule } from 'primeng/menu';
-import { EntryCategoryFormComponent } from './components/entry-category-form/entry-category-form.component';
 import { EntryCategoryCardComponent } from './components/entry-category-card/entry-category-card.component';
 
 @Component({
@@ -40,6 +38,7 @@ import { EntryCategoryCardComponent } from './components/entry-category-card/ent
     DialogModule,
     MenuModule,
     PanelModule,
+    NgClass,
   ],
   providers: [DialogService],
   templateUrl: './categories.component.html',
@@ -47,68 +46,18 @@ import { EntryCategoryCardComponent } from './components/entry-category-card/ent
 })
 export class CategoriesComponent {
   private store$ = inject(Store<AppState>);
-  private actions$ = inject(Actions);
-  private dialogService = inject(DialogService);
 
   categories: Signal<EntryCategory[]> = toSignal(
     this.store$.select(selectEntryCategories),
     { initialValue: [] },
   );
-  //
   catMenuItems: MenuItem[] = [];
   selectedItem: EntryCategory | undefined;
 
-  ref: DynamicDialogRef<EntryCategoryFormComponent> | undefined;
-
   constructor() {
     effect(() => {
-      this.actions$
-        .pipe(ofType(EntryCategoryActions.createEntryCategorySuccess))
-        .subscribe(() => {
-          this.closeDialog();
-        });
-    });
-    effect(() => {
       const cats = this.categories();
-      this.catMenuItems = cats.map((f) => {
-        return { label: f.name, id: f.publicId };
-      });
-      this.selectMenuItem(this.catMenuItems[0]);
+      this.selectedItem = cats[0];
     });
-  }
-  selectMenuItem(item: MenuItem) {
-    this.selectedItem = this.categories().find((f) => f.publicId === item.id);
-    console.log('selected item', this.selectedItem);
-  }
-
-  addNewCategory(parent?: EntryCategory) {
-    this.ref = this.dialogService.open(EntryCategoryFormComponent, {
-      inputValues: { parent },
-      header: 'Crear Categoria',
-      width: '20vw',
-      closeOnEscape: true,
-      focusOnShow: true,
-      modal: true,
-    });
-
-    const dialogRef = this.dialogService.dialogComponentRefMap.get(this.ref);
-
-    dialogRef?.changeDetectorRef.detectChanges();
-    const instance = dialogRef?.instance.componentRef
-      ?.instance as EntryCategoryFormComponent;
-
-    instance.save.subscribe((data) => {
-      if (data) {
-        this.store$.dispatch(
-          EntryCategoryActions.createEntryCategory({ category: data }),
-        );
-      } else {
-        this.closeDialog();
-      }
-    });
-  }
-  private closeDialog() {
-    this.dialogService.getInstance(this.ref!).close();
-    this.ref = undefined;
   }
 }
