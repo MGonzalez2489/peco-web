@@ -33,7 +33,7 @@ export class SidenavComponent {
           label: 'Registros',
           route: '/entries',
           routerLink: '/entries',
-          icon: PrimeIcons.SHOP,
+          icon: PrimeIcons.RECEIPT,
         },
         { separator: true },
         {
@@ -57,7 +57,7 @@ export class SidenavComponent {
             {
               label: 'Categorias',
               routerLink: '/settings/categories',
-              icon: PrimeIcons.INFO,
+              icon: PrimeIcons.TAGS,
             },
           ],
         },
