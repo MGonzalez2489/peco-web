@@ -7,6 +7,7 @@ import { AmountComponent } from '@shared/components/amount/amount.component';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { AccountGraphComponent } from '../account-graph/account-graph.component';
 
 @Component({
   selector: 'app-account-card',
@@ -18,6 +19,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     AmountComponent,
     ButtonModule,
     RouterLink,
+    AccountGraphComponent,
   ],
   templateUrl: './account-card.component.html',
   styleUrl: './account-card.component.scss',

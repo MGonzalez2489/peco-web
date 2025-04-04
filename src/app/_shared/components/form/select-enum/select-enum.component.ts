@@ -68,6 +68,9 @@ export class SelectEnumComponent
   @Input()
   inpId = 'inputId';
 
+  @Input()
+  labelType: 'float' | 'inline' = 'float';
+
   options: SelectItem[] = [];
   formControl = new FormControl();
 

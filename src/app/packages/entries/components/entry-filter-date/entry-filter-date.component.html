@@ -1,10 +1,7 @@
-<div>
-  <p-select
-    [options]="filterOptions"
-    [formControl]="selected"
-    optionLabel="label"
-    (onChange)="onSelect($event)"
-    placeholder="Filtrar"
-    class="w-full md:w-56"
-  />
-</div>
+<app-select-enum
+  [formControl]="formControl"
+  [enum]="enum"
+  [inpId]="'dateFilter'"
+  [label]="'Mostrar'"
+  [labelType]="'inline'"
+/>

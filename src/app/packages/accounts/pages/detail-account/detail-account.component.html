@@ -1,11 +1,26 @@
 <div class="flex flex-col gap-4">
   <!-- Account details -->
   <app-account-card [account]="account()"> </app-account-card>
-  <!-- Entries -->
-  <app-entry-table
-    [loadingData]="isBusy()"
-    [account]="account()"
-    [entries]="entries()"
-    (search)="onSearch($event)"
-  ></app-entry-table>
+
+  <div class="card">
+    <p-tabs value="0">
+      <p-tablist>
+        <p-tab value="0">Proyeccion</p-tab>
+        <p-tab value="1">Registros</p-tab>
+      </p-tablist>
+      <p-tabpanels>
+        <p-tabpanel value="0">
+          <app-entries-graph [kpis]="kpis()!" [isLoading]="isBusy()" />
+        </p-tabpanel>
+        <p-tabpanel value="1">
+          <app-entry-table
+            [loadingData]="isBusy()"
+            [account]="account()"
+            [entries]="entries()"
+            (search)="onSearch($event)"
+          />
+        </p-tabpanel>
+      </p-tabpanels>
+    </p-tabs>
+  </div>
 </div>

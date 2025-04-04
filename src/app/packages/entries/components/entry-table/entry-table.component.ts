@@ -12,9 +12,8 @@ import { ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { PaginatorModule } from 'primeng/paginator';
-import { TableModule } from 'primeng/table';
-import { EntryFilterDateComponent } from '../entry-filter-date/entry-filter-date.component';
 import { PanelModule } from 'primeng/panel';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-entry-table',
@@ -29,7 +28,6 @@ import { PanelModule } from 'primeng/panel';
     TitleCasePipe,
     TablePlaceholderComponent,
     SelectAccountComponent,
-    EntryFilterDateComponent,
     FormsModule,
     PanelModule,
   ],

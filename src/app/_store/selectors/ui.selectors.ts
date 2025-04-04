@@ -13,3 +13,8 @@ export const selectErrorMessage = createSelector(
   uiState,
   (state: UiState) => state.errorMessage,
 );
+
+export const selectPeriod = createSelector(
+  uiState,
+  (state: UiState) => state.period,
+);

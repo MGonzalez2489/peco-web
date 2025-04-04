@@ -2,28 +2,29 @@ import {
   Component,
   EventEmitter,
   forwardRef,
-  Input,
   OnInit,
   Output,
+  signal,
 } from '@angular/core';
 import {
-  ControlValueAccessor,
-  FormControl,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { EntrySearchDto } from '@core/models/dtos/search';
-import { SelectChangeEvent, SelectModule } from 'primeng/select';
+import { DateFilterOptionsEnum } from '@core/enums';
+import { DateFilterDto } from '@entries/dto';
+import { SelectEnumComponent } from '@shared/components/form';
+import { BaseFormControl } from '@shared/components/form/base-form-control';
+import { SelectModule } from 'primeng/select';
 
-interface EntryFilterByDate {
-  key: string;
-  label: string;
+interface DateValues {
+  sDate: Date;
+  eDate: Date;
 }
 
 @Component({
   selector: 'app-entry-filter-date',
-  imports: [SelectModule, ReactiveFormsModule],
+  imports: [SelectModule, ReactiveFormsModule, SelectEnumComponent],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -41,76 +42,56 @@ interface EntryFilterByDate {
   templateUrl: './entry-filter-date.component.html',
   styleUrl: './entry-filter-date.component.scss',
 })
-export class EntryFilterDateComponent implements OnInit, ControlValueAccessor {
+export class EntryFilterDateComponent
+  extends BaseFormControl
+  implements OnInit
+{
   //TODO: The start day of the week is sunday, implement an option to select that
 
-  private defaultValue = 'month';
-  filterOptions: EntryFilterByDate[] = [
-    {
-      key: 'today',
-      label: 'Hoy',
-    },
-    {
-      key: 'week',
-      label: 'Esta Semana',
-    },
-    {
-      key: 'month',
-      label: 'Este mes',
-    },
-    {
-      key: 'year',
-      label: 'Este año',
-    },
-  ];
-  selected = new FormControl<EntryFilterByDate | null>(null);
+  enum = DateFilterOptionsEnum;
+  selectedValue = signal<string>('WEEK');
 
-  @Input()
-  search: EntrySearchDto | null = null;
   @Output()
-  onChangeSearch = new EventEmitter<EntrySearchDto>();
+  changeSearch = new EventEmitter<DateFilterDto>();
 
   constructor() {
-    const value = this.filterOptions[2];
-    this.selected.setValue(value);
+    super();
+    this.formControl.valueChanges.subscribe((value) => {
+      this.processSelection(value);
+    });
   }
-  ngOnInit(): void {
-    this.processSelection(this.defaultValue);
-  }
-  onSelect(event: SelectChangeEvent) {
-    this.selected.setValue(event.value);
-
-    this.processSelection(event.value.key);
+  override ngOnInit(): void {
+    this.formControl.setValue(this.selectedValue());
   }
 
   processSelection(key: string) {
-    // const option = this.filterOptions.find((f) => f.key === key)!;
-
+    key = key.toLowerCase();
+    let dateValues;
     switch (key) {
       case 'today':
-        this.generateTodayFilter();
+        dateValues = this.generateTodayFilter();
         break;
       case 'week':
-        this.generateWeekFilter();
+        dateValues = this.generateWeekFilter();
         break;
       case 'month':
-        this.generateMonthFilter();
+        dateValues = this.generateMonthFilter();
         break;
       case 'year':
-        this.generateYearFilter();
+        dateValues = this.generateYearFilter();
         break;
       default:
         break;
     }
-    this.onChangeSearch.emit(this.search!);
+    this.assignvalues(dateValues!);
   }
-  private generateTodayFilter() {
-    let sDate: Date = new Date();
+  private generateTodayFilter(): DateValues {
+    const sDate: Date = new Date();
     sDate.setHours(0, 0, 0);
 
-    let eDate: Date = new Date();
+    const eDate: Date = new Date();
     eDate.setHours(23, 59, 59);
-    this.assignvalues(sDate, eDate);
+    return { sDate, eDate };
   }
   private generateWeekFilter() {
     const today = new Date();
@@ -119,7 +100,7 @@ export class EntryFilterDateComponent implements OnInit, ControlValueAccessor {
 
     const eDate = new Date(today.setDate(today.getDate() - today.getDay() + 6));
     eDate.setHours(23, 59, 59);
-    this.assignvalues(sDate, eDate);
+    return { sDate, eDate };
   }
   private generateMonthFilter() {
     const today = new Date();
@@ -128,7 +109,8 @@ export class EntryFilterDateComponent implements OnInit, ControlValueAccessor {
 
     const eDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
     eDate.setHours(23, 59, 59);
-    this.assignvalues(sDate, eDate);
+
+    return { sDate, eDate };
   }
   private generateYearFilter() {
     const today = new Date();
@@ -139,30 +121,15 @@ export class EntryFilterDateComponent implements OnInit, ControlValueAccessor {
     const eDate = new Date(today.getFullYear(), 11, 31);
     eDate.setHours(23, 59, 59);
 
-    this.assignvalues(sDate, eDate);
+    return { sDate, eDate };
   }
 
-  private assignvalues(sDate: Date, eDate: Date) {
-    if (this.search) {
-      this.search.fromDate = sDate.toLocaleString();
-      this.search.toDate = eDate.toLocaleString();
-    }
-  }
-
-  //
-  //value accessor
-  onChange = (value: EntryFilterByDate) => {
-    this.selected.setValue(value);
-  };
-  onTouched = () => {};
-
-  writeValue(obj: any): void {
-    if (obj) this.selected.setValue(obj);
-  }
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
+  private assignvalues(dates: DateValues) {
+    const newFilter: DateFilterDto = {
+      from: dates.sDate.toLocaleString(),
+      to: dates.eDate.toLocaleString(),
+      type: this.formControl.value,
+    };
+    this.changeSearch.emit(newFilter);
   }
 }
