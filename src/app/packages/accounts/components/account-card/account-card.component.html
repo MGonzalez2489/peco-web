@@ -1,27 +1,17 @@
-<p-card>
-  <div class="flex gap-5 w-full items-center">
-    <!-- Content and info -->
-    <div class="flex flex-col w-85">
-      <p class="font-semibold text-xl text-pretty">
-        {{ account?.name | titlecase }}
-      </p>
-      <p class="text-sm text-gray-400">
-        {{ account?.type?.displayName }}
-      </p>
-      <div class="flex gap-5 mt-5">
-        <div>
-          <small class="me-2 text-gray-300">Inicial</small>
-          <app-amount [amount]="account?.initialBalance || 0"></app-amount>
-        </div>
-        <div>
-          <small class="me-2 text-gray-300">Actual</small>
-          <app-amount [amount]="account?.balance || 0"></app-amount>
-        </div>
+@if (account) {
+  <p-panel>
+    <ng-template #header>
+      <div class="flex items-center gap-2">
+        <span class="font-bold">{{ account.name | titlecase }}</span>
       </div>
-    </div>
-    <!-- Graph -->
-    @if (account) {
-      <app-account-card-graph [account]="account" />
-    }
-  </div>
-</p-card>
+    </ng-template>
+    <ng-template #footer>
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <span class="text-surface-500 dark:text-surface-400">
+          <small>Balance</small>
+          <app-amount [amount]="account?.initialBalance || 0"></app-amount>
+        </span>
+      </div>
+    </ng-template>
+  </p-panel>
+}

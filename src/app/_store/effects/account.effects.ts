@@ -28,15 +28,15 @@ export class AccountEffects {
   getById$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AccountActions.getById),
-      exhaustMap((action) =>
-        this.accountService
+      exhaustMap((action) => {
+        return this.accountService
           .getById(action.accountId)
           .pipe(
             map((result) =>
               AccountActions.getByIdSuccess({ account: result.data }),
             ),
-          ),
-      ),
+          );
+      }),
     );
   });
 

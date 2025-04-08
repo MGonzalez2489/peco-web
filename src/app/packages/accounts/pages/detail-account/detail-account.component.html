@@ -10,7 +10,7 @@
       </p-tablist>
       <p-tabpanels>
         <p-tabpanel value="0">
-          <app-entries-graph [kpis]="kpis()!" [isLoading]="isBusy()" />
+          <app-account-graph [account]="account()" />
         </p-tabpanel>
         <p-tabpanel value="1">
           <app-entry-table
@@ -24,3 +24,4 @@
     </p-tabs>
   </div>
 </div>
+<pre>aqui: {{ account() | json }}</pre>

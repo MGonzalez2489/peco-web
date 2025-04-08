@@ -1,14 +1,13 @@
 import { AccountCardComponent } from '@accounts/components/account-card/account-card.component';
+import { AccountGraphComponent } from '@accounts/components/account-graph/account-graph.component';
+import { JsonPipe } from '@angular/common';
 import { Component, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { ResultListDto } from '@core/models/dtos';
 import { EntrySearchDto, SearchDto } from '@core/models/dtos/search';
 import { Account, Entry } from '@core/models/entities';
-import {
-  EntriesGraphComponent,
-  EntryTableComponent,
-} from '@entries/components';
+import { EntryTableComponent } from '@entries/components';
 import { EntryKPIDto } from '@entries/dto';
 import { EntryService } from '@entries/entry.service';
 import { BasePage } from '@shared/components/base';
@@ -22,8 +21,9 @@ const primeSources = [EntryTableComponent];
   imports: [
     AccountCardComponent,
     ...primeSources,
-    EntriesGraphComponent,
+    AccountGraphComponent,
     TabsModule,
+    JsonPipe,
   ],
   templateUrl: './detail-account.component.html',
   styleUrl: './detail-account.component.scss',

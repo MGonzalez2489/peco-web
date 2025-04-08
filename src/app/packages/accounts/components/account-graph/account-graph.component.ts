@@ -1,22 +1,86 @@
 import { Component, Input, signal } from '@angular/core';
+import { Chart } from '@core/models/app';
+import { Account } from '@core/models/entities';
 import { EntryKPIDto } from '@entries/dto';
 import { BasePage } from '@shared/components/base';
-import { GraphComponent } from '@shared/components/information';
-import { ChartModule } from 'primeng/chart';
+import { ChartComponent } from '@shared/components/information';
 
 @Component({
   selector: 'app-account-graph',
-  imports: [ChartModule, GraphComponent],
+  imports: [ChartComponent],
   templateUrl: './account-graph.component.html',
   styleUrl: './account-graph.component.scss',
 })
 export class AccountGraphComponent extends BasePage {
   @Input()
-  set accountId(value: string) {
-    this.accId.set(value);
+  set account(value: Account | undefined) {
+    if (value && value.kpis) {
+      this.initChart(value.kpis);
+    }
   }
 
-  // private entryService = inject(EntryService);
-  kpis = signal<EntryKPIDto | undefined>(undefined);
+  chart: Chart | undefined = undefined;
   accId = signal<string | undefined>(undefined);
+
+  initChart(kpis: EntryKPIDto | undefined) {
+    if (!kpis) return;
+
+    const nChart = new Chart();
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--p-text-color');
+    const colorSaturation = 200;
+    const greenText = `--p-green-${colorSaturation}`;
+    const redText = `--p-red-${colorSaturation}`;
+
+    const firstValue = kpis.datasets[0].data[0];
+
+    const sum = kpis.datasets[0].data.reduce((a, b) => {
+      return a + b;
+    }, 0);
+
+    const graphColor = sum > firstValue ? greenText : redText;
+
+    nChart.data = {
+      labels: kpis.labels,
+      datasets: [
+        {
+          label: kpis.datasets[0].label,
+          data: kpis.datasets[0].data,
+          fill: false,
+          borderColor: documentStyle.getPropertyValue(graphColor),
+          tension: 0.1,
+          pointRadius: 0, // Esto oculta los puntos
+        },
+      ],
+    };
+
+    nChart.options = {
+      maintainAspectRatio: true,
+      aspectRatio: 0.6,
+      plugins: {
+        legend: {
+          display: false,
+          labels: {
+            color: textColor,
+          },
+        },
+      },
+      scales: {
+        x: {
+          pointLabel: { display: false },
+          ticks: { display: false },
+          grid: { display: false },
+          border: { display: false },
+        },
+        y: {
+          pointLabel: { display: false },
+          ticks: { display: false },
+          grid: { display: false },
+          border: { display: false },
+        },
+      },
+    };
+
+    this.chart = nChart;
+  }
 }

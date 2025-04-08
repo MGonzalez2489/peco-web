@@ -1,4 +1,4 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Chart } from '@core/models/app';
 import { Account } from '@core/models/entities';
 import { EntryKPIDto } from '@entries/dto';
@@ -15,11 +15,9 @@ export class AccountCardGraphComponent {
   set account(value: Account | undefined) {
     if (value && value.kpis) {
       this.initChart(value.kpis);
-      this.kpis.set(value.kpis);
     }
   }
 
-  kpis = signal<EntryKPIDto | undefined>(undefined);
   chart: Chart | undefined = undefined;
 
   initChart(kpis: EntryKPIDto | undefined) {

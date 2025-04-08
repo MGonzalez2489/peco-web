@@ -4,20 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { Account } from '@core/models/entities';
 import { AmountComponent } from '@shared/components/amount/amount.component';
 import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
+import { PanelModule } from 'primeng/panel';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { AccountCardGraphComponent } from '../account-card-graph/account-card-graph.component';
 
 @Component({
   selector: 'app-account-card',
   imports: [
-    CardModule,
+    PanelModule,
     TitleCasePipe,
     ToggleSwitchModule,
     FormsModule,
     AmountComponent,
     ButtonModule,
-    AccountCardGraphComponent,
   ],
   templateUrl: './account-card.component.html',
   styleUrl: './account-card.component.scss',
@@ -25,7 +23,4 @@ import { AccountCardGraphComponent } from '../account-card-graph/account-card-gr
 export class AccountCardComponent {
   @Input()
   account: Account | undefined;
-
-  @Input()
-  showEdit = false;
 }

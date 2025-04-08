@@ -30,13 +30,8 @@ import { SelectModule } from 'primeng/select';
 export class CreateEntryComponent extends BasePage {
   private entryService = inject(EntryService);
   accountIdSignal = signal('');
-  // accountIdSignal = toSignal(
-  //   this.activatedRoute.paramMap.pipe(map((params) => params.get('accountId'))),
-  //   { initialValue: null },
-  // );
 
   fromAccountView = signal<boolean>(false);
-  private newValueSignal = signal<EntryCreateDto | null>(null);
 
   constructor() {
     super();
@@ -46,25 +41,21 @@ export class CreateEntryComponent extends BasePage {
         this.fromAccountView.set(true);
       }
     });
-
-    effect(() => {
-      const newValue = this.newValueSignal();
-
-      if (newValue) {
-        this.entryService.create(newValue).subscribe(() => {
-          this.store$.dispatch(
-            AccountActions.getById({ accountId: newValue.accountId }),
-          );
-          this.cancel();
-        });
-      }
-    });
   }
 
   submit(newValue: EntryCreateDto | null): void {
-    if (!newValue) this.cancel();
+    console.log('newValue', newValue);
+    if (!newValue) {
+      this.cancel();
+      return;
+    }
 
-    this.newValueSignal.set(newValue);
+    this.entryService.create(newValue!).subscribe(() => {
+      this.store$.dispatch(
+        AccountActions.getById({ accountId: newValue!.accountId }),
+      );
+      this.cancel();
+    });
   }
   cancel(): void {
     this.navigateBack();

@@ -1,7 +1,7 @@
 import { AccountCreateDto, AccountSearchDto } from '@accounts/dto';
 import { inject, Injectable } from '@angular/core';
 import { Account } from '@core/models/entities';
-import { RequestService } from '../../_core/services/_request.service';
+import { RequestService } from '@core/services/_request.service';
 
 @Injectable({
   providedIn: 'root',

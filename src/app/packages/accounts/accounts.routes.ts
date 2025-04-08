@@ -21,7 +21,7 @@ export const routes: Routes = [
       import('./pages/detail-account/detail-account.component').then(
         (c) => c.DetailAccountComponent,
       ),
-    data: { pageTitle: 'Detalles cuenta', filterByPeriod: true },
+    data: { pageTitle: 'Detalles cuenta', filterByPeriod: false },
   },
   {
     path: ':accountId/edit',
