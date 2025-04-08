@@ -6,6 +6,4 @@ export class EntrySearchDto extends SearchDto {
   description?: string;
   categoryId?: string;
   entryTypeId?: string;
-  fromDate = '';
-  toDate = '';
 }

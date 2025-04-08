@@ -31,4 +31,8 @@ export class SearchDto {
    * Generic field used to find by contains
    */
   hint?: string;
+
+  from = '';
+  to = '';
+  period = '';
 }

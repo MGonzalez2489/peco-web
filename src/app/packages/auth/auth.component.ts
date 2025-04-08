@@ -19,7 +19,7 @@ export class AuthComponent {
       this.actions$
         .pipe(ofType(AuthActions.registerSuccess, AuthActions.loginSuccess))
         .subscribe(() => {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/app']);
         });
     });
   }

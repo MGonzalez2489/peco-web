@@ -1,7 +1,5 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { EntryFormComponent } from '@entries/components';
 import { EntryCreateDto } from '@entries/dto/entry.dto';
 import { EntryService } from '@entries/entry.service';
@@ -13,7 +11,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { SelectModule } from 'primeng/select';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-create-entry',
@@ -31,12 +28,12 @@ import { map } from 'rxjs';
   styleUrl: './create-entry.component.scss',
 })
 export class CreateEntryComponent extends BasePage {
-  private activatedRoute = inject(ActivatedRoute);
   private entryService = inject(EntryService);
-  accountIdSignal = toSignal(
-    this.activatedRoute.paramMap.pipe(map((params) => params.get('accountId'))),
-    { initialValue: null },
-  );
+  accountIdSignal = signal('');
+  // accountIdSignal = toSignal(
+  //   this.activatedRoute.paramMap.pipe(map((params) => params.get('accountId'))),
+  //   { initialValue: null },
+  // );
 
   fromAccountView = signal<boolean>(false);
   private newValueSignal = signal<EntryCreateDto | null>(null);

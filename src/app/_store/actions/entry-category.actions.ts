@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { createActionGroup, props } from '@ngrx/store';
 
-import { EntryCategory } from '@core/models/entities';
 import {
   EntryCategoryCreateDto,
   EntryCategoryUpdateDto,
 } from '@core/models/dtos';
+import { SearchDto } from '@core/models/dtos/search';
+import { EntryCategory } from '@core/models/entities';
 export const EntryCategoryActions = createActionGroup({
   source: 'EntryCategory',
   events: {
-    'Load Entry Categories': emptyProps(),
+    'Load Entry Categories': props<{ search: SearchDto }>(),
     'Load Entry Categories Success': props<{
       entryCategoryArray: EntryCategory[];
     }>(),

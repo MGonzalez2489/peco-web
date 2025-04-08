@@ -1,12 +1,11 @@
-import { createActionGroup, props } from '@ngrx/store';
+import { AccountCreateDto, AccountSearchDto } from '@accounts/dto';
 import { Account } from '@core/models/entities';
-import { SearchDto } from '@core/models/dtos/search';
-import { AccountCreateDto } from '@accounts/dto';
+import { createActionGroup, props } from '@ngrx/store';
 
 export const AccountActions = createActionGroup({
   source: 'Account',
   events: {
-    'Load Accounts': props<{ search: SearchDto }>(),
+    'Load Accounts': props<{ search: AccountSearchDto }>(),
     'Load Accounts Success': props<{ accounts: Account[] }>(),
     'Load Accounts Failure': props<{ payload: never }>(),
 

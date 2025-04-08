@@ -1,0 +1,9 @@
+@if (chartS() !== undefined) {
+  <p-chart
+    type="line"
+    [data]="chartS()?.data"
+    [options]="chartS()?.options"
+    height="60"
+    width="150"
+  />
+}

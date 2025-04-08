@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
-import { PaginationMetaDto } from '@core/models/dtos';
 import { SearchDto } from '@core/models/dtos/search';
 import { SortEvent } from 'primeng/api';
 import { PaginatorState } from 'primeng/paginator';
@@ -33,13 +32,13 @@ export class PaginatedComponent {
       }
     }
   }
-  protected onPageChange(event: PaginatorState, pagination: PaginationMetaDto) {
+  protected onPageChange(event: PaginatorState) {
     if (this.filters) {
       this.filters.page = event.page! + 1;
       this.filters.take = event.rows!;
-      if (event.rows === pagination.itemCount) {
-        this.filters.showAll = true;
-      }
+      // if (event.rows === pagination.itemCount) {
+      //   this.filters.showAll = true;
+      // }
       this.emitValue();
     }
   }

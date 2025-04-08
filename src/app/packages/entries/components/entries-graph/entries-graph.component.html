@@ -1,0 +1,7 @@
+<p-panel>
+  @if (isLoading) {
+    <p>Loading</p>
+  } @else {
+    <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+  }
+</p-panel>

@@ -1,18 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { ResultDto, ResultListDto } from '@core/models/dtos';
 import { PlannedEntry } from '@core/models/entities';
-import { PlannedEntryService } from '@planned-entries/planned-entry.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { AuthActions } from '@store/actions/auth.actions';
+import { PlannedEntryService } from '@planned-entries/planned-entry.service';
 import { PlannedEntryActions } from '@store/actions/planned-entry.actions';
-import { AppState } from '@store/reducers';
 import { catchError, map, mergeMap, of } from 'rxjs';
 
 @Injectable()
 export class PlannedEntryEffects {
   private actions$ = inject(Actions);
-  private store$ = inject(Store<AppState>);
   private plannedEntryService = inject(PlannedEntryService);
 
   //load all
@@ -57,18 +53,5 @@ export class PlannedEntryEffects {
         );
       }),
     ),
-  );
-
-  //
-
-  getCatalogs$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(AuthActions.loginSuccess, AuthActions.registerSuccess),
-        map(() => {
-          this.store$.dispatch(PlannedEntryActions.loadPlannedEntries());
-        }),
-      ),
-    { dispatch: false },
   );
 }

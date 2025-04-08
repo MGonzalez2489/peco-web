@@ -5,7 +5,7 @@ export const routes: Routes = [
     path: '',
     loadComponent: () =>
       import('./accounts.component').then((c) => c.AccountsComponent),
-    title: 'Cuentas',
+    data: { pageTitle: 'Cuentas', filterByPeriod: false },
   },
   {
     path: 'new',
@@ -13,7 +13,7 @@ export const routes: Routes = [
       import('./pages/create-account/create-account.component').then(
         (c) => c.CreateAccountComponent,
       ),
-    title: 'Crear Cuenta',
+    data: { pageTitle: 'Crear cuenta', filterByPeriod: false },
   },
   {
     path: ':accountId',
@@ -21,7 +21,7 @@ export const routes: Routes = [
       import('./pages/detail-account/detail-account.component').then(
         (c) => c.DetailAccountComponent,
       ),
-    title: 'View Cuenta',
+    data: { pageTitle: 'Detalles cuenta', filterByPeriod: true },
   },
   {
     path: ':accountId/edit',
@@ -29,7 +29,7 @@ export const routes: Routes = [
       import('./pages/edit-account/edit-account.component').then(
         (c) => c.EditAccountComponent,
       ),
-    title: 'Editar Cuenta',
+    data: { pageTitle: 'Editar cuenta', filterByPeriod: false },
   },
   {
     path: ':accountId/delete',
@@ -37,6 +37,6 @@ export const routes: Routes = [
       import('./pages/delete-account/delete-account.component').then(
         (c) => c.DeleteAccountComponent,
       ),
-    title: 'Eliminar Cuenta',
+    data: { pageTitle: 'Eliminar cuenta', filterByPeriod: false },
   },
 ];

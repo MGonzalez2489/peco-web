@@ -12,6 +12,7 @@ export const routes: Routes = [
         path: 'profile',
         loadComponent: () =>
           import('./profile/profile.component').then((c) => c.ProfileComponent),
+        data: { pageTitle: 'Perfil', filterByPeriod: false },
       },
       {
         path: 'categories',
@@ -19,6 +20,7 @@ export const routes: Routes = [
           import('./entry-category/categories.component').then(
             (c) => c.CategoriesComponent,
           ),
+        data: { pageTitle: 'Categorias', filterByPeriod: false },
       },
     ],
   },

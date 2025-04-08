@@ -7,14 +7,19 @@ import { AppState } from '@store/reducers';
 import { selectToken } from '@store/selectors';
 import { catchError, delay, mergeMap, take, tap } from 'rxjs';
 
+let isBusy = false;
+
 export const httpInterceptor: HttpInterceptorFn = (req, next) => {
   const store$ = inject(Store<AppState>);
-  const requestDelay = 1200;
+  const requestDelay = 500;
 
   return store$.select(selectToken).pipe(
     take(1),
     tap(() => {
-      store$.dispatch(UiActions.setBusyOn());
+      if (!isBusy) {
+        isBusy = true;
+        store$.dispatch(UiActions.setBusyOn());
+      }
     }),
     delay(requestDelay),
     mergeMap((token: TokenDto) => {
@@ -27,11 +32,16 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
         });
       }
 
-      return next(req);
+      return next(req).pipe(
+        tap(() => {
+          if (isBusy) {
+            store$.dispatch(UiActions.setBusyOff());
+            isBusy = false;
+          }
+        }),
+      );
     }),
-    tap(() => {
-      store$.dispatch(UiActions.setBusyOff());
-    }),
+
     catchError((error: HttpErrorResponse) => {
       let errorMsg = '';
       //TODO: Improve this error handler

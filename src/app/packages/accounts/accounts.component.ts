@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { Account } from '@core/models/entities';
 
 import { ButtonModule } from 'primeng/button';
@@ -17,6 +17,7 @@ import { PanelModule } from 'primeng/panel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { AccountService } from './account.service';
 import { AccountTableComponent } from './components/account-table/account-table.component';
+import { AccountSearchDto } from './dto';
 
 @Component({
   selector: 'app-accounts',
@@ -36,15 +37,21 @@ import { AccountTableComponent } from './components/account-table/account-table.
 })
 export class AccountsComponent extends BasePage {
   private accountService = inject(AccountService);
-  filters = new SearchDto();
+  filters = new AccountSearchDto();
   accounts = signal<ResultListDto<Account> | undefined>(undefined);
 
   constructor() {
     super();
-    this.onSearch(this.filters);
+    effect(() => {
+      this.period();
+      this.filters.showAll = !this.pageData().filterByPeriod;
+
+      this.onSearch(this.filters);
+    });
   }
   onSearch(search: SearchDto) {
-    this.accountService.getAll(search).subscribe((data) => {
+    this.filters = search as AccountSearchDto;
+    this.accountService.getAll(this.filters).subscribe((data) => {
       this.accounts.set(data);
     });
   }
