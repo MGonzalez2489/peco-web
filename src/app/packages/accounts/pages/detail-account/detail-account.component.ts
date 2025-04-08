@@ -43,15 +43,12 @@ export class DetailAccountComponent extends BasePage {
     this.account.set(toSignal(this.store$.select(selectAccountById(accId)))());
     this.filters.accountId = accId;
     effect(() => {
-      this.period();
       this.searchKPIs();
       this.onSearch(this.filters);
     });
   }
   onSearch(search: SearchDto): void {
     this.filters = search as EntrySearchDto;
-    this.filters.fromDate = this.period()!.from;
-    this.filters.toDate = this.period()!.to;
 
     this.entryService.search(search as EntrySearchDto).subscribe((data) => {
       this.entries.set(data);
@@ -63,8 +60,4 @@ export class DetailAccountComponent extends BasePage {
       this.kpis.set(data.data);
     });
   }
-
-  //TODO:
-  //agregar boton para editar/borrar
-  //widtgets con graficas
 }

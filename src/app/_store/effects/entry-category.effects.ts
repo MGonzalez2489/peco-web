@@ -15,8 +15,8 @@ export class EntryCategoryEffects {
   getCategories$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EntryCategoryActions.loadEntryCategories),
-      mergeMap(() => {
-        return this.entryCategoryService.getAll().pipe(
+      mergeMap((action) => {
+        return this.entryCategoryService.getAll(action.search).pipe(
           map((response: ResultListDto<EntryCategory>) => {
             return EntryCategoryActions.loadEntryCategoriesSuccess({
               entryCategoryArray: response.data,

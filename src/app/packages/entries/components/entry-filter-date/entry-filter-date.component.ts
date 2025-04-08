@@ -1,11 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  forwardRef,
-  OnInit,
-  Output,
-  signal,
-} from '@angular/core';
+import { Component, effect, forwardRef, inject, OnInit } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
@@ -13,8 +7,12 @@ import {
 } from '@angular/forms';
 import { DateFilterOptionsEnum } from '@core/enums';
 import { DateFilterDto } from '@entries/dto';
+import { Store } from '@ngrx/store';
 import { SelectEnumComponent } from '@shared/components/form';
 import { BaseFormControl } from '@shared/components/form/base-form-control';
+import { UiActions } from '@store/actions/ui.actions';
+import { AppState } from '@store/reducers';
+import { selectPeriod } from '@store/selectors';
 import { SelectModule } from 'primeng/select';
 
 interface DateValues {
@@ -38,7 +36,6 @@ interface DateValues {
       multi: true,
     },
   ],
-
   templateUrl: './entry-filter-date.component.html',
   styleUrl: './entry-filter-date.component.scss',
 })
@@ -47,21 +44,29 @@ export class EntryFilterDateComponent
   implements OnInit
 {
   //TODO: The start day of the week is sunday, implement an option to select that
-
+  private store$ = inject(Store<AppState>);
   enum = DateFilterOptionsEnum;
-  selectedValue = signal<string>('WEEK');
-
-  @Output()
-  changeSearch = new EventEmitter<DateFilterDto>();
+  protected period = toSignal(this.store$.select(selectPeriod));
+  protected selectedValue = toSignal(this.formControl.valueChanges, {
+    initialValue: 'WEEK',
+  });
 
   constructor() {
     super();
-    this.formControl.valueChanges.subscribe((value) => {
-      this.processSelection(value);
+
+    effect(() => {
+      const newPeriod = this.period();
+      if (newPeriod) {
+        this.formControl.setValue(newPeriod.type);
+      }
     });
-  }
-  override ngOnInit(): void {
-    this.formControl.setValue(this.selectedValue());
+
+    effect(() => {
+      const newValue = this.selectedValue();
+      if (newValue) {
+        this.processSelection(newValue);
+      }
+    });
   }
 
   processSelection(key: string) {
@@ -83,7 +88,8 @@ export class EntryFilterDateComponent
       default:
         break;
     }
-    this.assignvalues(dateValues!);
+
+    if (dateValues) this.assignvalues(dateValues!);
   }
   private generateTodayFilter(): DateValues {
     const sDate: Date = new Date();
@@ -130,6 +136,6 @@ export class EntryFilterDateComponent
       to: dates.eDate.toLocaleString(),
       type: this.formControl.value,
     };
-    this.changeSearch.emit(newFilter);
+    this.store$.dispatch(UiActions.setPeriod({ newPeriod: newFilter }));
   }
 }

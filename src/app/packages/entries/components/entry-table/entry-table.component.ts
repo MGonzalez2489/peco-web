@@ -63,6 +63,6 @@ export class EntryTableComponent extends PaginatedComponent {
   }
 
   onSearch(filters: EntrySearchDto) {
-    if (filters.fromDate && filters.toDate) this.search.emit(filters);
+    this.search.emit(filters);
   }
 }

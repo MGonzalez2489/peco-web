@@ -1,6 +1,5 @@
-import { AccountCreateDto } from '@accounts/dto';
+import { AccountCreateDto, AccountSearchDto } from '@accounts/dto';
 import { inject, Injectable } from '@angular/core';
-import { SearchDto } from '@core/models/dtos/search';
 import { Account } from '@core/models/entities';
 import { RequestService } from '../../_core/services/_request.service';
 
@@ -10,7 +9,7 @@ import { RequestService } from '../../_core/services/_request.service';
 export class AccountService {
   private reqService = inject(RequestService);
 
-  getAll(search: SearchDto) {
+  getAll(search: AccountSearchDto) {
     return this.reqService.getList<Account>('accounts', search);
   }
   getById(accountId: string) {

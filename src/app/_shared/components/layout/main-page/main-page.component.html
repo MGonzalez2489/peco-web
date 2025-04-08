@@ -3,10 +3,12 @@
   <div class="flex flex-col grow">
     <app-navbar />
     <app-toast />
-    <div class="flex justify-center p-5 h-full">
+    <div class="flex justify-center p-5 h-full bg-gray-50">
       <div class="container">
         <app-page-title>
-          <app-entry-filter-date (changeSearch)="selectPeriod($event)" />
+          @if (pageData().filterByPeriod) {
+            <app-entry-filter-date />
+          }
         </app-page-title>
         <router-outlet></router-outlet>
       </div>

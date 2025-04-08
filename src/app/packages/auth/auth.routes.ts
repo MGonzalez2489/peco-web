@@ -15,7 +15,7 @@ export const routes: Routes = [
         path: 'login',
         loadComponent: () =>
           import('./pages/login/login.component').then((c) => c.LoginComponent),
-        title: 'Login',
+        data: { pageTitle: 'Login', filterByPeriod: true },
       },
       {
         path: 'registrar',
@@ -23,7 +23,7 @@ export const routes: Routes = [
           import('./pages/register/register.component').then(
             (c) => c.RegisterComponent,
           ),
-        title: 'Crear Cuenta',
+        data: { pageTitle: 'Registrar', filterByPeriod: true },
       },
     ],
   },

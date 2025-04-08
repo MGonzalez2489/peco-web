@@ -18,3 +18,17 @@ export const selectPeriod = createSelector(
   uiState,
   (state: UiState) => state.period,
 );
+export const selectPageData = createSelector(
+  uiState,
+  (state: UiState) => state.page,
+);
+
+export const selectIsLoadingSession = createSelector(
+  uiState,
+  (state: UiState) => state.isLoadingSession,
+);
+
+export const selectIsLoadedSession = createSelector(
+  uiState,
+  (state: UiState) => state.isLoadedSession,
+);

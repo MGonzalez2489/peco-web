@@ -1,5 +1,4 @@
 import { Component, effect, inject } from '@angular/core';
-import { UiService } from '@core/services';
 import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
 
@@ -12,11 +11,11 @@ import { Toast } from 'primeng/toast';
 })
 export class ToastComponent {
   messageService = inject(MessageService);
-  uiService = inject(UiService);
 
   constructor() {
     effect(() => {
-      const msg = this.uiService.message();
+      // const msg = this.uiService.message();
+      const msg = '';
       if (msg) {
         this.showSuccess(msg);
       }

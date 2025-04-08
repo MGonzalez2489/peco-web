@@ -1,6 +1,8 @@
 <div class="flex justify-between my-5">
   <!-- Search -->
-  <app-input-search (search)="searchHint($event)" />
+  <div class="w-1/3">
+    <app-input-search (search)="searchHint($event)" />
+  </div>
   <!-- New -->
   <p-button icon="pi pi-plus" label="Nuevo" [routerLink]="['/accounts/new']" />
 </div>

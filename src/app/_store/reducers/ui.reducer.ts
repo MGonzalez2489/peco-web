@@ -1,3 +1,4 @@
+import { RouteData } from '@core/models/app';
 import { DateFilterDto } from '@entries/dto';
 import { createReducer, on } from '@ngrx/store';
 import { UiActions } from '@store/actions/ui.actions';
@@ -5,20 +6,42 @@ import { UiActions } from '@store/actions/ui.actions';
 export const uiFeatureKey = 'ui';
 
 export interface UiState {
+  page: RouteData;
   isBusy: boolean;
   errorMessage?: string;
   period: DateFilterDto;
+
+  isLoadedSession: boolean;
+  isLoadingSession: boolean;
 }
 
 const initialState: UiState = {
+  page: { pageTitle: '', filterByPeriod: false },
   isBusy: false,
   errorMessage: undefined,
   period: { from: '', to: '', type: '' },
+
+  isLoadedSession: false,
+  isLoadingSession: false,
 };
 
 export const UiReducer = createReducer(
   initialState,
-  on(UiActions.setPeriodSuccess, (state, { newPeriod }) => ({
+
+  on(UiActions.setPageData, (state, { data }) => ({
+    ...state,
+    page: data,
+  })),
+
+  on(UiActions.setLoadingSession, (state, { loading }) => ({
+    ...state,
+    isLoadingSession: loading,
+  })),
+  on(UiActions.setLoadedSession, (state, { loaded }) => ({
+    ...state,
+    isLoadedSession: loaded,
+  })),
+  on(UiActions.setPeriod, (state, { newPeriod }) => ({
     ...state,
     period: newPeriod,
   })),

@@ -3,14 +3,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ResultDto, ResultListDto } from '@core/models/dtos';
 import { SearchDto } from '@core/models/dtos/search';
 import { environment } from '@envs/environment';
+import { Store } from '@ngrx/store';
+import { AppState } from '@store/reducers';
+import { selectPeriod } from '@store/selectors';
 import { map, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class RequestService {
   httpClient = inject(HttpClient);
+  store$ = inject(Store<AppState>);
+  currentPeriod = toSignal(this.store$.select(selectPeriod));
 
   public post<T>(
     url: string,
@@ -32,12 +38,20 @@ export class RequestService {
 
   public getList<T>(url: string, pagination?: SearchDto, params?: any) {
     let reqParams = {};
-
+    let internalPagination;
     if (!pagination) {
-      pagination = new SearchDto();
+      internalPagination = new SearchDto();
+    } else {
+      internalPagination = Object.assign({}, pagination);
+    }
+    const cPeriod = this.currentPeriod();
+    if (cPeriod) {
+      internalPagination.from = cPeriod.from;
+      internalPagination.to = cPeriod.to;
+      internalPagination.period = cPeriod.type;
     }
 
-    reqParams = { ...reqParams, ...pagination };
+    reqParams = { ...reqParams, ...internalPagination };
     if (params) {
       reqParams = { ...reqParams, ...params };
     }

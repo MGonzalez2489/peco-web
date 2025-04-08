@@ -13,6 +13,10 @@ export const routes: Routes = [
       import('./packages/auth/auth.routes').then((m) => m.routes),
   },
   {
+    path: 'app',
+    loadChildren: () => import('./pages/pages.routes').then((r) => r.routes),
+  },
+  {
     path: '',
     loadComponent: () =>
       import('@shared/components/layout/main-page/main-page.component').then(

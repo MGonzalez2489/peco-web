@@ -73,10 +73,10 @@
           >
         </div>
         <p-paginator
-          (onPageChange)="onPageChange($event, entries.meta)"
+          (onPageChange)="onPageChange($event)"
           [rows]="filters?.take"
           [totalRecords]="entries.meta.itemCount"
-          [rowsPerPageOptions]="[5, 10, 25, { showAll: 'All' }]"
+          [rowsPerPageOptions]="[5, 10, 25]"
           [first]="entries.meta.take * entries.meta.page"
         />
       </div>

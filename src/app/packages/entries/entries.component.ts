@@ -37,18 +37,16 @@ export class EntriesComponent extends BasePage {
 
   constructor() {
     super();
+
     effect(() => {
-      const nPeriod = this.period();
-      if (nPeriod) {
-        this.onSearch(this.filters);
-      }
+      this.period();
+      this.onSearch(this.filters);
     });
   }
 
   onSearch(search: SearchDto): void {
     this.filters = search as EntrySearchDto;
-    this.filters.fromDate = this.period()!.from;
-    this.filters.toDate = this.period()!.to;
+
     this.entryService.search(this.filters).subscribe((data) => {
       this.entries.set(data);
     });

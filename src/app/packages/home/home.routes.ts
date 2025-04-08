@@ -6,5 +6,6 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./home.component').then((c) => c.HomeComponent),
     title: 'Inicio',
+    data: { pageTitle: 'Inicio', filterByPeriod: true },
   },
 ];

@@ -6,6 +6,7 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./entries.component').then((c) => c.EntriesComponent),
     title: 'Registros',
+    data: { pageTitle: 'Registros', filterByPeriod: true },
   },
   {
     path: 'new',
@@ -14,6 +15,7 @@ export const routes: Routes = [
         (c) => c.CreateEntryComponent,
       ),
     title: 'Crear Registro',
+    data: { pageTitle: 'Crear Registro', filterByPeriod: false },
   },
   {
     path: 'new/:accountId',
@@ -22,5 +24,6 @@ export const routes: Routes = [
         (c) => c.CreateEntryComponent,
       ),
     title: 'Crear Registro',
+    data: { pageTitle: 'Crear Registro', filterByPeriod: false },
   },
 ];
