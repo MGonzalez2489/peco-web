@@ -6,7 +6,10 @@ import { ResultListDto } from '@core/models/dtos';
 import { Account } from '@core/models/entities';
 import { AmountComponent } from '@shared/components/amount/amount.component';
 import { PaginatedComponent } from '@shared/components/base';
-import { TablePlaceholderComponent } from '@shared/components/data';
+import {
+  AccountTypeAvatarComponent,
+  TablePlaceholderComponent,
+} from '@shared/components/data';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -33,6 +36,7 @@ import { TagModule } from 'primeng/tag';
     TitleCasePipe,
     AmountComponent,
     TablePlaceholderComponent,
+    AccountTypeAvatarComponent,
   ],
   templateUrl: './account-table.component.html',
   styleUrl: './account-table.component.scss',

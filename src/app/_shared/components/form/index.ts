@@ -4,3 +4,4 @@ export * from './select-entry-type/select-entry-type.component';
 export * from './select-account-type/select-account-type.component';
 export * from './select-account/select-account.component';
 export * from './select-enum/select-enum.component';
+export * from './select-color/select-color.component';

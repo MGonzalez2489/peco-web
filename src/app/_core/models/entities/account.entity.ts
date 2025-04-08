@@ -7,6 +7,7 @@ export interface Account extends BaseEntity {
   initialBalance: number;
   isDefault: boolean;
   type: AccountType;
+  color: string;
   kpis: AccountKPIDto;
 }
 

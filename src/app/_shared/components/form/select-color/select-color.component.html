@@ -1,0 +1,30 @@
+<p-select
+  optionLabel="name"
+  fluid="true"
+  [id]="inpId"
+  [inputId]="inpId"
+  [options]="colors"
+  [formControl]="formControl"
+  (onChange)="select($event)"
+  (onBlur)="onTouched()"
+>
+  <ng-template #selectedItem let-selectedOption>
+    @if (formControl.value) {
+      <div
+        class="w-full m-0 p-0"
+        [ngStyle]="{ 'background-color': formControl.value.value }"
+      >
+        <span class="text-transparent">
+          {{ formControl.value.name }}
+        </span>
+      </div>
+    }
+  </ng-template>
+  <ng-template let-color #item>
+    <div class="w-full m-0 p-0" [ngStyle]="{ 'background-color': color.value }">
+      <span class="text-transparent">
+        {{ color.name }}
+      </span>
+    </div>
+  </ng-template>
+</p-select>

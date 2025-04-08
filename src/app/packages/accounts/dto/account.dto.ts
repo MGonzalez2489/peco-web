@@ -3,4 +3,5 @@ export interface AccountCreateDto {
   accountTypeId: string;
   balance: number;
   isDefault: boolean;
+  color: string;
 }

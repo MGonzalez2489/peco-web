@@ -61,6 +61,7 @@ export class EditAccountComponent {
     accountType: new FormControl<AccountType | undefined>(undefined, [
       Validators.required,
     ]),
+    color: new FormControl<string>('', { nonNullable: true }),
     isDefault: new FormControl(false),
   });
 
@@ -75,6 +76,7 @@ export class EditAccountComponent {
           name: acc.name,
           balance: acc.balance,
           isDefault: acc.isDefault,
+          color: acc.color,
           accountType: acc.type,
         });
       }
@@ -97,6 +99,7 @@ export class EditAccountComponent {
         accountTypeId: this.form.value.accountType!.publicId,
         balance: this.form.value.balance!,
         isDefault: this.form.value.isDefault!,
+        color: '',
       };
 
       this.store$.dispatch(

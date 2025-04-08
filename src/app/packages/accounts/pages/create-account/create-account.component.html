@@ -47,6 +47,11 @@
         />
         <p [appValidationError]="'accountType'" [directive]="formDirective"></p>
       </div>
+      <!-- Color -->
+      <div class="my-6">
+        <app-select-color formControlName="color" />
+      </div>
+
       <!-- Mark Default -->
       <div class="my-6">
         <p-checkbox
@@ -74,6 +79,7 @@
       <div class="my-6 min-h-12">
         <app-error-message />
       </div>
+      <pre>Value: {{ form.value | json }}</pre>
 
       <!-- Options -->
       <div class="mt-10 flex justify-center gap-x-8">

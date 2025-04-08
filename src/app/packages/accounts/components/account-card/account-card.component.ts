@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Account } from '@core/models/entities';
 import { AmountComponent } from '@shared/components/amount/amount.component';
+import { AccountTypeAvatarComponent } from '@shared/components/data';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
@@ -16,6 +17,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     FormsModule,
     AmountComponent,
     ButtonModule,
+    AccountTypeAvatarComponent,
   ],
   templateUrl: './account-card.component.html',
   styleUrl: './account-card.component.scss',

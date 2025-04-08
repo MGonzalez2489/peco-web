@@ -10,7 +10,10 @@ import { Actions, ofType } from '@ngrx/effects';
 import { AccountCreateDto } from '@accounts/dto';
 import { AccountType } from '@core/models/entities';
 import { BasePage } from '@shared/components/base';
-import { SelectAccountTypeComponent } from '@shared/components/form';
+import {
+  SelectAccountTypeComponent,
+  SelectColorComponent,
+} from '@shared/components/form';
 import { ErrorMessageComponent } from '@shared/components/information';
 import {
   InvalidDirtyDirective,
@@ -25,6 +28,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { PanelModule } from 'primeng/panel';
 import { SelectModule } from 'primeng/select';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-account',
@@ -42,6 +46,8 @@ import { SelectModule } from 'primeng/select';
     ValidationErrorDirective,
     ErrorMessageComponent,
     PanelModule,
+    SelectColorComponent,
+    JsonPipe,
   ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss',
@@ -55,6 +61,7 @@ export class CreateAccountComponent extends BasePage {
     accountType: new FormControl<AccountType | null>(null, [
       Validators.required,
     ]),
+    color: new FormControl<string>('', { nonNullable: true }),
     isDefault: new FormControl<boolean>(false),
   });
 
@@ -77,6 +84,7 @@ export class CreateAccountComponent extends BasePage {
       accountTypeId: this.form.value.accountType!.publicId,
       balance: this.form.value.balance!,
       isDefault: this.form.value.isDefault!,
+      color: this.form.value.color!,
     };
     this.store$.dispatch(AccountActions.create({ data: newAccount }));
   }

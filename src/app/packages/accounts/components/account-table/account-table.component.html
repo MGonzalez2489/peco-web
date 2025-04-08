@@ -26,7 +26,12 @@
     </ng-template>
     <ng-template #body let-account>
       <tr>
-        <td>{{ account.name | titlecase }}</td>
+        <td>
+          <div class="flex gap-3 items-center">
+            <app-account-type-avatar [account]="account" />
+            {{ account.name | titlecase }}
+          </div>
+        </td>
         <td>{{ account.type.displayName }}</td>
         <td>{{ account.createdAt | date: "short" }}</td>
         <td>
