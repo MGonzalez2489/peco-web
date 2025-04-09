@@ -1,13 +1,18 @@
 @if (account) {
   <p-panel>
     <ng-template #header>
-      <div class="flex items-center gap-2">
-        <app-account-type-avatar [account]="account" [size]="'xlarge'" />
-        <div class="flex flex-col">
-          <span class="font-bold">{{ account.name | titlecase }}</span>
-          <span class="text-gray-400">{{
-            account.type.displayName | titlecase
-          }}</span>
+      <div class="flex items-center gap-6 w-full">
+        <div class="flex items-center gap-2">
+          <app-account-type-avatar [account]="account" [size]="'xlarge'" />
+          <div class="flex flex-col">
+            <span class="font-bold">{{ account.name | titlecase }}</span>
+            <span class="text-gray-400">{{
+              account.type.displayName | titlecase
+            }}</span>
+          </div>
+        </div>
+        <div class="flex-grow">
+          <app-account-card-graph />
         </div>
       </div>
     </ng-template>

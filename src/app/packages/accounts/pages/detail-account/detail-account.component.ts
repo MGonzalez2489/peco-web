@@ -47,10 +47,6 @@ export class DetailAccountComponent extends BasePage {
     const accId = this.activatedRoute.snapshot.params['accountId'];
     this.account.set(toSignal(this.store$.select(selectAccountById(accId)))());
     this.filters.accountId = accId;
-    // effect(() => {
-    //   this.searchKPIs();
-    //   this.onSearch(this.filters);
-    // });
   }
   onSearch(search: SearchDto): void {
     this.filters = search as EntrySearchDto;

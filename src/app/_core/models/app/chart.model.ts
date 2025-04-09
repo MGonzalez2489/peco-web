@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export class Chart {
   type = 'line';
   data: ChartData | undefined;
@@ -18,6 +19,7 @@ export interface Dataset {
   borderColor: string;
   tension: number;
   pointRadius: number;
+  backgroundColor?: any;
 }
 
 export interface ChartOptions {
@@ -25,6 +27,7 @@ export interface ChartOptions {
   aspectRatio: number;
   plugins?: Plugins;
   scales?: Scales;
+  elements?: any;
 }
 
 export interface Plugins {
@@ -41,8 +44,8 @@ export interface Labels {
 }
 
 export interface Scales {
-  x: X;
-  y: X;
+  x?: any;
+  y?: any;
 }
 
 export interface X {
