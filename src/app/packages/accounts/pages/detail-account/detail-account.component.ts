@@ -1,9 +1,8 @@
 import { AccountCardComponent } from '@accounts/components/account-card/account-card.component';
 import { AccountGraphComponent } from '@accounts/components/account-graph/account-graph.component';
-import { JsonPipe } from '@angular/common';
 import { Component, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ResultListDto } from '@core/models/dtos';
 import { EntrySearchDto, SearchDto } from '@core/models/dtos/search';
 import { Account, Entry } from '@core/models/entities';
@@ -12,6 +11,7 @@ import { EntryKPIDto } from '@entries/dto';
 import { EntryService } from '@entries/entry.service';
 import { BasePage } from '@shared/components/base';
 import { selectAccountById } from '@store/selectors';
+import { ButtonModule } from 'primeng/button';
 import { TabsModule } from 'primeng/tabs';
 
 const primeSources = [EntryTableComponent];
@@ -23,7 +23,8 @@ const primeSources = [EntryTableComponent];
     ...primeSources,
     AccountGraphComponent,
     TabsModule,
-    JsonPipe,
+    ButtonModule,
+    RouterLink,
   ],
   templateUrl: './detail-account.component.html',
   styleUrl: './detail-account.component.scss',

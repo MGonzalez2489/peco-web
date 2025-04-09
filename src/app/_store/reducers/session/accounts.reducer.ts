@@ -33,6 +33,7 @@ export const AccountReducer = createReducer(
           name: account.name,
           isDefault: account.isDefault,
           type: account.type,
+          color: account.color,
         };
       }
       return acc;

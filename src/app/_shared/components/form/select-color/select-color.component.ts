@@ -88,11 +88,19 @@ export class SelectColorComponent
     super();
   }
   ngAfterViewInit(): void {
-    const randomElement =
-      this.colors[Math.floor(Math.random() * this.colors.length)];
+    if (!this.formControl.value) {
+      const randomElement =
+        this.colors[Math.floor(Math.random() * this.colors.length)];
 
-    this.formControl.setValue(randomElement);
-    this.onChange(randomElement.value);
+      this.formControl.setValue(randomElement);
+      this.onChange(randomElement.value);
+    } else if (typeof this.formControl.value === 'string') {
+      const selectedColor = this.colors.find(
+        (f) => f.value === this.formControl.value,
+      );
+      this.formControl.setValue(selectedColor);
+      this.onChange(selectedColor!.value);
+    }
   }
 
   select(event: SelectChangeEvent) {
