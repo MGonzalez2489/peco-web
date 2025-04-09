@@ -1,32 +1,29 @@
-<div class="flex flex-col gap-4">
-  <!-- Account details -->
-  <div class="flex justify-between">
-    <app-account-card [account]="account()"> </app-account-card>
-    <p-button
-      label="Editar"
-      [routerLink]="['/accounts', account()!.publicId, 'edit']"
-    />
-  </div>
+<div class="flex flex-col">
+  <p-panel>
+    <ng-template #header>
+      <div class="flex gap-3 items-center">
+        <app-account-type-avatar [account]="account()" />
+        <span class="font-bold text-2xl">{{
+          account()?.name | titlecase
+        }}</span>
+      </div>
+    </ng-template>
+    <ng-template #icons>
+      <p-button
+        icon="pi pi-pencil"
+        severity="secondary"
+        rounded
+        text
+        [routerLink]="['/accounts', account()!.publicId, 'edit']"
+      />
+    </ng-template>
+    <app-account-graph [account]="account()" />
+  </p-panel>
 
-  <div class="card">
-    <p-tabs value="0">
-      <p-tablist>
-        <p-tab value="0">Proyeccion</p-tab>
-        <p-tab value="1">Registros</p-tab>
-      </p-tablist>
-      <p-tabpanels>
-        <p-tabpanel value="0">
-          <app-account-graph [account]="account()" />
-        </p-tabpanel>
-        <p-tabpanel value="1">
-          <app-entry-table
-            [loadingData]="isBusy()"
-            [account]="account()"
-            [entries]="entries()"
-            (search)="onSearch($event)"
-          />
-        </p-tabpanel>
-      </p-tabpanels>
-    </p-tabs>
-  </div>
+  <app-entry-table
+    [loadingData]="isBusy()"
+    [account]="account()"
+    [entries]="entries()"
+    (search)="onSearch($event)"
+  />
 </div>

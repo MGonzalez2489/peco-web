@@ -65,20 +65,6 @@ export class AccountGraphComponent extends BasePage {
           },
         },
       },
-      scales: {
-        x: {
-          pointLabel: { display: false },
-          ticks: { display: false },
-          grid: { display: false },
-          border: { display: false },
-        },
-        y: {
-          pointLabel: { display: false },
-          ticks: { display: false },
-          grid: { display: false },
-          border: { display: false },
-        },
-      },
     };
 
     this.chart = nChart;
