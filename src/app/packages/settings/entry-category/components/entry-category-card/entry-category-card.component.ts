@@ -15,6 +15,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { CategoryAvatarComponent } from '@shared/components/data';
 
 @Component({
   selector: 'app-entry-category-card',
@@ -27,6 +28,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     ValidationErrorDirective,
     TitleCasePipe,
     FloatLabelModule,
+    CategoryAvatarComponent,
   ],
   templateUrl: './entry-category-card.component.html',
   styleUrl: './entry-category-card.component.scss',

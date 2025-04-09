@@ -2,10 +2,15 @@
   <p-panel>
     <ng-template #header>
       <div class="flex gap-3 items-center">
-        <app-account-type-avatar [account]="account()" />
-        <span class="font-bold text-2xl">{{
-          account()?.name | titlecase
-        }}</span>
+        <app-account-type-avatar [account]="account()" [size]="'xlarge'" />
+        <div class="flex flex-col">
+          <span class="font-bold text-2xl">{{
+            account()?.name | titlecase
+          }}</span>
+          <span class="font-light text-gray-400">
+            {{ account()?.type?.displayName }}</span
+          >
+        </div>
       </div>
     </ng-template>
     <ng-template #icons>

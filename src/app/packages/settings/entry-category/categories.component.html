@@ -7,7 +7,10 @@
           [ngClass]="{ active: selectedItem?.publicId === cat.publicId }"
           (click)="selectedItem = cat"
         >
-          {{ cat.name }}
+          <div class="flex gap-3 items-center">
+            <app-category-avatar [category]="cat" />
+            <span> {{ cat.name }} </span>
+          </div>
         </li>
       }
     </ul>

@@ -6,4 +6,6 @@ export interface EntryCategory extends BaseEntity {
   subCategories: EntryCategory[];
   isVisible: boolean;
   isDefault: boolean;
+  icon: string;
+  color: string;
 }

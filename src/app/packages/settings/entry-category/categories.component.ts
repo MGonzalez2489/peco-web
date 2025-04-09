@@ -17,6 +17,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { DialogModule } from 'primeng/dialog';
 
 import { NgClass } from '@angular/common';
+import { CategoryAvatarComponent } from '@shared/components/data';
 import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { MenuModule } from 'primeng/menu';
@@ -39,6 +40,7 @@ import { EntryCategoryCardComponent } from './components/entry-category-card/ent
     MenuModule,
     PanelModule,
     NgClass,
+    CategoryAvatarComponent,
   ],
   providers: [DialogService],
   templateUrl: './categories.component.html',

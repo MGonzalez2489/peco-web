@@ -1,7 +1,10 @@
 <div class="flex items-center w-full justify-between px-5 py-3 rounded-md">
   @if (mode() === "read") {
     @let category = categorySignal();
-    <h3>{{ category?.name | titlecase }}</h3>
+    <div class="flex gap-3 items-center">
+      <app-category-avatar [category]="category" [size]="'xlarge'" />
+      <h3>{{ category?.name | titlecase }}</h3>
+    </div>
     <div class="flex items-center">
       <p-button
         label="Editar"
