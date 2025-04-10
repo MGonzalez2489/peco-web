@@ -102,10 +102,11 @@ export class NavbarComponent {
   private generateMenuItems(): MenuItem[] {
     return [
       {
-        label: 'Configuracion',
-        icon: PrimeIcons.COG,
-        routerLink: '/settings',
+        label: 'Acerca de',
+        icon: PrimeIcons.INFO_CIRCLE,
+        routerLink: '/app/about',
       },
+
       {
         separator: true,
       },

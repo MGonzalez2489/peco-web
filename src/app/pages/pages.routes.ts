@@ -14,4 +14,10 @@ export const routes: Routes = [
         (c) => c.LoadingSessionComponent,
       ),
   },
+  {
+    path: 'about',
+    loadComponent: () =>
+      import('./about/about.component').then((c) => c.AboutComponent),
+    data: { pageTitle: 'About', filterByPeriod: false },
+  },
 ];
