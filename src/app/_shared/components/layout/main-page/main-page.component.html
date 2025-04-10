@@ -15,7 +15,7 @@
   </div>
 </ng-template>
 <ng-template #smallLayout>
-  <p-drawer [visible]="isSideNavOpen()">
+  <p-drawer [visible]="isSideNavOpen()" (onHide)="onHideDraw()">
     <ng-template #headless>
       <app-sidenav (hasNavigated)="handleSidenavNavigation()" />
     </ng-template>

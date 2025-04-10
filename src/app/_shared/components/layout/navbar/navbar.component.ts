@@ -16,7 +16,12 @@ import { Store } from '@ngrx/store';
 import { AuthActions } from '@store/actions/auth.actions';
 import { UiActions } from '@store/actions/ui.actions';
 import { AppState } from '@store/reducers';
-import { selectIsSideNavOpen, selectToken, selectUser } from '@store/selectors';
+import {
+  selectIsSideNavOpen,
+  selectPageData,
+  selectToken,
+  selectUser,
+} from '@store/selectors';
 import { PrimeIcons } from 'primeng/api';
 
 const components = [
@@ -41,6 +46,7 @@ export class NavbarComponent {
   private sessionTimeout: ReturnType<typeof setTimeout> | undefined;
   user = toSignal(this.store$.select(selectUser));
   token = toSignal(this.store$.select(selectToken));
+  pageData = toSignal(this.store$.select(selectPageData));
 
   isSideNavOpen = toSignal(this.store$.select(selectIsSideNavOpen), {
     initialValue: false,

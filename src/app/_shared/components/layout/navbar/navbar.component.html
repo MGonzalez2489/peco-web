@@ -1,11 +1,17 @@
 <p-toolbar>
   <ng-template #start>
-    <p-button
-      (click)="handleSideNavState()"
-      icon="pi pi-bars"
-      severity="secondary"
-      text="true"
-    />
+    <div class="flex items-center gap-3">
+      <p-button
+        (click)="handleSideNavState()"
+        icon="pi pi-bars"
+        severity="secondary"
+        text="true"
+        class="lg:invisible"
+      />
+      <h2 class="font-bold text-gray-700 md:invisible lg:invisible">
+        {{ pageData()?.pageTitle }}
+      </h2>
+    </div>
   </ng-template>
   <ng-template #end>
     <p-menu #menu [model]="items()" [popup]="true" />
