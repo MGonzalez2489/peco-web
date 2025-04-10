@@ -1,4 +1,6 @@
+import { DeviceSizeEnum } from '@core/enums';
 import { RouteData } from '@core/models/app';
+import { Platform } from '@core/models/app/platform.model';
 import { DateFilterDto } from '@entries/dto';
 import { createReducer, on } from '@ngrx/store';
 import { UiActions } from '@store/actions/ui.actions';
@@ -6,6 +8,7 @@ import { UiActions } from '@store/actions/ui.actions';
 export const uiFeatureKey = 'ui';
 
 export interface UiState {
+  platform: Platform;
   page: RouteData;
   isBusy: boolean;
   errorMessage?: string;
@@ -16,6 +19,14 @@ export interface UiState {
 }
 
 const initialState: UiState = {
+  platform: {
+    windowHeight: 0,
+    windowWidth: 0,
+    platform: '',
+    platformName: '',
+    platformVersion: '',
+    deviceSize: DeviceSizeEnum.large,
+  },
   page: { pageTitle: '', filterByPeriod: false },
   isBusy: false,
   errorMessage: undefined,
@@ -31,6 +42,10 @@ export const UiReducer = createReducer(
   on(UiActions.setPageData, (state, { data }) => ({
     ...state,
     page: data,
+  })),
+  on(UiActions.setPlatformInfo, (state, { info }) => ({
+    ...state,
+    platform: info,
   })),
 
   on(UiActions.setLoadingSession, (state, { loading }) => ({

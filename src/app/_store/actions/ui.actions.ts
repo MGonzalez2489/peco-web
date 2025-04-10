@@ -1,4 +1,5 @@
 import { RouteData } from '@core/models/app';
+import { Platform } from '@core/models/app/platform.model';
 import { DateFilterDto } from '@entries/dto';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
@@ -9,6 +10,7 @@ export const UiActions = createActionGroup({
     'Set Busy off': emptyProps(),
 
     'Set Page Data': props<{ data: RouteData }>(),
+    'Set Platform Info': props<{ info: Platform }>(),
 
     'Set SideBar State': emptyProps(),
 

@@ -32,3 +32,8 @@ export const selectIsLoadedSession = createSelector(
   uiState,
   (state: UiState) => state.isLoadedSession,
 );
+
+export const selectPlatformInfo = createSelector(
+  uiState,
+  (state: UiState) => state.platform,
+);
