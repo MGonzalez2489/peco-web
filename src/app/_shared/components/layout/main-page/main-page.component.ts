@@ -3,7 +3,6 @@ import { Component, ViewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterOutlet } from '@angular/router';
 import { DeviceSizeEnum } from '@core/enums';
-import { EntryFilterDateComponent } from '@entries/components';
 import { BasePage } from '@shared/components/base';
 import { ToastComponent } from '@shared/components/information';
 import { UiActions } from '@store/actions/ui.actions';
@@ -22,7 +21,7 @@ import { SidenavComponent } from '../sidenav/sidenav.component';
     PageTitleComponent,
     SidenavComponent,
     ToastComponent,
-    EntryFilterDateComponent,
+    // EntryFilterDateComponent,
     NgSwitch,
     NgTemplateOutlet,
     NgSwitchCase,

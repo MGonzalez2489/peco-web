@@ -68,21 +68,49 @@
   </div>
 
   <!-- Options -->
-  <div class="mt-10 flex justify-center gap-x-8">
+  <div class="flex flex-col-reverse justify-center gap-6">
     <p-button
-      label="Cancelar"
-      severity="secondary"
+      size="small"
       [text]="true"
-      [disabled]="isBusy"
+      pButton
+      label="Cancelar"
+      [loading]="isBusy"
       (click)="cancel()"
     />
 
+    <!-- <p-button -->
+    <!--   label="Cancelar" -->
+    <!--   severity="secondary" -->
+    <!--   size="small" -->
+    <!--   [text]="true" -->
+    <!--   [disabled]="isBusy" -->
+    <!--   (click)="cancel()" -->
+    <!-- /> -->
+
     <p-button
-      [loading]="isBusy"
       type="submit"
       size="small"
       pButton
       label="Guardar"
+      [loading]="isBusy"
     />
   </div>
+
+  <!-- <div class="mt-10 flex justify-center gap-x-8"> -->
+  <!--   <p-button -->
+  <!--     label="Cancelar" -->
+  <!--     severity="secondary" -->
+  <!--     [text]="true" -->
+  <!--     [disabled]="isBusy" -->
+  <!--     (click)="cancel()" -->
+  <!--   /> -->
+  <!---->
+  <!--   <p-button -->
+  <!--     [loading]="isBusy" -->
+  <!--     type="submit" -->
+  <!--     size="small" -->
+  <!--     pButton -->
+  <!--     label="Guardar" -->
+  <!--   /> -->
+  <!-- </div> -->
 </form>
