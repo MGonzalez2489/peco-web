@@ -37,3 +37,8 @@ export const selectPlatformInfo = createSelector(
   uiState,
   (state: UiState) => state.platform,
 );
+
+export const selectIsSideNavOpen = createSelector(
+  uiState,
+  (state: UiState) => state.sideNavOpen,
+);

@@ -1,10 +1,38 @@
-<div class="flex h-full">
-  <app-sidenav />
+<ng-container [ngSwitch]="view()">
+  <ng-container *ngSwitchCase="'large'">
+    <ng-container *ngTemplateOutlet="largeLayout"></ng-container>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'small'">
+    <ng-container *ngTemplateOutlet="smallLayout"></ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-template #largeLayout>
+  <div class="flex h-full">
+    <app-sidenav />
+    <ng-container *ngTemplateOutlet="main"></ng-container>
+  </div>
+</ng-template>
+<ng-template #smallLayout>
+  <p-drawer [visible]="isSideNavOpen()">
+    <ng-template #headless>
+      <app-sidenav (hasNavigated)="handleSidenavNavigation()" />
+    </ng-template>
+  </p-drawer>
+  <div class="flex h-full">
+    <ng-container *ngTemplateOutlet="main"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #main>
   <div class="flex flex-col grow">
     <app-navbar />
     <app-toast />
-    <div class="flex justify-center p-5 h-full bg-gray-50">
-      <div class="container">
+    <div
+      class="flex justify-stretch lg:justify-center md:p-5 p-5 h-full bg-gray-50"
+    >
+      <div class="lg:container w-full">
         <app-page-title>
           @if (pageData().filterByPeriod) {
             <app-entry-filter-date />
@@ -14,4 +42,4 @@
       </div>
     </div>
   </div>
-</div>
+</ng-template>

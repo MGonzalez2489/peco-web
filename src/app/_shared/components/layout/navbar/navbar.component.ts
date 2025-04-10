@@ -14,8 +14,9 @@ import { MenubarModule } from 'primeng/menubar';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '@store/actions/auth.actions';
+import { UiActions } from '@store/actions/ui.actions';
 import { AppState } from '@store/reducers';
-import { selectToken, selectUser } from '@store/selectors';
+import { selectIsSideNavOpen, selectToken, selectUser } from '@store/selectors';
 import { PrimeIcons } from 'primeng/api';
 
 const components = [
@@ -41,6 +42,9 @@ export class NavbarComponent {
   user = toSignal(this.store$.select(selectUser));
   token = toSignal(this.store$.select(selectToken));
 
+  isSideNavOpen = toSignal(this.store$.select(selectIsSideNavOpen), {
+    initialValue: false,
+  });
   toolBarItems = computed(() => this.generateToolBarItems());
   items = computed(() => this.generateMenuItems());
 
@@ -64,7 +68,11 @@ export class NavbarComponent {
       }
     });
   }
-
+  handleSideNavState() {
+    this.store$.dispatch(
+      UiActions.setSideBarState({ isOpen: !this.isSideNavOpen() }),
+    );
+  }
   private generateToolBarItems(): MenuItem[] {
     return [
       {

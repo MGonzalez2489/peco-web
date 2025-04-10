@@ -14,6 +14,7 @@ export interface UiState {
   errorMessage?: string;
   period: DateFilterDto;
 
+  sideNavOpen: boolean;
   isLoadedSession: boolean;
   isLoadingSession: boolean;
 }
@@ -29,6 +30,7 @@ const initialState: UiState = {
   },
   page: { pageTitle: '', filterByPeriod: false },
   isBusy: false,
+  sideNavOpen: false,
   errorMessage: undefined,
   period: { from: '', to: '', type: '' },
 
@@ -39,6 +41,10 @@ const initialState: UiState = {
 export const UiReducer = createReducer(
   initialState,
 
+  on(UiActions.setSideBarState, (state, { isOpen }) => ({
+    ...state,
+    sideNavOpen: isOpen,
+  })),
   on(UiActions.setPageData, (state, { data }) => ({
     ...state,
     page: data,

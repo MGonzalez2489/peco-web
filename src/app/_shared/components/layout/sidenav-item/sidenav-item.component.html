@@ -25,6 +25,7 @@
     class="flex items-center cursor-pointer p-4 rounded-md text-gray-700 hover:bg-gray-100 duration-150 transition-colors"
     [routerLink]="menuItem()?.routerLink"
     routerLinkActive="bg-green-100"
+    (click)="exCommand(menuItem()!)"
   >
     <span [class]="menuItem()?.icon" class="mr-2"> </span>
     <span class="font-medium"> {{ menuItem()?.label }}</span>

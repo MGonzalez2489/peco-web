@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AccordionModule } from 'primeng/accordion';
 import { MenuItem } from 'primeng/api';
 
@@ -22,18 +22,27 @@ export class SidenavComponent {
           route: '/home',
           routerLink: '/home',
           icon: PrimeIcons.HOME,
+          command: () => {
+            this.hasNavigated.emit(true);
+          },
         },
         {
           label: 'Cuentas',
           route: '/accounts',
           routerLink: '/accounts',
           icon: PrimeIcons.FOLDER,
+          command: () => {
+            this.hasNavigated.emit(true);
+          },
         },
         {
           label: 'Registros',
           route: '/entries',
           routerLink: '/entries',
           icon: PrimeIcons.RECEIPT,
+          command: () => {
+            this.hasNavigated.emit(true);
+          },
         },
         { separator: true },
         {
@@ -42,6 +51,9 @@ export class SidenavComponent {
           routerLink: '/planned-entries',
           icon: PrimeIcons.LIST,
           disabled: true,
+          command: () => {
+            this.hasNavigated.emit(true);
+          },
         },
         { separator: true },
         {
@@ -53,15 +65,24 @@ export class SidenavComponent {
               label: 'Perfil',
               routerLink: '/settings/profile',
               icon: PrimeIcons.USER,
+              command: () => {
+                this.hasNavigated.emit(true);
+              },
             },
             {
               label: 'Categorias',
               routerLink: '/settings/categories',
               icon: PrimeIcons.TAGS,
+              command: () => {
+                this.hasNavigated.emit(true);
+              },
             },
           ],
         },
       ],
     },
   ];
+
+  @Output()
+  hasNavigated = new EventEmitter<boolean>();
 }

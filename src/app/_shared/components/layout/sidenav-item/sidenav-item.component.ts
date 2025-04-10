@@ -2,7 +2,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { Component, Input, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AccordionModule } from 'primeng/accordion';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MenuItemCommandEvent } from 'primeng/api';
 import { DividerModule } from 'primeng/divider';
 import { RippleModule } from 'primeng/ripple';
 
@@ -51,5 +51,11 @@ export class SidenavItemComponent {
   }
   activeIndexChange(index: number) {
     this.activeIndex = index;
+  }
+  exCommand(item: MenuItem) {
+    if (item.command) {
+      const event: MenuItemCommandEvent = {};
+      item.command(event);
+    }
   }
 }

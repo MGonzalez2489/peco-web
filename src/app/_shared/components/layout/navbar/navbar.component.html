@@ -1,6 +1,11 @@
 <p-toolbar>
   <ng-template #start>
-    <p-button icon="pi pi-question" severity="secondary" text="true" />
+    <p-button
+      (click)="handleSideNavState()"
+      icon="pi pi-bars"
+      severity="secondary"
+      text="true"
+    />
   </ng-template>
   <ng-template #end>
     <p-menu #menu [model]="items()" [popup]="true" />

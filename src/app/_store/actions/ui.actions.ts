@@ -11,8 +11,7 @@ export const UiActions = createActionGroup({
 
     'Set Page Data': props<{ data: RouteData }>(),
     'Set Platform Info': props<{ info: Platform }>(),
-
-    'Set SideBar State': emptyProps(),
+    'Set SideBar State': props<{ isOpen: boolean }>(),
 
     'Set Error Message': props<{ message: string }>(),
     'Remove Error Message': emptyProps(),
