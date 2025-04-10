@@ -22,6 +22,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { AutoFocus } from 'primeng/autofocus';
 
 const components = [
   ButtonModule,
@@ -41,6 +42,7 @@ const components = [
     ErrorMessageComponent,
     InvalidDirtyDirective,
     ValidationErrorDirective,
+    AutoFocus,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',

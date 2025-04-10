@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="view()">
+<ng-container [ngSwitch]="platformInfo().viewSize">
   <ng-container *ngSwitchCase="'large'">
     <ng-container *ngTemplateOutlet="largeLayout"></ng-container>
   </ng-container>
@@ -30,14 +30,16 @@
     <app-navbar />
     <app-toast />
     <div
-      class="flex justify-stretch lg:justify-center md:p-5 p-5 h-full bg-gray-50"
+      class="flex justify-stretch lg:justify-center h-full bg-gray-50 p-3 lg:p-5 max-w-screen"
     >
       <div class="lg:container w-full">
-        <app-page-title>
-          @if (pageData().filterByPeriod) {
-            <app-entry-filter-date />
-          }
-        </app-page-title>
+        @if (platformInfo().viewSize === "large") {
+          <app-page-title>
+            <!-- @if (pageData().filterByPeriod) { -->
+            <!--   <app-entry-filter-date /> -->
+            <!-- } -->
+          </app-page-title>
+        }
         <router-outlet></router-outlet>
       </div>
     </div>

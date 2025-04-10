@@ -17,11 +17,11 @@
       </div>
     </ng-template>
     <ng-template #footer>
-      <div class="flex flex-wrap items-center justify-between gap-4">
+      <div class="flex flex-wrap items-center gap-4">
         <span class="text-surface-500 dark:text-surface-400">
           <small>Balance</small>
-          <app-amount [amount]="account?.balance || 0"></app-amount>
         </span>
+        <app-amount [amount]="account?.balance || 0"></app-amount>
       </div>
     </ng-template>
   </p-panel>

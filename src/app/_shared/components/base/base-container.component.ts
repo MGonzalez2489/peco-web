@@ -34,6 +34,7 @@ export class BasePage {
       platformName: '',
       platformVersion: '',
       deviceSize: DeviceSizeEnum.large, // Inicializar con un valor por defecto
+      viewSize: 'large',
     },
   });
 

@@ -1,18 +1,18 @@
 import { NgSwitch, NgSwitchCase, NgTemplateOutlet } from '@angular/common';
-import { Component, effect, signal, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterOutlet } from '@angular/router';
 import { DeviceSizeEnum } from '@core/enums';
 import { EntryFilterDateComponent } from '@entries/components';
 import { BasePage } from '@shared/components/base';
 import { ToastComponent } from '@shared/components/information';
+import { UiActions } from '@store/actions/ui.actions';
+import { selectIsSideNavOpen } from '@store/selectors';
 import { ButtonModule } from 'primeng/button';
 import { Drawer, DrawerModule } from 'primeng/drawer';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { PageTitleComponent } from '../page-title/page-title.component';
 import { SidenavComponent } from '../sidenav/sidenav.component';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { selectIsSideNavOpen } from '@store/selectors';
-import { UiActions } from '@store/actions/ui.actions';
 
 @Component({
   selector: 'app-main-page',
@@ -35,7 +35,6 @@ import { UiActions } from '@store/actions/ui.actions';
 export class MainPageComponent extends BasePage {
   @ViewChild('drawerRef') drawerRef!: Drawer;
   deviceSizes = DeviceSizeEnum;
-  view = signal<'large' | 'small'>('large');
 
   isSideNavOpen = toSignal(this.store$.select(selectIsSideNavOpen), {
     initialValue: false,
@@ -43,18 +42,6 @@ export class MainPageComponent extends BasePage {
 
   constructor() {
     super();
-
-    effect(() => {
-      const deviceInfo = this.platformInfo();
-      if (
-        deviceInfo.deviceSize === DeviceSizeEnum.large ||
-        deviceInfo.deviceSize === DeviceSizeEnum.xLarge
-      ) {
-        this.view.set('large');
-      } else {
-        this.view.set('small');
-      }
-    });
   }
 
   handleSidenavNavigation() {

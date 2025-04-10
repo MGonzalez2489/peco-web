@@ -7,5 +7,6 @@ export interface Platform {
   platformName: string;
   platformVersion: string;
   deviceSize: DeviceSizeEnum;
+  viewSize: 'small' | 'large';
   // deviceSize: 'xs' | 'sm' | 'md' | 'lg' | 'xl'; // Nuevo property para el tamaño del dispositivo
 }

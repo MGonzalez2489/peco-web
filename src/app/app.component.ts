@@ -52,7 +52,18 @@ export class AppComponent extends BasePage implements AfterViewInit, OnDestroy {
           platformName: this.getBrowserName(),
           platformVersion: this.getBrowserVersion(),
           deviceSize: this.getDeviceSize(cr.width),
+          viewSize: 'large',
         };
+
+        if (
+          newPlatformInfo.deviceSize === DeviceSizeEnum.large ||
+          newPlatformInfo.deviceSize === DeviceSizeEnum.xLarge
+        ) {
+          newPlatformInfo.viewSize = 'large';
+        } else {
+          newPlatformInfo.viewSize = 'small';
+        }
+
         this.store$.dispatch(
           UiActions.setPlatformInfo({ info: newPlatformInfo }),
         );

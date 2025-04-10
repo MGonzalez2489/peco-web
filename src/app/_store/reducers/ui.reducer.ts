@@ -27,6 +27,7 @@ const initialState: UiState = {
     platformName: '',
     platformVersion: '',
     deviceSize: DeviceSizeEnum.large,
+    viewSize: 'large',
   },
   page: { pageTitle: '', filterByPeriod: false },
   isBusy: false,
