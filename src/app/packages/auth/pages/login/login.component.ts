@@ -10,33 +10,29 @@ import { AuthActions } from '@store/actions/auth.actions';
 //primeng
 import { RouterLink } from '@angular/router';
 import { LoginDto } from '@auth/dto/login.dto';
-import { BasePage } from '@shared/components/base';
+import { BasePageComponent } from '@shared/components/base';
 import { ErrorMessageComponent } from '@shared/components/information';
 import {
   InvalidDirtyDirective,
   ValidationErrorDirective,
 } from '@shared/directives/forms';
+import { AutoFocus } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { AutoFocus } from 'primeng/autofocus';
-
-const components = [
-  ButtonModule,
-  CardModule,
-  InputTextModule,
-  FloatLabelModule,
-  PasswordModule,
-  CheckboxModule,
-];
 
 @Component({
   selector: 'app-login',
   imports: [
-    ...components,
+    ButtonModule,
+    CardModule,
+    InputTextModule,
+    FloatLabelModule,
+    PasswordModule,
+    CheckboxModule,
     ReactiveFormsModule,
     RouterLink,
     ErrorMessageComponent,
@@ -47,7 +43,7 @@ const components = [
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent extends BasePage {
+export class LoginComponent extends BasePageComponent {
   protected form = new FormGroup({
     email: new FormControl('', {
       nonNullable: true,

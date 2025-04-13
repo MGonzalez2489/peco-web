@@ -1,9 +1,9 @@
-import { NgSwitch, NgSwitchCase, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterOutlet } from '@angular/router';
 import { DeviceSizeEnum } from '@core/enums';
-import { BasePage } from '@shared/components/base';
+import { BasePageComponent } from '@shared/components/base';
 import { ToastComponent } from '@shared/components/information';
 import { UiActions } from '@store/actions/ui.actions';
 import { selectIsSideNavOpen } from '@store/selectors';
@@ -22,16 +22,14 @@ import { SidenavComponent } from '../sidenav/sidenav.component';
     SidenavComponent,
     ToastComponent,
     // EntryFilterDateComponent,
-    NgSwitch,
     NgTemplateOutlet,
-    NgSwitchCase,
     DrawerModule,
     ButtonModule,
   ],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss',
 })
-export class MainPageComponent extends BasePage {
+export class MainPageComponent extends BasePageComponent {
   @ViewChild('drawerRef') drawerRef!: Drawer;
   deviceSizes = DeviceSizeEnum;
 

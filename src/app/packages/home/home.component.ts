@@ -1,7 +1,7 @@
 import { AccountCardComponent } from '@accounts/components/account-card/account-card.component';
 import { Component } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { BasePage } from '@shared/components/base';
+import { BasePageComponent } from '@shared/components/base';
 import { ButtonDialComponent } from '@shared/components/layout-mobile/index.';
 import { selectAccounts } from '@store/selectors';
 import { MenuItem, PrimeIcons } from 'primeng/api';
@@ -19,7 +19,7 @@ import { PanelModule } from 'primeng/panel';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent extends BasePage {
+export class HomeComponent extends BasePageComponent {
   accounts = toSignal(this.store$.select(selectAccounts));
   options: MenuItem[] = [
     {

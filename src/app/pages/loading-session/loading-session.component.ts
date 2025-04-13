@@ -1,7 +1,6 @@
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, effect, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Router } from '@angular/router';
-import { BasePage } from '@shared/components/base';
+import { BasePageComponent } from '@shared/components/base';
 import { UiActions } from '@store/actions/ui.actions';
 import { selectIsLoadedSession } from '@store/selectors';
 
@@ -11,8 +10,10 @@ import { selectIsLoadedSession } from '@store/selectors';
   templateUrl: './loading-session.component.html',
   styleUrl: './loading-session.component.scss',
 })
-export class LoadingSessionComponent extends BasePage implements OnInit {
-  private router = inject(Router);
+export class LoadingSessionComponent
+  extends BasePageComponent
+  implements OnInit
+{
   sessionLoaded = toSignal(this.store$.select(selectIsLoadedSession), {
     initialValue: false,
   });

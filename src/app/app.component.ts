@@ -8,11 +8,11 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ActivationEnd, Router, RouterOutlet } from '@angular/router';
-import { DeviceSizeEnum } from '@core/enums';
+import { ActivationEnd, RouterOutlet } from '@angular/router';
+import { DeviceSizeEnum, ViewSizeEnum } from '@core/enums';
 import { RouteData } from '@core/models/app';
 import { Platform } from '@core/models/app/platform.model';
-import { BasePage } from '@shared/components/base';
+import { BasePageComponent } from '@shared/components/base';
 import { UiActions } from '@store/actions/ui.actions';
 import { filter, map } from 'rxjs';
 
@@ -22,12 +22,15 @@ import { filter, map } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent extends BasePage implements AfterViewInit, OnDestroy {
+export class AppComponent
+  extends BasePageComponent
+  implements AfterViewInit, OnDestroy
+{
   private destroyRef = inject(DestroyRef);
   private resizeObserver?: ResizeObserver;
   readonly platformId = inject(PLATFORM_ID);
 
-  constructor(private router: Router) {
+  constructor() {
     super();
 
     this.router.events
@@ -52,16 +55,16 @@ export class AppComponent extends BasePage implements AfterViewInit, OnDestroy {
           platformName: this.getBrowserName(),
           platformVersion: this.getBrowserVersion(),
           deviceSize: this.getDeviceSize(cr.width),
-          viewSize: 'large',
+          viewSize: ViewSizeEnum.large,
         };
 
         if (
           newPlatformInfo.deviceSize === DeviceSizeEnum.large ||
           newPlatformInfo.deviceSize === DeviceSizeEnum.xLarge
         ) {
-          newPlatformInfo.viewSize = 'large';
+          newPlatformInfo.viewSize = ViewSizeEnum.large;
         } else {
-          newPlatformInfo.viewSize = 'small';
+          newPlatformInfo.viewSize = ViewSizeEnum.small;
         }
 
         this.store$.dispatch(
@@ -86,7 +89,7 @@ export class AppComponent extends BasePage implements AfterViewInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
+  override ngOnDestroy(): void {
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
     }

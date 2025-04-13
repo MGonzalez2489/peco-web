@@ -15,7 +15,7 @@
   </ng-template>
   <ng-template #end>
     <p-menu #menu [model]="items()" [popup]="true" />
-    @if (platformData()?.viewSize === "large") {
+    @if (isDesktopView()) {
       <span class="me-5">{{ user()?.email }}</span>
     }
 

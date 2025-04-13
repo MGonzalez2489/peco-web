@@ -1,5 +1,5 @@
 <div class="p-3">
-  @if (platformInfo().viewSize === "large") {
+  @if (isDesktopView()) {
     <div class="flex justify-between my-5">
       <!-- Search -->
       <div class="w-1/3">
@@ -14,7 +14,6 @@
     </div>
     <p-panel>
       <app-account-table
-        [loadingData]="isBusy()"
         [accounts]="accounts()"
         [filters]="filters"
         (search)="onSearch($event)"

@@ -1,10 +1,6 @@
 <div class="page">
   <div class="flex flex-col gap-4">
-    <app-entry-table
-      [loadingData]="isBusy()"
-      [entries]="entries()"
-      (search)="onSearch($event)"
-    >
+    <app-entry-table [entries]="entries()" (search)="onSearch($event)">
       <p-button
         icon="pi pi-plus"
         label="Nuevo"

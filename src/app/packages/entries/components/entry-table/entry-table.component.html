@@ -9,8 +9,8 @@
   </div>
   <ng-content></ng-content>
 </div>
-@if (viewSize === "large") {
-  <app-table-placeholder [isLoading]="isLoading()">
+@if (isDesktopView()) {
+  <app-table-placeholder [isLoading]="isBusy()">
     <p-panel>
       <!-- Table -->
       <p-table

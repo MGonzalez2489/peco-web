@@ -1,9 +1,9 @@
 import { AccountFormComponent } from '@accounts/components/account-form/account-form.component';
 import { AccountCreateDto } from '@accounts/dto';
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Actions, ofType } from '@ngrx/effects';
-import { BasePage } from '@shared/components/base';
+import { ofType } from '@ngrx/effects';
+import { BasePageComponent } from '@shared/components/base';
 import { AccountActions } from '@store/actions/account.actions';
 import { PanelModule } from 'primeng/panel';
 
@@ -13,9 +13,7 @@ import { PanelModule } from 'primeng/panel';
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss',
 })
-export class CreateAccountComponent extends BasePage {
-  private actions$ = inject(Actions);
-
+export class CreateAccountComponent extends BasePageComponent {
   constructor() {
     super();
     effect(() => {

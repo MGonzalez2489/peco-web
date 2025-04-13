@@ -27,11 +27,9 @@
     </p-panel>
 
     <app-entry-table
-      [loadingData]="isBusy()"
       [account]="account()"
       [entries]="entries()"
       (search)="onSearch($event)"
-      [viewSize]="platformInfo().viewSize"
     />
   </div>
 </div>

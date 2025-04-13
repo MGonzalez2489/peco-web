@@ -4,8 +4,8 @@ import { Component, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { Account } from '@core/models/entities';
-import { Actions, ofType } from '@ngrx/effects';
-import { BasePage } from '@shared/components/base';
+import { ofType } from '@ngrx/effects';
+import { BasePageComponent } from '@shared/components/base';
 import { AccountActions } from '@store/actions/account.actions';
 import { selectAccountById } from '@store/selectors';
 import { PanelModule } from 'primeng/panel';
@@ -16,9 +16,8 @@ import { PanelModule } from 'primeng/panel';
   templateUrl: './edit-account.component.html',
   styleUrl: './edit-account.component.scss',
 })
-export class EditAccountComponent extends BasePage {
+export class EditAccountComponent extends BasePageComponent {
   private activatedRoute = inject(ActivatedRoute);
-  private actions$ = inject(Actions);
 
   account = signal<Account | undefined>(undefined);
 

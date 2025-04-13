@@ -44,9 +44,6 @@ export class EntryTableComponent extends PaginatedComponent {
   entries: ResultListDto<Entry> | undefined;
 
   @Input()
-  viewSize = '';
-
-  @Input()
   set account(value: Account | undefined) {
     if (value) {
       this.showAccountColumn = false;

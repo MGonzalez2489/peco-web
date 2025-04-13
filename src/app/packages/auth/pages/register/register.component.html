@@ -55,7 +55,7 @@
   <div class="mb-6 mt-10 flex flex-col items-stretch">
     <p-button
       label="Crear Cuenta"
-      [loading]="isBusy()"
+      [loading]="isBusy"
       type="submit"
       [rounded]="true"
       fluid="true"
@@ -67,7 +67,7 @@
         severity="info"
         [link]="true"
         [routerLink]="['/']"
-        [disabled]="isBusy()"
+        [disabled]="isBusy"
       />
     </div>
   </div>

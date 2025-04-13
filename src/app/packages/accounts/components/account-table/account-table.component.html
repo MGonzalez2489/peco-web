@@ -1,4 +1,4 @@
-<app-table-placeholder [isLoading]="isLoading()">
+<app-table-placeholder [isLoading]="isBusy()">
   <p-table
     [value]="accountsSignal()?.data || []"
     [paginator]="false"

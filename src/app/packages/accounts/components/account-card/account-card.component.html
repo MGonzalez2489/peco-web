@@ -3,15 +3,12 @@
     class="cursor-pointer h-full transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
     [routerLink]="['/accounts', account.publicId]"
   >
-    @if (platformInfo().viewSize === "large") {
+    @if (isDesktopView()) {
       <p-panel>
         <ng-template #header>
           <div class="flex items-center gap-6 w-full">
             <div class="flex items-center gap-2">
-              <app-account-type-avatar
-                [account]="account"
-                [view]="platformInfo().viewSize"
-              />
+              <app-account-type-avatar [account]="account" />
               <div class="flex flex-col">
                 <span class="font-bold">{{ account.name | titlecase }}</span>
                 <span class="text-gray-400">{{

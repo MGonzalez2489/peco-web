@@ -13,6 +13,7 @@ import { MenubarModule } from 'primeng/menubar';
 
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
+import { BaseComponent } from '@shared/components/base';
 import { AuthActions } from '@store/actions/auth.actions';
 import { UiActions } from '@store/actions/ui.actions';
 import { AppState } from '@store/reducers';
@@ -42,7 +43,7 @@ const components = [
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent {
+export class NavbarComponent extends BaseComponent {
   private store$ = inject(Store<AppState>);
   private sessionTimeout: ReturnType<typeof setTimeout> | undefined;
   user = toSignal(this.store$.select(selectUser));
@@ -57,6 +58,7 @@ export class NavbarComponent {
   items = computed(() => this.generateMenuItems());
 
   constructor() {
+    super();
     //token timer
     effect(() => {
       const tokenInfo = this.token();

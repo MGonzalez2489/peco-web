@@ -10,7 +10,7 @@ import { AuthActions } from '@store/actions/auth.actions';
 //primeng
 import { RouterLink } from '@angular/router';
 import { LoginDto } from '@auth/dto/login.dto';
-import { BasePage } from '@shared/components/base';
+import { BasePageComponent } from '@shared/components/base';
 import { ErrorMessageComponent } from '@shared/components/information';
 import {
   InvalidDirtyDirective,
@@ -23,18 +23,15 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 
-const components = [
-  ButtonModule,
-  CardModule,
-  InputTextModule,
-  FloatLabelModule,
-  PasswordModule,
-];
-
 @Component({
   selector: 'app-register',
   imports: [
-    ...components,
+    ButtonModule,
+    CardModule,
+    InputTextModule,
+    FloatLabelModule,
+    PasswordModule,
+
     ReactiveFormsModule,
     RouterLink,
     ErrorMessageComponent,
@@ -44,7 +41,7 @@ const components = [
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent extends BasePage {
+export class RegisterComponent extends BasePageComponent {
   form = new FormGroup(
     {
       email: new FormControl('', [Validators.required, Validators.email]),

@@ -1,4 +1,4 @@
-import { DeviceSizeEnum } from '@core/enums';
+import { DeviceSizeEnum, ViewSizeEnum } from '@core/enums';
 import { RouteData } from '@core/models/app';
 import { Platform } from '@core/models/app/platform.model';
 import { DateFilterDto } from '@entries/dto';
@@ -27,7 +27,7 @@ const initialState: UiState = {
     platformName: '',
     platformVersion: '',
     deviceSize: DeviceSizeEnum.large,
-    viewSize: 'large',
+    viewSize: ViewSizeEnum.large,
   },
   page: { pageTitle: '', filterByPeriod: false },
   isBusy: false,

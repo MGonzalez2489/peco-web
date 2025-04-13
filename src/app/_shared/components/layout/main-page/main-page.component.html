@@ -1,12 +1,6 @@
-<ng-container [ngSwitch]="platformInfo().viewSize">
-  <ng-container *ngSwitchCase="'large'">
-    <ng-container *ngTemplateOutlet="largeLayout"></ng-container>
-  </ng-container>
-
-  <ng-container *ngSwitchCase="'small'">
-    <ng-container *ngTemplateOutlet="smallLayout"></ng-container>
-  </ng-container>
-</ng-container>
+<ng-container
+  *ngTemplateOutlet="isDesktopView() ? largeLayout : smallLayout"
+></ng-container>
 
 <ng-template #largeLayout>
   <div class="flex h-full">
@@ -33,7 +27,7 @@
       class="flex justify-stretch lg:justify-center h-full bg-gray-50 lg:p-5 max-w-screen"
     >
       <div class="lg:container w-full">
-        @if (platformInfo().viewSize === "large") {
+        @if (isDesktopView()) {
           <app-page-title>
             <!-- @if (pageData().filterByPeriod) { -->
             <!--   <app-entry-filter-date /> -->

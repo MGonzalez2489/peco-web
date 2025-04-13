@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { ResultListDto } from '@core/models/dtos';
 import { EntrySearchDto, SearchDto } from '@core/models/dtos/search';
 import { Entry } from '@core/models/entities';
-import { BasePage } from '@shared/components/base';
+import { BasePageComponent } from '@shared/components/base';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -30,7 +30,7 @@ import { EntryService } from './entry.service';
   templateUrl: './entries.component.html',
   styleUrl: './entries.component.scss',
 })
-export class EntriesComponent extends BasePage {
+export class EntriesComponent extends BasePageComponent {
   private entryService = inject(EntryService);
   entries = signal<ResultListDto<Entry> | undefined>(undefined);
   filters = new EntrySearchDto();

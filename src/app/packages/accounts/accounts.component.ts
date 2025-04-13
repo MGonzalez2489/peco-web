@@ -11,7 +11,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ResultListDto } from '@core/models/dtos';
 import { SearchDto } from '@core/models/dtos/search';
 //
-import { BasePage } from '@shared/components/base';
+import { BasePageComponent } from '@shared/components/base';
 import { InputSearchComponent } from '@shared/components/form/input-search/input-search.component';
 import { ButtonDialComponent } from '@shared/components/layout-mobile/index.';
 import { MenuItem } from 'primeng/api';
@@ -40,7 +40,7 @@ import { AccountSearchDto } from './dto';
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss',
 })
-export class AccountsComponent extends BasePage {
+export class AccountsComponent extends BasePageComponent {
   private accountService = inject(AccountService);
   filters = new AccountSearchDto();
   accounts = signal<ResultListDto<Account> | undefined>(undefined);

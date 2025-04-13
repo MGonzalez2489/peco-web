@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { BasePage } from '@shared/components/base';
+import { BasePageComponent } from '@shared/components/base';
 
 @Component({
   selector: 'app-about',
@@ -8,4 +8,4 @@ import { BasePage } from '@shared/components/base';
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
 })
-export class AboutComponent extends BasePage {}
+export class AboutComponent extends BasePageComponent {}

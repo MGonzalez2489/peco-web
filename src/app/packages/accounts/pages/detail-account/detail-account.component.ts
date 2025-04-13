@@ -9,7 +9,7 @@ import { Account, Entry } from '@core/models/entities';
 import { EntryTableComponent } from '@entries/components';
 import { EntryKPIDto } from '@entries/dto';
 import { EntryService } from '@entries/entry.service';
-import { BasePage } from '@shared/components/base';
+import { BasePageComponent } from '@shared/components/base';
 import { AccountTypeAvatarComponent } from '@shared/components/data';
 import { selectAccountById } from '@store/selectors';
 import { ButtonModule } from 'primeng/button';
@@ -33,7 +33,7 @@ const primeSources = [EntryTableComponent];
   templateUrl: './detail-account.component.html',
   styleUrl: './detail-account.component.scss',
 })
-export class DetailAccountComponent extends BasePage {
+export class DetailAccountComponent extends BasePageComponent {
   private activatedRoute = inject(ActivatedRoute);
   private entryService = inject(EntryService);
 

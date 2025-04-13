@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Account } from '@core/models/entities';
 import { AmountComponent } from '@shared/components/amount/amount.component';
-import { BasePage } from '@shared/components/base';
+import { BaseComponent } from '@shared/components/base';
 import { AccountTypeAvatarComponent } from '@shared/components/data';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
@@ -28,7 +28,7 @@ import { AccountCardGraphComponent } from '../account-card-graph/account-card-gr
   templateUrl: './account-card.component.html',
   styleUrl: './account-card.component.scss',
 })
-export class AccountCardComponent extends BasePage {
+export class AccountCardComponent extends BaseComponent {
   @Input()
   account: Account | undefined;
 }

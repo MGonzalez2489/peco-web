@@ -2,7 +2,7 @@ import { Component, Input, signal } from '@angular/core';
 import { Chart } from '@core/models/app';
 import { Account } from '@core/models/entities';
 import { EntryKPIDto } from '@entries/dto';
-import { BasePage } from '@shared/components/base';
+import { BaseComponent } from '@shared/components/base';
 import { ChartComponent } from '@shared/components/information';
 
 @Component({
@@ -11,7 +11,7 @@ import { ChartComponent } from '@shared/components/information';
   templateUrl: './account-graph.component.html',
   styleUrl: './account-graph.component.scss',
 })
-export class AccountGraphComponent extends BasePage {
+export class AccountGraphComponent extends BaseComponent {
   @Input()
   set account(value: Account | undefined) {
     if (value && value.kpis) {
@@ -25,7 +25,7 @@ export class AccountGraphComponent extends BasePage {
   initChart(kpis: EntryKPIDto | undefined) {
     if (!kpis) return;
 
-    if (this.platformInfo().viewSize === 'large') {
+    if (this.isDesktopView()) {
       this.initDesktopChart(kpis);
     } else {
       this.initMobileChart(kpis);

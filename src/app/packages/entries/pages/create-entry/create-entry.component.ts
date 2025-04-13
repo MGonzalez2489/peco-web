@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EntryFormComponent } from '@entries/components';
 import { EntryCreateDto } from '@entries/dto/entry.dto';
 import { EntryService } from '@entries/entry.service';
-import { BasePage } from '@shared/components/base';
+import { BasePageComponent } from '@shared/components/base';
 import { AccountActions } from '@store/actions/account.actions';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -27,7 +27,7 @@ import { SelectModule } from 'primeng/select';
   templateUrl: './create-entry.component.html',
   styleUrl: './create-entry.component.scss',
 })
-export class CreateEntryComponent extends BasePage {
+export class CreateEntryComponent extends BasePageComponent {
   private entryService = inject(EntryService);
   accountIdSignal = signal('');
 
