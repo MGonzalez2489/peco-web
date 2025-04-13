@@ -1,0 +1,46 @@
+@if (sItems().length === 1) {
+  <p-button
+    [icon]="sItems()[0].icon"
+    [rounded]="true"
+    [routerLink]="[sItems()[0].routerLink]"
+    [style]="{
+      position: 'absolute',
+      left: 'calc(85% - 2rem)',
+      bottom: '4rem',
+    }"
+  />
+} @else {
+  <p-speeddial
+    [model]="sItems()"
+    mask
+    direction="up"
+    [buttonProps]="{ size: 'large' }"
+    [style]="{
+      position: 'absolute',
+      bottom: '4rem',
+      left: 'calc(100% - 180px)',
+    }"
+    ariaLabel="Speed Dial Menu"
+  >
+    <ng-template #button let-toggleCallback="toggleCallback">
+      <p-button
+        [rounded]="true"
+        [size]="'large'"
+        icon="pi pi-plus"
+        (click)="toggleCallback($event)"
+      />
+    </ng-template>
+    <ng-template #item let-item let-toggleCallback="toggleCallback">
+      <div class="flex w-42 justify-between items-center gap-2 my-4">
+        <span class="font-bold text-gray-800">{{ item.label }}</span>
+        <p-button
+          [icon]="item.icon"
+          [rounded]="true"
+          [routerLink]="[item.routerLink]"
+          size="small"
+          severity="secondary"
+        />
+      </div>
+    </ng-template>
+  </p-speeddial>
+}

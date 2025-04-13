@@ -1,11 +1,6 @@
 <p-panel header="Perfil">
   <div class="flex justify-center">
-    <form
-      [formGroup]="form"
-      class="size-1/2"
-      (ngSubmit)="submit()"
-      #formDirective="ngForm"
-    >
+    <form [formGroup]="form" (ngSubmit)="submit()" #formDirective="ngForm">
       <!-- firstName -->
       <div class="mb-6">
         <p-floatlabel>

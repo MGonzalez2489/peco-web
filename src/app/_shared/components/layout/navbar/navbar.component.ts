@@ -19,6 +19,7 @@ import { AppState } from '@store/reducers';
 import {
   selectIsSideNavOpen,
   selectPageData,
+  selectPlatformInfo,
   selectToken,
   selectUser,
 } from '@store/selectors';
@@ -47,6 +48,7 @@ export class NavbarComponent {
   user = toSignal(this.store$.select(selectUser));
   token = toSignal(this.store$.select(selectToken));
   pageData = toSignal(this.store$.select(selectPageData));
+  platformData = toSignal(this.store$.select(selectPlatformInfo));
 
   isSideNavOpen = toSignal(this.store$.select(selectIsSideNavOpen), {
     initialValue: false,

@@ -31,17 +31,23 @@ export class UiEffects {
             return of(null);
           }
 
-          // Dispatch all the actions to load data
-          this.store$.dispatch(CatalogsActions.loadEntryType());
-          this.store$.dispatch(CatalogsActions.loadAccountType());
-          this.store$.dispatch(CatalogsActions.loadEntryStatus());
-          this.store$.dispatch(UserActions.loadUser());
-
           const search = new SearchDto();
           search.showAll = true;
           search.from = period.newPeriod.from;
           search.to = period.newPeriod.to;
           search.period = period.newPeriod.type;
+
+          // Dispatch all the actions to load data
+          this.store$.dispatch(
+            CatalogsActions.loadEntryType({ filters: search }),
+          );
+          this.store$.dispatch(
+            CatalogsActions.loadAccountType({ filters: search }),
+          );
+          this.store$.dispatch(
+            CatalogsActions.loadEntryStatus({ filters: search }),
+          );
+          this.store$.dispatch(UserActions.loadUser());
 
           this.store$.dispatch(
             EntryCategoryActions.loadEntryCategories({

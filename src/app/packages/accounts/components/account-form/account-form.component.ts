@@ -8,10 +8,10 @@ import {
 } from '@angular/forms';
 import { Account, AccountType } from '@core/models/entities';
 import {
+  FormButtonsComponent,
   SelectAccountTypeComponent,
   SelectColorComponent,
 } from '@shared/components/form';
-import { ErrorMessageComponent } from '@shared/components/information';
 import {
   InvalidDirtyDirective,
   ValidationErrorDirective,
@@ -39,9 +39,9 @@ import { SelectModule } from 'primeng/select';
     SelectAccountTypeComponent,
     InvalidDirtyDirective,
     ValidationErrorDirective,
-    ErrorMessageComponent,
     PanelModule,
     SelectColorComponent,
+    FormButtonsComponent,
   ],
   templateUrl: './account-form.component.html',
   styleUrl: './account-form.component.scss',

@@ -1,9 +1,10 @@
 @if (chartS() !== undefined) {
   <p-chart
+    [responsive]="true"
     type="line"
     [data]="chartS()?.data"
     [options]="chartS()?.options"
-    [height]="height"
-    [width]="width"
+    height="auto"
+    width="auto"
   />
 }

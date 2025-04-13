@@ -15,7 +15,9 @@
   </ng-template>
   <ng-template #end>
     <p-menu #menu [model]="items()" [popup]="true" />
-    <span class="me-5">{{ user()?.email }}</span>
+    @if (platformData()?.viewSize === "large") {
+      <span class="me-5">{{ user()?.email }}</span>
+    }
 
     <p-avatar
       (click)="menu.toggle($event)"

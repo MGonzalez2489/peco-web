@@ -28,3 +28,8 @@ body {
   font-weight: normal;
   color: var(--body-text-color);
 }
+
+.page {
+  padding: calc(var(--spacing) * 3);
+  height: 100%;
+}

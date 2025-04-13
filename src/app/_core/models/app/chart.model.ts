@@ -24,7 +24,7 @@ export interface Dataset {
 
 export interface ChartOptions {
   maintainAspectRatio: boolean;
-  aspectRatio: number;
+  aspectRatio?: number;
   plugins?: Plugins;
   scales?: Scales;
   elements?: any;

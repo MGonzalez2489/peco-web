@@ -1,0 +1,25 @@
+<!-- Options -->
+<section>
+  <div class="my-6 min-h-12">
+    <app-error-message />
+  </div>
+
+  <div class="flex flex-col-reverse lg:flex-row justify-center gap-6">
+    <p-button
+      size="small"
+      [text]="true"
+      pButton
+      label="Cancelar"
+      [loading]="isBusy"
+      (click)="cancel()"
+    />
+
+    <p-button
+      type="submit"
+      size="small"
+      pButton
+      label="Guardar"
+      [loading]="isBusy"
+    />
+  </div>
+</section>

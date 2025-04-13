@@ -13,8 +13,8 @@ export class CatalogsEffects {
   getEntryTypes$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CatalogsActions.loadEntryType),
-      exhaustMap(() =>
-        this.catalogsService.getEntryTypes().pipe(
+      exhaustMap((action) =>
+        this.catalogsService.getEntryTypes(action.filters).pipe(
           map((result) => {
             return CatalogsActions.loadEntryTypeSuccess({ data: result.data });
           }),
@@ -27,8 +27,8 @@ export class CatalogsEffects {
   getEntryStatus$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CatalogsActions.loadEntryStatus),
-      exhaustMap(() =>
-        this.catalogsService.getEntryStatus().pipe(
+      exhaustMap((action) =>
+        this.catalogsService.getEntryStatus(action.filters).pipe(
           map((result) => {
             return CatalogsActions.loadEntryStatusSuccess({
               data: result.data,
@@ -43,8 +43,8 @@ export class CatalogsEffects {
   getAccountTypes$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CatalogsActions.loadAccountType),
-      exhaustMap(() =>
-        this.catalogsService.getAccountTypes().pipe(
+      exhaustMap((action) =>
+        this.catalogsService.getAccountTypes(action.filters).pipe(
           map((result) => {
             return CatalogsActions.loadAccountTypeSuccess({
               data: result.data,

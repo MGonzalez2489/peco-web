@@ -15,12 +15,5 @@ export class ChartComponent {
   set chart(value: Chart) {
     this.chartS.set(value);
   }
-
-  @Input()
-  height = '100';
-
-  @Input()
-  width = '150';
-
   chartS = signal<Chart | undefined>(undefined);
 }

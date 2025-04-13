@@ -1,10 +1,16 @@
-<div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4">
-  @for (account of accounts(); track account.publicId) {
-    <div
-      class="cursor-pointer transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
-      [routerLink]="['/accounts', account.publicId]"
-    >
+@if (platformInfo().viewSize === "large") {
+  <div class="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-2 gap-4">
+    @for (account of accounts(); track account.publicId) {
       <app-account-card [account]="account" />
+    }
+  </div>
+} @else {
+  <p-panel styleClass="m-0">
+    <div class="flex items-stretch gap-4 flex-wrap">
+      @for (account of accounts(); track account.publicId) {
+        <app-account-card [account]="account" />
+      }
     </div>
-  }
-</div>
+  </p-panel>
+  <app-button-dial [items]="options" />
+}

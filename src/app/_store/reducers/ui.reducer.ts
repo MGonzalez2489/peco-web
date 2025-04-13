@@ -50,10 +50,9 @@ export const UiReducer = createReducer(
     ...state,
     page: data,
   })),
-  on(UiActions.setPlatformInfo, (state, { info }) => ({
-    ...state,
-    platform: info,
-  })),
+  on(UiActions.setPlatformInfo, (state, { info }) => {
+    return { ...state, platform: info };
+  }),
 
   on(UiActions.setLoadingSession, (state, { loading }) => ({
     ...state,

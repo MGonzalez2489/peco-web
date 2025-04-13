@@ -8,6 +8,7 @@ import {
 import { Account, EntryCategory, EntryType } from '@core/models/entities';
 import { EntryCreateDto } from '@entries/dto/entry.dto';
 import {
+  FormButtonsComponent,
   SelectAccountComponent,
   SelectEntryCategoryComponent,
   SelectEntryTypeComponent,
@@ -36,6 +37,7 @@ import { SelectModule } from 'primeng/select';
     SelectEntryTypeComponent,
     ButtonModule,
     SelectAccountComponent,
+    FormButtonsComponent,
   ],
   templateUrl: './entry-form.component.html',
   styleUrl: './entry-form.component.scss',

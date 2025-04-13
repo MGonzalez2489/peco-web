@@ -1,4 +1,4 @@
-import { DatePipe, TitleCasePipe } from '@angular/common';
+import { DatePipe, NgClass, TitleCasePipe } from '@angular/common';
 import { Component, effect, Input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ResultListDto } from '@core/models/dtos';
@@ -9,11 +9,13 @@ import { PaginatedComponent } from '@shared/components/base';
 import { TablePlaceholderComponent } from '@shared/components/data';
 import { SelectAccountComponent } from '@shared/components/form';
 import { ButtonModule } from 'primeng/button';
+import { DataViewModule } from 'primeng/dataview';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { PaginatorModule } from 'primeng/paginator';
 import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-entry-table',
@@ -30,6 +32,9 @@ import { TableModule } from 'primeng/table';
     SelectAccountComponent,
     FormsModule,
     PanelModule,
+    DataViewModule,
+    NgClass,
+    TagModule,
   ],
   templateUrl: './entry-table.component.html',
   styleUrl: './entry-table.component.scss',
@@ -37,6 +42,9 @@ import { TableModule } from 'primeng/table';
 export class EntryTableComponent extends PaginatedComponent {
   @Input()
   entries: ResultListDto<Entry> | undefined;
+
+  @Input()
+  viewSize = '';
 
   @Input()
   set account(value: Account | undefined) {

@@ -1,19 +1,36 @@
 import { AccountCardComponent } from '@accounts/components/account-card/account-card.component';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { RouterLink } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { AppState } from '@store/reducers';
+import { BasePage } from '@shared/components/base';
+import { ButtonDialComponent } from '@shared/components/layout-mobile/index.';
 import { selectAccounts } from '@store/selectors';
+import { MenuItem, PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 
+import { PanelModule } from 'primeng/panel';
 @Component({
   selector: 'app-home',
-  imports: [AccountCardComponent, ButtonModule, RouterLink],
+  imports: [
+    AccountCardComponent,
+    ButtonModule,
+    PanelModule,
+    ButtonDialComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
-  private store$ = inject(Store<AppState>);
+export class HomeComponent extends BasePage {
   accounts = toSignal(this.store$.select(selectAccounts));
+  options: MenuItem[] = [
+    {
+      label: 'Nueva Cuenta',
+      routerLink: '/accounts/new',
+      icon: PrimeIcons.PLUS,
+    },
+    {
+      label: 'Nuevo Registro',
+      routerLink: '/entries/new',
+      icon: PrimeIcons.PLUS,
+    },
+  ];
 }

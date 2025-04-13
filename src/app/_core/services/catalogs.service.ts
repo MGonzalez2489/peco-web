@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { AccountType, EntryStatus, EntryType } from '@core/models/entities';
 import { RequestService } from './_request.service';
+import { SearchDto } from '@core/models/dtos/search';
 
 @Injectable({
   providedIn: 'root',
@@ -8,15 +9,21 @@ import { RequestService } from './_request.service';
 export class CatalogsService {
   private reqService = inject(RequestService);
 
-  getEntryTypes() {
-    return this.reqService.getList<EntryType>('catalogs/entry-types');
+  getEntryTypes(filters: SearchDto) {
+    return this.reqService.getList<EntryType>('catalogs/entry-types', filters);
   }
 
-  getAccountTypes() {
-    return this.reqService.getList<AccountType>('catalogs/account-types');
+  getAccountTypes(filters: SearchDto) {
+    return this.reqService.getList<AccountType>(
+      'catalogs/account-types',
+      filters,
+    );
   }
 
-  getEntryStatus() {
-    return this.reqService.getList<EntryStatus>('catalogs/entry-status');
+  getEntryStatus(filters: SearchDto) {
+    return this.reqService.getList<EntryStatus>(
+      'catalogs/entry-status',
+      filters,
+    );
   }
 }

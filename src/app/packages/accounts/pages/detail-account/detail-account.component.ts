@@ -52,6 +52,7 @@ export class DetailAccountComponent extends BasePage {
     this.filters = search as EntrySearchDto;
 
     this.entryService.search(search as EntrySearchDto).subscribe((data) => {
+      console.log('data', data);
       this.entries.set(data);
     });
   }
