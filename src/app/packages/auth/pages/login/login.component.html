@@ -10,6 +10,7 @@
         fluid="true"
         autocomplete="on"
         type="email"
+        [pSize]="isDesktopView() ? 'small' : 'large'"
         [pAutoFocus]="true"
         [appInvalidDirty]="formDirective"
       />
@@ -26,8 +27,9 @@
         formControlName="password"
         fluid="true"
         feedback="false"
-        [appInvalidDirty]="formDirective"
         autocomplete="off"
+        [appInvalidDirty]="formDirective"
+        [size]="isDesktopView() ? 'small' : 'large'"
       />
       <label for="password">Contraseña</label>
     </p-floatlabel>

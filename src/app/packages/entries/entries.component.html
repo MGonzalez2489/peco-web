@@ -1,12 +1,16 @@
 <div class="page">
   <div class="flex flex-col gap-4">
-    <app-entry-table [entries]="entries()" (search)="onSearch($event)">
-      <p-button
-        icon="pi pi-plus"
-        label="Nuevo"
-        text="true"
-        [routerLink]="'new'"
-      />
-    </app-entry-table>
+    @if (isDesktopView()) {
+      <app-entry-table [entries]="entries()" (search)="onSearch($event)">
+        <p-button
+          icon="pi pi-plus"
+          label="Nuevo"
+          text="true"
+          [routerLink]="'new'"
+        />
+      </app-entry-table>
+    } @else {
+      <app-entry-list [entries]="entries()" (search)="onSearch($event)" />
+    }
   </div>
 </div>

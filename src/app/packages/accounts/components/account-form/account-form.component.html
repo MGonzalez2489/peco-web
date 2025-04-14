@@ -2,85 +2,87 @@
   [formGroup]="form"
   (ngSubmit)="submit()"
   #formDirective="ngForm"
-  class="h-full"
+  class="h-full flex flex-col justify-between"
 >
-  <div class="flex flex-col justify-between h-full">
-    <div>
-      <!-- name -->
-      <div class="mb-6">
-        <p-floatlabel>
-          <input
-            id="name"
-            inputId="name"
-            name="name"
-            pInputText
-            formControlName="name"
-            fluid="true"
-            autocomplete="off"
-            autofocus="true"
-            [appInvalidDirty]="formDirective"
-          />
-          <label for="name">Nombre de la cuenta</label>
-        </p-floatlabel>
-        <p [appValidationError]="'name'" [directive]="formDirective"></p>
-      </div>
-      <!-- initial balance -->
-      <div class="my-6">
-        <p-floatlabel>
-          <p-inputnumber
-            inputId="balance"
-            name="balance"
-            mode="currency"
-            currency="MXN"
-            fluid="true"
-            formControlName="balance"
-          />
-          <label for="balance">Balance inicial</label>
-        </p-floatlabel>
-        <p [appValidationError]="'balance'" [directive]="formDirective"></p>
-      </div>
-      <!-- Account Type -->
-      <div class="my-6">
-        <app-select-account-type
-          formControlName="accountType"
-          [directive]="formDirective"
+  <!-- Controls -->
+  <section>
+    <!-- name -->
+    <div class="mb-6">
+      <p-floatlabel>
+        <input
+          id="name"
+          inputId="name"
+          name="name"
+          pInputText
+          formControlName="name"
+          fluid="true"
+          autocomplete="off"
+          autofocus="true"
+          [pSize]="isDesktopView() ? 'small' : 'large'"
+          [appInvalidDirty]="formDirective"
         />
-        <p [appValidationError]="'accountType'" [directive]="formDirective"></p>
-      </div>
-      <!-- Color -->
-      <div class="my-6">
-        <app-select-color formControlName="color" />
-      </div>
-
-      <!-- Mark Default -->
-      <div class="my-6">
-        <p-checkbox
-          formControlName="isDefault"
-          binary="true"
-          inputId="isDefault"
-        />
-        <label for="isDefault" class="ml-2">Default</label>
-      </div>
-
-      <div class="my-6">
-        @if (form.value.isDefault) {
-          <p-message icon="pi pi-info-circle" severity="info">
-            <span
-              >Marcar una cuenta como default evitara que sea eliminada.</span
-            >
-            <br />
-            <small
-              >Para eliminarla deberias editarla y quitarle la propiedad
-              'Default'</small
-            >
-          </p-message>
-        }
-      </div>
+        <label for="name">Nombre de la cuenta</label>
+      </p-floatlabel>
+      <p [appValidationError]="'name'" [directive]="formDirective"></p>
     </div>
-    <!-- Options -->
+    <!-- initial balance -->
+    <div class="my-6">
+      <p-floatlabel>
+        <p-inputnumber
+          inputId="balance"
+          name="balance"
+          mode="currency"
+          currency="MXN"
+          fluid="true"
+          formControlName="balance"
+          [size]="isDesktopView() ? 'small' : 'large'"
+        />
+        <label for="balance">Balance inicial</label>
+      </p-floatlabel>
+      <p [appValidationError]="'balance'" [directive]="formDirective"></p>
+    </div>
+    <!-- Account Type -->
+    <div class="my-6">
+      <app-select-account-type
+        formControlName="accountType"
+        [directive]="formDirective"
+      />
+      <p [appValidationError]="'accountType'" [directive]="formDirective"></p>
+    </div>
+    <!-- Color -->
+    <div class="my-6">
+      <app-select-color formControlName="color" />
+    </div>
+
+    <!-- Mark Default -->
+    <div class="my-6">
+      <p-checkbox
+        formControlName="isDefault"
+        binary="true"
+        inputId="isDefault"
+      />
+      <label for="isDefault" class="ml-2">Default</label>
+    </div>
+
+    <div class="my-6">
+      @if (form.value.isDefault) {
+        <p-message icon="pi pi-info-circle" severity="info">
+          <span>Marcar una cuenta como default evitara que sea eliminada.</span>
+          <br />
+          <small
+            >Para eliminarla deberias editarla y quitarle la propiedad
+            'Default'</small
+          >
+        </p-message>
+      }
+    </div>
+  </section>
+
+  <!-- Options -->
+  <section>
     <app-form-buttons
       (accept)="$event ? submit() : cancel()"
       [isBusy]="isBusy()"
     />
-  </div>
+  </section>
 </form>

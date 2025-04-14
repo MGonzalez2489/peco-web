@@ -1,5 +1,6 @@
 import { AccountFormComponent } from '@accounts/components/account-form/account-form.component';
 import { AccountCreateDto } from '@accounts/dto';
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, effect } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ofType } from '@ngrx/effects';
@@ -10,7 +11,12 @@ import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-create-account',
-  imports: [ReactiveFormsModule, PanelModule, AccountFormComponent],
+  imports: [
+    ReactiveFormsModule,
+    PanelModule,
+    AccountFormComponent,
+    NgTemplateOutlet,
+  ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss',
 })

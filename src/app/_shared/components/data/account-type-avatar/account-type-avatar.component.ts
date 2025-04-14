@@ -15,19 +15,13 @@ export class AccountTypeAvatarComponent
   implements AfterViewInit
 {
   @Input()
-  account: Account | undefined = undefined;
+  account!: Account;
 
   backgroundColor = signal('white');
-  color = signal('black');
-  size = signal<'large' | 'xlarge' | 'normal'>('normal');
+  color = signal('white');
+  size = signal<'large' | 'xlarge' | 'normal'>('large');
 
   ngAfterViewInit(): void {
-    if (this.isMobileView()) {
-      this.color.set(this.account!.color!);
-      this.backgroundColor.set('--p-gray-300');
-    } else {
-      this.color.set('white');
-      this.backgroundColor.set(this.account!.color!);
-    }
+    this.backgroundColor.set(this.account.color);
   }
 }

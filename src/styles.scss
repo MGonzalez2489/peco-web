@@ -24,12 +24,23 @@ body {
   min-height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: var(--body-bg);
   font-weight: normal;
   color: var(--body-text-color);
 }
 
+//mobile version
 .page {
-  padding: calc(var(--spacing) * 3);
-  height: 100%;
+  padding-top: calc(var(--spacing) * 3);
+  height: calc(100vh - 10%);
+  max-height: calc(100vh - 10%);
+}
+
+/* Para pantallas grandes (lg: 1024px) */
+@media (min-width: 1024px) {
+  .page {
+    padding-top: 0px;
+    padding: calc(var(--spacing) * 3);
+    height: calc(100vh - 15%);
+    max-height: calc(100vh - 15%);
+  }
 }

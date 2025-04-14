@@ -3,13 +3,16 @@
   <div class="mb-6">
     <p-floatlabel>
       <input
+        id="email"
+        name="email"
         pInputText
         formControlName="email"
-        id="email"
         fluid="true"
-        [appInvalidDirty]="formDirective"
         autocomplete="on"
         type="email"
+        [pSize]="isDesktopView() ? 'small' : 'large'"
+        [pAutoFocus]="true"
+        [appInvalidDirty]="formDirective"
       />
       <label for="email">Email</label>
     </p-floatlabel>
@@ -25,6 +28,7 @@
         fluid="true"
         feedback="false"
         [appInvalidDirty]="formDirective"
+        [size]="isDesktopView() ? 'small' : 'large'"
       />
       <label for="password">Contraseña</label>
     </p-floatlabel>
@@ -41,6 +45,7 @@
         type="password"
         autocomplete="off"
         [appInvalidDirty]="formDirective"
+        [pSize]="isDesktopView() ? 'small' : 'large'"
       />
       <label for="confirmPassword">Confirmar Contraseña</label>
     </p-floatlabel>
@@ -55,7 +60,7 @@
   <div class="mb-6 mt-10 flex flex-col items-stretch">
     <p-button
       label="Crear Cuenta"
-      [loading]="isBusy"
+      [loading]="isBusy()"
       type="submit"
       [rounded]="true"
       fluid="true"
@@ -67,7 +72,7 @@
         severity="info"
         [link]="true"
         [routerLink]="['/']"
-        [disabled]="isBusy"
+        [disabled]="isBusy()"
       />
     </div>
   </div>

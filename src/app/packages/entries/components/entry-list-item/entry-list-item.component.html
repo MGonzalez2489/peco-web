@@ -1,0 +1,43 @@
+<article class="flex text-sm">
+  <div class="w-3" [ngStyle]="{ backgroundColor: entry.category.color }"></div>
+  <div
+    #content
+    class="flex flex-col justify-between gap-3 w-full px-2 pt-2 pb-1"
+  >
+    <!-- Header -->
+    <div #header class="flex justify-between items-center">
+      <div class="flex items-center gap-1">
+        <i
+          [class]="entry.category.icon"
+          [ngStyle]="{ color: entry.category.color, 'font-size': '1.2rem' }"
+        ></i>
+
+        <span class="font-semibold">{{ entry.category.name }}</span>
+      </div>
+
+      <p
+        class="font-bold"
+        [ngStyle]="{
+          color:
+            entry.type == 'Gasto' ? 'var(--p-red-400)' : 'var(--p-green-400)',
+        }"
+      >
+        @if (entry.type === "Gasto") {
+          <span>-</span>
+        }
+        <span>{{ entry.amount | currency }}</span>
+      </p>
+    </div>
+    <!-- Body -->
+    <div #body>
+      <p class="text-pretty my-3">{{ entry.description }}</p>
+    </div>
+    <!-- Footer -->
+    <div #footer class="flex justify-between items-center">
+      <span class="font-light text-gray-400">{{
+        entry.createdAt | date: "mediumDate"
+      }}</span>
+      <p class="font-light text-gray-400">{{ entry.type }}</p>
+    </div>
+  </div>
+</article>

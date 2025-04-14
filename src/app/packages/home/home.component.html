@@ -1,12 +1,12 @@
 @if (isDesktopView()) {
-  <div class="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-2 gap-3">
     @for (account of accounts(); track account.publicId) {
       <app-account-card [account]="account" />
     }
   </div>
 } @else {
-  <p-panel styleClass="m-0">
-    <div class="flex items-stretch gap-4 flex-wrap">
+  <p-panel>
+    <div class="flex gap-3 flex-wrap">
       @for (account of accounts(); track account.publicId) {
         <app-account-card [account]="account" />
       }

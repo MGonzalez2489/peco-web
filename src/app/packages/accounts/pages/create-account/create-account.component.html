@@ -3,13 +3,17 @@
     <p-panel>
       <div class="flex flex-col lg:flex-row lg:justify-center">
         <div class="lg:w-1/2">
-          <app-account-form (save)="saveAccount($event)" />
+          <ng-container *ngTemplateOutlet="main"></ng-container>
         </div>
       </div>
     </p-panel>
   } @else {
-    <div class="h-full m-0 p-0">
-      <app-account-form (save)="saveAccount($event)" />
+    <div class="h-full">
+      <ng-container *ngTemplateOutlet="main"></ng-container>
     </div>
   }
 </div>
+
+<ng-template #main>
+  <app-account-form (save)="saveAccount($event)" />
+</ng-template>

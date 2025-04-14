@@ -22,6 +22,7 @@ import { CardModule } from 'primeng/card';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { AutoFocus } from 'primeng/autofocus';
 
 @Component({
   selector: 'app-register',
@@ -31,7 +32,7 @@ import { PasswordModule } from 'primeng/password';
     InputTextModule,
     FloatLabelModule,
     PasswordModule,
-
+    AutoFocus,
     ReactiveFormsModule,
     RouterLink,
     ErrorMessageComponent,

@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EntryFormComponent } from '@entries/components';
@@ -24,6 +25,7 @@ import { takeUntil } from 'rxjs';
     SelectModule,
     EntryFormComponent,
     PanelModule,
+    NgTemplateOutlet,
   ],
   templateUrl: './create-entry.component.html',
   styleUrl: './create-entry.component.scss',

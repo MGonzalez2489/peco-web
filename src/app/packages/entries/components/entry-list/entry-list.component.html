@@ -1,0 +1,17 @@
+<p-panel>
+  @if (entries && entries.data) {
+    @for (
+      entry of entries.data;
+      track entry.publicId;
+      let first = $first;
+      let last = $last
+    ) {
+      <app-entry-list-item [entry]="entry" />
+      @if (!last) {
+        <p-divider [style]="{ padding: '0px', margin: '0px' }" />
+      }
+    }
+  } @else {
+    no data
+  }
+</p-panel>

@@ -1,6 +1,7 @@
 import {
   ApplicationConfig,
-  provideExperimentalZonelessChangeDetection, isDevMode,
+  provideExperimentalZonelessChangeDetection,
+  isDevMode,
 } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
@@ -34,9 +35,10 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
-    ...PecoStoreProvider, provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-          }),
+    ...PecoStoreProvider,
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
 };

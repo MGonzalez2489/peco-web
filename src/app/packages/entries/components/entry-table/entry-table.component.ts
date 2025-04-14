@@ -1,5 +1,5 @@
-import { DatePipe, NgClass, TitleCasePipe } from '@angular/common';
-import { Component, effect, Input, signal } from '@angular/core';
+import { DatePipe, TitleCasePipe } from '@angular/common';
+import { Component, Input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ResultListDto } from '@core/models/dtos';
 import { Account, Entry } from '@core/models/entities';
@@ -33,7 +33,6 @@ import { TagModule } from 'primeng/tag';
     FormsModule,
     PanelModule,
     DataViewModule,
-    NgClass,
     TagModule,
   ],
   templateUrl: './entry-table.component.html',
@@ -56,18 +55,12 @@ export class EntryTableComponent extends PaginatedComponent {
   showAccountColumn = true;
 
   protected selectedAccount = signal<Account | undefined>(undefined);
-  constructor() {
-    super();
-    effect(() => {
-      const nAccount = this.selectedAccount();
-      if (nAccount && this.filters) {
-        this.filters.accountId = nAccount.publicId;
-        this.onSearch(this.filters!);
-      }
-    });
-  }
 
   onSearch(filters: EntrySearchDto) {
+    const nAccount = this.selectedAccount();
+    if (nAccount && this.filters) {
+      this.filters.accountId = nAccount.publicId;
+    }
     this.search.emit(filters);
   }
 }

@@ -11,7 +11,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
-import { EntryTableComponent } from './components';
+import { EntryListComponent, EntryTableComponent } from './components';
 import { EntryService } from './entry.service';
 
 @Component({
@@ -24,6 +24,7 @@ import { EntryService } from './entry.service';
     InputIconModule,
     InputTextModule,
     EntryTableComponent,
+    EntryListComponent,
     FormsModule,
     RouterLink,
   ],
