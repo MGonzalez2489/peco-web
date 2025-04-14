@@ -9,8 +9,10 @@ import {
   ValidationErrors,
   Validator,
 } from '@angular/forms';
+import { Base } from '../base';
 @Component({ template: '' })
 export class BaseFormControl
+  extends Base
   implements ControlValueAccessor, Validator, OnInit
 {
   @Input() directive: FormGroupDirective | undefined;

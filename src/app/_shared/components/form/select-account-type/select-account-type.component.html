@@ -10,6 +10,13 @@
     (onChange)="select($event)"
     (onBlur)="onTouched()"
     [appInvalidDirty]="directive"
-  />
+    [overlayOptions]="{ mode: isDesktopView() ? 'overlay' : 'modal' }"
+  >
+    <ng-template #header>
+      @if (isMobileView()) {
+        <div class="font-medium p-3">-- Cuentas --</div>
+      }
+    </ng-template>
+  </p-select>
   <label [for]="inpId">Tipo de Cuenta</label>
 </p-floatlabel>

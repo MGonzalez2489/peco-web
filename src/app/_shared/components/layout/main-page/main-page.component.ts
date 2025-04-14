@@ -48,7 +48,6 @@ export class MainPageComponent extends BasePageComponent {
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   closeCallback(e: any): void {
-    console.log('callback close', e);
     this.drawerRef.close(e);
   }
   onHideDraw() {

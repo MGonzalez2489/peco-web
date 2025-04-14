@@ -11,7 +11,14 @@
     (onBlur)="onTouched()"
     [appInvalidDirty]="directive"
     styleClass="min-w-3xs"
+    [overlayOptions]="{ mode: isDesktopView() ? 'overlay' : 'modal' }"
   >
+    <ng-template #header>
+      @if (isMobileView()) {
+        <div class="font-medium p-3">-- Cuentas --</div>
+      }
+    </ng-template>
+
     <ng-template #selectedItem let-selectedOption>
       @if (selectedOption) {
         <div>{{ selectedOption.name | titlecase }}</div>

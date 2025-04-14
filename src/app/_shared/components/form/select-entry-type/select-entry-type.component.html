@@ -27,7 +27,14 @@
       [options]="(entryTypes$ | async)!"
       (onChange)="select($event)"
       (onBlur)="onTouched()"
-    />
+      [overlayOptions]="{ mode: isDesktopView() ? 'overlay' : 'modal' }"
+    >
+      <ng-template #header>
+        @if (isMobileView()) {
+          <div class="font-medium p-3">-- Tipo --</div>
+        }
+      </ng-template>
+    </p-select>
     <label [for]="inpId">Tipo </label>
   </p-floatlabel>
 }

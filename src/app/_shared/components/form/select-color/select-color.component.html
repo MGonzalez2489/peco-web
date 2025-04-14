@@ -7,7 +7,14 @@
   [formControl]="formControl"
   (onChange)="select($event)"
   (onBlur)="onTouched()"
+  [overlayOptions]="{ mode: isDesktopView() ? 'overlay' : 'modal' }"
 >
+  <ng-template #header>
+    @if (isMobileView()) {
+      <div class="font-medium p-3">-- Selecciona un color --</div>
+    }
+  </ng-template>
+
   <ng-template #selectedItem let-selectedOption>
     @if (formControl.value) {
       <div

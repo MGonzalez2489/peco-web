@@ -13,7 +13,14 @@
     (onBlur)="onTouched()"
     [appInvalidDirty]="directive"
     [inputId]="inpId"
+    [overlayOptions]="{ mode: isDesktopView() ? 'overlay' : 'modal' }"
   >
+    <ng-template #header>
+      @if (isMobileView()) {
+        <div class="font-medium p-3">-- Categorias --</div>
+      }
+    </ng-template>
+
     <ng-template let-group pTemplate="group">
       <div class="group-header">
         {{ group.label }}
