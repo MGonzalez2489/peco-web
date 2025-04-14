@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EntryFormComponent } from '@entries/components';
 import { EntryCreateDto } from '@entries/dto/entry.dto';
@@ -31,20 +31,7 @@ export class CreateEntryComponent extends BasePageComponent {
   private entryService = inject(EntryService);
   accountIdSignal = signal('');
 
-  fromAccountView = signal<boolean>(false);
-
-  constructor() {
-    super();
-    effect(() => {
-      const accId = this.accountIdSignal();
-      if (accId) {
-        this.fromAccountView.set(true);
-      }
-    });
-  }
-
   submit(newValue: EntryCreateDto | null): void {
-    console.log('newValue', newValue);
     if (!newValue) {
       this.cancel();
       return;
