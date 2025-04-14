@@ -8,6 +8,7 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { EntryKPIDto } from '@entries/dto';
+import { BaseComponent } from '@shared/components/base';
 import { ChartModule } from 'primeng/chart';
 import { PanelModule } from 'primeng/panel';
 
@@ -18,7 +19,7 @@ import { PanelModule } from 'primeng/panel';
   providers: [DatePipe],
   styleUrl: './entries-graph.component.scss',
 })
-export class EntriesGraphComponent {
+export class EntriesGraphComponent extends BaseComponent {
   @Input()
   set kpis(value: EntryKPIDto) {
     this.initChart(value);
@@ -26,15 +27,15 @@ export class EntriesGraphComponent {
 
   datePipe = inject(DatePipe);
 
-  @Input()
-  isLoading = false;
   data: any;
   //
   options: any;
   //
   platformId = inject(PLATFORM_ID);
   //
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef) {
+    super();
+  }
   //
   // themeEffect = effect(() => {
   //   // if (this.configService.transitionComplete()) {

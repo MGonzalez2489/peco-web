@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, effect, inject, OnDestroy, signal } from '@angular/core';
 
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DeviceSizeEnum, ViewSizeEnum } from '@core/enums';
 import { RouteData } from '@core/models/app';
 import { Platform } from '@core/models/app/platform.model';
@@ -53,6 +53,8 @@ export abstract class Base {
 
 @Component({ template: '' })
 export class BasePageComponent extends Base implements OnDestroy {
+  private activatedRoute = inject(ActivatedRoute);
+
   protected store$ = inject(Store<AppState>);
   protected location = inject(Location);
   protected destroy$ = new Subject<void>();
@@ -76,6 +78,9 @@ export class BasePageComponent extends Base implements OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+  getParamFromRoute(param: string) {
+    return this.activatedRoute.snapshot.params[param];
   }
 }
 export class BaseComponent extends Base {}

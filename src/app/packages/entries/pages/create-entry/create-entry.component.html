@@ -3,19 +3,19 @@
     <p-panel>
       <div class="flex justify-center">
         <div class="w-1/2">
-          <app-entry-form
-            [isBusy]="isBusy()"
-            (save)="submit($event)"
-            [accountId]="accountIdSignal() || ''"
-          />
+          <ng-container *ngTemplateOutlet="main"></ng-container>
         </div>
       </div>
     </p-panel>
   } @else {
-    <app-entry-form
-      [isBusy]="isBusy()"
-      (save)="submit($event)"
-      [accountId]="accountIdSignal() || ''"
-    />
+    <ng-container *ngTemplateOutlet="main"></ng-container>
   }
 </div>
+
+<ng-template #main>
+  <app-entry-form
+    [isBusy]="isBusy()"
+    (save)="submit($event)"
+    [accountId]="accountIdSignal()"
+  />
+</ng-template>

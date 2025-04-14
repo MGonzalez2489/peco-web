@@ -6,6 +6,7 @@ import { ofType } from '@ngrx/effects';
 import { BasePageComponent } from '@shared/components/base';
 import { AccountActions } from '@store/actions/account.actions';
 import { PanelModule } from 'primeng/panel';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-create-account',
@@ -17,9 +18,11 @@ export class CreateAccountComponent extends BasePageComponent {
   constructor() {
     super();
     effect(() => {
-      this.actions$.pipe(ofType(AccountActions.createSuccess)).subscribe(() => {
-        this.saveAccount(null);
-      });
+      this.actions$
+        .pipe(ofType(AccountActions.createSuccess), takeUntil(this.destroy$))
+        .subscribe(() => {
+          this.saveAccount(null);
+        });
     });
   }
 

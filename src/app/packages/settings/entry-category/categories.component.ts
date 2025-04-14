@@ -1,8 +1,6 @@
-import { Component, effect, inject, Signal } from '@angular/core';
+import { Component, effect, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EntryCategory } from '@core/models/entities';
-import { Store } from '@ngrx/store';
-import { AppState } from '@store/reducers';
 import { selectEntryCategories } from '@store/selectors';
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
@@ -17,6 +15,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { DialogModule } from 'primeng/dialog';
 
 import { NgClass } from '@angular/common';
+import { BasePageComponent } from '@shared/components/base';
 import { CategoryAvatarComponent } from '@shared/components/data';
 import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -46,9 +45,7 @@ import { EntryCategoryCardComponent } from './components/entry-category-card/ent
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
 })
-export class CategoriesComponent {
-  private store$ = inject(Store<AppState>);
-
+export class CategoriesComponent extends BasePageComponent {
   categories: Signal<EntryCategory[]> = toSignal(
     this.store$.select(selectEntryCategories),
     { initialValue: [] },
@@ -57,6 +54,7 @@ export class CategoriesComponent {
   selectedItem: EntryCategory | undefined;
 
   constructor() {
+    super();
     effect(() => {
       const cats = this.categories();
       this.selectedItem = cats[0];

@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
   FormControl,
@@ -6,11 +6,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { ofType } from '@ngrx/effects';
+import { BasePageComponent } from '@shared/components/base';
 import { UserActions } from '@store/actions/profile.actions';
-import { AppState } from '@store/reducers';
 import { selectUser } from '@store/selectors';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -18,6 +16,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { UpdateUserDto } from './dto/user.dto';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -32,11 +31,7 @@ import { UpdateUserDto } from './dto/user.dto';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
-export class ProfileComponent {
-  private store$ = inject(Store<AppState>);
-  private actions$ = inject(Actions);
-  router = inject(Router);
-
+export class ProfileComponent extends BasePageComponent {
   mode = signal<'read' | 'edit'>('read');
 
   form = new FormGroup({
@@ -48,6 +43,7 @@ export class ProfileComponent {
   user = toSignal(this.store$.select(selectUser));
 
   constructor() {
+    super();
     effect(() => {
       this.patchForm();
     });
@@ -62,7 +58,7 @@ export class ProfileComponent {
     });
     effect(() => {
       this.actions$
-        .pipe(ofType(UserActions.updateUserSuccess))
+        .pipe(ofType(UserActions.updateUserSuccess), takeUntil(this.destroy$))
         .subscribe(() => {
           this.mode.set('read');
         });

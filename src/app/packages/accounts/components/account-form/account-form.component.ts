@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Account, AccountType } from '@core/models/entities';
+import { BaseComponent } from '@shared/components/base';
 import {
   FormButtonsComponent,
   SelectAccountTypeComponent,
@@ -46,13 +47,11 @@ import { SelectModule } from 'primeng/select';
   templateUrl: './account-form.component.html',
   styleUrl: './account-form.component.scss',
 })
-export class AccountFormComponent {
+export class AccountFormComponent extends BaseComponent {
   @Input()
   set account(value: Account | undefined) {
     if (value) this.patchForm(value);
   }
-  @Input()
-  isBusy = false;
 
   @Output()
   save = new EventEmitter<AccountCreateDto | null>();

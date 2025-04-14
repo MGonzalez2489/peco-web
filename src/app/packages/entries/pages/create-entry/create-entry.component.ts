@@ -11,6 +11,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { SelectModule } from 'primeng/select';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-create-entry',
@@ -30,6 +31,13 @@ import { SelectModule } from 'primeng/select';
 export class CreateEntryComponent extends BasePageComponent {
   private entryService = inject(EntryService);
   accountIdSignal = signal('');
+  constructor() {
+    super();
+    const accId = this.getParamFromRoute('accountId');
+    if (accId) {
+      this.accountIdSignal.set(accId);
+    }
+  }
 
   submit(newValue: EntryCreateDto | null): void {
     if (!newValue) {
@@ -37,12 +45,15 @@ export class CreateEntryComponent extends BasePageComponent {
       return;
     }
 
-    this.entryService.create(newValue!).subscribe(() => {
-      this.store$.dispatch(
-        AccountActions.getById({ accountId: newValue!.accountId }),
-      );
-      this.cancel();
-    });
+    this.entryService
+      .create(newValue!)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.store$.dispatch(
+          AccountActions.getById({ accountId: newValue!.accountId }),
+        );
+        this.cancel();
+      });
   }
   cancel(): void {
     this.navigateBack();

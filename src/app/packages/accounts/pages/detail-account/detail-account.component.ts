@@ -2,7 +2,7 @@ import { AccountGraphComponent } from '@accounts/components/account-graph/accoun
 import { TitleCasePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { ResultListDto } from '@core/models/dtos';
 import { EntrySearchDto, SearchDto } from '@core/models/dtos/search';
 import { Account, Entry } from '@core/models/entities';
@@ -34,7 +34,6 @@ const primeSources = [EntryTableComponent];
   styleUrl: './detail-account.component.scss',
 })
 export class DetailAccountComponent extends BasePageComponent {
-  private activatedRoute = inject(ActivatedRoute);
   private entryService = inject(EntryService);
 
   account = signal<Account | undefined>(undefined);
@@ -44,9 +43,14 @@ export class DetailAccountComponent extends BasePageComponent {
 
   constructor() {
     super();
-    const accId = this.activatedRoute.snapshot.params['accountId'];
-    this.account.set(toSignal(this.store$.select(selectAccountById(accId)))());
-    this.filters.accountId = accId;
+    const accountId = this.getParamFromRoute('accountId');
+    if (!accountId) {
+      this.navigateBack();
+    }
+    this.account.set(
+      toSignal(this.store$.select(selectAccountById(accountId)))(),
+    );
+    this.filters.accountId = accountId;
   }
   onSearch(search: SearchDto): void {
     this.filters = search as EntrySearchDto;

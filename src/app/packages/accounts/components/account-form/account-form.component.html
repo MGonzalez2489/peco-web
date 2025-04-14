@@ -80,7 +80,7 @@
     <!-- Options -->
     <app-form-buttons
       (accept)="$event ? submit() : cancel()"
-      [isBusy]="isBusy"
+      [isBusy]="isBusy()"
     />
   </div>
 </form>

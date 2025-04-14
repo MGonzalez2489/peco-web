@@ -63,7 +63,7 @@ export class EntryFormComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    if (this.accountId) {
+    if (this.accountId && this.accountId !== '') {
       this.form.controls.account.clearValidators();
       this.form.updateValueAndValidity();
     }

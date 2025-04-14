@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Account } from '@core/models/entities';
 
 import { ButtonModule } from 'primeng/button';
@@ -40,7 +40,7 @@ import { AccountSearchDto } from './dto';
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss',
 })
-export class AccountsComponent extends BasePageComponent {
+export class AccountsComponent extends BasePageComponent implements OnInit {
   private accountService = inject(AccountService);
   filters = new AccountSearchDto();
   accounts = signal<ResultListDto<Account> | undefined>(undefined);
@@ -51,18 +51,13 @@ export class AccountsComponent extends BasePageComponent {
       routerLink: '/accounts/new',
     },
   ];
-
-  constructor() {
-    super();
-    effect(() => {
-      this.period();
-      this.filters.showAll = !this.pageData().filterByPeriod;
-
-      this.onSearch(this.filters);
-    });
+  ngOnInit(): void {
+    this.onSearch(this.filters);
   }
+
   onSearch(search: SearchDto) {
     this.filters = search as AccountSearchDto;
+    this.filters.showAll = true;
     this.accountService.getAll(this.filters).subscribe((data) => {
       this.accounts.set(data);
     });
