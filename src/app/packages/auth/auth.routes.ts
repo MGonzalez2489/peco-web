@@ -1,4 +1,8 @@
 import { Routes } from '@angular/router';
+export enum AuthRoutesEnum {
+  LOGIN = 'login',
+  REGISTER = 'register',
+}
 
 export const routes: Routes = [
   {
@@ -9,16 +13,16 @@ export const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'login',
+        redirectTo: AuthRoutesEnum.LOGIN,
       },
       {
-        path: 'login',
+        path: AuthRoutesEnum.LOGIN,
         loadComponent: () =>
           import('./pages/login/login.component').then((c) => c.LoginComponent),
         data: { pageTitle: 'Login', filterByPeriod: true },
       },
       {
-        path: 'registrar',
+        path: AuthRoutesEnum.REGISTER,
         loadComponent: () =>
           import('./pages/register/register.component').then(
             (c) => c.RegisterComponent,

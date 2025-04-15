@@ -1,37 +1,41 @@
 <form [formGroup]="form" (ngSubmit)="submit()" #formDirective="ngForm">
   <!-- Email -->
-  <div class="mb-6">
-    <p-floatlabel>
-      <input
-        id="email"
-        name="email"
-        pInputText
-        formControlName="email"
-        fluid="true"
-        autocomplete="on"
-        type="email"
-        appControlSize
-        [pAutoFocus]="true"
-        [appInvalidDirty]="formDirective"
-      />
-      <label for="email">Email</label>
-    </p-floatlabel>
+  <div class="my-6">
+    <label for="email" class="block text-gray-600 font-medium mb-2"
+      >Email</label
+    >
+    <input
+      id="email"
+      name="email"
+      type="email"
+      placeholder="Email"
+      pInputText
+      fluid="true"
+      formControlName="email"
+      autocomplete="on"
+      appControlSize
+      [pAutoFocus]="true"
+      [appInvalidDirty]="formDirective"
+    />
     <p [appValidationError]="'email'" [directive]="formDirective"></p>
   </div>
   <!-- Password -->
   <div class="my-6">
-    <p-floatlabel>
-      <p-password
-        name="password"
-        inputId="password"
-        formControlName="password"
-        fluid="true"
-        feedback="false"
-        autocomplete="off"
-        [appInvalidDirty]="formDirective"
-      />
-      <label for="password">Contraseña</label>
-    </p-floatlabel>
+    <label for="password" class="block text-gray-600 font-medium mb-2"
+      >Contraseña</label
+    >
+    <input
+      name="password"
+      pInputText
+      type="password"
+      inputId="password"
+      formControlName="password"
+      fluid="true"
+      feedback="false"
+      autocomplete="off"
+      appControlSize
+      [appInvalidDirty]="formDirective"
+    />
     <p [appValidationError]="'password'" [directive]="formDirective"></p>
   </div>
 
@@ -54,7 +58,7 @@
         severity="info"
         [disabled]="isBusy()"
         [link]="true"
-        [routerLink]="['/registrar']"
+        [routerLink]="[`/${authRoutes.REGISTER}`]"
       />
     </div>
   </div>

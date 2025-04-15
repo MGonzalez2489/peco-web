@@ -23,6 +23,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { AutoFocus } from 'primeng/autofocus';
+import { AuthRoutesEnum } from '@auth/auth.routes';
 
 @Component({
   selector: 'app-register',
@@ -43,6 +44,7 @@ import { AutoFocus } from 'primeng/autofocus';
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent extends BasePageComponent {
+  authRoutes = AuthRoutesEnum;
   form = new FormGroup(
     {
       email: new FormControl('', [Validators.required, Validators.email]),

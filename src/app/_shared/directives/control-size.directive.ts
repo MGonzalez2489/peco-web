@@ -4,6 +4,7 @@ import {
   EffectRef,
   HostBinding,
   inject,
+  Input,
   OnDestroy,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -17,6 +18,9 @@ import { selectPlatformInfo } from '@store/selectors';
   standalone: true,
 })
 export class ControlSizeDirective implements OnDestroy {
+  @Input() iType: 'text' | 'password' = 'text';
+
+  //text
   @HostBinding('class.p-inputtext-lg') isLargeText = false;
   @HostBinding('class.p-inputfield-lg') isLargeField = false;
 
