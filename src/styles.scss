@@ -45,3 +45,15 @@ body {
     max-height: calc(100vh - 15%);
   }
 }
+
+.form-section {
+  padding-block: calc(var(--spacing) * 1);
+}
+.form-label {
+  --tw-font-weight: var(--font-weight-medium);
+
+  display: block;
+  color: var(--text-gray-600);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: calc(var(--spacing) * 2);
+}

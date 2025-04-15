@@ -9,43 +9,39 @@ import {
 import { AuthActions } from '@store/actions/auth.actions';
 //primeng
 import { RouterLink } from '@angular/router';
+import { AuthRoutesEnum } from '@auth/auth.routes';
 import { LoginDto } from '@auth/dto/login.dto';
 import { BasePageComponent } from '@shared/components/base';
 import { ErrorMessageComponent } from '@shared/components/information';
+import { ControlSizeDirective } from '@shared/directives';
 import {
   InvalidDirtyDirective,
   ValidationErrorDirective,
 } from '@shared/directives/forms';
 import { CustomValidators } from '@shared/validators/passwordMatch.validator';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
 import { AutoFocus } from 'primeng/autofocus';
-import { AuthRoutesEnum } from '@auth/auth.routes';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-register',
   imports: [
     ButtonModule,
-    CardModule,
     InputTextModule,
-    FloatLabelModule,
-    PasswordModule,
     AutoFocus,
     ReactiveFormsModule,
     RouterLink,
     ErrorMessageComponent,
     ValidationErrorDirective,
     InvalidDirtyDirective,
+    ControlSizeDirective,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent extends BasePageComponent {
   authRoutes = AuthRoutesEnum;
-  form = new FormGroup(
+  protected form = new FormGroup(
     {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),

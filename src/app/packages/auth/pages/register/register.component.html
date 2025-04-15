@@ -1,63 +1,65 @@
 <form [formGroup]="form" (ngSubmit)="submit()" #formDirective="ngForm">
   <!-- Email -->
-  <div class="mb-6">
-    <p-floatlabel>
-      <input
-        id="email"
-        name="email"
-        pInputText
-        formControlName="email"
-        fluid="true"
-        autocomplete="on"
-        type="email"
-        [pSize]="isDesktopView() ? 'small' : 'large'"
-        [pAutoFocus]="true"
-        [appInvalidDirty]="formDirective"
-      />
-      <label for="email">Email</label>
-    </p-floatlabel>
+  <div class="form-section">
+    <label for="email" class="form-label">Email</label>
+    <input
+      id="email"
+      name="email"
+      placeholder="Email"
+      pInputText
+      formControlName="email"
+      fluid="true"
+      autocomplete="on"
+      type="email"
+      appControlSize
+      [pAutoFocus]="true"
+      [appInvalidDirty]="formDirective"
+    />
     <p [appValidationError]="'email'" [directive]="formDirective"></p>
   </div>
   <!-- Password -->
-  <div class="my-6">
-    <p-floatlabel>
-      <p-password
-        inputId="password"
-        autocomplete="off"
-        formControlName="password"
-        fluid="true"
-        feedback="false"
-        [appInvalidDirty]="formDirective"
-        [size]="isDesktopView() ? 'small' : 'large'"
-      />
-      <label for="password">Contraseña</label>
-    </p-floatlabel>
+  <div class="form-section">
+    <label for="password" class="form-label">Contraseña</label>
+    <input
+      id="password"
+      name="password"
+      pInputText
+      type="password"
+      placeholder="Contraseña"
+      inputId="password"
+      formControlName="password"
+      fluid="true"
+      feedback="false"
+      autocomplete="off"
+      appControlSize
+      [appInvalidDirty]="formDirective"
+    />
     <p [appValidationError]="'password'" [directive]="formDirective"></p>
   </div>
   <!-- Confirm Password -->
-  <div class="mb-6">
-    <p-floatlabel>
-      <input
-        pInputText
-        formControlName="confirmPassword"
-        id="confirmPassword"
-        fluid="true"
-        type="password"
-        autocomplete="off"
-        [appInvalidDirty]="formDirective"
-        [pSize]="isDesktopView() ? 'small' : 'large'"
-      />
-      <label for="confirmPassword">Confirmar Contraseña</label>
-    </p-floatlabel>
+  <div class="form-section">
+    <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+    <input
+      id="confirmPassword"
+      name="confirmPassword"
+      pInputText
+      type="password"
+      placeholder="Confirmar contraseña"
+      inputId="confirmPassword"
+      formControlName="confirmPassword"
+      fluid="true"
+      autocomplete="off"
+      appControlSize
+      [appInvalidDirty]="formDirective"
+    />
     <p [appValidationError]="'confirmPassword'" [directive]="formDirective"></p>
   </div>
-
-  <div class="my-6 min-h-12">
+  <!-- Error -->
+  <div class="form-section">
     <app-error-message />
   </div>
-
   <!-- Options -->
-  <div class="mb-6 mt-10 flex flex-col items-stretch">
+  <div class="form-section mb-6 mt-10 flex flex-col items-stretch">
     <p-button
       label="Crear Cuenta"
       [loading]="isBusy()"
