@@ -83,19 +83,20 @@ export class SelectColorComponent
     this.themeColors.forEach((tColor) => {
       //light
       this.colors.push({
-        name: `tColor Light`.toUpperCase(),
+        name: `${tColor} Light`.toUpperCase(),
         value: $dt(`${tColor}.${this.light}`).value,
       });
       //normal
       this.colors.push({
-        name: `tColor`.toUpperCase(),
+        name: `${tColor}`.toUpperCase(),
         value: $dt(`${tColor}.${this.normal}`).value,
       });
       //dark
       this.colors.push({
-        name: `tColor Dark`.toUpperCase(),
+        name: `${tColor} Dark`.toUpperCase(),
         value: $dt(`${tColor}.${this.dark}`).value,
       });
     });
+    console.log('colors', this.colors);
   }
 }

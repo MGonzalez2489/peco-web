@@ -1,5 +1,5 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, forwardRef, inject, Input, signal } from '@angular/core';
+import { AsyncPipe, NgStyle } from '@angular/common';
+import { Component, forwardRef, inject, Input } from '@angular/core';
 import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
@@ -24,6 +24,7 @@ import { BaseFormControl } from '../base-form-control';
     AsyncPipe,
     SelectModule,
     ButtonModule,
+    NgStyle,
   ],
   providers: [
     {
@@ -47,14 +48,14 @@ export class SelectEntryTypeComponent extends BaseFormControl {
   private store$ = inject(Store<AppState>);
   protected override inpId = 'entryType';
 
-  protected selectedSeverity = signal<'success' | 'danger'>('danger');
   //
   entryTypes$: Observable<EntryType[]> = this.store$
     .select(selectCatEntryTypes)
     .pipe(
       tap((values) => {
-        this.writeValue(values[0]);
-        this.onChange(values[0]);
+        const selected = values[1];
+        this.writeValue(selected);
+        this.onChange(selected);
       }),
     );
   //
@@ -63,11 +64,7 @@ export class SelectEntryTypeComponent extends BaseFormControl {
     this.onChange(event.value);
   }
   selectButton(value: EntryType) {
-    this.determineButtonSeverity(value);
     this.writeValue(value);
     this.onChange(value);
-  }
-  private determineButtonSeverity(value: EntryType) {
-    this.selectedSeverity.set(value.name === 'income' ? 'success' : 'danger');
   }
 }

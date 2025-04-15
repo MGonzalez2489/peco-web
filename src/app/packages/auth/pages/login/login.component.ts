@@ -12,6 +12,7 @@ import { RouterLink } from '@angular/router';
 import { LoginDto } from '@auth/dto/login.dto';
 import { BasePageComponent } from '@shared/components/base';
 import { ErrorMessageComponent } from '@shared/components/information';
+import { ControlSizeDirective } from '@shared/directives';
 import {
   InvalidDirtyDirective,
   ValidationErrorDirective,
@@ -39,6 +40,7 @@ import { PasswordModule } from 'primeng/password';
     InvalidDirtyDirective,
     ValidationErrorDirective,
     AutoFocus,
+    ControlSizeDirective,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',

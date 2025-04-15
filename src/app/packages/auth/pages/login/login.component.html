@@ -10,7 +10,7 @@
         fluid="true"
         autocomplete="on"
         type="email"
-        [pSize]="isDesktopView() ? 'small' : 'large'"
+        appControlSize
         [pAutoFocus]="true"
         [appInvalidDirty]="formDirective"
       />
@@ -29,7 +29,6 @@
         feedback="false"
         autocomplete="off"
         [appInvalidDirty]="formDirective"
-        [size]="isDesktopView() ? 'small' : 'large'"
       />
       <label for="password">Contraseña</label>
     </p-floatlabel>
@@ -53,6 +52,7 @@
       <p-button
         label="Crear Cuenta"
         severity="info"
+        [disabled]="isBusy()"
         [link]="true"
         [routerLink]="['/registrar']"
       />

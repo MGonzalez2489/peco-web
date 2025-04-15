@@ -2,16 +2,18 @@
   @if (entryTypes$ | async; as entryTypes) {
     <div class="flex gap-2 bg-gray-100 p-2 rounded-lg">
       @for (btn of entryTypes; track btn) {
-        <p-button
-          styleClass="w-45"
+        <div
+          class="px-15 py-2 hover:cursor-pointer rounded-sm"
           (click)="selectButton(btn)"
-          [severity]="
-            formControl.value.publicId === btn.publicId
-              ? selectedSeverity()
-              : 'secondary'
-          "
-          [label]="btn.displayName"
-        />
+          [ngStyle]="{
+            'background-color':
+              formControl.value.publicId === btn.publicId
+                ? btn.color
+                : 'var(--color-gray-100)',
+          }"
+        >
+          <span>{{ btn.displayName }}</span>
+        </div>
       }
     </div>
   }

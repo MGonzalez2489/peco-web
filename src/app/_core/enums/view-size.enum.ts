@@ -1,4 +1,4 @@
 export enum ViewSizeEnum {
-  large,
-  small,
+  large = 'large',
+  small = 'small',
 }

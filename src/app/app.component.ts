@@ -14,11 +14,12 @@ import { RouteData } from '@core/models/app';
 import { Platform } from '@core/models/app/platform.model';
 import { BasePageComponent } from '@shared/components/base';
 import { UiActions } from '@store/actions/ui.actions';
+import { ButtonModule } from 'primeng/button';
 import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ButtonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -160,5 +161,13 @@ export class AppComponent
     }
 
     return versionMatch.join(' ');
+  }
+
+  //dev bar
+  setBusy() {
+    const isB = this.isBusy();
+    if (isB) {
+      this.store$.dispatch(UiActions.setBusyOff());
+    } else this.store$.dispatch(UiActions.setBusyOn());
   }
 }
