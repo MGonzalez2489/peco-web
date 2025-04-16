@@ -50,15 +50,6 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
       },
-      {
-        path: 'planned-entries',
-        loadChildren: () =>
-          import('@planned-entries/planned-entries.routes').then(
-            (c) => c.routes,
-          ),
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
-      },
     ],
   },
 ];

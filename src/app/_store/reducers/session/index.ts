@@ -6,10 +6,6 @@ import {
   EntryCategoryState,
 } from './entry-category.reducer';
 import { UserReducer, UserState } from './user.reducer';
-import {
-  PlannedEntriesState,
-  PlannedEntryReducer,
-} from './planned-entries.reducer';
 
 export const sessionFeatureKey = 'session';
 
@@ -18,7 +14,6 @@ export interface SessionState {
   user: UserState;
   accounts: AccountState;
   entryCategories: EntryCategoryState;
-  plannedEntries: PlannedEntriesState;
 }
 
 export const SessionReducerMap: ActionReducerMap<SessionState> = {
@@ -26,5 +21,4 @@ export const SessionReducerMap: ActionReducerMap<SessionState> = {
   user: UserReducer,
   accounts: AccountReducer,
   entryCategories: EntryCategoryReducer,
-  plannedEntries: PlannedEntryReducer,
 };

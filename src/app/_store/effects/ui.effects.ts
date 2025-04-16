@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { AccountActions } from '@store/actions/account.actions';
 import { CatalogsActions } from '@store/actions/catalogs.actions';
 import { EntryCategoryActions } from '@store/actions/entry-category.actions';
-import { PlannedEntryActions } from '@store/actions/planned-entry.actions';
 import { UserActions } from '@store/actions/profile.actions';
 import { UiActions } from '@store/actions/ui.actions';
 import { AppState } from '@store/reducers';
@@ -61,8 +60,6 @@ export class UiEffects {
             }),
           );
 
-          this.store$.dispatch(PlannedEntryActions.loadPlannedEntries());
-
           // Create observables for the completion of each dispatched action
           const loadEntryType$ = this.actions$.pipe(
             ofType(
@@ -103,13 +100,6 @@ export class UiEffects {
             ),
             take(1),
           );
-          const loadPlannedEntries$ = this.actions$.pipe(
-            ofType(
-              PlannedEntryActions.loadPlannedEntriesSuccess,
-              PlannedEntryActions.loadPlannedEntriesFailure,
-            ),
-            take(1),
-          );
 
           // Use forkJoin to wait for all completion observables to emit
           const fk = forkJoin([
@@ -119,7 +109,6 @@ export class UiEffects {
             loadUser$,
             loadAccounts$,
             loadEntryCategories$,
-            loadPlannedEntries$,
           ]);
 
           fk.subscribe({
