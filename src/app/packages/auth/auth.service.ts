@@ -10,7 +10,7 @@ export class AuthService {
   request = inject(RequestService);
 
   login(data: LoginDto) {
-    return this.request.post<TokenDto>('auth/signIn', data);
+    return this.request.post<TokenDto>('auth/login', data);
   }
   register(data: LoginDto) {
     return this.request.post<TokenDto>('auth/register', data);

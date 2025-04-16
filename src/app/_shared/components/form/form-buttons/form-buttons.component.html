@@ -1,6 +1,6 @@
 <!-- Options -->
 <section>
-  <div class="my-6">
+  <div class="form-section">
     <app-error-message />
   </div>
 
@@ -10,7 +10,7 @@
       [text]="true"
       pButton
       label="Cancelar"
-      [loading]="isBusy"
+      [disabled]="busy"
       (click)="cancel()"
     />
 
@@ -19,7 +19,7 @@
       size="small"
       pButton
       label="Guardar"
-      [loading]="isBusy"
+      [disabled]="busy"
     />
   </div>
 </section>

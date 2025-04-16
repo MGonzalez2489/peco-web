@@ -97,6 +97,5 @@ export class SelectColorComponent
         value: $dt(`${tColor}.${this.dark}`).value,
       });
     });
-    console.log('colors', this.colors);
   }
 }

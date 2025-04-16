@@ -82,7 +82,6 @@ export class AccountFormComponent extends BaseComponent {
       name: this.form.value.name!,
       accountTypeId: this.form.value.accountType!.publicId,
       balance: this.form.value.balance!,
-      isDefault: this.form.value.isDefault!,
       color: this.form.value.color!,
     };
     this.save.emit(newAccount);

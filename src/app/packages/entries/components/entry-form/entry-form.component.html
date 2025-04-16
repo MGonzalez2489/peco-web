@@ -63,9 +63,6 @@
       }
     </div>
     <!-- Options -->
-    <app-form-buttons
-      (accept)="$event ? submit() : cancel()"
-      [isBusy]="isBusy"
-    />
+    <app-form-buttons (accept)="$event ? submit() : cancel()" />
   </div>
 </form>

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, effect, EventEmitter, Output } from '@angular/core';
+import { BaseComponent } from '@shared/components/base';
 import { ErrorMessageComponent } from '@shared/components/information';
 import { ButtonModule } from 'primeng/button';
 
@@ -8,12 +9,20 @@ import { ButtonModule } from 'primeng/button';
   templateUrl: './form-buttons.component.html',
   styleUrl: './form-buttons.component.scss',
 })
-export class FormButtonsComponent {
-  @Input()
-  isBusy = false;
-
+export class FormButtonsComponent extends BaseComponent {
   @Output()
   accept = new EventEmitter<boolean>();
+
+  busy = false;
+
+  constructor() {
+    super();
+    effect(() => {
+      const newValue = this.isBusy();
+      console.log('newValue', newValue);
+      this.busy = newValue;
+    });
+  }
 
   protected save() {
     this.accept.emit(true);
