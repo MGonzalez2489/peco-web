@@ -8,16 +8,4 @@ export interface Account extends BaseEntity {
   isDefault: boolean;
   type: AccountType;
   color: string;
-  kpis: AccountKPIDto;
-}
-
-export interface AccountKPIDto {
-  labels: string[];
-  datasets: AccountKPIDataSet[];
-  period: string;
-}
-
-export interface AccountKPIDataSet {
-  label: string;
-  data: number[];
 }

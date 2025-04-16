@@ -1,4 +1,3 @@
-import { AccountGraphComponent } from '@accounts/components/account-graph/account-graph.component';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -6,7 +5,6 @@ import { ResultListDto } from '@core/models/dtos';
 import { EntrySearchDto, SearchDto } from '@core/models/dtos/search';
 import { Account, Entry } from '@core/models/entities';
 import { EntryListComponent, EntryTableComponent } from '@entries/components';
-import { EntryKPIDto } from '@entries/dto';
 import { EntryService } from '@entries/entry.service';
 import { AmountComponent } from '@shared/components/amount/amount.component';
 import { BasePageComponent } from '@shared/components/base';
@@ -22,7 +20,6 @@ import { Subject, switchMap, takeUntil } from 'rxjs';
   imports: [
     EntryTableComponent,
     EntryListComponent,
-    AccountGraphComponent,
     TabsModule,
     ButtonModule,
     PanelModule,
@@ -43,7 +40,6 @@ export class DetailAccountComponent
   private search$ = new Subject<EntrySearchDto>();
   account = signal<Account | undefined>(undefined);
   entries = signal<ResultListDto<Entry> | undefined>(undefined);
-  kpis = signal<EntryKPIDto | undefined>(undefined);
   filters = new EntrySearchDto();
 
   constructor() {

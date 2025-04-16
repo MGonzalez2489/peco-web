@@ -2,7 +2,6 @@ import { inject, Injectable } from '@angular/core';
 import { EntrySearchDto } from '@core/models/dtos/search';
 import { Entry } from '@core/models/entities';
 import { RequestService } from '@core/services/_request.service';
-import { DateFilterDto, EntryKPIDto } from './dto';
 import { EntryCreateDto } from './dto/entry.dto';
 
 @Injectable({
@@ -17,9 +16,5 @@ export class EntryService {
 
   create(newEntry: EntryCreateDto) {
     return this.reqService.post<Entry>(`entries`, newEntry);
-  }
-
-  getKPIs(dateFilter: DateFilterDto) {
-    return this.reqService.get<EntryKPIDto>('entries/kpi', dateFilter);
   }
 }

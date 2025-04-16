@@ -56,7 +56,7 @@ export class UiEffects {
 
           this.store$.dispatch(
             AccountActions.loadAccounts({
-              search: { ...search, fetchKPIs: true } as AccountSearchDto,
+              search: { ...search } as AccountSearchDto,
             }),
           );
 

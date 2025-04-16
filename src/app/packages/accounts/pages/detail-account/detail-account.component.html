@@ -35,10 +35,6 @@
             [routerLink]="['/accounts', account()!.publicId, 'edit']"
           />
         </ng-template>
-
-        @if (isDesktopView()) {
-          <app-account-graph [account]="account()!" />
-        }
       </p-panel>
 
       <!-- Entries -->
